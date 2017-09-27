@@ -1,0 +1,104 @@
+PODS:
+  - AFDownloadRequestOperation (2.0.1):
+    - AFNetworking (~> 2.0)
+  - AFNetworking (2.6.3):
+    - AFNetworking/NSURLConnection (= 2.6.3)
+    - AFNetworking/NSURLSession (= 2.6.3)
+    - AFNetworking/Reachability (= 2.6.3)
+    - AFNetworking/Security (= 2.6.3)
+    - AFNetworking/Serialization (= 2.6.3)
+    - AFNetworking/UIKit (= 2.6.3)
+  - AFNetworking/NSURLConnection (2.6.3):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/NSURLSession (2.6.3):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/Reachability (2.6.3)
+  - AFNetworking/Security (2.6.3)
+  - AFNetworking/Serialization (2.6.3)
+  - AFNetworking/UIKit (2.6.3):
+    - AFNetworking/NSURLConnection
+    - AFNetworking/NSURLSession
+  - CYLTabBarController (1.9.0)
+  - CYLTableViewRowAction (1.0.0)
+  - FTPopOverMenu (1.3.2)
+  - FXForms (1.2.14)
+  - IQKeyboardManager (5.0.2)
+  - Masonry (1.1.0)
+  - MBProgressHUD (1.0.0)
+  - MJExtension (3.0.13)
+  - MJRefresh (3.1.12)
+  - MLPAutoCompleteTextField (1.5)
+  - MMPopupView (1.7.2):
+    - Masonry
+  - RedPacketAlipay (15.0.2)
+  - RedpacketLib (3.4.1):
+    - RedPacketAlipay
+  - SDWebImage (4.1.0):
+    - SDWebImage/Core (= 4.1.0)
+  - SDWebImage/Core (4.1.0)
+  - SocketRocket (0.5.1)
+  - SVProgressHUD (2.2.1)
+  - TWMessageBarManager (1.8.1)
+  - YTKNetwork (1.3.0):
+    - AFDownloadRequestOperation (~> 2.0)
+    - AFNetworking (~> 2.0)
+  - YYCache (1.0.4)
+  - YYImage (1.0.4):
+    - YYImage/Core (= 1.0.4)
+  - YYImage/Core (1.0.4)
+  - YYWebImage (1.0.5):
+    - YYCache
+    - YYImage
+
+DEPENDENCIES:
+  - AFNetworking
+  - CYLTabBarController (= 1.9.0)
+  - CYLTableViewRowAction (= 1.0.0)
+  - FTPopOverMenu (= 1.3.2)
+  - FXForms (= 1.2.14)
+  - IQKeyboardManager
+  - MBProgressHUD (~> 1.0.0)
+  - MJExtension (~> 3.0.7)
+  - MJRefresh
+  - MLPAutoCompleteTextField (= 1.5)
+  - MMPopupView
+  - RedpacketLib (= 3.4.1)
+  - SDWebImage
+  - SocketRocket (~> 0.5.1)
+  - SVProgressHUD (~> 2.0-beta)
+  - TWMessageBarManager (= 1.8.1)
+  - YTKNetwork (~> 1.3.0)
+  - YYWebImage
+
+SPEC CHECKSUMS:
+  AFDownloadRequestOperation: 748a1643423e1ddb23f2178f778087d4f0ae8ac7
+  AFNetworking: cb8d14a848e831097108418f5d49217339d4eb60
+  CYLTabBarController: 8d99fccf22866fe18c978c5ff863dc6051da45ff
+  CYLTableViewRowAction: 66bd3f7478b46894ff40b74d892fc85aed41656b
+  FTPopOverMenu: 4b412a331990fc1169c50104f1aa44b8cd4c5c4a
+  FXForms: 724500c0c3f3eb3ba1004b3b83abcee55d3daf18
+  IQKeyboardManager: 5ab84749f20f682f784160c2c63bef4f19d10d26
+  Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
+  MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
+  MJExtension: 5932755f451458eefa24239358817f8d291240c7
+  MJRefresh: b96cdb21c4aa75a7b07654311ab2f315c497e806
+  MLPAutoCompleteTextField: ba4d507bbff2bd4f139d4197814fc8dd39caf77e
+  MMPopupView: fe1dd010824029dfb632fdf1a531db5dd5386020
+  RedPacketAlipay: a5de6db2e2671fc9255d6d396be869e3ba2f0489
+  RedpacketLib: e15853d93ac35141a1247b6ad79d6acb731d8704
+  SDWebImage: 0e435c14e402a6730315a0fb79f95e68654d55a4
+  SocketRocket: d57c7159b83c3c6655745cd15302aa24b6bae531
+  SVProgressHUD: db27c54e6e18bc903341661fc9feb55e04905cc4
+  TWMessageBarManager: fd84e7948ba7968a2b5d9454859135761214ec56
+  YTKNetwork: a9fdf7968deefb06a58d988148558453005564c4
+  YYCache: 8105b6638f5e849296c71f331ff83891a4942952
+  YYImage: 1e1b62a9997399593e4b9c4ecfbbabbf1d3f3b54
+  YYWebImage: 5f7f36aee2ae293f016d418c7d6ba05c4863e928
+
+PODFILE CHECKSUM: 2d07038580f098e704840012ccb90123e3e869f1
+
+COCOAPODS: 1.3.1

@@ -8,6 +8,10 @@
 
 #import "AppDelegate.h"
 
+
+#import "StoryBoardController.h"
+#import "TTNavigationController.h"
+#import "IQKeyboardManager.h"
 @interface AppDelegate ()
 
 @end
@@ -17,6 +21,23 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    UIWindow * window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
+    
+    self.window = window;
+    
+    UIViewController * rootC = [StoryBoardController viewControllerID:@"CSLoginViewController" SBName:@"CSLoginSB"];
+    TTNavigationController * nav = [[TTNavigationController alloc]initWithRootViewController:rootC];
+    self.window.rootViewController = nav;
+    [self.window makeKeyAndVisible];
+    
+    
+    IQKeyboardManager * IQKManager = [IQKeyboardManager sharedManager];
+    
+    [IQKeyboardManager sharedManager].shouldToolbarUsesTextFieldTintColor = NO;
+    [IQKeyboardManager sharedManager].toolbarTintColor = [UIColor brownColor];
+    [IQKeyboardManager sharedManager].shouldResignOnTouchOutside = YES;
+    IQKManager.toolbarTintColor = [UIColor greenColor];
     return YES;
 }
 
