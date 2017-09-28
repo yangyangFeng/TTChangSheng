@@ -13,7 +13,7 @@
 {
     self = [super init];
     if (self) {
-        _isSelf = 0;
+
     }
     return self;
 }

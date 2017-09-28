@@ -108,7 +108,7 @@ CREATE_SHARED_MANAGER(LLClientManager)
         //删除所有缓存的MessageModel
         [[LLMessageModelManager sharedManager] deleteAllMessageModels];
     }
-    [[LLUtils appDelegate] showRootControllerForLoginStatus:successed];
+//    [[LLUtils appDelegate] showRootControllerForLoginStatus:successed];
 }
 
 

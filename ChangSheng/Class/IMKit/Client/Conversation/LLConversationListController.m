@@ -186,7 +186,7 @@
         count += data.unreadMessageNumber;
     }
     
-    [[LLUtils appDelegate].mainViewController setTabbarBadgeValue:count tabbarIndex:kLLMainTabbarIndexChat];
+//    [[LLUtils appDelegate].mainViewController setTabbarBadgeValue:count tabbarIndex:kLLMainTabbarIndexChat];
     
     self.navigationItem.title = count > 0 ? [NSString stringWithFormat:@"微信(%ld)", (long)count] : @"微信";
     
@@ -273,7 +273,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     LLConversationListCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-    [[LLUtils appDelegate].mainViewController chatWithConversationModel:cell.conversationModel];
+//    [[LLUtils appDelegate].mainViewController chatWithConversationModel:cell.conversationModel];
     
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
 }

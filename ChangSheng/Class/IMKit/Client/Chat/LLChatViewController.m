@@ -117,8 +117,7 @@ MFMailComposeViewControllerDelegate
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    
+
     [self tt_SetNaviBarHide:NO withAnimation:NO];
     
     self.tt_navigationBar.contentView.backgroundColor = [UIColor whiteColor];
