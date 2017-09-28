@@ -42,6 +42,7 @@
 #import "LLTextDisplayController.h"
 #import "LLTextActionDelegate.h"
 #import "LLUserProfile.h"
+#import "LLNavigationController.h"
 #import "MFMailComposeViewController_LL.h"
 @import MediaPlayer;
 
@@ -53,6 +54,9 @@
 #define TABLEVIEW_BACKGROUND_COLOR kLLBackgroundColor_lightGray
 
 
+#import "CSIMSendMessageRequest.h"
+#import "CSIMSendMessageManager.h"
+#import "CSIMSendMessageRequestModel.h"
 @interface LLChatViewController ()
 <UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate,
 LLMessageCellActionDelegate, LLChatImagePreviewDelegate,
@@ -113,6 +117,11 @@ MFMailComposeViewControllerDelegate
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    
+    [self tt_SetNaviBarHide:NO withAnimation:NO];
+    
+    self.tt_navigationBar.contentView.backgroundColor = [UIColor whiteColor];
     
     self.title = self.conversationModel.nickName;
     self.view.backgroundColor = VIEW_BACKGROUND_COLOR;
@@ -1664,15 +1673,35 @@ MFMailComposeViewControllerDelegate
 
 - (void)sendTextMessage:(NSString *)text {
     
-    LLChatType chatType = chatTypeForConversationType(self.conversationModel.conversationType);
-    LLMessageModel *model = [[LLChatManager sharedManager]
-                             sendTextMessage:text
-                             to:self.conversationModel.conversationId
-                             messageType:chatType
-                             messageExt:nil
-                             completion:nil];
+    {
+        CSIMSendMessageRequestModel * model = [CSIMSendMessageRequestModel new];
+        CSMessageModel * msgModel = [CSMessageModel new];
+        msgModel.chartType = 2;//单聊
+        msgModel.receiveUserType = 2;//单聊固定传2
+        msgModel.chatId = 3;
+        msgModel.msgId = 1234352;
+        msgModel.action = 4;//普通消息
+        msgModel.msgType = 1;
+        msgModel.content = text;
+        
+        model.body = msgModel;
+        [model.msgStatus when:^(id obj) {
+            DLog(@"文本:%@已发送",text);
+        } failed:^(NSError *error) {
+            
+        }];
+        [[CSIMSendMessageManager shareInstance] sendMessage:model];
+    }
     
-    [self addModelToDataSourceAndScrollToBottom:model animated:YES];
+//    LLChatType chatType = chatTypeForConversationType(self.conversationModel.conversationType);
+//    LLMessageModel *model = [[LLChatManager sharedManager]
+//                             sendTextMessage:text
+//                             to:self.conversationModel.conversationId
+//                             messageType:chatType
+//                             messageExt:nil
+//                             completion:nil];
+//    
+//    [self addModelToDataSourceAndScrollToBottom:model animated:YES];
 }
 
 //FIXME:做这块时，遇到两个问题：
