@@ -24,11 +24,11 @@
 
 - (void)textCellDidDoubleTapped:(LLMessageTextCell *)cell;
 
-- (void)resendMessage:(LLMessageModel *)model;
+- (void)resendMessage:(CSMessageModel *)model;
 
-- (void)redownloadMessage:(LLMessageModel *)model;
+- (void)redownloadMessage:(CSMessageModel *)model;
 
-- (void)selectControllDidTapped:(LLMessageModel *)model selected:(BOOL)selected;
+- (void)selectControllDidTapped:(CSMessageModel *)model selected:(BOOL)selected;
 
 #pragma mark - 菜单 -
 

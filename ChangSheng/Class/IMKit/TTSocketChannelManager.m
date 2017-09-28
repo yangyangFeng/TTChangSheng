@@ -10,7 +10,7 @@
 
 #import "CSIMReceiveManager.h"
 #import "CSIMSendMessageRequestModel.h"
-
+#import "CSIMSendMessageManager.h"
 static TTSocketChannelManager * _manager = nil;
 
 @interface TTSocketChannelManager ()<TTWebSocketChannelDelegate>
@@ -48,6 +48,10 @@ static TTSocketChannelManager * _manager = nil;
     return [self.socketChannel isConnected];
 }
 
+- (SRWebSocket *)webSocket
+{
+    return self.socketChannel.webSocket;
+}
 
 /**
  发送消息
@@ -58,6 +62,7 @@ static TTSocketChannelManager * _manager = nil;
 {
     //只有在连接状态才能通过 socket 通道发送消息
     if (self.webSocket.readyState == SR_OPEN) {
+        NSLog(@"发送\n-------------------------------------------\n%@\n---------------------------------------",message);
         [self.webSocket send:message];
     }
 }
@@ -75,10 +80,37 @@ static TTSocketChannelManager * _manager = nil;
 // or NSData if the server is using binary.
 - (void)webSocket:(SRWebSocket *)webSocket didReceiveMessage:(id)message
 {
-    [[CSIMReceiveManager shareInstance] receiveMessage:[CSIMSendMessageRequestModel new]];
+    NSLog(@"收到消息\n-------------------------------------------\n%@\n---------------------------------------",[self dictionaryWithJsonString:message]);
+    [[CSIMReceiveManager shareInstance] receiveMessage:[CSIMSendMessageRequestModel mj_objectWithKeyValues:message]];
     if (_delegate && [_delegate respondsToSelector:@selector(webSocket:didReceiveMessage:)]) {
         [_delegate webSocket:webSocket didReceiveMessage:message];
     }
+}
+- (NSDictionary *)dictionaryWithJsonString:(NSString *)jsonString {
+    
+    if (jsonString == nil) {
+        
+        return nil;
+        
+    }
+    
+    NSData *jsonData = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
+    
+    NSError *err;
+    
+    NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:jsonData
+                         
+                                                        options:NSJSONReadingMutableContainers
+                         
+                                                          error:&err];
+    if(err) {
+        
+        NSLog(@"json解析失败：%@",err);
+        
+        return nil;
+        
+    }
+    return dic;
 }
 
 - (void)webSocketDidOpen:(SRWebSocket *)webSocket
@@ -86,6 +118,7 @@ static TTSocketChannelManager * _manager = nil;
     if (_delegate && [_delegate respondsToSelector:@selector(webSocketDidOpen:)]) {
         [_delegate webSocketDidOpen:webSocket];
     }
+    [[CSIMSendMessageManager shareInstance] createGCDTimer];
 }
 
 - (void)webSocket:(SRWebSocket *)webSocket didFailWithError:(NSError *)error

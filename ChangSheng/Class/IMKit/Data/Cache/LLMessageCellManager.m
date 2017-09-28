@@ -234,7 +234,7 @@ CREATE_SHARED_MANAGER(LLMessageCellManager)
     NSMutableArray<NSString *> *keys = [NSMutableArray array];
     for (NSString *key in self.allCells) {
         LLMessageBaseCell *cell = self.allCells[key];
-        if ([cell.messageModel.conversationId isEqualToString:conversationId]) {
+        if ([cell.messageModel.chatId isEqualToString:conversationId]) {
             [keys addObject:key];
         }
     }
@@ -265,7 +265,7 @@ CREATE_SHARED_MANAGER(LLMessageCellManager)
 }
 
 - (void)addMessageCellToCellData:(LLMessageBaseCell *)cell cellData:(LL_MessageCell_Data *)data {
-    if (![cell.messageModel.conversationId isEqualToString:data.conversationId]) {
+    if (![cell.messageModel.chatId isEqualToString:data.conversationId]) {
         return;
     }
     

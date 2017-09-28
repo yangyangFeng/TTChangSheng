@@ -267,7 +267,11 @@
     [new_paramter setObject:rsastring  forKey:@"_sign"];
     [new_paramter setObject:str_10.md5 forKey:@"_token"];
     */
-    return paramter;
+    NSMutableDictionary * new_paramter = [NSMutableDictionary dictionaryWithDictionary:paramter];
+    if ([CSUserInfo shareInstance].isOnline) {
+        [new_paramter setObject:[CSUserInfo shareInstance].info.token forKey:@"token"];
+    }
+    return new_paramter;
 }
 
 @end

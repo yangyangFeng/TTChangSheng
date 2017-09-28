@@ -8,6 +8,7 @@
 
 #import "CSLoginHandler.h"
 #import "CSHttpRequestManager.h"
+#import "TTSocketChannelManager.h"
 @implementation CSLoginHandler
 + (void)loginWithParams:(NSDictionary *)params
                 successBlock:(successBlock)success
@@ -18,6 +19,7 @@
                                               if (success) {
                                                   success(responseObject);
                                               }
+                                              [self openSocket];
                                           } failure:^(NSError *error) {
                                               if (fail) {
                                                   fail(error);
@@ -34,11 +36,18 @@
                                               if (success) {
                                                   success(responseObject);
                                               }
+                                              [self openSocket];
                                           } failure:^(NSError *error) {
                                               if (fail) {
                                                   fail(error);
                                               }
                                           } showHUD:YES];
 }
-
+//开启socket链接通道
++ (void)openSocket
+{
+    NSString * url = [NSString stringWithFormat:@"ws://47.95.238.249:8501?token=%@",[CSUserInfo shareInstance].info.token];
+    [[TTSocketChannelManager shareInstance] configUrlString:url];
+    [[TTSocketChannelManager shareInstance] openConnection];
+}
 @end

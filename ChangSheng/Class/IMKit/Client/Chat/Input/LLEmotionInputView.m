@@ -458,8 +458,13 @@ static NSInteger number_per_line_gif;
                              self.sendButton.hidden = YES;
                          }];
     }
-    
+    //TODO:bug未解决
+    if (self.bottomScrollView.subviews.count > sectionData.sectionIndex) {
+        self.curSelectButton = self.bottomScrollView.subviews[sectionData.sectionIndex];
+    }
+    /*
     self.curSelectButton = self.bottomScrollView.subviews[sectionData.sectionIndex];
+     */
 
 }
 

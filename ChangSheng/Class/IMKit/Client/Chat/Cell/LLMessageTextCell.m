@@ -101,7 +101,7 @@ static CGFloat preferredMaxTextWidth;
     return self;
 }
 
-- (void)setMessageModel:(LLMessageModel *)messageModel {
+- (void)setMessageModel:(CSMessageModel *)messageModel {
     BOOL needUpdateText = [messageModel checkNeedsUpdateForReuse];
     [super setMessageModel:messageModel];
     
@@ -168,8 +168,8 @@ static CGFloat preferredMaxTextWidth;
 }
 
 
-+ (CGFloat)heightForModel:(LLMessageModel *)model {
-    CGSize size = [self sizeForLabel:model.attributedText];
++ (CGFloat)heightForModel:(CSMessageModel *)model {
+    CGSize size = [self sizeForLabel:model.body.content];
     
     CGFloat bubbleHeight = size.height + LABEL_BUBBLE_TOP + LABEL_BUBBLE_BOTTOM;
     if (bubbleHeight < CONTENT_MIN_HEIGHT)

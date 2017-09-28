@@ -115,7 +115,7 @@
     
 }
 
-- (void)setMessageModel:(LLMessageModel *)messageModel {
+- (void)setMessageModel:(CSMessageModel *)messageModel {
     _messageModel = messageModel;
     
     [messageModel clearNeedsUpdateForReuse];
@@ -126,7 +126,7 @@
     _durationLabel.text = [NSString stringWithFormat:@"%d'", duration];
 }
 
-+ (CGFloat)heightForModel:(LLMessageModel *)model {
++ (CGFloat)heightForModel:(CSMessageModel *)model {
     return AVATAR_HEIGHT + CONTENT_SUPER_BOTTOM + OFFSET_Y;
 }
 

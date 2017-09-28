@@ -8,6 +8,14 @@
 
 #import <Foundation/Foundation.h>
 
+@protocol TTBaseTableViewHandlerDelegate <NSObject>
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath;
+
+@end
 @interface TTBaseTableViewHandler : NSObject<UITableViewDelegate,UITableViewDataSource>
+
 - (id)initWithTableView:(UITableView *)tableView;
+
+@property (nonatomic,weak) id<TTBaseTableViewHandlerDelegate> delegate;
 @end

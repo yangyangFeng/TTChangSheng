@@ -12,6 +12,7 @@
 #import "StoryBoardController.h"
 #import "TTNavigationController.h"
 #import "IQKeyboardManager.h"
+#import "CSMessageModel.h"
 @interface AppDelegate ()
 
 @end
@@ -38,6 +39,8 @@
     [IQKeyboardManager sharedManager].toolbarTintColor = [UIColor brownColor];
     [IQKeyboardManager sharedManager].shouldResignOnTouchOutside = YES;
     IQKManager.toolbarTintColor = [UIColor greenColor];
+//    CSMessageModel * as = [CSMessageModel new];
+//    NSLog(@"%@",as.mj_JSONString);
     return YES;
 }
 

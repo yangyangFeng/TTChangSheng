@@ -6,9 +6,9 @@
 //  Copyright © 2017年 邴天宇. All rights reserved.
 //
 
-#import "CPBaseRequestModel.h"
+#import "CSBaseRequestModel.h"
 
-@interface CSRegisterParam : CPBaseRequestModel
+@interface CSRegisterParam : CSBaseRequestModel
 @property (nonatomic,copy) NSString *username;
 @property (nonatomic,copy) NSString *password;
 @property (nonatomic,copy) NSString *referee_code;

@@ -199,7 +199,7 @@ static UIImage *photoDownloadImage;
     return _size;
 }
 
-+ (CGFloat)heightForModel:(LLMessageModel *)model {
++ (CGFloat)heightForModel:(CSMessageModel *)model {
     if (model.thumbnailImageSize.height > IMAGE_MAX_SIZE)
         return IMAGE_MAX_SIZE + CONTENT_SUPER_BOTTOM;
     else
@@ -322,8 +322,8 @@ static UIImage *photoDownloadImage;
     return [self.chatImageView convertRect:self.chatImageView.bounds toView:self.chatImageView.window];
 }
 
-+ (UIImage *)bubbleImageForModel:(LLMessageModel *)model {
-    return model.isFromMe ? SenderImageNodeMask : ReceiverImageNodeMask;
++ (UIImage *)bubbleImageForModel:(CSMessageModel *)model {
+    return model.isSelf ? SenderImageNodeMask : ReceiverImageNodeMask;
 }
 
 - (void)willExitFullScreenShow {

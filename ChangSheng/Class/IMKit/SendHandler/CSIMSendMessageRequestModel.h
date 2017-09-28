@@ -13,11 +13,16 @@
 #define CSIM_SENDMESSAGE_TIME_OUT 10
 #define CS_IM_MAX_RESEND_NUMBER 1
 typedef enum {
-    IM_Sending = 0,
-    IM_SendFailed  = 1,
-    IM_SendSuccessed   = 2,
-    IM_Send_No = 3
+    IM_Sending = 0,          //发送中
+    IM_SendFailed  = 1,      //发送失败
+    IM_SendSuccessed   = 2,  //发送成功
+    IM_Send_No = 3           //发送未开始
 } IM_SEND_STATUS;
+
+
+
+
+
 @protocol CSIMSendMessageRequestModelDelegate <NSObject>
 
 @required

@@ -7,12 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "LLConversationModel.h"
-
+//#import "LLConversationModel.h"
+#import "CSIMConversationModel.h"
 @interface LLConversationListCell : UITableViewCell
 
-@property (nonatomic) LLConversationModel *conversationModel;
-
+//@property (nonatomic) LLConversationModel *conversationModel;
+@property (nonatomic) CSIMConversationModel *conversationModel;
 - (void)markAllMessageAsRead;
 
 /*

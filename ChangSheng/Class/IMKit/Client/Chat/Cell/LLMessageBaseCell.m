@@ -189,7 +189,7 @@ BOOL LLMessageCell_isEditing = NO;
 
 }
 
-- (void)setMessageModel:(LLMessageModel *)messageModel {
+- (void)setMessageModel:(CSMessageModel *)messageModel {
     _messageModel = messageModel;
     self.isCellSelected = messageModel.isSelected;
     
@@ -266,11 +266,11 @@ BOOL LLMessageCell_isEditing = NO;
 }
 
 
-+ (UIImage *)bubbleImageForModel:(LLMessageModel *)model {
++ (UIImage *)bubbleImageForModel:(CSMessageModel *)model {
     return model.isFromMe ? SenderTextNodeBkg : ReceiverTextNodeBkg;
 }
 
-+ (CGFloat)heightForModel:(LLMessageModel *)model {
++ (CGFloat)heightForModel:(CSMessageModel *)model {
     return 68;
 }
 

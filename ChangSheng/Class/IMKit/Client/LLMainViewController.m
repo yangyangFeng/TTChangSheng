@@ -108,7 +108,7 @@
     LLViewController *viewController;
     switch (index) {
         case 0: {
-            viewController = [[LLConversationListController alloc] init];
+//            viewController = [[LLConversationListController alloc] init];
             break;
         }
         case 1: {

@@ -19,6 +19,10 @@
     return self;
 }
 
++ (NSDictionary *)mj_replacedKeyFromPropertyName
+{
+    return @{@"body":@"result"};
+}
 - (id)mutableCopyWithZone:(NSZone * )zone
 {
     CSIMSendMessageRequestModel * model = [CSIMSendMessageRequestModel new];

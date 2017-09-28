@@ -62,7 +62,7 @@
 
 }
 
-- (void)setMessageModel:(LLMessageModel *)messageModel {
+- (void)setMessageModel:(CSMessageModel *)messageModel {
     _messageModel = messageModel;
     self.isCellSelected = messageModel.isSelected;
     
@@ -306,7 +306,7 @@ END:
     [_messageModel clearNeedsUpdateDownloadStatus];
 }
 
-+ (CGFloat)heightForModel:(LLMessageModel *)model {
++ (CGFloat)heightForModel:(CSMessageModel *)model {
     return AVATAR_HEIGHT + CONTENT_SUPER_BOTTOM + OFFSET_Y;
 }
 

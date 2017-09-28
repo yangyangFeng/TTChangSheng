@@ -9,7 +9,10 @@
 #import "CSHomeViewController.h"
 
 #import "CSHomeTableViewHandler.h"
-@interface CSHomeViewController ()
+#import "LLChatViewController.h"
+#import "StoryBoardController.h"
+#import "CSMsgHistoryRequestModel.h"
+@interface CSHomeViewController ()<TTBaseTableViewHandlerDelegate>
 @property (nonatomic,strong) CSHomeTableViewHandler *tableHandler;
 @end
 
@@ -35,7 +38,7 @@
     UITableView * tableView = [[UITableView alloc]initWithFrame:CGRectZero style:(UITableViewStylePlain)];
     tableView.backgroundColor = [UIColor blackColor];
     _tableHandler = [[CSHomeTableViewHandler alloc]initWithTableView:tableView];
-    
+    _tableHandler.delegate = self;
     [self.view addSubview:tableView];
     
     [tableView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -43,9 +46,20 @@
     }];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UIViewController * chatC = [StoryBoardController storyBoardName:@"Main" ViewControllerIdentifiter:@"LLChatViewController"];
+ 
+    [self.navigationController pushViewController:chatC animated:YES];
+    CSMsgHistoryRequestModel * param = [CSMsgHistoryRequestModel new];
+    param.chat_type = 2;
+    param.ID = 3;
+    
+    [CSHttpRequestManager request_chatRecord_paramters:param.mj_keyValues success:^(id responseObject) {
+        
+    } failure:^(NSError *error) {
+        
+    } showHUD:YES];
 }
 
 /*

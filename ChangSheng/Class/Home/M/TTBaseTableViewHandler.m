@@ -27,4 +27,11 @@
 {
     return nil;
 }
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if ([_delegate respondsToSelector:@selector(tableView:didSelectRowAtIndexPath:)]) {
+        [_delegate tableView:tableView didSelectRowAtIndexPath:indexPath];
+    }
+}
 @end

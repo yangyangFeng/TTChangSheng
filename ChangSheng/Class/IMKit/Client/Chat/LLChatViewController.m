@@ -73,7 +73,7 @@ MFMailComposeViewControllerDelegate
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *chatInputViewBottomConstraint;
 
-@property (nonatomic) NSMutableArray<LLMessageModel *> *dataSource;
+@property (nonatomic) NSMutableArray<CSMessageModel *> *dataSource;
 
 @property (strong, nonatomic) IBOutlet UIView *refreshView;
 
@@ -86,7 +86,7 @@ MFMailComposeViewControllerDelegate
 @property (nonatomic) LLChatMoreBottomBar *chatMoreBottomBar;
 @property (nonatomic) LLChatSharePanel *chatSharePanel;
 
-@property (nonatomic) NSMutableArray<LLMessageModel *> *selectedMessageModels;
+@property (nonatomic) NSMutableArray<CSMessageModel *> *selectedMessageModels;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *tableViewHeightConstraint;
 
@@ -106,7 +106,7 @@ MFMailComposeViewControllerDelegate
     NSInteger countDown;
     LLSightCapatureController *_sightController;
     UITextField *textField;
-    LLMessageModel *lastedMessageModel;
+    CSMessageModel *lastedMessageModel;
     
     BOOL firstViewWillAppear;
     BOOL firstViewDidAppear;
@@ -170,50 +170,50 @@ MFMailComposeViewControllerDelegate
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    if (!firstViewWillAppear) {
-        firstViewWillAppear = YES;
-        
-        lastedMessageModel = [self.conversationModel.allMessageModels lastObject];
-        if (self.conversationModel.draft.length > 0) {
-            [self.chatInputView activateKeyboard];
-        }
-    }
+//    if (!firstViewWillAppear) {
+//        firstViewWillAppear = YES;
+//        
+//        lastedMessageModel = [self.conversationModel.allMessageModels lastObject];
+//        if (self.conversationModel.draft.length > 0) {
+//            [self.chatInputView activateKeyboard];
+//        }
+//    }
     
-    [LLChatManager sharedManager].messageListDelegate = self;
-    navigationBarTranslucent = self.navigationController.navigationBar.translucent;
-    self.navigationController.navigationBar.translucent = NO;
-    
-    UIView *blackView = [self.view viewWithTag:BLACK_BAR_VIEW_TAG];
-    if (self.navigationController.navigationBar.subviews[0].alpha == 0 && !blackView) {
-        blackView = [[UIView alloc] initWithFrame:CGRectMake(0, -64, SCREEN_WIDTH, 64)];
-        blackView.backgroundColor = [UIColor blackColor];
-        [self.view addSubview:blackView];
-    }
-    
+//    [LLChatManager sharedManager].messageListDelegate = self;
+//    navigationBarTranslucent = self.navigationController.navigationBar.translucent;
+//    self.navigationController.navigationBar.translucent = NO;
+//    
+//    UIView *blackView = [self.view viewWithTag:BLACK_BAR_VIEW_TAG];
+//    if (self.navigationController.navigationBar.subviews[0].alpha == 0 && !blackView) {
+//        blackView = [[UIView alloc] initWithFrame:CGRectMake(0, -64, SCREEN_WIDTH, 64)];
+//        blackView.backgroundColor = [UIColor blackColor];
+//        [self.view addSubview:blackView];
+//    }
+//    
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
-    if (!firstViewDidAppear) {
-        firstViewDidAppear = YES;
-        
-        [self.chatInputView prepareKeyboardWhenConversationDidBegan];
-
-        [[LLChatManager sharedManager] markAllMessagesAsRead:self.conversationModel];
-    }
+//    if (!firstViewDidAppear) {
+//        firstViewDidAppear = YES;
+//        
+//        [self.chatInputView prepareKeyboardWhenConversationDidBegan];
+//
+//        [[LLChatManager sharedManager] markAllMessagesAsRead:self.conversationModel];
+//    }
     
     [self.chatInputView registerKeyboardNotification];
     self.chatInputView.delegate = self;
-    
-    isChatControllerDidAppear = YES;
+//
+//    isChatControllerDidAppear = YES;
     _voiceTipView.hidden = NO;
-    
-    self.navigationController.interactivePopGestureRecognizer.delaysTouchesBegan= NO;
-    
-    self.navigationController.navigationBar.subviews[0].alpha = 1;
-    UIView *blackView = [self.view viewWithTag:BLACK_BAR_VIEW_TAG];
-    [blackView removeFromSuperview];
+//    
+//    self.navigationController.interactivePopGestureRecognizer.delaysTouchesBegan= NO;
+//    
+//    self.navigationController.navigationBar.subviews[0].alpha = 1;
+//    UIView *blackView = [self.view viewWithTag:BLACK_BAR_VIEW_TAG];
+//    [blackView removeFromSuperview];
 
 }
 
@@ -230,9 +230,9 @@ MFMailComposeViewControllerDelegate
     //后退
     if (![self.navigationController.childViewControllers containsObject:self]) {
         //如果更了新消息，或者保留草稿，则把当前会话在会话列表置顶
-        if (self.conversationModel.draft.length > 0 || lastedMessageModel.timestamp < [self.conversationModel.allMessageModels lastObject].timestamp) {
-            [[LLConversationModelManager sharedManager] reloadConversationModelToTop:self.conversationModel];
-        }
+//        if (self.conversationModel.draft.length > 0 || lastedMessageModel.timestamp < [self.conversationModel.allMessageModels lastObject].timestamp) {
+//            [[LLConversationModelManager sharedManager] reloadConversationModelToTop:self.conversationModel];
+//        }
         
         //后退时停止tableview滚动
         [self.tableView setContentOffset:self.tableView.contentOffset animated:NO];
@@ -284,8 +284,8 @@ MFMailComposeViewControllerDelegate
         [[NSNotificationCenter defaultCenter] removeObserver:self];
         
         //清理输入键盘
-        self.conversationModel.draft = self.chatInputView.currentInputText;
-        [self.conversationModel saveDraftToDB];
+//        self.conversationModel.draft = self.chatInputView.currentInputText;
+//        [self.conversationModel saveDraftToDB];
         [self.chatInputView dismissKeyboardWhenConversationEnd];
         
         //清除小视频
@@ -303,10 +303,16 @@ MFMailComposeViewControllerDelegate
 }
 
 - (void)cleanMessageModelWhenExit {
+    NSArray<CSMessageModel *> *models = self.conversationModel.allMessageModels;
+    for (CSMessageModel *model in models) {
+//        [model cleanWhenConversationSessionEnded];
+    }
+    /*
     NSArray<LLMessageModel *> *models = self.conversationModel.allMessageModels;
     for (LLMessageModel *model in models) {
         [model cleanWhenConversationSessionEnded];
     }
+     */
 }
 
 
@@ -413,8 +419,8 @@ MFMailComposeViewControllerDelegate
      
 - (void)fetchMessageList {
     [LLChatManager sharedManager].messageListDelegate = self;
-    self.conversationModel.referenceMessageModel = nil;
-    [[LLChatManager sharedManager] loadMoreMessagesForConversationModel:self.conversationModel maxCount:MESSAGE_LIMIT_FOR_ONE_FETCH isDirectionUp:YES];
+//    self.conversationModel.referenceMessageModel = nil;
+//    [[LLChatManager sharedManager] loadMoreMessagesForConversationModel:self.conversationModel maxCount:MESSAGE_LIMIT_FOR_ONE_FETCH isDirectionUp:YES];
 }
 
 - (void)refreshChatControllerForReuse {
@@ -423,22 +429,22 @@ MFMailComposeViewControllerDelegate
     [self registerApplicationNotification];
     [self registerChatManagerNotification];
     
-    if (self.conversationModel.updateType == kLLMessageListUpdateTypeLoadMore) {
-        if (!self.tableView.tableHeaderView) {
-            self.tableView.tableHeaderView = self.refreshView;
-        }
-    }else if (self.conversationModel.updateType == kLLMessageListUpdateTypeLoadMoreComplete) {
-        self.tableView.tableHeaderView = nil;
-    }
-    
-    self.chatInputView.draft = self.conversationModel.draft;
-    self.chatInputView.delegate = self;
-    [self.chatInputView prepareKeyboardWhenConversationWillBegin];
-    
-    if (self.conversationModel.draft.length == 0 ) {
-        self.chatInputViewBottomConstraint.constant = 0;
-    }
-    
+//    if (self.conversationModel.updateType == kLLMessageListUpdateTypeLoadMore) {
+//        if (!self.tableView.tableHeaderView) {
+//            self.tableView.tableHeaderView = self.refreshView;
+//        }
+//    }else if (self.conversationModel.updateType == kLLMessageListUpdateTypeLoadMoreComplete) {
+//        self.tableView.tableHeaderView = nil;
+//    }
+//    
+//    self.chatInputView.draft = self.conversationModel.draft;
+//    self.chatInputView.delegate = self;
+//    [self.chatInputView prepareKeyboardWhenConversationWillBegin];
+//    
+//    if (self.conversationModel.draft.length == 0 ) {
+//        self.chatInputViewBottomConstraint.constant = 0;
+//    }
+//    
     [self.view layoutIfNeeded];
     
     self.tableView.contentInset = UIEdgeInsetsMake(CGRectGetHeight(self.chatInputView.frame) - MAIN_BOTTOM_TABBAR_HEIGHT + self.chatInputViewBottomConstraint.constant, 0, 0, 0);
@@ -453,9 +459,9 @@ MFMailComposeViewControllerDelegate
 
 
 - (void)loadMoreMessagesDidFinishedWithConversationModel:(LLConversationModel *)aConversationModel {
-    if ((aConversationModel != self.conversationModel) && ![aConversationModel.conversationId isEqualToString:self.conversationModel.conversationId]) {
-        return;
-    }
+//    if ((aConversationModel != self.conversationModel) && ![aConversationModel.conversationId isEqualToString:self.conversationModel.conversationId]) {
+//        return;
+//    }
     
     LLMessageBaseCell *cell;
     LLMessageModel *pullCellModel;
@@ -557,11 +563,11 @@ MFMailComposeViewControllerDelegate
     isLoading = YES;
     
     NSLog(@"开始下拉刷新");
-    self.conversationModel.referenceMessageModel = self.conversationModel.allMessageModels.count > 0 ? self.conversationModel.allMessageModels[0] : nil;
-    [[LLChatManager sharedManager] loadMoreMessagesForConversationModel:self.conversationModel maxCount:MESSAGE_LIMIT_FOR_ONE_FETCH isDirectionUp:YES];
+//    self.conversationModel.referenceMessageModel = self.conversationModel.allMessageModels.count > 0 ? self.conversationModel.allMessageModels[0] : nil;
+//    [[LLChatManager sharedManager] loadMoreMessagesForConversationModel:self.conversationModel maxCount:MESSAGE_LIMIT_FOR_ONE_FETCH isDirectionUp:YES];
 
 }
-
+/*
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
     if (!isLoading && isPulling) {
         [self pullToRefresh];
@@ -586,10 +592,10 @@ MFMailComposeViewControllerDelegate
         [_sightController scrollViewPanGestureRecognizerStateChanged:scrollView.panGestureRecognizer];
     }
 }
-
 - (void)pullToRefreshFinished {
     isLoading = NO;
 }
+ */
 
 - (NSMutableArray<LLMessageModel *> *)processData:(LLConversationModel *)conversationModel {
     NSMutableArray<LLMessageModel *> *messageList = [NSMutableArray array];
@@ -622,22 +628,22 @@ MFMailComposeViewControllerDelegate
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     [UIView setAnimationsEnabled:NO];
-    LLMessageModel *messageModel = self.dataSource[indexPath.row];
+    CSMessageModel *messageModel = self.dataSource[indexPath.row];
     NSString *reuseId = [[LLMessageCellManager sharedManager] reuseIdentifierForMessegeModel:messageModel];
     UITableViewCell *_cell;
 
-    switch (messageModel.messageBodyType) {
-        case kLLMessageBodyTypeText:
-        case kLLMessageBodyTypeVideo:
-        case kLLMessageBodyTypeVoice:
-        case kLLMessageBodyTypeImage:
-        case kLLMessageBodyTypeLocation: {
+    switch (messageModel.body.msgType) {
+        case CSMessageBodyTypeText:
+        case CSMessageBodyTypeVideo:
+        case CSMessageBodyTypeVoice:
+        case CSMessageBodyTypeImage:
+        {
             LLMessageBaseCell *cell = [[LLMessageCellManager sharedManager] messageCellForMessageModel:messageModel tableView:tableView];
             cell.delegate = self;
             _cell = cell;
             break;
         }
-        case kLLMessageBodyTypeDateTime: {
+        case kCSMessageBodyTypeDateTime: {
             LLMessageDateCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseId];
             if (!cell) {
                 cell = [[LLMessageDateCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseId];
@@ -648,7 +654,7 @@ MFMailComposeViewControllerDelegate
             _cell = cell;
             break;
         }
-        case kLLMessageBodyTypeGif: {
+        case kCSMessageBodyTypeGif: {
             LLMessageGifCell *cell = [tableView dequeueReusableCellWithIdentifier: reuseId];
             if (!cell) {
                 cell = [[LLMessageGifCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseId];
@@ -661,7 +667,7 @@ MFMailComposeViewControllerDelegate
             _cell = cell;
             break;
         }
-        case kLLMessageBodyTypeRecording: {
+        case kCSMessageBodyTypeRecording: {
             LLMessageRecordingCell *cell = [LLMessageRecordingCell sharedRecordingCell];
             [messageModel setNeedsUpdateForReuse];
             cell.messageModel = messageModel;
@@ -673,9 +679,9 @@ MFMailComposeViewControllerDelegate
             break;
     }
     
-    if ([messageModel checkNeedsUpdate]) {
-        ((LLMessageBaseCell *)_cell).messageModel = messageModel;
-    }
+//    if ([messageModel checkNeedsUpdate]) {
+//        ((LLMessageBaseCell *)_cell).messageModel = messageModel;
+//    }
     
     if ([_cell isKindOfClass:[LLMessageBaseCell class]]) {
         LLMessageBaseCell *baseCell = (LLMessageBaseCell *)_cell;
@@ -715,7 +721,7 @@ MFMailComposeViewControllerDelegate
 
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    LLMessageModel *messageModel = self.dataSource[indexPath.row];
+    CSMessageModel *messageModel = self.dataSource[indexPath.row];
     return messageModel.cellHeight;
 }
 
@@ -735,8 +741,8 @@ MFMailComposeViewControllerDelegate
 
 #pragma mark - TableView 相关方法 -
 
-- (LLMessageBaseCell *)visibleCellForMessageModel:(LLMessageModel *)model {
-    if (!model || ![self.conversationModel.conversationId isEqualToString:model.conversationId]) {
+- (LLMessageBaseCell *)visibleCellForMessageModel:(CSMessageModel *)model {
+    if (!model || !(self.conversationModel.chatId.intValue == model.chatId)) {
         return nil;
     }
     
@@ -745,7 +751,7 @@ MFMailComposeViewControllerDelegate
             continue;
         }
         LLMessageBaseCell *chatCell = (LLMessageBaseCell *)cell;
-        if ((chatCell.messageModel.messageBodyType == model.messageBodyType) &&
+        if ((chatCell.messageModel.messageBodyType == model.msgType) &&
             [chatCell.messageModel isEqual:model]) {
             return chatCell;
         }
@@ -755,17 +761,17 @@ MFMailComposeViewControllerDelegate
 }
 
 #pragma -发送单条消息,刷新tableview,
-- (void)addModelToDataSourceAndScrollToBottom:(LLMessageModel *)messageModel animated:(BOOL)animated {
-    [self.conversationModel.allMessageModels addObject:messageModel];
-    if (messageModel.timestamp - [self.dataSource lastObject].timestamp > CHAT_CELL_TIME_INTERVEL) {
-        LLMessageModel *dateModel = [[LLMessageModel alloc] initWithType:kLLMessageBodyTypeDateTime];
-        dateModel.timestamp = messageModel.timestamp;
-        [self.dataSource addObject:dateModel];
-    }
-    [self.dataSource addObject:messageModel];
+- (void)addModelToDataSourceAndScrollToBottom:(CSIMSendMessageRequestModel *)messageModel animated:(BOOL)animated {
+    [self.conversationModel.allMessageModels addObject:messageModel.body];
+//    if (messageModel.timestamp - [self.dataSource lastObject].timestamp > CHAT_CELL_TIME_INTERVEL) {
+//        LLMessageModel *dateModel = [[LLMessageModel alloc] initWithType:kLLMessageBodyTypeDateTime];
+//        dateModel.timestamp = messageModel.timestamp;
+//        [self.dataSource addObject:dateModel];
+//    }
+    [self.dataSource addObject:messageModel.body];
     
     [self.tableView reloadData];
-    [self scrollToBottom:animated];
+//    [self scrollToBottom:animated];
 }
 //发送多条
 - (void)addModelsInArrayToDataSourceAndScrollToBottom:(NSArray<LLMessageModel *> *)messageModels animated:(BOOL)animated {
@@ -853,44 +859,45 @@ MFMailComposeViewControllerDelegate
     [self.tableView endUpdates];
     
     WEAK_SELF;
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [weakSelf loadMoreMessagesAfterDeletionIfNeeded];
-    });
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//        [weakSelf loadMoreMessagesAfterDeletionIfNeeded];
+//    });
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
-    [self.chatInputView dismissKeyboard];
-    
-    if (scrollView == self.tableView) {
-        for (UITableViewCell *cell in self.tableView.visibleCells) {
-            if ([cell isKindOfClass:[LLMessageBaseCell class]]) {
-                LLMessageBaseCell *chatCell = (LLMessageBaseCell *)cell;
-                [chatCell willBeginScrolling];
-            }
-        }
-    }
-    
-    if (_sightController) {
-        [_sightController scrollViewPanGestureRecognizerStateChanged:scrollView.panGestureRecognizer];
-    }
+//    [self.chatInputView dismissKeyboard];
+//    
+//    if (scrollView == self.tableView) {
+//        for (UITableViewCell *cell in self.tableView.visibleCells) {
+//            if ([cell isKindOfClass:[LLMessageBaseCell class]]) {
+//                LLMessageBaseCell *chatCell = (LLMessageBaseCell *)cell;
+//                [chatCell willBeginScrolling];
+//            }
+//        }
+//    }
+//    
+//    if (_sightController) {
+//        [_sightController scrollViewPanGestureRecognizerStateChanged:scrollView.panGestureRecognizer];
+//    }
 }
 
 - (void)scrollToBottom:(BOOL)animated {
-    if (self.dataSource.count == 0)
-        return;
-    
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.dataSource.count - 1 inSection:0];
+    DLog(@"未实现 新消息滚动");
+//    if (self.dataSource.count == 0)
+//        return;
+//    
+//    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.dataSource.count - 1 inSection:0];
 //    [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:animated];
-    
-    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
-    if (cell) {
-        CGFloat offsetY = self.tableView.contentSize.height + self.tableView.contentInset.bottom - CGRectGetHeight(self.tableView.frame);
-        if (offsetY < -self.tableView.contentInset.top)
-            offsetY = -self.tableView.contentInset.top;
-        [self.tableView setContentOffset:CGPointMake(0, offsetY) animated:animated];
-    }else {
-        [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:animated];
-    }
+//    
+//    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+//    if (cell) {
+//        CGFloat offsetY = self.tableView.contentSize.height + self.tableView.contentInset.bottom - CGRectGetHeight(self.tableView.frame);
+//        if (offsetY < -self.tableView.contentInset.top)
+//            offsetY = -self.tableView.contentInset.top;
+//        [self.tableView setContentOffset:CGPointMake(0, offsetY) animated:animated];
+//    }else {
+//        [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:animated];
+//    }
 
 }
 
@@ -938,7 +945,8 @@ MFMailComposeViewControllerDelegate
 }
 
 - (void)textViewDidChange:(UITextView *)textView {
-    self.conversationModel.draft = textView.text;
+//    self.conversationModel.draft = textView.text;
+    DLog(@"textView-->%@",textView.text);
 }
 
 #pragma mark - 处理Cell动作
@@ -1292,16 +1300,16 @@ MFMailComposeViewControllerDelegate
     
         return nil;
     }
-    
-    LLChatType chatType = chatTypeForConversationType(self.conversationModel.conversationType);
-    LLMessageModel * messageModel = [[LLChatManager sharedManager]
-                                     sendImageMessageWithData:imageData
-                                     imageSize:imageSize
-                                     to:self.conversationModel.conversationId
-                                     messageType:chatType
-                                     messageExt:nil
-                                     progress:nil
-                                     completion:nil];
+    LLMessageModel * messageModel;
+//    LLChatType chatType = chatTypeForConversationType(self.conversationModel.conversationType);
+//    LLMessageModel * messageModel = [[LLChatManager sharedManager]
+//                                     sendImageMessageWithData:imageData
+//                                     imageSize:imageSize
+//                                     to:self.conversationModel.conversationId
+//                                     messageType:chatType
+//                                     messageExt:nil
+//                                     progress:nil
+//                                     completion:nil];
     
     return messageModel;
 }
@@ -1431,11 +1439,12 @@ MFMailComposeViewControllerDelegate
  *  @param fileURL
  */
 - (void)sendVideoMessageWithURL:(NSString *)filePath {
-    LLChatType chatType = chatTypeForConversationType(self.conversationModel.conversationType);
+    CSChatType chatType = self.conversationModel.conversationType;
+    //chatTypeForConversationType(self.conversationModel.conversationType);
     
     LLMessageModel *model = [[LLChatManager sharedManager]
             sendVideoMessageWithLocalPath:filePath
-                          to:self.conversationModel.conversationId
+                          to:self.conversationModel.chatId
                  messageType:chatType
                   messageExt:nil
                     progress:nil
@@ -1650,10 +1659,11 @@ MFMailComposeViewControllerDelegate
         return;
     }
     
-    LLChatType chatType = chatTypeForConversationType(self.conversationModel.conversationType);
+//    LLChatType chatType = chatTypeForConversationType(self.conversationModel.conversationType);
+    CSChatType chatType = self.conversationModel.conversationType;
     LLMessageModel *model = [[LLChatManager sharedManager]
                              sendGIFTextMessage:emotionModel.text
-                             to:self.conversationModel.conversationId
+                             to:self.conversationModel.chatId
                              messageType:chatType
                              emotionModel:emotionModel
                              completion:nil];
@@ -1672,25 +1682,26 @@ MFMailComposeViewControllerDelegate
 
 - (void)sendTextMessage:(NSString *)text {
     
-    {
+    
         CSIMSendMessageRequestModel * model = [CSIMSendMessageRequestModel new];
         CSMessageModel * msgModel = [CSMessageModel new];
-        msgModel.chartType = 2;//单聊
+        msgModel.chartType = CSChatTypeGroupChat;//单聊
         msgModel.receiveUserType = 2;//单聊固定传2
-        msgModel.chatId = 3;
-        msgModel.msgId = 1234352;
+        msgModel.chatId = @"3";
+        msgModel.msgId = [NSDate date].timestamp.intValue;//时间戳
         msgModel.action = 4;//普通消息
-        msgModel.msgType = 1;
+        msgModel.msgType = CSMessageBodyTypeText;
         msgModel.content = text;
         
         model.body = msgModel;
+        
         [model.msgStatus when:^(id obj) {
             DLog(@"文本:%@已发送",text);
         } failed:^(NSError *error) {
             
         }];
         [[CSIMSendMessageManager shareInstance] sendMessage:model];
-    }
+    
     
 //    LLChatType chatType = chatTypeForConversationType(self.conversationModel.conversationType);
 //    LLMessageModel *model = [[LLChatManager sharedManager]
@@ -1699,8 +1710,8 @@ MFMailComposeViewControllerDelegate
 //                             messageType:chatType
 //                             messageExt:nil
 //                             completion:nil];
-//    
-//    [self addModelToDataSourceAndScrollToBottom:model animated:YES];
+    
+    [self addModelToDataSourceAndScrollToBottom:model animated:YES];
 }
 
 //FIXME:做这块时，遇到两个问题：
@@ -1761,7 +1772,7 @@ MFMailComposeViewControllerDelegate
                                          name:name
                                       address:address
                                      snapshot:snapshot
-                                           to:self.conversationModel.conversationId
+                                           to:self.conversationModel.chatId
                                   messageType:chatType];
     NSLog(@"生成位置Model %@", locationModel.messageId);
     
@@ -1806,7 +1817,7 @@ MFMailComposeViewControllerDelegate
     messageModel.isFetchingAddress = YES;
     [[LLChatManager sharedManager] asynReGeocodeMessageModel:messageModel completion:^(LLMessageModel *messageModel, LLSDKError *error) {
         messageModel.isFetchingAddress = NO;
-        if (![messageModel.conversationId isEqualToString:weakSelf.conversationModel.conversationId])
+        if (![messageModel.conversationId isEqualToString:weakSelf.conversationModel.chatId])
             return;
     
         STRONG_SELF;
@@ -1986,12 +1997,12 @@ MFMailComposeViewControllerDelegate
         }
     }
     
-    LLChatType chatType = chatTypeForConversationType(self.conversationModel.conversationType);
-    
+//    LLChatType chatType = chatTypeForConversationType(self.conversationModel.conversationType);
+    CSChatType chatType = self.conversationModel.conversationType;
     LLMessageModel *voiceModel = [[LLChatManager sharedManager]
             sendVoiceMessageWithLocalPath:voiceFilePath
                                  duration:duration
-                                       to:self.conversationModel.conversationId
+                                       to:self.conversationModel.chatId
                               messageType:chatType
                                messageExt:nil
                                completion:nil];

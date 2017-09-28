@@ -11,15 +11,18 @@
 #import "Deferred.h"
 #import "CSIMMessageQueueManager.h"
 #import "CSIMSendMessageManager.h"
+#import "TTSocketChannelManager.h"
 @implementation CSIMSendMessageRequest
 + (void)sendMessage:(id)message
      successBlock:(sendSuccess)success
         failBlock:(sendFail)fail
 {
+    CSIMSendMessageRequestModel * msgRequestModel = (CSIMSendMessageRequestModel *)message;
     //将发送的消息缓存
     [[CSIMMessageQueueManager shareInstance] insertMessage:message];
     
-    CSIMSendMessageRequestModel * msgRequestModel = (CSIMSendMessageRequestModel *)message;
+    [[TTSocketChannelManager shareInstance] sendMessage:[msgRequestModel.body changeParams].mj_JSONString];
+    
     
     msgRequestModel.sendNumber += 1;
     
