@@ -50,7 +50,7 @@ typedef enum {
 @property(nonatomic,assign)int code;
 /*-------------------------------消息结构体-------------------------------*/
 
-
+@property(nonatomic,strong)CSMessageModel * body;
 @property(nonatomic,strong)CSMessageModel * result;
 
 - (void)createMsgStatus;

@@ -225,9 +225,9 @@
             [self.navigationController pushViewController:vc animated:YES];
         }
     }else {
-        LLContactModel *model = self.dataArray[indexPath.section-1][indexPath.row];
+//        LLContactModel *model = self.dataArray[indexPath.section-1][indexPath.row];
         
-        [[LLUtils appDelegate].mainViewController chatWithContact:model.userName];
+//        [[LLUtils appDelegate].mainViewController chatWithContact:model.userName];
        
     }
 

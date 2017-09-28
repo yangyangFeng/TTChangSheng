@@ -11,10 +11,10 @@
 #import "LLConversationModel.h"
 #import "LLChatInputDelegate.h"
 #import "LLVoiceIndicatorView.h"
-
+#import "TTNav_RootViewController.h"
 NS_ASSUME_NONNULL_BEGIN
 
-@interface LLChatViewController : LLViewController <LLChatInputDelegate>
+@interface LLChatViewController : TTNav_RootViewController <LLChatInputDelegate>
 
 @property (nonatomic) LLConversationModel *conversationModel;
 
