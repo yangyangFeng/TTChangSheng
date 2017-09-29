@@ -40,22 +40,27 @@ static CSIMMessageQueueManager * queueManager = nil;
 
 - (void)insertMessage:(CSIMSendMessageRequestModel *)message
 {
-    [self.allSendMessages setObject:message forKey:@(message.msgCode)];
+    [self.allSendMessages setObject:message forKey:message.msgCode];
 }
 
 - (void)removeMessages:(CSIMSendMessageRequestModel *)message
 {
-    [self.allSendMessages removeObjectForKey:@(message.msgCode)];
+    if (message.msgCode.length) {
+        [self.allSendMessages removeObjectForKey:message.msgCode];
+    }
+    
 }
 
 - (void)cacheMessage:(CSIMSendMessageRequestModel *)message
 {
-    [self.messages setObject:message forKey:@(message.msgCode)];
+    [self.messages setObject:message forKey:message.msgCode];
 }
 
 - (void)removeCacheMessage:(CSIMSendMessageRequestModel *)message
 {
-    [self.messages removeObjectForKey:@(message.msgCode)];
+    if (message.msgCode) {
+        [self.messages removeObjectForKey:message.msgCode];
+    }
 }
 
 - (NSArray *)resendCacheMessage
@@ -78,7 +83,7 @@ static CSIMMessageQueueManager * queueManager = nil;
 
 - (CSIMSendMessageRequestModel *)checkMessageContains:(CSIMSendMessageRequestModel *)message
 {
-    CSIMSendMessageRequestModel * msg = [self.allSendMessages objectForKey:@(message.msgCode)];
+    CSIMSendMessageRequestModel * msg = [self.allSendMessages objectForKey:message.msgCode];
     if (msg) {
         return msg;
     }

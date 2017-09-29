@@ -12,6 +12,7 @@
 #import "LLChatViewController.h"
 #import "StoryBoardController.h"
 #import "CSMsgHistoryRequestModel.h"
+#import "TTSingleChatViewController.h"
 @interface CSHomeViewController ()<TTBaseTableViewHandlerDelegate>
 @property (nonatomic,strong) CSHomeTableViewHandler *tableHandler;
 @end
@@ -54,6 +55,9 @@
     CSMsgHistoryRequestModel * param = [CSMsgHistoryRequestModel new];
     param.chat_type = 2;
     param.ID = 3;
+    
+//    TTSingleChatViewController * vc = [TTSingleChatViewController new];
+//    [self.navigationController pushViewController:vc animated:YES];
     
     [CSHttpRequestManager request_chatRecord_paramters:param.mj_keyValues success:^(id responseObject) {
         

@@ -26,8 +26,8 @@ static CSIMReceiveManager * _manager = nil;
 - (void)receiveMessage:(CSIMSendMessageRequestModel *)message
 {
     CSIMSendMessageRequestModel * sendMsg = [[CSIMMessageQueueManager shareInstance] checkMessageContains:message];
-    int msgId = sendMsg.msgCode;
-    if (message.msgCode == 1000) {
+    NSString * msgId = [sendMsg.msgCode copy];
+    if ([message.msgCode isEqualToString:@"1000"]) {
         [sendMsg syncMsgID:message];
         [sendMsg.msgStatus resolve:nil];
     }

@@ -19,6 +19,7 @@
 #import "LLMessageRecordingCell.h"
 #import "LLConversationModel.h"
 
+#import "CSMessageModel.h"
 typedef NSMutableDictionary<NSString *, LLMessageBaseCell *> *DICT_TYPE;
 
 @interface LLMessageCellManager : NSObject
@@ -33,17 +34,17 @@ typedef NSMutableDictionary<NSString *, LLMessageBaseCell *> *DICT_TYPE;
 
 - (void)prepareCacheWhenConversationBegin:(NSString *)conversationId;
 
-- (LLMessageBaseCell *)messageCellForMessageModel:(LLMessageModel *)messageModel tableView:(UITableView *)tableView;
+- (LLMessageBaseCell *)messageCellForMessageModel:(CSMessageModel *)messageModel tableView:(UITableView *)tableView;
 
-- (NSString *)reuseIdentifierForMessegeModel:(LLMessageModel *)model;
+- (NSString *)reuseIdentifierForMessegeModel:(CSMessageModel *)model;
 
 - (LLMessageBaseCell *)cellForMessageId:(NSString *)messageId;
 
-- (LLMessageBaseCell *)removeCellForMessageModel:(LLMessageModel *)messageModel ;
+- (LLMessageBaseCell *)removeCellForMessageModel:(CSMessageModel *)messageModel ;
 
-- (void)removeCellsForMessageModelsInArray:(NSArray<LLMessageModel *> *)messageModels;
+- (void)removeCellsForMessageModelsInArray:(NSArray<CSMessageModel *> *)messageModels;
 
-- (void)updateMessageModel:(LLMessageModel *)messageModel toMessageId:(NSString *)newMessageId;
+- (void)updateMessageModel:(CSMessageModel *)messageModel toMessageId:(NSString *)newMessageId;
 
 - (void)deleteConversation:(NSString *)conversationId;
 

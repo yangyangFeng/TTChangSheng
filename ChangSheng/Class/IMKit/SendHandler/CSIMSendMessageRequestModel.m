@@ -39,11 +39,11 @@
 
 - (void)syncMsgID:(CSIMSendMessageRequestModel *)message;
 {
-    self.result.msgId = message.result.msgId;
+    self.body.msgId = message.body.msgId;
 }
 
-- (int)msgCode
+- (NSString *)msgCode
 {
-    return _result.msgId;
+    return _body.msgId;
 }
 @end

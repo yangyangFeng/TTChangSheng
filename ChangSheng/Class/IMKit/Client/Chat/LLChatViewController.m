@@ -57,6 +57,7 @@
 #import "CSIMSendMessageRequest.h"
 #import "CSIMSendMessageManager.h"
 #import "CSIMSendMessageRequestModel.h"
+#import "IQKeyboardManager.h"
 @interface LLChatViewController ()
 <UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate,
 LLMessageCellActionDelegate, LLChatImagePreviewDelegate,
@@ -118,6 +119,10 @@ MFMailComposeViewControllerDelegate
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    [IQKeyboardManager sharedManager];
+    
+    self.conversationModel = [CSIMConversationModel new];
+    
     [self tt_SetNaviBarHide:NO withAnimation:NO];
     
     self.tt_navigationBar.contentView.backgroundColor = [UIColor whiteColor];
@@ -632,7 +637,7 @@ MFMailComposeViewControllerDelegate
     NSString *reuseId = [[LLMessageCellManager sharedManager] reuseIdentifierForMessegeModel:messageModel];
     UITableViewCell *_cell;
 
-    switch (messageModel.body.msgType) {
+    switch (messageModel.msgType) {
         case CSMessageBodyTypeText:
         case CSMessageBodyTypeVideo:
         case CSMessageBodyTypeVoice:
@@ -691,13 +696,13 @@ MFMailComposeViewControllerDelegate
         }
         
         switch(messageModel.messageBodyType) {
-            case kLLMessageBodyTypeLocation: {
+            case kCSMessageBodyTypeLocation: {
                 if ([messageModel.address isEqualToString:LOCATION_UNKNOWE_ADDRESS] && !messageModel.isFetchingAddress) {
                     [self asyncReGeocodeForMessageModel:messageModel];
                 }
                 break;
             }
-            case kLLMessageBodyTypeVoice: {
+            case kCSMessageBodyTypeVoice: {
                 LLMessageVoiceCell *voiceCell = (LLMessageVoiceCell *)_cell;
                 if (messageModel.isMediaPlaying != voiceCell.isVoicePlaying) {
                     if (messageModel.isMediaPlaying) {
@@ -771,7 +776,7 @@ MFMailComposeViewControllerDelegate
     [self.dataSource addObject:messageModel.body];
     
     [self.tableView reloadData];
-//    [self scrollToBottom:animated];
+    [self scrollToBottom:animated];
 }
 //发送多条
 - (void)addModelsInArrayToDataSourceAndScrollToBottom:(NSArray<LLMessageModel *> *)messageModels animated:(BOOL)animated {
@@ -883,21 +888,21 @@ MFMailComposeViewControllerDelegate
 
 - (void)scrollToBottom:(BOOL)animated {
     DLog(@"未实现 新消息滚动");
-//    if (self.dataSource.count == 0)
-//        return;
-//    
-//    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.dataSource.count - 1 inSection:0];
-//    [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:animated];
-//    
-//    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
-//    if (cell) {
-//        CGFloat offsetY = self.tableView.contentSize.height + self.tableView.contentInset.bottom - CGRectGetHeight(self.tableView.frame);
-//        if (offsetY < -self.tableView.contentInset.top)
-//            offsetY = -self.tableView.contentInset.top;
-//        [self.tableView setContentOffset:CGPointMake(0, offsetY) animated:animated];
-//    }else {
-//        [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:animated];
-//    }
+    if (self.dataSource.count == 0)
+        return;
+    
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.dataSource.count - 1 inSection:0];
+    [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:animated];
+    
+    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+    if (cell) {
+        CGFloat offsetY = self.tableView.contentSize.height + self.tableView.contentInset.bottom - CGRectGetHeight(self.tableView.frame);
+        if (offsetY < -self.tableView.contentInset.top)
+            offsetY = -self.tableView.contentInset.top;
+        [self.tableView setContentOffset:CGPointMake(0, offsetY) animated:animated];
+    }else {
+        [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:animated];
+    }
 
 }
 
@@ -1684,15 +1689,8 @@ MFMailComposeViewControllerDelegate
     
     
         CSIMSendMessageRequestModel * model = [CSIMSendMessageRequestModel new];
-        CSMessageModel * msgModel = [CSMessageModel new];
-        msgModel.chartType = CSChatTypeGroupChat;//单聊
-        msgModel.receiveUserType = 2;//单聊固定传2
-        msgModel.chatId = @"3";
-        msgModel.msgId = [NSDate date].timestamp.intValue;//时间戳
-        msgModel.action = 4;//普通消息
-        msgModel.msgType = CSMessageBodyTypeText;
-        msgModel.content = text;
-        
+    CSMessageModel * msgModel = [CSMessageModel newMessageChatType:CSChatTypeChat chatId:@"3" msgId:[NSDate date].timestamp msgType:CSMessageBodyTypeText action:4 content:text];
+  
         model.body = msgModel;
         
         [model.msgStatus when:^(id obj) {

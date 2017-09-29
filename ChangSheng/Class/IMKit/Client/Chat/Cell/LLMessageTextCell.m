@@ -106,7 +106,9 @@ static CGFloat preferredMaxTextWidth;
     [super setMessageModel:messageModel];
     
     if (needUpdateText) {
-        self.contentLabel.attributedText = messageModel.attributedText;
+//        self.contentLabel.attributedText = messageModel.attributedText;
+        self.contentLabel.attributedText = [LLSimpleTextLabel createAttributedStringWithEmotionString:messageModel.content font:[LLMessageTextCell font] lineSpacing:0];
+        //messageModel.attributedText;
     }
 }
 
@@ -169,7 +171,7 @@ static CGFloat preferredMaxTextWidth;
 
 
 + (CGFloat)heightForModel:(CSMessageModel *)model {
-    CGSize size = [self sizeForLabel:model.body.content];
+    CGSize size = [self sizeForLabel:model.attributedText];
     
     CGFloat bubbleHeight = size.height + LABEL_BUBBLE_TOP + LABEL_BUBBLE_BOTTOM;
     if (bubbleHeight < CONTENT_MIN_HEIGHT)

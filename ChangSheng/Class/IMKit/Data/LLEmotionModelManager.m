@@ -32,6 +32,7 @@ CREATE_SHARED_MANAGER(LLEmotionModelManager)
         self.allEmotionGroups = [NSMutableArray array];
         NSString *path = [[NSBundle mainBundle] pathForResource:@"Emotion" ofType:@"bundle"];
         self.emotionBundle = [NSBundle bundleWithPath:path];
+//        [self prepareEmotionModel];
     }
 
     return self;

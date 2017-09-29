@@ -48,7 +48,7 @@ typedef enum {
 //是否是自己发出 默认是0,自己发出的消息要手动 改成 1
 @property(nonatomic,assign)BOOL isSelf;
 //消息id (客户端自定义字段)
-@property(nonatomic,assign)int msgCode;
+@property(nonatomic,copy)NSString * msgCode;
 //成功或失败提示消息
 @property(nonatomic,copy)NSString * msg;
 //发送状态 1000 成功

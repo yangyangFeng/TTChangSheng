@@ -35,7 +35,7 @@
 
     NSTimeInterval timeInterval = [self timeIntervalSince1970];
     
-    NSString *timeString = [NSString stringWithFormat:@"%f",timeInterval];
+    NSString *timeString = [NSString stringWithFormat:@"%lld",(long long)timeInterval];
     
     return [timeString copy];
 }

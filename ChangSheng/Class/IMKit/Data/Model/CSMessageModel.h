@@ -71,6 +71,7 @@ typedef NS_ENUM(NSInteger, kCSMessageBodyType) {
     kCSMessageBodyTypeText = CSMessageBodyTypeText,
     kCSMessageBodyTypeImage = CSMessageBodyTypeImage,
     kCSMessageBodyTypeVideo = CSMessageBodyTypeVideo,
+    kCSMessageBodyTypeLink = CSMessageBodyTypeLink,
     kCSMessageBodyTypeVoice = CSMessageBodyTypeVoice,
     kCSMessageBodyTypeEMLocation = CSMessageBodyTypeLocation,
     kCSMessageBodyTypeFile = CSMessageBodyTypeFile,
@@ -79,7 +80,29 @@ typedef NS_ENUM(NSInteger, kCSMessageBodyType) {
     kCSMessageBodyTypeLocation,
     kCSMessageBodyTypeRecording, //表示正在录音的Cell
     
+    
 };
+
+static inline kCSMessageBodyType CS_changeMessageType (CSMessageBodyType type){
+    kCSMessageBodyType newType;
+    switch (type) {
+        case CSMessageBodyTypeText:
+            newType = kCSMessageBodyTypeText;
+            break;
+        case CSMessageBodyTypeImage:
+            newType = kCSMessageBodyTypeImage;
+            break;
+        case CSMessageBodyTypeVoice:
+            newType = kCSMessageBodyTypeVoice;
+            break;
+        case CSMessageBodyTypeLink:
+            newType = kCSMessageBodyTypeLink;
+            break;
+        default:
+            break;
+    }
+    return newType;
+}
 
 typedef NS_ENUM(NSInteger, CSMessageDownloadStatus) {
     kCSMessageDownloadStatusDownloading = EMDownloadStatusDownloading,
@@ -233,6 +256,19 @@ typedef NS_ENUM(NSInteger, CSMessageStatus) {
 
 - (instancetype)initWithType:(CSMessageBodyType)type;
 
++ (CSMessageModel*)newMessageChatType:(CSChatType)chatType
+                  chatId:(NSString *)chatId
+                   msgId:(NSString *)msgId
+                 msgType:(CSMessageBodyType)msgType
+                  action:(int)action
+                 content:(NSString *)content;
+
+- (id)initNewMessageChatType:(CSChatType)chatType
+                  chatId:(NSString *)chatId
+                   msgId:(NSString *)msgId
+                 msgType:(CSMessageBodyType)msgType
+                  action:(int)action
+                 content:(NSString *)content;
 //- (void)updateMessage:(CSMessageModel *)aMessage updateReason:(LLMessageModelUpdateReason)updateReason;
 
 + (NSString *)messageTypeTitle:(EMMessage *)message;
@@ -286,7 +322,7 @@ typedef NS_ENUM(NSInteger, CSMessageStatus) {
 //如果chartType=1 代表群组id 如果chartType=2 代表用户id
 @property(nonatomic,copy)NSString* chatId;
 //消息id （如果action=1 不需要， =2 || ==5 代表服务器返回的消息自增id, ==3 || ==4 代表客户端生成的唯一id  *
-@property(nonatomic,assign)int  msgId;
+@property(nonatomic,copy)NSString *  msgId;
 //:1|2|3|4|5, // 1、进群 2、出群 3、下注 4、普通消息 5、撤销 6、加群 7、退群 ps: 1 暂时不用
 @property(nonatomic,assign)int action;
 //:1|2|3|4, 1,文字 2,图片 3,语音, 4点击跳转外部连接 // action=4 需要
