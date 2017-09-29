@@ -81,6 +81,7 @@ static TTSocketChannelManager * _manager = nil;
 - (void)webSocket:(SRWebSocket *)webSocket didReceiveMessage:(id)message
 {
     NSLog(@"收到消息\n-------------------------------------------\n%@\n---------------------------------------",[self dictionaryWithJsonString:message]);
+//     NSLog(@"收到消息\n-------------------------------------------\n%@\n---------------------------------------",message);
     [[CSIMReceiveManager shareInstance] receiveMessage:[CSIMSendMessageRequestModel mj_objectWithKeyValues:message]];
     if (_delegate && [_delegate respondsToSelector:@selector(webSocket:didReceiveMessage:)]) {
         [_delegate webSocket:webSocket didReceiveMessage:message];

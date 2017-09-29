@@ -54,10 +54,12 @@
 #define TABLEVIEW_BACKGROUND_COLOR kLLBackgroundColor_lightGray
 
 
+#import "IQKeyboardManager.h"
+#import "CSIMReceiveManager.h"
 #import "CSIMSendMessageRequest.h"
 #import "CSIMSendMessageManager.h"
 #import "CSIMSendMessageRequestModel.h"
-#import "IQKeyboardManager.h"
+
 @interface LLChatViewController ()
 <UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate,
 LLMessageCellActionDelegate, LLChatImagePreviewDelegate,
@@ -65,7 +67,8 @@ LLImagePickerControllerDelegate, LLChatShareDelegate, LLLocationViewDelegate,
 LLAudioRecordDelegate, LLAudioPlayDelegate, UIImagePickerControllerDelegate,
 UINavigationControllerDelegate, LLChatManagerMessageListDelegate,
 LLDeviceManagerDelegate, LLSightCapatureControllerDelegate, LLTextActionDelegate,
-MFMailComposeViewControllerDelegate
+MFMailComposeViewControllerDelegate,
+CSIMReceiveManagerDelegate
 >
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -173,6 +176,8 @@ MFMailComposeViewControllerDelegate
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [[IQKeyboardManager sharedManager] setEnable:NO];
+    
+    [CSIMReceiveManager shareInstance].delegate = self;
 //    if (!firstViewWillAppear) {
 //        firstViewWillAppear = YES;
 //        
@@ -224,6 +229,7 @@ MFMailComposeViewControllerDelegate
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     [[IQKeyboardManager sharedManager] setEnable:YES];
+    [CSIMReceiveManager shareInstance].delegate = nil;
     //当会话隐藏时，取消键盘事件和代理
     [self.chatInputView unregisterKeyboardNotification];
     self.chatInputView.delegate = nil;
@@ -777,13 +783,13 @@ MFMailComposeViewControllerDelegate
     [self scrollToBottom:animated];
 }
 //发送多条
-- (void)addModelsInArrayToDataSourceAndScrollToBottom:(NSArray<LLMessageModel *> *)messageModels animated:(BOOL)animated {
+- (void)addModelsInArrayToDataSourceAndScrollToBottom:(NSArray<CSMessageModel *> *)messageModels animated:(BOOL)animated {
     [self.conversationModel.allMessageModels addObjectsFromArray:messageModels];
     for (NSInteger i = 0, count = messageModels.count; i < count; i++) {
-        LLMessageModel *messageModel = messageModels[i];
+        CSMessageModel *messageModel = messageModels[i];
         
-        if (messageModel.timestamp - [self.dataSource lastObject].timestamp > CHAT_CELL_TIME_INTERVEL) {
-            LLMessageModel *dateModel = [[LLMessageModel alloc] initWithType:kLLMessageBodyTypeDateTime];
+        if (([messageModel.timestamp longLongValue] - [self.dataSource lastObject].timestamp.longLongValue) > CHAT_CELL_TIME_INTERVEL) {
+            CSMessageModel *dateModel = [[CSMessageModel alloc] initWithType:kCSMessageBodyTypeDateTime];
             dateModel.timestamp = messageModel.timestamp;
             [self.dataSource addObject:dateModel];
         }
@@ -1681,22 +1687,30 @@ MFMailComposeViewControllerDelegate
     [self.navigationController pushViewController:gifVC animated:YES];
 }
 
+#pragma mark - 收到消息 delegate
+- (void)cs_receiveMessage:(CSMessageModel *)message
+{
+    CSIMSendMessageRequestModel * model = [CSIMSendMessageRequestModel new];
+    model.body = message;
+    [self addModelToDataSourceAndScrollToBottom:model animated:YES];
+}
+
 #pragma mark - 文字消息 -
 
 - (void)sendTextMessage:(NSString *)text {
     
-    
-        CSIMSendMessageRequestModel * model = [CSIMSendMessageRequestModel new];
+    CSIMSendMessageRequestModel * model = [CSIMSendMessageRequestModel new];
     CSMessageModel * msgModel = [CSMessageModel newMessageChatType:CSChatTypeChat chatId:@"3" msgId:[NSDate date].timestamp msgType:CSMessageBodyTypeText action:4 content:text];
-  
-        model.body = msgModel;
+    
+    model.body = msgModel;
+    
+    [model.msgStatus when:^(id obj) {
+        DLog(@"文本:%@已发送",text);
+    } failed:^(NSError *error) {
         
-        [model.msgStatus when:^(id obj) {
-            DLog(@"文本:%@已发送",text);
-        } failed:^(NSError *error) {
-            
-        }];
-        [[CSIMSendMessageManager shareInstance] sendMessage:model];
+    }];
+    [[CSIMSendMessageManager shareInstance] sendMessage:model];
+    
     
     
 //    LLChatType chatType = chatTypeForConversationType(self.conversationModel.conversationType);

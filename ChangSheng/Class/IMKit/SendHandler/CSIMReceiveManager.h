@@ -8,7 +8,17 @@
 
 #import <Foundation/Foundation.h>
 #import "CSIMSendMessageRequestModel.h"
+
+#import "CSMessageModel.h"
+
+@protocol CSIMReceiveManagerDelegate <NSObject>
+
+- (void)cs_receiveMessage:(CSMessageModel *)message;
+
+@end
 @interface CSIMReceiveManager : NSObject
+
+@property (nonatomic, weak)id<CSIMReceiveManagerDelegate> delegate;
 
 + (CSIMReceiveManager *)shareInstance;
 

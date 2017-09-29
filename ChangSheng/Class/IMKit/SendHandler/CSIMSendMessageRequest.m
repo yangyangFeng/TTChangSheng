@@ -33,7 +33,6 @@
 //    msgRequestModel.msgStatus;
     
     
-    
     [sendMsgDeferred when:^(id obj) {
         //发送成功后,将此条消息移除缓存
         [[CSIMMessageQueueManager shareInstance] removeMessages:message];

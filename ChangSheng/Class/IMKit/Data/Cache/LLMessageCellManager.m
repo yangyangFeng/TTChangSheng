@@ -63,21 +63,21 @@ CREATE_SHARED_MANAGER(LLMessageCellManager)
 
 - (NSString *)reuseIdentifierForMessegeModel:(CSMessageModel *)model {
 //    switch (CS_changeMessageType(model.msgType)) {
-    switch (model.msgType) {
+    switch (model.body.msgType) {
         case kCSMessageBodyTypeText:
-            return model.fromMe ? @"messageTypeTextMe" : @"messageTypeText";
+            return model.isSelf ? @"messageTypeTextMe" : @"messageTypeText";
         case kCSMessageBodyTypeImage:
-            return model.fromMe ? @"messageTypeImageMe" : @"messageTypeImage";
+            return model.isSelf ? @"messageTypeImageMe" : @"messageTypeImage";
         case kCSMessageBodyTypeDateTime:
             return @"messageTypeDateTime";
         case kCSMessageBodyTypeVoice:
-            return model.fromMe ? @"messageTypeVoiceMe" : @"messageTypeVoice";
+            return model.isSelf ? @"messageTypeVoiceMe" : @"messageTypeVoice";
         case kCSMessageBodyTypeGif:
-            return model.fromMe ? @"messageTypeGifMe" : @"messageTypeGif";
+            return model.isSelf ? @"messageTypeGifMe" : @"messageTypeGif";
         case kCSMessageBodyTypeLocation:
-            return model.fromMe ? @"messageTypeLocationMe" : @"messageTypeLocation";
+            return model.isSelf ? @"messageTypeLocationMe" : @"messageTypeLocation";
         case kCSMessageBodyTypeVideo:
-            return model.fromMe ? @"messageTypeVideoMe" : @"messageTypeVideo";
+            return model.isSelf ? @"messageTypeVideoMe" : @"messageTypeVideo";
         default:
             break;
     }
@@ -87,7 +87,7 @@ CREATE_SHARED_MANAGER(LLMessageCellManager)
 
 - (Class)tableViewCellClassForMessegeModel:(CSMessageModel *)model {
 //    switch (model.messageBodyType) {
-    switch (model.msgType) {
+    switch (model.body.msgType) {
         case kCSMessageBodyTypeText:
             return [LLMessageTextCell class];
         case kCSMessageBodyTypeImage:
@@ -113,7 +113,7 @@ CREATE_SHARED_MANAGER(LLMessageCellManager)
     Class cellClass = [self tableViewCellClassForMessegeModel:messageModel];
     LLMessageBaseCell *_cell = [[cellClass alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseId];
     
-    [_cell prepareForUse:messageModel.isFromMe];
+    [_cell prepareForUse:messageModel.isSelf];
     [messageModel setNeedsUpdateForReuse];
     _cell.messageModel = messageModel;
     
@@ -121,42 +121,51 @@ CREATE_SHARED_MANAGER(LLMessageCellManager)
 }
 
 - (LLMessageBaseCell *)messageCellForMessageModel:(CSMessageModel *)messageModel tableView:(UITableView *)tableView {
-    LLMessageBaseCell *_cell = _allMessageCells[messageModel.msgId];
-    if (_cell) {
-        return _cell;
-    }
+//    LLMessageBaseCell *_cell = _allMessageCells[messageModel.msgId];
+//    if (_cell) {
+//        return _cell;
+//    }
+//    
+//    LL_MessageCell_Data *data = [self messageCellDataForConversationId:messageModel.msgId];
+//    //有空余名额
+//    if (_allMessageCells.count < MAX_CACHE_CELLS) {
+//        _cell = [self createMessageCellForMessageModel:messageModel withReuseIdentifier:nil];
+//        _allMessageCells[messageModel.msgId] = _cell;
+//        [self addMessageCellToCellData:_cell cellData:data];
+//        
+//        while (_allMessageCells.count == MAX_CACHE_CELLS && self.allMessageCellData.count > 1) {
+//            [self deleteConversation:self.allMessageCellData[0].conversationId];
+//        }
+//    }else {
+//        //缓存最新消息
+//        if (messageModel.timestamp > [data.allMessageCells lastObject].messageModel.timestamp) {
+//            LLMessageBaseCell *firstCell = data.allMessageCells[0];
+//            [_allMessageCells removeObjectForKey:firstCell.messageModel.msgId];
+//            [data.allMessageCells removeObjectAtIndex:0];
+//            
+//            _cell = [self createMessageCellForMessageModel:messageModel withReuseIdentifier:nil];
+//            _allMessageCells[messageModel.msgId] = _cell;
+//            [self addMessageCellToCellData:_cell cellData:data];
+//        //采用TableView重用
+//        }else {
+//            NSString *reuseId = [self reuseIdentifierForMessegeModel:messageModel];
+//            _cell = (LLMessageBaseCell *)[tableView dequeueReusableCellWithIdentifier:reuseId];
+//            if (!_cell) {
+//                _cell = [self createMessageCellForMessageModel:messageModel withReuseIdentifier:reuseId];
+//            }else {
+//                [messageModel setNeedsUpdateForReuse];
+//            }
+//        }
+//        
+//    }
     
-    LL_MessageCell_Data *data = [self messageCellDataForConversationId:messageModel.msgId];
-    //有空余名额
-    if (_allMessageCells.count < MAX_CACHE_CELLS) {
-        _cell = [self createMessageCellForMessageModel:messageModel withReuseIdentifier:nil];
-        _allMessageCells[messageModel.msgId] = _cell;
-        [self addMessageCellToCellData:_cell cellData:data];
-        
-        while (_allMessageCells.count == MAX_CACHE_CELLS && self.allMessageCellData.count > 1) {
-            [self deleteConversation:self.allMessageCellData[0].conversationId];
-        }
+    LLMessageBaseCell *_cell ;
+    NSString *reuseId = [self reuseIdentifierForMessegeModel:messageModel];
+    _cell = (LLMessageBaseCell *)[tableView dequeueReusableCellWithIdentifier:reuseId];
+    if (!_cell) {
+        _cell = [self createMessageCellForMessageModel:messageModel withReuseIdentifier:reuseId];
     }else {
-        //缓存最新消息
-        if (messageModel.timestamp > [data.allMessageCells lastObject].messageModel.timestamp) {
-            LLMessageBaseCell *firstCell = data.allMessageCells[0];
-            [_allMessageCells removeObjectForKey:firstCell.messageModel.msgId];
-            [data.allMessageCells removeObjectAtIndex:0];
-            
-            _cell = [self createMessageCellForMessageModel:messageModel withReuseIdentifier:nil];
-            _allMessageCells[messageModel.msgId] = _cell;
-            [self addMessageCellToCellData:_cell cellData:data];
-        //采用TableView重用
-        }else {
-            NSString *reuseId = [self reuseIdentifierForMessegeModel:messageModel];
-            _cell = (LLMessageBaseCell *)[tableView dequeueReusableCellWithIdentifier:reuseId];
-            if (!_cell) {
-                _cell = [self createMessageCellForMessageModel:messageModel withReuseIdentifier:reuseId];
-            }else {
-                [messageModel setNeedsUpdateForReuse];
-            }
-        }
-        
+        [messageModel setNeedsUpdateForReuse];
     }
     
     return _cell;

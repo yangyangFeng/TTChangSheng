@@ -72,6 +72,14 @@ NSMutableDictionary * tmpImageDict;
     [param setObject:@(2) forKey:@"receiveUserType"];
     return param;
 }
+
+- (void)formaterMessage
+{
+    self.body = [CSMessageBodyModel mj_objectWithKeyValues:self.mj_keyValues];
+//    self.body.msgType = self.msgType;
+
+}
+
 + (void)initialize {
     if (self == [CSMessageModel class]) {
         tmpImageDict = [NSMutableDictionary dictionary];
@@ -87,8 +95,9 @@ NSMutableDictionary * tmpImageDict;
                   action:(int)action
                  content:(NSString *)content
 {
-    CSMessageModel * msssageModel = [[CSMessageModel alloc]initNewMessageChatType:chatType chatId:chatId msgId:msgId msgType:msgType action:action content:content];
-    return msssageModel;
+    CSMessageModel * messageModel = [[CSMessageModel alloc]initNewMessageChatType:chatType chatId:chatId msgId:msgId msgType:msgType action:action content:content];
+    [messageModel formaterMessage];
+    return messageModel;
 }
 
 - (id)initNewMessageChatType:(CSChatType)chatType chatId:(NSString *)chatId msgId:(NSString *)msgId msgType:(CSMessageBodyType)msgType action:(int)action content:(NSString *)content
@@ -164,7 +173,7 @@ NSMutableDictionary * tmpImageDict;
                 break;
             case kCSMessageBodyTypeRecording:
                 self.fromMe = YES;
-                self.timestamp = [[NSDate date] timeIntervalSince1970];
+                self.timestamp = [NSString stringWithFormat:@"%d",[[NSDate date] timeIntervalSince1970]];
                 self.cellHeight = [LLMessageRecordingCell heightForModel:self];
             default:
                 break;
@@ -608,18 +617,18 @@ NSMutableDictionary * tmpImageDict;
 
 - (void)processModelForCell {
     DLog(@"cell 高度,未实现");
-    switch (CS_changeMessageType(self.msgType)) {
+    switch (CS_changeMessageType(self.body.msgType)) {
         case kCSMessageBodyTypeText: {
             if ([self.ext[MESSAGE_EXT_TYPE_KEY] isEqualToString:MESSAGE_EXT_GIF_KEY]) {
                 
-                self.text = [NSString stringWithFormat:@"[%@]", self.content];
+                self.text = [NSString stringWithFormat:@"[%@]", self.body.content];
                 _messageBodyType = kCSMessageBodyTypeGif;
                 self.cellHeight = [LLMessageGifCell heightForModel:self];
                 
             }else {
                 
-                self.text = self.content;
-                self.attributedText = [LLSimpleTextLabel createAttributedStringWithEmotionString:self.content font:[LLMessageTextCell font] lineSpacing:0];
+                self.text = self.body.content;
+                self.attributedText = [LLSimpleTextLabel createAttributedStringWithEmotionString:self.body.content font:[LLMessageTextCell font] lineSpacing:0];
                 
                 self.cellHeight = [LLMessageTextCell heightForModel:self];
             }

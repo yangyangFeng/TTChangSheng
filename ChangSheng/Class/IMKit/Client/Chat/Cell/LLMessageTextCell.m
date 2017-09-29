@@ -107,7 +107,8 @@ static CGFloat preferredMaxTextWidth;
     
     if (needUpdateText) {
 //        self.contentLabel.attributedText = messageModel.attributedText;
-        self.contentLabel.attributedText = [LLSimpleTextLabel createAttributedStringWithEmotionString:messageModel.content font:[LLMessageTextCell font] lineSpacing:0];
+        self.contentLabel.attributedText = [LLSimpleTextLabel createAttributedStringWithEmotionString:messageModel.body.content font:[LLMessageTextCell font] lineSpacing:0];
+        DLog(@"content---%@",messageModel.body.content);
         //messageModel.attributedText;
     }
 }

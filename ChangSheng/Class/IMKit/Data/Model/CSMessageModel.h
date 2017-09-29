@@ -152,7 +152,15 @@ typedef NS_ENUM(NSInteger, CSMessageStatus) {
 
 @interface CSMessageModel : NSObject
 
+/**
+ *  将消息转换成约定格式发送给服务端
+ */
 - (NSDictionary *)changeParams;
+
+/**
+ *  计算数据高度
+ */
+- (void)processModelForCell;
 
 @property (nonatomic,assign) BOOL isSelf;
 //展示消息的CellHeight，计算一次，然后缓存
@@ -170,7 +178,7 @@ typedef NS_ENUM(NSInteger, CSMessageStatus) {
 
 @property (nonatomic, readonly) kCSMessageBodyType messageBodyType;
 
-@property (nonatomic) NSTimeInterval timestamp;
+@property (nonatomic,copy) NSString *timestamp;
 
 @property (nonatomic) NSString *text;
 
@@ -276,7 +284,10 @@ typedef NS_ENUM(NSInteger, CSMessageStatus) {
 - (long long)fileAttachmentSize;
 
 - (void)cleanWhenConversationSessionEnded;
-
+/**
+ 格式化请求参数
+ */
+- (void)formaterMessage;
 #pragma mark - 消息状态 -
 @property (nonatomic, readonly) CSMessageStatus messageStatus;
 
@@ -322,8 +333,8 @@ typedef NS_ENUM(NSInteger, CSMessageStatus) {
 //如果chartType=1 代表群组id 如果chartType=2 代表用户id
 @property(nonatomic,copy)NSString* chatId;
 //消息id （如果action=1 不需要， =2 || ==5 代表服务器返回的消息自增id, ==3 || ==4 代表客户端生成的唯一id  *
-@property(nonatomic,copy)NSString *  msgId;
-//:1|2|3|4|5, // 1、进群 2、出群 3、下注 4、普通消息 5、撤销 6、加群 7、退群 ps: 1 暂时不用
+@property(nonatomic,copy)NSString * msgId;
+// 1、普通消息 2、消息回执 3、路单图片 4、连接成功回执 5、用户上线 6 、用户下线
 @property(nonatomic,assign)int action;
 //:1|2|3|4, 1,文字 2,图片 3,语音, 4点击跳转外部连接 // action=4 需要
 @property(nonatomic,assign)CSMessageBodyType msgType;
@@ -349,7 +360,7 @@ typedef NS_ENUM(NSInteger, CSMessageStatus) {
 
 @interface CSMessageBodyModel : NSObject
 //:1|2|3|4, //1,文字 2,图片 3,语音, 4点击跳转外部连接
-@property(nonatomic,assign)int msgType;
+@property(nonatomic,assign)CSMessageBodyType msgType;
 //"消息内容", //action==3 只需要content 和 linkUrl 其他不需要
 @property(nonatomic,copy)NSString * content;
 
@@ -361,8 +372,9 @@ typedef NS_ENUM(NSInteger, CSMessageStatus) {
 
 @property(nonatomic,copy)NSString * nickname;
 //发送时间
-@property(nonatomic,copy)NSString * time;
-
+@property(nonatomic,copy)NSString * date;
+//时间戳
+@property (nonatomic,copy) NSString *timestamp;
 @end
 
 @interface CSUnreadListModel : NSObject
