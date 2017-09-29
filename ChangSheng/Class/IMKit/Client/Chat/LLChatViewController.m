@@ -119,8 +119,6 @@ MFMailComposeViewControllerDelegate
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    [IQKeyboardManager sharedManager];
-    
     self.conversationModel = [CSIMConversationModel new];
     
     [self tt_SetNaviBarHide:NO withAnimation:NO];
@@ -174,7 +172,7 @@ MFMailComposeViewControllerDelegate
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
+    [[IQKeyboardManager sharedManager] setEnable:NO];
 //    if (!firstViewWillAppear) {
 //        firstViewWillAppear = YES;
 //        
@@ -225,7 +223,7 @@ MFMailComposeViewControllerDelegate
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    
+    [[IQKeyboardManager sharedManager] setEnable:YES];
     //当会话隐藏时，取消键盘事件和代理
     [self.chatInputView unregisterKeyboardNotification];
     self.chatInputView.delegate = nil;
