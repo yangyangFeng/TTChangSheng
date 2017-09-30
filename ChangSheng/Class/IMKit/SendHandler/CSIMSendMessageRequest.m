@@ -28,12 +28,12 @@
     
     msgRequestModel.sendStatus = IM_Sending;
 //    msgRequestModel.msgStatus 
-    Deferred * sendMsgDeferred = (Deferred *)[msgRequestModel.msgStatus on:[CSIMSendMessageManager shareInstance].queue];
+//    Deferred * sendMsgDeferred = (Deferred *)[msgRequestModel.msgStatus on:[CSIMSendMessageManager shareInstance].queue];
 //    (Deferred*)[[Deferred alloc]timeout:10];
 //    msgRequestModel.msgStatus;
     
     
-    [sendMsgDeferred when:^(id obj) {
+    [msgRequestModel.msgStatus when:^(id obj) {
         //发送成功后,将此条消息移除缓存
         [[CSIMMessageQueueManager shareInstance] removeMessages:message];
         NSLog(@"消息已发送成功--request");
@@ -49,7 +49,7 @@
         NSLog(@"发送失败   count%d",msgRequestModel.sendNumber              );
         
         msgRequestModel.sendStatus = IM_SendFailed;
-        [msgRequestModel.msgStatus clearPromiseState];
+//        [msgRequestModel.msgStatus clearPromiseState];
         if (msgRequestModel.sendNumber == 1)
         {
             

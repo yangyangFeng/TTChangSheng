@@ -239,7 +239,6 @@
 		187773D41F7D30FD00A98B7C /* CSIMConversationModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 187773D31F7D30FD00A98B7C /* CSIMConversationModel.m */; };
 		18C81F421F74B8E00012150B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C81F411F74B8E00012150B /* main.m */; };
 		18C81F451F74B8E00012150B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C81F441F74B8E00012150B /* AppDelegate.m */; };
-		18C81F4D1F74B8E00012150B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18C81F4C1F74B8E00012150B /* Assets.xcassets */; };
 		18C81F501F74B8E00012150B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18C81F4E1F74B8E00012150B /* LaunchScreen.storyboard */; };
 		18C81F7C1F7657900012150B /* GPBaseController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C81F691F7657900012150B /* GPBaseController.m */; };
 		18C81F7D1F7657900012150B /* GPBaseNavifationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C81F6B1F7657900012150B /* GPBaseNavifationController.m */; };
@@ -309,6 +308,7 @@
 		45603A8B1988AD44F015EEB7 /* libPods-ChangSheng.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 84C57046CFB3067E7FF70B34 /* libPods-ChangSheng.a */; };
 		747D5C251F7DF73C00F40A41 /* TTSingleChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 747D5C241F7DF73C00F40A41 /* TTSingleChatViewController.m */; };
 		747D5C281F7DF75000F40A41 /* TTChatInputToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 747D5C271F7DF75000F40A41 /* TTChatInputToolBar.m */; };
+		747D5C2A1F7F6A2A00F40A41 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 747D5C291F7F6A2A00F40A41 /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -787,7 +787,6 @@
 		18C81F411F74B8E00012150B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		18C81F431F74B8E00012150B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		18C81F441F74B8E00012150B /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		18C81F4C1F74B8E00012150B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		18C81F4F1F74B8E00012150B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		18C81F511F74B8E00012150B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		18C81F681F7657900012150B /* GPBaseController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPBaseController.h; sourceTree = "<group>"; };
@@ -929,6 +928,7 @@
 		747D5C241F7DF73C00F40A41 /* TTSingleChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTSingleChatViewController.m; sourceTree = "<group>"; };
 		747D5C261F7DF75000F40A41 /* TTChatInputToolBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTChatInputToolBar.h; sourceTree = "<group>"; };
 		747D5C271F7DF75000F40A41 /* TTChatInputToolBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTChatInputToolBar.m; sourceTree = "<group>"; };
+		747D5C291F7F6A2A00F40A41 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		84C57046CFB3067E7FF70B34 /* libPods-ChangSheng.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ChangSheng.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -1915,9 +1915,9 @@
 		18C81F401F74B8E00012150B /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				747D5C291F7F6A2A00F40A41 /* Assets.xcassets */,
 				187773C61F7D1C6100A98B7C /* Main.storyboard */,
 				18C820191F765C0F0012150B /* TTConstant.h */,
-				18C81F4C1F74B8E00012150B /* Assets.xcassets */,
 				18C81F4E1F74B8E00012150B /* LaunchScreen.storyboard */,
 				18C81F511F74B8E00012150B /* Info.plist */,
 				18C81F411F74B8E00012150B /* main.m */,
@@ -2373,7 +2373,7 @@
 				TargetAttributes = {
 					18C81F3C1F74B8E00012150B = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = L8K3653HCA;
+						DevelopmentTeam = BYXKWL5C3R;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -2403,6 +2403,7 @@
 			files = (
 				18C81F841F7657900012150B /* TTNavigationBar.xib in Resources */,
 				18C81F501F74B8E00012150B /* LaunchScreen.storyboard in Resources */,
+				747D5C2A1F7F6A2A00F40A41 /* Assets.xcassets in Resources */,
 				1804AD271F7BDC6100508C1C /* imageDownloadFail@2x.png in Resources */,
 				1804ACE21F7BDC6100508C1C /* CellGreySelected@2x.png in Resources */,
 				1804ACE51F7BDC6100508C1C /* FriendsSendsPicturesQuitBigIcon.png in Resources */,
@@ -2425,7 +2426,6 @@
 				1804ACDF1F7BDC6100508C1C /* CellBlueSelected.png in Resources */,
 				1804ACEB1F7BDC6100508C1C /* FriendsSendsPicturesSelectIcon.png in Resources */,
 				1804ACF21F7BDC6100508C1C /* MMVideoPreviewPlayHL@3x.png in Resources */,
-				18C81F4D1F74B8E00012150B /* Assets.xcassets in Resources */,
 				181346901F7AA93200CD1312 /* LICENSE in Resources */,
 				1804ACED1F7BDC6100508C1C /* FriendsSendsPicturesSelectYIcon.png in Resources */,
 				187773C81F7D1C6100A98B7C /* Main.storyboard in Resources */,
@@ -2888,7 +2888,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = L8K3653HCA;
+				DEVELOPMENT_TEAM = BYXKWL5C3R;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2906,7 +2906,7 @@
 					"$(PROJECT_DIR)/ChangSheng/Class/Lib/HyphenateSDK/lib/3rdparty",
 					"$(PROJECT_DIR)/ChangSheng/Class/Lib/HyphenateSDK/lib",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = Tianyu.ChangSheng;
+				PRODUCT_BUNDLE_IDENTIFIER = Tianyu.ChangSheng1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -2918,7 +2918,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = L8K3653HCA;
+				DEVELOPMENT_TEAM = BYXKWL5C3R;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2936,7 +2936,7 @@
 					"$(PROJECT_DIR)/ChangSheng/Class/Lib/HyphenateSDK/lib/3rdparty",
 					"$(PROJECT_DIR)/ChangSheng/Class/Lib/HyphenateSDK/lib",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = Tianyu.ChangSheng;
+				PRODUCT_BUNDLE_IDENTIFIER = Tianyu.ChangSheng1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

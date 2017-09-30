@@ -40,26 +40,26 @@ static CSIMMessageQueueManager * queueManager = nil;
 
 - (void)insertMessage:(CSIMSendMessageRequestModel *)message
 {
-    [self.allSendMessages setObject:message forKey:message.msgCode];
+    [self.allSendMessages setObject:message forKey:message.body.msgCacheKey];
 }
 
 - (void)removeMessages:(CSIMSendMessageRequestModel *)message
 {
-    if (message.msgCode.length) {
-        [self.allSendMessages removeObjectForKey:message.msgCode];
+    if (message.msgCacheKey.length) {
+        [self.allSendMessages removeObjectForKey:message.msgCacheKey];
     }
     
 }
 
 - (void)cacheMessage:(CSIMSendMessageRequestModel *)message
 {
-    [self.messages setObject:message forKey:message.msgCode];
+    [self.messages setObject:message forKey:message.body.msgCacheKey];
 }
 
 - (void)removeCacheMessage:(CSIMSendMessageRequestModel *)message
 {
-    if (message.msgCode) {
-        [self.messages removeObjectForKey:message.msgCode];
+    if (message.body.msgCacheKey) {
+        [self.messages removeObjectForKey:message.body.msgCacheKey];
     }
 }
 
@@ -83,7 +83,7 @@ static CSIMMessageQueueManager * queueManager = nil;
 
 - (CSIMSendMessageRequestModel *)checkMessageContains:(CSIMSendMessageRequestModel *)message
 {
-    CSIMSendMessageRequestModel * msg = [self.allSendMessages objectForKey:message.msgCode];
+    CSIMSendMessageRequestModel * msg = [self.allSendMessages objectForKey:message.body.receiptId];
     if (msg) {
         return msg;
     }

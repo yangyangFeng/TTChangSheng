@@ -166,6 +166,7 @@ CREATE_SHARED_MANAGER(LLMessageCellManager)
         _cell = [self createMessageCellForMessageModel:messageModel withReuseIdentifier:reuseId];
     }else {
         [messageModel setNeedsUpdateForReuse];
+        _cell.messageModel = messageModel;
     }
     
     return _cell;

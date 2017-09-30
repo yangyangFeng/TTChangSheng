@@ -108,7 +108,6 @@ static CGFloat preferredMaxTextWidth;
     if (needUpdateText) {
 //        self.contentLabel.attributedText = messageModel.attributedText;
         self.contentLabel.attributedText = [LLSimpleTextLabel createAttributedStringWithEmotionString:messageModel.body.content font:[LLMessageTextCell font] lineSpacing:0];
-        DLog(@"content---%@",messageModel.body.content);
         //messageModel.attributedText;
     }
 }
@@ -254,15 +253,17 @@ static CGFloat preferredMaxTextWidth;
 #pragma mark - 弹出菜单
 
 - (NSArray<NSString *> *)menuItemNames {
-    return @[@"复制", @"转发", @"收藏", @"翻译", @"删除", @"更多..."];
+    return @[@"复制"];
+    //    return @[@"复制", @"转发", @"收藏", @"翻译", @"删除", @"更多..."];
 }
 
 - (NSArray<NSString *> *)menuItemActionNames {
-    return @[@"copyAction:", @"transforAction:", @"favoriteAction:", @"translateAction:",@"deleteAction:", @"moreAction:"];
+    return @[@"copyAction:"];
+    //    return @[@"copyAction:", @"transforAction:", @"favoriteAction:", @"translateAction:",@"deleteAction:", @"moreAction:"];
 }
 
 - (void)copyAction:(id)sender {
-    [LLUtils copyToPasteboard:self.messageModel.text];
+    [LLUtils copyToPasteboard:self.messageModel.body.content];
 }
 
 - (void)transforAction:(id)sender {

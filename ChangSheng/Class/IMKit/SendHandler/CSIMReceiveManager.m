@@ -30,6 +30,7 @@ static CSIMReceiveManager * _manager = nil;
         // 1、普通消息 2、消息回执 3、路单图片 4、连接成功回执 5、用户上线 6 、用户下线
         case 1://
         {
+            DLog(@"新消息-------->%@",message.result.body.content);
             //计算数据高度
             [message.result processModelForCell];
             message.result.msgType = message.result.body.msgType;
@@ -42,8 +43,11 @@ static CSIMReceiveManager * _manager = nil;
             break;
         case 2:
         {
+            message.body.msgCacheKey = message.body.receiptId;
             NSString * msgId = [sendMsg.msgCode copy];
-            if ([message.msgCode isEqualToString:@"1000"]) {
+//            [sendMsg.msgStatus reject:[NSError errorWithDomain:message.msg code:message.code userInfo:nil]];
+//            [sendMsg.msgStatus reject:[NSError errorWithDomain:message.msg code:message.code userInfo:nil]];
+            if (message.code == successCode) {
                 [sendMsg syncMsgID:message];
                 [sendMsg.msgStatus resolve:nil];
             }

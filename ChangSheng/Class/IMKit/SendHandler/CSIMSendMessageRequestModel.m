@@ -42,8 +42,16 @@
     self.body.msgId = message.body.msgId;
 }
 
+- (NSString *)msgId
+{
+    return _body.msgId;
+}
 - (NSString *)msgCode
 {
     return _body.msgId;
+}
+- (NSString *)msgCacheKey
+{
+    return _body.msgCacheKey;
 }
 @end

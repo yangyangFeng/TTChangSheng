@@ -259,6 +259,10 @@ typedef NS_ENUM(NSInteger, CSMessageStatus) {
 
 @property (nonatomic) LLSDKError *error;
 
+/**
+ 缓存消息Key
+ */
+@property(nonatomic,copy)NSString * msgCacheKey;
 //该方法供外部代码调用
 //+ (LLMessageModel *)messageModelFromPool:(EMMessage *)message;
 

@@ -175,9 +175,12 @@ CSIMReceiveManagerDelegate
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+
     [[IQKeyboardManager sharedManager] setEnable:NO];
     
     [CSIMReceiveManager shareInstance].delegate = self;
+    
+    //    [self.navigationController performSelector:@selector(blackStatusBar)];
 //    if (!firstViewWillAppear) {
 //        firstViewWillAppear = YES;
 //        
@@ -281,15 +284,15 @@ CSIMReceiveManagerDelegate
         [LLDeviceManager sharedManager].delegate = nil;
         
         //清理Model和缓存
-        [self cleanMessageModelWhenExit];
-        [[LLMessageCacheManager sharedManager] cleanCacheWhenConversationExit:self.conversationModel];
+//        [self cleanMessageModelWhenExit];
+//        [[LLMessageCacheManager sharedManager] cleanCacheWhenConversationExit:self.conversationModel];
         
         [self.conversationModel.allMessageModels removeAllObjects];
         [self.dataSource removeAllObjects];
         [self.tableView reloadData];
     
         //取消消息代理
-        [LLChatManager sharedManager].messageListDelegate = nil;
+//        [LLChatManager sharedManager].messageListDelegate = nil;
         [[NSNotificationCenter defaultCenter] removeObserver:self];
         
         //清理输入键盘
@@ -543,18 +546,18 @@ CSIMReceiveManagerDelegate
 
 #pragma mark - 下拉刷新
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    if (self.tableView.tableHeaderView && !isLoading &&!isPulling && (scrollView.isDragging || scrollView.isDecelerating) && scrollView.contentOffset.y <= 20 - scrollView.contentInset.top && self.conversationModel.allMessageModels.count > 0) {
-        isPulling = YES;
-        UIActivityIndicatorView *indicator = self.refreshView.subviews[0];
-        if (![indicator isAnimating]) {
-            [indicator startAnimating];
-        }
-    }
-    
-    if (_sightController) {
-        [_sightController scrollViewPanGestureRecognizerStateChanged:scrollView.panGestureRecognizer];
-    }
-    
+//    if (self.tableView.tableHeaderView && !isLoading &&!isPulling && (scrollView.isDragging || scrollView.isDecelerating) && scrollView.contentOffset.y <= 20 - scrollView.contentInset.top && self.conversationModel.allMessageModels.count > 0) {
+//        isPulling = YES;
+//        UIActivityIndicatorView *indicator = self.refreshView.subviews[0];
+//        if (![indicator isAnimating]) {
+//            [indicator startAnimating];
+//        }
+//    }
+//    
+//    if (_sightController) {
+//        [_sightController scrollViewPanGestureRecognizerStateChanged:scrollView.panGestureRecognizer];
+//    }
+//    
 }
 
 - (void)loadMoreMessagesAfterDeletionIfNeeded {
@@ -638,7 +641,8 @@ CSIMReceiveManagerDelegate
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     [UIView setAnimationsEnabled:NO];
     CSMessageModel *messageModel = self.dataSource[indexPath.row];
-    NSString *reuseId = [[LLMessageCellManager sharedManager] reuseIdentifierForMessegeModel:messageModel];
+    NSString *reuseId = @"123";
+//    [[LLMessageCellManager sharedManager] reuseIdentifierForMessegeModel:messageModel];
     UITableViewCell *_cell;
 
     switch (messageModel.msgType) {
@@ -648,6 +652,7 @@ CSIMReceiveManagerDelegate
         case CSMessageBodyTypeImage:
         {
             LLMessageBaseCell *cell = [[LLMessageCellManager sharedManager] messageCellForMessageModel:messageModel tableView:tableView];
+            [messageModel setNeedsUpdateForReuse];
             cell.delegate = self;
             _cell = cell;
             break;
@@ -731,21 +736,22 @@ CSIMReceiveManagerDelegate
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     CSMessageModel *messageModel = self.dataSource[indexPath.row];
+//    NSLog(@"height->%g,str->%@",messageModel.cellHeight,messageModel.body.content);
     return messageModel.cellHeight;
 }
 
 - (void)tableView:(UITableView *)tableView didEndDisplayingCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if ([cell isKindOfClass:[LLMessageBaseCell class]]) {
-        LLMessageBaseCell *baseCell = (LLMessageBaseCell *)cell;
-        [baseCell didEndDisplayingCell];
-    }
+//    if ([cell isKindOfClass:[LLMessageBaseCell class]]) {
+//        LLMessageBaseCell *baseCell = (LLMessageBaseCell *)cell;
+//        [baseCell didEndDisplayingCell];
+//    }
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if ([cell isKindOfClass:[LLMessageBaseCell class]]) {
-        LLMessageBaseCell *baseCell = (LLMessageBaseCell *)cell;
-        [baseCell willDisplayCell];
-    }
+//    if ([cell isKindOfClass:[LLMessageBaseCell class]]) {
+//        LLMessageBaseCell *baseCell = (LLMessageBaseCell *)cell;
+//        [baseCell willDisplayCell];
+//    }
 }
 
 #pragma mark - TableView 相关方法 -
@@ -974,7 +980,7 @@ CSIMReceiveManagerDelegate
                     [weakSelf addToContact:phoneNumber];
                                                         }] ;
 
-    [actionSheet addActions:@[action1, action2]];
+    [actionSheet addActions:@[action1]];
 
     [actionSheet showInWindow:[LLUtils popOverWindow]];
 }
@@ -1700,7 +1706,7 @@ CSIMReceiveManagerDelegate
 - (void)sendTextMessage:(NSString *)text {
     
     CSIMSendMessageRequestModel * model = [CSIMSendMessageRequestModel new];
-    CSMessageModel * msgModel = [CSMessageModel newMessageChatType:CSChatTypeChat chatId:@"3" msgId:[NSDate date].timestamp msgType:CSMessageBodyTypeText action:4 content:text];
+    CSMessageModel * msgModel = [CSMessageModel newMessageChatType:CSChatTypeChat chatId:@"3" msgId:nil msgType:CSMessageBodyTypeText action:4 content:text];
     
     model.body = msgModel;
     

@@ -107,7 +107,8 @@ BOOL LLMessageCell_isEditing = NO;
 }
 
 - (void)prepareForUse:(BOOL)isFromMe {
-    NSString *iconName = isFromMe ? @"icon_avatar" : @"user";
+    NSString *iconName = @"聊天自定义头像.png";
+    //isFromMe ? @"icon_avatar" : @"user";
     self.avatarImage.image = [UIImage imageNamed:iconName];
 
     self.bubbleImage.image = isFromMe ? SenderTextNodeBkg : ReceiverTextNodeBkg;

@@ -10,7 +10,7 @@
 #import "Deferred.h"
 #import "CSMessageModel.h"
 
-#define CSIM_SENDMESSAGE_TIME_OUT 10
+#define CSIM_SENDMESSAGE_TIME_OUT 30
 #define CS_IM_MAX_RESEND_NUMBER 1
 typedef enum {
     IM_Sending = 0,          //发送中
@@ -48,7 +48,12 @@ typedef enum {
 //是否是自己发出 默认是0,自己发出的消息要手动 改成 1
 @property(nonatomic,assign)BOOL isSelf;
 //消息id (客户端自定义字段)
+@property(nonatomic,copy)NSString * msgId;
 @property(nonatomic,copy)NSString * msgCode;
+/**
+ 缓存消息Key
+ */
+@property(nonatomic,copy)NSString * msgCacheKey;
 //成功或失败提示消息
 @property(nonatomic,copy)NSString * msg;
 //发送状态 1000 成功

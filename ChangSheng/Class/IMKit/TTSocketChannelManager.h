@@ -8,6 +8,14 @@
 
 #import <Foundation/Foundation.h>
 #import "TTWebSocketChannel.h"
+
+typedef enum : NSUInteger {
+    CS_IM_Connection_Ststus_Close,
+    CS_IM_Connection_Ststus_Connectioning,
+    CS_IM_Connection_Ststus_Connectioned,
+    CS_IM_Connection_Ststus_Fail,
+} CS_IM_Connection_Ststus;
+
 @interface TTSocketChannelManager : NSObject
 
 @property (nonatomic, strong, readonly) SRWebSocket *webSocket;

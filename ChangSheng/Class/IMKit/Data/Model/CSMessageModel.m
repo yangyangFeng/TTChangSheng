@@ -96,7 +96,7 @@ NSMutableDictionary * tmpImageDict;
                  content:(NSString *)content
 {
     CSMessageModel * messageModel = [[CSMessageModel alloc]initNewMessageChatType:chatType chatId:chatId msgId:msgId msgType:msgType action:action content:content];
-    [messageModel formaterMessage];
+    
     return messageModel;
 }
 
@@ -105,7 +105,15 @@ NSMutableDictionary * tmpImageDict;
     if (self = [super init]) {
         self.chartType = chatType;
         self.chatId = chatId;
-        self.msgId = msgId;
+        if (msgId) {
+            self.msgId = msgId;
+        }
+        else
+        {
+            self.msgId = [NSDate date].timestamp;
+            self.timestamp = self.msgId;
+            self.msgCacheKey = self.msgId;
+        }
         self.msgType = msgType;
         self.action = action;//普通消息
         self.msgType = msgType;
@@ -135,7 +143,7 @@ NSMutableDictionary * tmpImageDict;
 //    
 //        _ext = message.ext;
         _error = nil;
-        
+        [self formaterMessage];
         [self processModelForCell];
     }
     return self;

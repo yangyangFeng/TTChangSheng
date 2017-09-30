@@ -40,6 +40,7 @@
 //        SHOW_ALERT(@"网络连接断开,请检查网络!");
          NSError * error = [NSError errorWithDomain:@"连接失败!" code:201 userInfo:nil];
         [MBProgressHUD tt_Hide];
+        [MBProgressHUD tt_ErrorTitle:@"网络连接断开,请检查网络!"];
         if (failureBlock) {
             failureBlock(error);
         }
