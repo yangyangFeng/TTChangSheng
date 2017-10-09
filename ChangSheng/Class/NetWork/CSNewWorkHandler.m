@@ -223,7 +223,7 @@
 #endif
     /// 如果有一些公共处理，可以写在这里
     //    NSUInteger hashValue = [delegate hash];
-    self.netWorkItem = [[CSNetWorkingRequest alloc] initWithRequestType:networkType url:url paramters:RSA_params success:successBlock failure:failureBlock uploadFileProgress:progressBlock filePath:filePath showHUD:showHUD];
+    self.netWorkItem = [[CSNetWorkingRequest alloc] initWithRequestType:networkType url:all_url paramters:RSA_params success:successBlock failure:failureBlock uploadFileProgress:progressBlock filePath:filePath showHUD:showHUD];
 //                        initWithRequestType:networkType
 //                                                                    url:all_url
 //                                                              paramters:RSA_params
@@ -268,7 +268,7 @@
 #endif
     /// 如果有一些公共处理，可以写在这里
     //    NSUInteger hashValue = [delegate hash];
-    self.netWorkItem = [[CSNetWorkingRequest alloc] initWithRequestType:networkType url:url paramters:RSA_params success:successBlock failure:failureBlock uploadFileProgress:progressBlock fileData:fileData showHUD:showHUD];
+    self.netWorkItem = [[CSNetWorkingRequest alloc] initWithRequestType:networkType url:all_url paramters:RSA_params success:successBlock failure:failureBlock uploadFileProgress:progressBlock fileData:fileData showHUD:showHUD];
     //                        initWithRequestType:networkType
     //                                                                    url:all_url
     //                                                              paramters:RSA_params

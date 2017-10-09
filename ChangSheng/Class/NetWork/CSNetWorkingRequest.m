@@ -842,8 +842,7 @@
         if ([CSUserInfo shareInstance].isOnline) {
             [_manager.requestSerializer setValue:[CSUserInfo shareInstance].info.token forHTTPHeaderField:@"token"];
         }
-        NSMutableDictionary * tempParam = [NSMutableDictionary dictionaryWithDictionary:params];
-        [tempParam setObject:fileData forKey:@"file"];
+        
         [_manager POST:url parameters:params constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
             NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
             // 设置时间格式
