@@ -77,4 +77,9 @@
 {
     return self.ststusBarStyle;
 }
+
+- (UIStatusBarAnimation)preferredStatusBarUpdateAnimation
+{
+    return UIStatusBarAnimationFade;
+}
 @end
