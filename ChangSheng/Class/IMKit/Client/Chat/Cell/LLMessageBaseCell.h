@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "LLMessageModel.h"
+#import "CSMessageModel.h"
 #import "LLMessageCellActionDelegate.h"
 
 //Avatar和SuperView之间的约束
@@ -59,14 +59,14 @@ extern UIImage *SenderImageNodeMask;
     @protected
     UIActivityIndicatorView *_indicatorView;
     UIButton *_statusButton;
-    LLMessageModel *_messageModel;
+    CSMessageModel *_messageModel;
     UIImageView *_selectControl;
     
     UITapGestureRecognizer *tap;
     UILongPressGestureRecognizer *longPressGR;
 }
 
-@property (nonatomic) LLMessageModel *messageModel;
+@property (nonatomic) CSMessageModel *messageModel;
 
 @property (nonatomic) UIImageView *avatarImage;
 
@@ -111,7 +111,7 @@ extern UIImage *SenderImageNodeMask;
 
 - (void)layoutMessageStatusViews:(BOOL)isFromMe;
 
-+ (CGFloat)heightForModel:(LLMessageModel *)model;
++ (CGFloat)heightForModel:(CSMessageModel *)model;
 
 - (CGRect)contentFrameInWindow;
 
@@ -168,7 +168,7 @@ extern UIImage *SenderImageNodeMask;
 
 #pragma mark - 其他
 
-+ (UIImage *)bubbleImageForModel:(LLMessageModel *)model;
++ (UIImage *)bubbleImageForModel:(CSMessageModel *)model;
 
 + (void)setCellEditing:(BOOL)isCellEditing;
 

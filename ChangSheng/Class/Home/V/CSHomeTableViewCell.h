@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface CSHomeTableViewCell : UITableViewCell
+@property (weak, nonatomic) IBOutlet UIImageView *bgImageView;
 
 @end

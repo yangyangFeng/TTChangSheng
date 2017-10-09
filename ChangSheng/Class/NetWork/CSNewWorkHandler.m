@@ -40,6 +40,7 @@
 //        SHOW_ALERT(@"网络连接断开,请检查网络!");
          NSError * error = [NSError errorWithDomain:@"连接失败!" code:201 userInfo:nil];
         [MBProgressHUD tt_Hide];
+        [MBProgressHUD tt_ErrorTitle:@"网络连接断开,请检查网络!"];
         if (failureBlock) {
             failureBlock(error);
         }
@@ -190,6 +191,53 @@
     return self.netWorkItem;
  
 }
+
+/**
+ *  图片,语音上传
+ *
+ */
+- (id)uploadFileHttpRequestType:(TTREQUEST_TYPE)networkType
+                            url:(NSString*)url
+                      paramters:(NSDictionary*)params
+                        success:(TTSuccessBlock)successBlock
+                        failure:(TTFailureBlock)failureBlock
+                 uploadprogress:(TTUploadProgressBlock)progressBlock
+                       filePath:(NSString *)filePath
+                        showHUD:(BOOL)showHUD
+{
+    [CSNewWorkHandler startMonitoring];
+    if (self.networkError == YES) {
+        //        SHOW_ALERT(@"网络连接断开,请检查网络!");
+        NSError * error = [NSError errorWithDomain:@"连接失败!" code:201 userInfo:nil];
+        if (failureBlock) {
+            failureBlock(error);
+        }
+        
+        return nil;
+    }
+    NSDictionary * RSA_params = [self RSADIC:params];
+    
+    NSString * all_url = [NSString stringWithFormat:@"%@/%@",baseUrl,url];
+#if SWITCH_OPEN_LOG
+    NSLog(@"url = %@ \n %@",all_url,RSA_params);
+#endif
+    /// 如果有一些公共处理，可以写在这里
+    //    NSUInteger hashValue = [delegate hash];
+    self.netWorkItem = [[CSNetWorkingRequest alloc] initWithRequestType:networkType url:url paramters:RSA_params success:successBlock failure:failureBlock uploadFileProgress:progressBlock filePath:filePath showHUD:showHUD];
+//                        initWithRequestType:networkType
+//                                                                    url:all_url
+//                                                              paramters:RSA_params
+//                                                                success:successBlock
+//                                                                failure:failureBlock
+//                                                     uploadFileProgress:progressBlock
+//                                                                  image:image
+//                                                                showHUD:showHUD];
+    
+    [self.items addObject:self.netWorkItem];
+    return self.netWorkItem;
+}
+
+
 #pragma makr - 开始监听网络连接
 
 + (void)startMonitoring
@@ -267,7 +315,11 @@
     [new_paramter setObject:rsastring  forKey:@"_sign"];
     [new_paramter setObject:str_10.md5 forKey:@"_token"];
     */
-    return paramter;
+    NSMutableDictionary * new_paramter = [NSMutableDictionary dictionaryWithDictionary:paramter];
+    if ([CSUserInfo shareInstance].isOnline) {
+        [new_paramter setObject:[CSUserInfo shareInstance].info.token forKey:@"token"];
+    }
+    return new_paramter;
 }
 
 @end

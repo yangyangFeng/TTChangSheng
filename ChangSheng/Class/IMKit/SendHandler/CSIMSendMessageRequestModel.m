@@ -19,6 +19,10 @@
     return self;
 }
 
++ (NSDictionary *)mj_replacedKeyFromPropertyName
+{
+    return @{@"body":@"result"};
+}
 - (id)mutableCopyWithZone:(NSZone * )zone
 {
     CSIMSendMessageRequestModel * model = [CSIMSendMessageRequestModel new];
@@ -35,11 +39,19 @@
 
 - (void)syncMsgID:(CSIMSendMessageRequestModel *)message;
 {
-    self.result.msgId = message.result.msgId;
+    self.body.msgId = message.body.msgId;
 }
 
-- (int)msgCode
+- (NSString *)msgId
 {
-    return _result.msgId;
+    return _body.msgId;
+}
+- (NSString *)msgCode
+{
+    return _body.msgId;
+}
+- (NSString *)msgCacheKey
+{
+    return _body.msgCacheKey;
 }
 @end

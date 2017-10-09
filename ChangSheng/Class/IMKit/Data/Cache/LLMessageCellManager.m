@@ -61,22 +61,23 @@ CREATE_SHARED_MANAGER(LLMessageCellManager)
     return _allMessageCells;
 }
 
-- (NSString *)reuseIdentifierForMessegeModel:(LLMessageModel *)model {
-    switch (model.messageBodyType) {
-        case kLLMessageBodyTypeText:
-            return model.fromMe ? @"messageTypeTextMe" : @"messageTypeText";
-        case kLLMessageBodyTypeImage:
-            return model.fromMe ? @"messageTypeImageMe" : @"messageTypeImage";
-        case kLLMessageBodyTypeDateTime:
+- (NSString *)reuseIdentifierForMessegeModel:(CSMessageModel *)model {
+//    switch (CS_changeMessageType(model.msgType)) {
+    switch (model.body.msgType) {
+        case kCSMessageBodyTypeText:
+            return model.isSelf ? @"messageTypeTextMe" : @"messageTypeText";
+        case kCSMessageBodyTypeImage:
+            return model.isSelf ? @"messageTypeImageMe" : @"messageTypeImage";
+        case kCSMessageBodyTypeDateTime:
             return @"messageTypeDateTime";
-        case kLLMessageBodyTypeVoice:
-            return model.fromMe ? @"messageTypeVoiceMe" : @"messageTypeVoice";
-        case kLLMessageBodyTypeGif:
-            return model.fromMe ? @"messageTypeGifMe" : @"messageTypeGif";
-        case kLLMessageBodyTypeLocation:
-            return model.fromMe ? @"messageTypeLocationMe" : @"messageTypeLocation";
-        case kLLMessageBodyTypeVideo:
-            return model.fromMe ? @"messageTypeVideoMe" : @"messageTypeVideo";
+        case kCSMessageBodyTypeVoice:
+            return model.isSelf ? @"messageTypeVoiceMe" : @"messageTypeVoice";
+        case kCSMessageBodyTypeGif:
+            return model.isSelf ? @"messageTypeGifMe" : @"messageTypeGif";
+        case kCSMessageBodyTypeLocation:
+            return model.isSelf ? @"messageTypeLocationMe" : @"messageTypeLocation";
+        case kCSMessageBodyTypeVideo:
+            return model.isSelf ? @"messageTypeVideoMe" : @"messageTypeVideo";
         default:
             break;
     }
@@ -84,21 +85,22 @@ CREATE_SHARED_MANAGER(LLMessageCellManager)
     return @"messageTypeNone";
 }
 
-- (Class)tableViewCellClassForMessegeModel:(LLMessageModel *)model {
-    switch (model.messageBodyType) {
-        case kLLMessageBodyTypeText:
+- (Class)tableViewCellClassForMessegeModel:(CSMessageModel *)model {
+//    switch (model.messageBodyType) {
+    switch (model.body.msgType) {
+        case kCSMessageBodyTypeText:
             return [LLMessageTextCell class];
-        case kLLMessageBodyTypeImage:
+        case kCSMessageBodyTypeImage:
             return [LLMessageImageCell class];
-        case kLLMessageBodyTypeDateTime:
+        case kCSMessageBodyTypeDateTime:
             return [LLMessageDateCell class];
-        case kLLMessageBodyTypeVoice:
+        case kCSMessageBodyTypeVoice:
             return [LLMessageVoiceCell class];
-        case kLLMessageBodyTypeGif:
+        case kCSMessageBodyTypeGif:
             return [LLMessageGifCell class];
-        case kLLMessageBodyTypeLocation:
+        case kCSMessageBodyTypeLocation:
             return [LLMessageLocationCell class];
-        case kLLMessageBodyTypeVideo:
+        case kCSMessageBodyTypeVideo:
             return [LLMessageVideoCell class];
         default:
             return Nil;
@@ -107,54 +109,64 @@ CREATE_SHARED_MANAGER(LLMessageCellManager)
     return Nil;
 }
 
-- (LLMessageBaseCell *)createMessageCellForMessageModel:(LLMessageModel *)messageModel withReuseIdentifier:(NSString *)reuseId {
+- (LLMessageBaseCell *)createMessageCellForMessageModel:(CSMessageModel *)messageModel withReuseIdentifier:(NSString *)reuseId {
     Class cellClass = [self tableViewCellClassForMessegeModel:messageModel];
     LLMessageBaseCell *_cell = [[cellClass alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseId];
     
-    [_cell prepareForUse:messageModel.isFromMe];
+    [_cell prepareForUse:messageModel.isSelf];
     [messageModel setNeedsUpdateForReuse];
     _cell.messageModel = messageModel;
     
     return _cell;
 }
 
-- (LLMessageBaseCell *)messageCellForMessageModel:(LLMessageModel *)messageModel tableView:(UITableView *)tableView {
-    LLMessageBaseCell *_cell = _allMessageCells[messageModel.messageId];
-    if (_cell) {
-        return _cell;
-    }
+- (LLMessageBaseCell *)messageCellForMessageModel:(CSMessageModel *)messageModel tableView:(UITableView *)tableView {
+//    LLMessageBaseCell *_cell = _allMessageCells[messageModel.msgId];
+//    if (_cell) {
+//        return _cell;
+//    }
+//    
+//    LL_MessageCell_Data *data = [self messageCellDataForConversationId:messageModel.msgId];
+//    //有空余名额
+//    if (_allMessageCells.count < MAX_CACHE_CELLS) {
+//        _cell = [self createMessageCellForMessageModel:messageModel withReuseIdentifier:nil];
+//        _allMessageCells[messageModel.msgId] = _cell;
+//        [self addMessageCellToCellData:_cell cellData:data];
+//        
+//        while (_allMessageCells.count == MAX_CACHE_CELLS && self.allMessageCellData.count > 1) {
+//            [self deleteConversation:self.allMessageCellData[0].conversationId];
+//        }
+//    }else {
+//        //缓存最新消息
+//        if (messageModel.timestamp > [data.allMessageCells lastObject].messageModel.timestamp) {
+//            LLMessageBaseCell *firstCell = data.allMessageCells[0];
+//            [_allMessageCells removeObjectForKey:firstCell.messageModel.msgId];
+//            [data.allMessageCells removeObjectAtIndex:0];
+//            
+//            _cell = [self createMessageCellForMessageModel:messageModel withReuseIdentifier:nil];
+//            _allMessageCells[messageModel.msgId] = _cell;
+//            [self addMessageCellToCellData:_cell cellData:data];
+//        //采用TableView重用
+//        }else {
+//            NSString *reuseId = [self reuseIdentifierForMessegeModel:messageModel];
+//            _cell = (LLMessageBaseCell *)[tableView dequeueReusableCellWithIdentifier:reuseId];
+//            if (!_cell) {
+//                _cell = [self createMessageCellForMessageModel:messageModel withReuseIdentifier:reuseId];
+//            }else {
+//                [messageModel setNeedsUpdateForReuse];
+//            }
+//        }
+//        
+//    }
     
-    LL_MessageCell_Data *data = [self messageCellDataForConversationId:messageModel.conversationId];
-    //有空余名额
-    if (_allMessageCells.count < MAX_CACHE_CELLS) {
-        _cell = [self createMessageCellForMessageModel:messageModel withReuseIdentifier:nil];
-        _allMessageCells[messageModel.messageId] = _cell;
-        [self addMessageCellToCellData:_cell cellData:data];
-        
-        while (_allMessageCells.count == MAX_CACHE_CELLS && self.allMessageCellData.count > 1) {
-            [self deleteConversation:self.allMessageCellData[0].conversationId];
-        }
+    LLMessageBaseCell *_cell ;
+    NSString *reuseId = [self reuseIdentifierForMessegeModel:messageModel];
+    _cell = (LLMessageBaseCell *)[tableView dequeueReusableCellWithIdentifier:reuseId];
+    if (!_cell) {
+        _cell = [self createMessageCellForMessageModel:messageModel withReuseIdentifier:reuseId];
     }else {
-        //缓存最新消息
-        if (messageModel.timestamp > [data.allMessageCells lastObject].messageModel.timestamp) {
-            LLMessageBaseCell *firstCell = data.allMessageCells[0];
-            [_allMessageCells removeObjectForKey:firstCell.messageModel.messageId];
-            [data.allMessageCells removeObjectAtIndex:0];
-            
-            _cell = [self createMessageCellForMessageModel:messageModel withReuseIdentifier:nil];
-            _allMessageCells[messageModel.messageId] = _cell;
-            [self addMessageCellToCellData:_cell cellData:data];
-        //采用TableView重用
-        }else {
-            NSString *reuseId = [self reuseIdentifierForMessegeModel:messageModel];
-            _cell = (LLMessageBaseCell *)[tableView dequeueReusableCellWithIdentifier:reuseId];
-            if (!_cell) {
-                _cell = [self createMessageCellForMessageModel:messageModel withReuseIdentifier:reuseId];
-            }else {
-                [messageModel setNeedsUpdateForReuse];
-            }
-        }
-        
+        [messageModel setNeedsUpdateForReuse];
+        _cell.messageModel = messageModel;
     }
     
     return _cell;
@@ -169,7 +181,7 @@ CREATE_SHARED_MANAGER(LLMessageCellManager)
         [data.allMessageCells removeObjectsInRange:range];
         
         for (LLMessageBaseCell *cell in deleteCells) {
-            [_allMessageCells removeObjectForKey:cell.messageModel.messageId];
+            [_allMessageCells removeObjectForKey:cell.messageModel.msgId];
         }
         
     }
@@ -188,41 +200,41 @@ CREATE_SHARED_MANAGER(LLMessageCellManager)
     [_allMessageCellData removeAllObjects];
 }
 
-- (LLMessageBaseCell *)cellForMessageId:(NSString *)messageId {
-    return self.allCells[messageId];
+- (LLMessageBaseCell *)cellForMessageId:(NSString *)msgid {
+    return self.allCells[msgid];
 }
 
-- (LLMessageBaseCell *)removeCellForMessageModel:(LLMessageModel *)messageModel {
-    LL_MessageCell_Data *data = [self messageCellDataForConversationId:messageModel.conversationId];
+- (LLMessageBaseCell *)removeCellForMessageModel:(CSMessageModel *)messageModel {
+    LL_MessageCell_Data *data = [self messageCellDataForConversationId:messageModel.chatId];
     
-    LLMessageBaseCell *cell = self.allCells[messageModel.messageId];
+    LLMessageBaseCell *cell = self.allCells[messageModel.msgId];
     if (cell) {
-        [_allMessageCells removeObjectForKey:messageModel.messageId];
+        [_allMessageCells removeObjectForKey:messageModel.msgId];
         [data.allMessageCells removeObject:cell];
     }
     
     return cell;
 }
 
-- (void)updateMessageModel:(LLMessageModel *)messageModel toMessageId:(NSString *)newMessageId {
-    LLMessageBaseCell *cell = self.allCells[messageModel.messageId];
+- (void)updateMessageModel:(CSMessageModel *)messageModel toMessageId:(NSString *)newMessageId {
+    LLMessageBaseCell *cell = self.allCells[messageModel.msgId];
     if (cell) {
-        [_allMessageCells removeObjectForKey:messageModel.messageId];
+        [_allMessageCells removeObjectForKey:messageModel.msgId];
         _allMessageCells[newMessageId] = cell;
     }
 
 }
 
-- (void)removeCellsForMessageModelsInArray:(NSArray<LLMessageModel *> *)messageModels {
+- (void)removeCellsForMessageModelsInArray:(NSArray<CSMessageModel *> *)messageModels {
     if (messageModels.count == 0)
         return;
     
-    LL_MessageCell_Data *data = [self messageCellDataForConversationId:messageModels[0].conversationId];
+    LL_MessageCell_Data *data = [self messageCellDataForConversationId:messageModels[0].msgId];
     
-    for (LLMessageModel *model in messageModels) {
-        LLMessageBaseCell *cell = self.allCells[model.messageId];
+    for (CSMessageModel *model in messageModels) {
+        LLMessageBaseCell *cell = self.allCells[model.msgId];
         if (cell) {
-            [_allMessageCells removeObjectForKey:model.messageId];
+            [_allMessageCells removeObjectForKey:model.msgId];
             [data.allMessageCells removeObject:cell];
         }
     }
@@ -234,7 +246,7 @@ CREATE_SHARED_MANAGER(LLMessageCellManager)
     NSMutableArray<NSString *> *keys = [NSMutableArray array];
     for (NSString *key in self.allCells) {
         LLMessageBaseCell *cell = self.allCells[key];
-        if ([cell.messageModel.conversationId isEqualToString:conversationId]) {
+        if ([cell.messageModel.chatId isEqualToString:conversationId]) {
             [keys addObject:key];
         }
     }
@@ -265,7 +277,7 @@ CREATE_SHARED_MANAGER(LLMessageCellManager)
 }
 
 - (void)addMessageCellToCellData:(LLMessageBaseCell *)cell cellData:(LL_MessageCell_Data *)data {
-    if (![cell.messageModel.conversationId isEqualToString:data.conversationId]) {
+    if (![cell.messageModel.chatId isEqualToString:data.conversationId]) {
         return;
     }
     

@@ -36,6 +36,7 @@ typedef NS_ENUM(NSInteger, TTREQUEST_TYPE) {
     GET_TTREQUEST_TYPE,
     POST_TTREQUEST_TYPE,
     UpLoad_Image,
+    UpLoad_Voice,
     UpLoad_Video,
 };
 

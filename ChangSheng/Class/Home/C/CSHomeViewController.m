@@ -9,53 +9,79 @@
 #import "CSHomeViewController.h"
 
 #import "CSHomeTableViewHandler.h"
-@interface CSHomeViewController ()
+#import "LLChatViewController.h"
+#import "StoryBoardController.h"
+#import "CSMsgHistoryRequestModel.h"
+#import "TTSingleChatViewController.h"
+@interface CSHomeViewController ()<TTBaseTableViewHandlerDelegate>
 @property (nonatomic,strong) CSHomeTableViewHandler *tableHandler;
 @end
 
 @implementation CSHomeViewController
 
-//- (void)loadView
-//{
-//    UITableView * tableView = [[UITableView alloc]initWithFrame:self.view.bounds style:(UITableViewStylePlain)];
-//    self.view = tableView;
-//}
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self.navigationController performSelector:@selector(whiteStatusBar)];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [self.navigationController performSelector:@selector(blackStatusBar)];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self tt_SetNaviBarHide:YES withAnimation:NO];
-    
+    [self tt_Title:@"长圣"];
+//    [self tt_SetNaviBarHide:YES withAnimation:NO];
+    self.edgesForExtendedLayout = UIRectEdgeNone;
+
+
+    self.tt_navigationBar.contentView.backgroundColor = [UIColor blackColor];
     [self createSubviews];
-    // Do any additional setup after loading the view.
+    
+    
 }
 
 - (void)createSubviews
 {
     UITableView * tableView = [[UITableView alloc]initWithFrame:CGRectZero style:(UITableViewStylePlain)];
-    tableView.backgroundColor = [UIColor blackColor];
-    _tableHandler = [[CSHomeTableViewHandler alloc]initWithTableView:tableView];
+//    tableView.backgroundColor = [UIColor blackColor];
+    tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    UIImageView * bg_view = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"主页背景"]];
+    tableView.backgroundView = bg_view;
     
+    _tableHandler = [[CSHomeTableViewHandler alloc]initWithTableView:tableView];
+    _tableHandler.delegate = self;
     [self.view addSubview:tableView];
     
     [tableView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.mas_equalTo(0);
+//        make.edges.mas_equalTo(0);
+        make.left.right.bottom.mas_equalTo(0);
+        make.top.mas_equalTo(self.myNavigationBar.mas_bottom).offset(0);
     }];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UIViewController * chatC = [StoryBoardController storyBoardName:@"Main" ViewControllerIdentifiter:@"LLChatViewController"];
+ 
+    [self.navigationController pushViewController:chatC animated:YES];
+    CSMsgHistoryRequestModel * param = [CSMsgHistoryRequestModel new];
+    param.chat_type = 2;
+    param.ID = 3;
+    
+//    TTSingleChatViewController * vc = [TTSingleChatViewController new];
+//    [self.navigationController pushViewController:vc animated:YES];
+    
+    [CSHttpRequestManager request_chatRecord_paramters:param.mj_keyValues success:^(id responseObject) {
+        
+    } failure:^(NSError *error) {
+        
+    } showHUD:YES];
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

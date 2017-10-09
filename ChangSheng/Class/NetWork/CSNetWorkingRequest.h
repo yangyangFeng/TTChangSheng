@@ -32,4 +32,13 @@
                   showHUD:(BOOL)showHUD
                   timeOut:(NSInteger)time;
 
+- (id)initWithRequestType:(TTREQUEST_TYPE)networkType
+                      url:(NSString*)url
+                paramters:(NSDictionary*)params
+                  success:(TTSuccessBlock)successBlock
+                  failure:(TTFailureBlock)failureBlock
+       uploadFileProgress:(void(^)(NSProgress *uploadProgress))uploadFileProgress
+                    filePath:(NSString *)filePath
+                  showHUD:(BOOL)showHUD;
+
 @end

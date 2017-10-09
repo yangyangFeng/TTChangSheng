@@ -101,12 +101,14 @@ static CGFloat preferredMaxTextWidth;
     return self;
 }
 
-- (void)setMessageModel:(LLMessageModel *)messageModel {
+- (void)setMessageModel:(CSMessageModel *)messageModel {
     BOOL needUpdateText = [messageModel checkNeedsUpdateForReuse];
     [super setMessageModel:messageModel];
     
     if (needUpdateText) {
-        self.contentLabel.attributedText = messageModel.attributedText;
+//        self.contentLabel.attributedText = messageModel.attributedText;
+        self.contentLabel.attributedText = [LLSimpleTextLabel createAttributedStringWithEmotionString:messageModel.body.content font:[LLMessageTextCell font] lineSpacing:0];
+        //messageModel.attributedText;
     }
 }
 
@@ -168,7 +170,7 @@ static CGFloat preferredMaxTextWidth;
 }
 
 
-+ (CGFloat)heightForModel:(LLMessageModel *)model {
++ (CGFloat)heightForModel:(CSMessageModel *)model {
     CGSize size = [self sizeForLabel:model.attributedText];
     
     CGFloat bubbleHeight = size.height + LABEL_BUBBLE_TOP + LABEL_BUBBLE_BOTTOM;
@@ -251,15 +253,17 @@ static CGFloat preferredMaxTextWidth;
 #pragma mark - 弹出菜单
 
 - (NSArray<NSString *> *)menuItemNames {
-    return @[@"复制", @"转发", @"收藏", @"翻译", @"删除", @"更多..."];
+    return @[@"复制"];
+    //    return @[@"复制", @"转发", @"收藏", @"翻译", @"删除", @"更多..."];
 }
 
 - (NSArray<NSString *> *)menuItemActionNames {
-    return @[@"copyAction:", @"transforAction:", @"favoriteAction:", @"translateAction:",@"deleteAction:", @"moreAction:"];
+    return @[@"copyAction:"];
+    //    return @[@"copyAction:", @"transforAction:", @"favoriteAction:", @"translateAction:",@"deleteAction:", @"moreAction:"];
 }
 
 - (void)copyAction:(id)sender {
-    [LLUtils copyToPasteboard:self.messageModel.text];
+    [LLUtils copyToPasteboard:self.messageModel.body.content];
 }
 
 - (void)transforAction:(id)sender {

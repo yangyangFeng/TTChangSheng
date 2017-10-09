@@ -16,7 +16,7 @@
     BOOL shouldComplete = NO;
     
     @synchronized (_stateLock) {
-        if (_state == Incomplete | _state == Next) {
+        if (_state == Incomplete) {
             _state = state;
             
             shouldComplete = YES;

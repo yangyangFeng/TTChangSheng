@@ -64,6 +64,25 @@
     [[CSNewWorkHandler sharedInstance] beginHttpRequestType:POST_TTREQUEST_TYPE url:url paramters:params success:successBlock failure:failureBlock showHUD:showHUD];
 }
 
+
++ (void)upLoadFileRequestWithUrl:(NSString*)url
+                       paramters:(NSDictionary*)params
+                        filePath:(NSString*)filePath
+                        fileType:(CS_UPLOAD_FILE)fileType
+                         success:(TTSuccessBlock)successBlock
+                         failure:(TTFailureBlock)failureBlock
+                  uploadprogress:(TTUploadProgressBlock)progressBlock
+                         showHUD:(BOOL)showHUD
+{
+    [[CSNewWorkHandler sharedInstance] uploadFileHttpRequestType:(TTREQUEST_TYPE)fileType
+                                                             url:url
+                                                       paramters:params
+                                                         success:successBlock
+                                                         failure:failureBlock
+                                                  uploadprogress:progressBlock
+                                                        filePath:filePath
+                                                         showHUD:showHUD];
+}
 #pragma mark - 1.获取验证码
 + (void)request_verification_paramters:(NSDictionary *)params success:(TTSuccessBlock)success failure:(TTFailureBlock)failure showHUD:(BOOL)showHUD
 {

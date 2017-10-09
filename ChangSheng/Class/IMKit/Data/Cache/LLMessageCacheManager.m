@@ -13,7 +13,7 @@
 #import "LLMessageCellManager.h"
 #import "LLMessageModelManager.h"
 #import "LLConversationModelManager.h"
-
+#import "CSIMConversationModel.h"
 @interface LLMessageCacheManager ()
 
 @end
@@ -49,16 +49,16 @@ CREATE_SHARED_MANAGER(LLMessageCacheManager)
     [[LLMessageThumbnailManager sharedManager] deleteConversation:conversationId];
 }
 
-- (void)prepareCacheWhenConversationBegin:(LLConversationModel *)conversationModel {
-    [[LLMessageThumbnailManager sharedManager] prepareCacheWhenConversationBegin:conversationModel.conversationId];
-    [[LLMessageCellManager sharedManager] prepareCacheWhenConversationBegin:conversationModel.conversationId];
+- (void)prepareCacheWhenConversationBegin:(CSIMConversationModel *)conversationModel {
+    [[LLMessageThumbnailManager sharedManager] prepareCacheWhenConversationBegin:conversationModel.chatId];
+    [[LLMessageCellManager sharedManager] prepareCacheWhenConversationBegin:conversationModel.chatId];
     
     [LLConversationModelManager sharedManager].currentActiveConversationModel = conversationModel;
 }
 
-- (void)cleanCacheWhenConversationExit:(LLConversationModel *)conversationModel {
-    [[LLMessageCellManager sharedManager] cleanCacheWhenConversationExit:conversationModel.conversationId];
-    [[LLMessageThumbnailManager sharedManager] cleanCacheWhenConversationExit:conversationModel.conversationId];
+- (void)cleanCacheWhenConversationExit:(CSIMConversationModel *)conversationModel {
+    [[LLMessageCellManager sharedManager] cleanCacheWhenConversationExit:conversationModel.chatId];
+    [[LLMessageThumbnailManager sharedManager] cleanCacheWhenConversationExit:conversationModel.chatId];
     
     [LLConversationModelManager sharedManager].currentActiveConversationModel = nil;
 }

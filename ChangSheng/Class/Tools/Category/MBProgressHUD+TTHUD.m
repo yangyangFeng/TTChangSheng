@@ -23,8 +23,9 @@ static BOOL _isShow;
 {
 
     hud.animationType = MBProgressHUDAnimationFade;
-    shareHUD = hud;
+    hud.backgroundView.style = MBProgressHUDBackgroundStyleSolidColor;
     
+    shareHUD = hud;
     return hud;
 }
 + (MBProgressHUD *)tt_progressShowInView:(UIView *)view
@@ -33,7 +34,7 @@ static BOOL _isShow;
 
     [hud showAnimated:YES];
     hud.isShow = YES;
-    
+    shareHUD = hud;
     return hud;
 }
 
@@ -42,16 +43,18 @@ static BOOL _isShow;
     UIWindow* keyWindow = [UIApplication sharedApplication].keyWindow;
     MBProgressHUD* hud = [MBProgressHUD showHUDAddedTo:keyWindow animated:YES];
     hud.mode = MBProgressHUDModeIndeterminate;
+    hud.backgroundView.style = MBProgressHUDBackgroundStyleSolidColor;
     hud.label.text = defaultTitle;
     [hud showAnimated:YES];
     hud.isShow = YES;
+    shareHUD = hud;
 }
 
 + (void)tt_ShowWithTitle:(NSString*)title
 {
     UIWindow* keyWindow = [UIApplication sharedApplication].keyWindow;
     MBProgressHUD* hud = [MBProgressHUD HUDForView:keyWindow];
-    //    hud = [self initTTHUD:hud];
+    
     hud.mode = MBProgressHUDModeText;
     hud.label.text = title;
     [hud showAnimated:YES];
@@ -121,10 +124,9 @@ static BOOL _isShow;
 
 + (void)tt_HideFromeView:(UIView*)view after:(CGFloat)time
 {
-//    shareHUD.isShow = NO;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(time * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        
         [self tt_HideFromeView:view];
-//        [imageview stopAnimating];
     });
 }
 
@@ -135,55 +137,36 @@ static BOOL _isShow;
 //    [imageview stopAnimating];
 }
 
++ (MBProgressHUD *)showTextInView:(UIView *)view
+{
+    MBProgressHUD * hud = [MBProgressHUD showHUDAddedTo:view animated:YES];
+    hud.animationType = MBProgressHUDAnimationFade;
+    hud.backgroundView.style = MBProgressHUDBackgroundStyleSolidColor;
+    hud.mode = MBProgressHUDModeText;
+    shareHUD = hud;
+    return hud;
+}
+
 + (void)tt_ErrorTitle:(NSString*)title
 {
-    
+    [shareHUD hideAnimated:YES];
     UIWindow* view = [UIApplication sharedApplication].keyWindow;
     
     [self tt_ErrorInView:view WithTitle:title];
-    return;
-  
-    if (shareHUD.isShow) {
-        shareHUD.label.text = title;
-        shareHUD.isShow = NO;
-        shareHUD.mode = MBProgressHUDModeText;
-        [shareHUD hideAnimated:YES afterDelay:1];
-    }
-    else {
-        
-        UIWindow* view = [UIApplication sharedApplication].keyWindow;
-        
-        [self tt_ErrorInView:view WithTitle:title];
-    }
-   
-    
-    //shareHUD.mode = mode;
 }
 
 + (void)tt_SuccessTitle:(NSString*)title
 {
-    if (shareHUD.isShow) {
-        shareHUD.label.text = title;
-        shareHUD.isShow = NO;
-        shareHUD.mode = MBProgressHUDModeText;
-        [shareHUD hideAnimated:YES afterDelay:.5];
-    }
-    else {
-        UIWindow* view = [UIApplication sharedApplication].keyWindow;
-        [self tt_SuccessInView:view WithTitle:title];
-    }
-    
+    [self tt_ErrorTitle:title];
 }
 
 + (void)tt_ErrorInView:(UIView*)view WithTitle:(NSString*)title
 {    
-    MBProgressHUD* hud = [self getCurrentHUDView:view];
-    hud.mode = MBProgressHUDModeText;
+    MBProgressHUD * hud = [MBProgressHUD showTextInView:view];
     hud.label.text = title;
     [hud showAnimated:YES];
     hud.isShow = YES;
     [self tt_HideFromeView:view after:DISMISSTIME];
-    
 }
 
 + (void)tt_SuccessInView:(UIView*)view WithTitle:(NSString*)title
@@ -211,6 +194,7 @@ static BOOL _isShow;
     else {
        
     }
+    shareHUD = hud;
     return hud;
 }
 
@@ -229,6 +213,7 @@ static BOOL _isShow;
     else {
         
     }
+    shareHUD = hud;
     return hud;
 }
 

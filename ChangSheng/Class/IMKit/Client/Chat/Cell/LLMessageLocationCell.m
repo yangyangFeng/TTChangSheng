@@ -99,7 +99,7 @@
     self.borderView.image = isFromMe ? SenderImageNodeBorder : ReceiverImageNodeBorder;
 }
 
-- (void)setMessageModel:(LLMessageModel *)messageModel {
+- (void)setMessageModel:(CSMessageModel *)messageModel {
     if ([messageModel checkNeedsUpdateForReuse]) {
         if ([messageModel.address isEqualToString:LOCATION_EMPTY_ADDRESS]) {
             self.topLabel.text = messageModel.address;
@@ -276,7 +276,7 @@
 }
 
 
-+ (CGFloat)heightForModel:(LLMessageModel *)model {
++ (CGFloat)heightForModel:(CSMessageModel *)model {
     if ([model.address isEqualToString:LOCATION_EMPTY_ADDRESS]
         || [model.address isEqualToString:LOCATION_UNKNOWE_ADDRESS]) {
         return LOCATION_TOP_HEIGHT_Small + LOCATION_BOTTOM_HEIGHT + CONTENT_SUPER_BOTTOM;

@@ -12,6 +12,7 @@
 #import "StoryBoardController.h"
 #import "TTNavigationController.h"
 #import "IQKeyboardManager.h"
+#import "CSMessageModel.h"
 @interface AppDelegate ()
 
 @end
@@ -37,7 +38,10 @@
     [IQKeyboardManager sharedManager].shouldToolbarUsesTextFieldTintColor = NO;
     [IQKeyboardManager sharedManager].toolbarTintColor = [UIColor brownColor];
     [IQKeyboardManager sharedManager].shouldResignOnTouchOutside = YES;
+    IQKManager.enableAutoToolbar = NO; // 控制是否显示键盘上的工具条
     IQKManager.toolbarTintColor = [UIColor greenColor];
+//    CSMessageModel * as = [CSMessageModel new];
+//    NSLog(@"%@",as.mj_JSONString);
     return YES;
 }
 

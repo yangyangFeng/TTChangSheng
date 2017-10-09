@@ -19,7 +19,8 @@
     if(cell==nil){
         
         cell= [CSHomeTableViewCell viewFromXIB];
-        
+        cell.layer.masksToBounds = YES;
+        cell.layer.cornerRadius = 8.0;
     }
     
     return cell;
@@ -27,7 +28,9 @@
 
 -(void)setFrame:(CGRect)frame
 {
-    [super setFrame:CGRectMake(frame.origin.x + 8, frame.origin.y + 8, frame.size.width - 8*2, frame.size.height - 8*2)];
+    int width = 30;
+    int height = 20;
+    [super setFrame:CGRectMake(frame.origin.x + width, frame.origin.y + height, frame.size.width - width*2, frame.size.height - height)];
 }
 
 - (void)awakeFromNib {

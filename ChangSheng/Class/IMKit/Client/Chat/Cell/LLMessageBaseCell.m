@@ -107,7 +107,8 @@ BOOL LLMessageCell_isEditing = NO;
 }
 
 - (void)prepareForUse:(BOOL)isFromMe {
-    NSString *iconName = isFromMe ? @"icon_avatar" : @"user";
+    NSString *iconName = @"聊天自定义头像.png";
+    //isFromMe ? @"icon_avatar" : @"user";
     self.avatarImage.image = [UIImage imageNamed:iconName];
 
     self.bubbleImage.image = isFromMe ? SenderTextNodeBkg : ReceiverTextNodeBkg;
@@ -189,7 +190,7 @@ BOOL LLMessageCell_isEditing = NO;
 
 }
 
-- (void)setMessageModel:(LLMessageModel *)messageModel {
+- (void)setMessageModel:(CSMessageModel *)messageModel {
     _messageModel = messageModel;
     self.isCellSelected = messageModel.isSelected;
     
@@ -266,11 +267,11 @@ BOOL LLMessageCell_isEditing = NO;
 }
 
 
-+ (UIImage *)bubbleImageForModel:(LLMessageModel *)model {
++ (UIImage *)bubbleImageForModel:(CSMessageModel *)model {
     return model.isFromMe ? SenderTextNodeBkg : ReceiverTextNodeBkg;
 }
 
-+ (CGFloat)heightForModel:(LLMessageModel *)model {
++ (CGFloat)heightForModel:(CSMessageModel *)model {
     return 68;
 }
 

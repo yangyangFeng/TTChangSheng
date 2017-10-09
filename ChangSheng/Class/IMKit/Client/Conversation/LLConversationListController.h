@@ -1,16 +1,16 @@
+////
+////  LLConversationListController.h
+////  LLWeChat
+////
+////  Created by GYJZH on 7/19/16.
+////  Copyright © 2016 GYJZH. All rights reserved.
+////
 //
-//  LLConversationListController.h
-//  LLWeChat
+//#import <UIKit/UIKit.h>
+//#import "LLViewController.h"
 //
-//  Created by GYJZH on 7/19/16.
-//  Copyright © 2016 GYJZH. All rights reserved.
+//@interface LLConversationListController : LLViewController
 //
-
-#import <UIKit/UIKit.h>
-#import "LLViewController.h"
-
-@interface LLConversationListController : LLViewController
-
-@property (nonatomic) BOOL needsRefresh;
-
-@end
+//@property (nonatomic) BOOL needsRefresh;
+//
+//@end

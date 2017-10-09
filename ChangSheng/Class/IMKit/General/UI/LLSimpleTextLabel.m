@@ -307,6 +307,7 @@
 
 + (NSMutableAttributedString *)createAttributedStringWithEmotionString:(NSString *)emotionString font:(UIFont *)font lineSpacing:(NSInteger)lineSpacing {
     //解析Emotion字符串为NSTextAttachment
+    [[LLEmotionModelManager sharedManager] prepareEmotionModel];
     NSMutableAttributedString *attributedString =
         [[LLEmotionModelManager sharedManager]
             convertTextEmotionToAttachment:emotionString

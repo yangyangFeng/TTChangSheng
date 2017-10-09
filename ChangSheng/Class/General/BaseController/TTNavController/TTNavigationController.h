@@ -15,4 +15,7 @@
 // 是否可右滑返回
 - (void)navigationCanDragBack:(BOOL)dragBack;
 
+- (void)whiteStatusBar;
+
+- (void)blackStatusBar;
 @end
