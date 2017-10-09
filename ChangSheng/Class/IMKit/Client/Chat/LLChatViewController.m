@@ -1905,7 +1905,7 @@ CSIMReceiveManagerDelegate
             [LLTipView hideTipView:_voiceIndicatorView];
         return;
     }
-
+    CSMessageModel
     LLMessageModel *messageModel = [[LLMessageModel alloc] initWithType:kLLMessageBodyTypeRecording];
     
     [self addModelToDataSourceAndScrollToBottom:messageModel animated:YES];
