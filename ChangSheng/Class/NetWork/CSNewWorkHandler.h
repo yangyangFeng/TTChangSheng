@@ -90,6 +90,20 @@
             uploadprogress:(TTUploadProgressBlock)progressBlock
                      image:(NSData *)image
                    showHUD:(BOOL)showHUD;
+
+/**
+ *  图片,语音上传
+ *
+ */
+- (id)uploadFileHttpRequestType:(TTREQUEST_TYPE)networkType
+                        url:(NSString*)url
+                  paramters:(NSDictionary*)params
+                    success:(TTSuccessBlock)successBlock
+                    failure:(TTFailureBlock)failureBlock
+             uploadprogress:(TTUploadProgressBlock)progressBlock
+                      filePath:(NSString *)filePath
+                    showHUD:(BOOL)showHUD;
+
 /**
  *   监听网络状态的变化
  */
