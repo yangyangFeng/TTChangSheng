@@ -13,6 +13,9 @@
 #import "StoryBoardController.h"
 #import "CSMsgHistoryRequestModel.h"
 #import "TTSingleChatViewController.h"
+#import "CSMineViewController.h"
+#import "CSNumberKeyboardView.h"
+#import "CSBetInputView.h"
 @interface CSHomeViewController ()<TTBaseTableViewHandlerDelegate>
 @property (nonatomic,strong) CSHomeTableViewHandler *tableHandler;
 @end
@@ -42,7 +45,21 @@
     self.tt_navigationBar.contentView.backgroundColor = [UIColor blackColor];
     [self createSubviews];
     
-    
+//    CSBetInputView * topView = [CSBetInputView viewFromXIB];
+//    CSNumberKeyboardView * keyboardView = [CSNumberKeyboardView new];
+//    
+//    [self.view addSubview:keyboardView];
+//    [self.view addSubview:topView];
+//    
+//    [keyboardView mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.left.right.bottom.mas_equalTo(0);
+//        make.height.mas_equalTo(45*4);
+//    }];
+//    [topView mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.left.right.mas_equalTo(0);
+//        make.bottom.mas_equalTo(keyboardView.mas_top).offset(0);
+//        make.height.mas_equalTo(35+44*2);
+//    }];
 }
 
 - (void)createSubviews
@@ -62,6 +79,18 @@
         make.left.right.bottom.mas_equalTo(0);
         make.top.mas_equalTo(self.myNavigationBar.mas_bottom).offset(0);
     }];
+    
+    UIButton * userCenterBtn = self.tt_navigationBar.rightBtn;
+    [userCenterBtn setHidden:NO];
+    [userCenterBtn setImage:[UIImage imageNamed:@"个人中心"] forState:(UIControlStateNormal)];
+    [userCenterBtn setImageEdgeInsets:UIEdgeInsetsMake(0, -20, 0, 0)];
+}
+
+- (void)tt_DefaultRightBtnClickAction
+{
+    DLog(@"跳转个人中心,我没做");
+    CSMineViewController * mineC = [CSMineViewController new];
+    [self.navigationController pushViewController:mineC animated:YES];
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

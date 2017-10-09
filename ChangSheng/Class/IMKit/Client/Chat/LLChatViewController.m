@@ -1340,7 +1340,7 @@ CSIMReceiveManagerDelegate
     }
     
 }
-
+#pragma mark - 打开自定义相册
 - (void)presentImagePickerController {
     LLImagePickerController *vc = [[LLImagePickerController alloc] init];
     vc.pickerDelegate = self;
@@ -1404,13 +1404,14 @@ CSIMReceiveManagerDelegate
     
 #elif TARGET_OS_IPHONE
     self.imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
-    self.imagePicker.mediaTypes = @[(NSString *)kUTTypeImage,(NSString *)kUTTypeMovie];
-    self.imagePicker.videoMaximumDuration = MAX_VIDEO_DURATION_FOR_CHAT;
+    //    self.imagePicker.mediaTypes = @[(NSString *)kUTTypeImage,(NSString *)kUTTypeMovie];
+    //    self.imagePicker.videoMaximumDuration = MAX_VIDEO_DURATION_FOR_CHAT;
+    self.imagePicker.mediaTypes = @[(NSString *)kUTTypeImage];
     [self presentViewController:self.imagePicker animated:YES completion:NULL];
 #endif
     
 }
-
+//拍摄照片
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
     
     NSString *mediaType = info[UIImagePickerControllerMediaType];
@@ -1439,6 +1440,7 @@ CSIMReceiveManagerDelegate
             [self addModelToDataSourceAndScrollToBottom:messageModel animated:NO];
         
         [picker dismissViewControllerAnimated:YES completion:nil];
+//#FIXME:发送拍摄照片正在处理
     }
     
 }
@@ -1908,10 +1910,12 @@ CSIMReceiveManagerDelegate
         return;
     }
 
+
     CSMessageModel *messageModel = [[CSMessageModel alloc] initWithType:kCSMessageBodyTypeRecording];
     CSIMSendMessageRequestModel * model = [CSIMSendMessageRequestModel new];
     model.body = messageModel;
     [self addModelToDataSourceAndScrollToBottom:model animated:YES];
+
 }
 
 - (void)audioRecordDidUpdateVoiceMeter:(double)averagePower {
@@ -2018,7 +2022,14 @@ CSIMReceiveManagerDelegate
     
 //    LLChatType chatType = chatTypeForConversationType(self.conversationModel.conversationType);
 //#FIXME: 待处理
-
+    [CSHttpRequestManager upLoadFileRequestParamters:nil filePath:voiceFilePath fileType:CS_UPLOAD_FILE_VOICE success:^(id responseObject) {
+        
+    } failure:^(NSError *error) {
+        
+    } uploadprogress:^(NSProgress *uploadProgress) {
+        NSLog(@"上传进度->%@",uploadProgress);
+    } showHUD:YES];
+    return;
     CSIMSendMessageRequestModel * model = [CSIMSendMessageRequestModel new];
     CSMessageModel * msgModel = [[CSMessageModel alloc] sendVoiceMessageWithLocalPath:voiceFilePath duration:duration to:@"3" messageType:CSChatTypeChat msgType:kCSMessageBodyTypeVoice messageExt:nil completion:nil];
 //                                 sendVoiceMessageWithLocalPath:voiceFilePath duration:duration to:@"3" messageType:kLLChatTypeChat messageExt:nil completion:nil];

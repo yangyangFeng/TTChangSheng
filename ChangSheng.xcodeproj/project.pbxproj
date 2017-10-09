@@ -245,6 +245,8 @@
 		187773D41F7D30FD00A98B7C /* CSIMConversationModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 187773D31F7D30FD00A98B7C /* CSIMConversationModel.m */; };
 		18B6C60B1F8A550A007B1669 /* libmp3lame.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 18B6C6081F8A550A007B1669 /* libmp3lame.a */; };
 		18B6C60C1F8A550A007B1669 /* Mp3Recorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B6C60A1F8A550A007B1669 /* Mp3Recorder.m */; };
+		18B6C60F1F8BBF16007B1669 /* CSUploadFileParam.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B6C60E1F8BBF16007B1669 /* CSUploadFileParam.m */; };
+		18B6C6121F8BBF61007B1669 /* CSUploadFileModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B6C6111F8BBF61007B1669 /* CSUploadFileModel.m */; };
 		18C81F421F74B8E00012150B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C81F411F74B8E00012150B /* main.m */; };
 		18C81F451F74B8E00012150B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C81F441F74B8E00012150B /* AppDelegate.m */; };
 		18C81F501F74B8E00012150B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18C81F4E1F74B8E00012150B /* LaunchScreen.storyboard */; };
@@ -317,6 +319,17 @@
 		747D5C251F7DF73C00F40A41 /* TTSingleChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 747D5C241F7DF73C00F40A41 /* TTSingleChatViewController.m */; };
 		747D5C281F7DF75000F40A41 /* TTChatInputToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 747D5C271F7DF75000F40A41 /* TTChatInputToolBar.m */; };
 		747D5C2A1F7F6A2A00F40A41 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 747D5C291F7F6A2A00F40A41 /* Assets.xcassets */; };
+		74C852CC1F8B4F8200944C50 /* CSBetInputView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 74C852CB1F8B4F8200944C50 /* CSBetInputView.xib */; };
+		74C852CF1F8B520B00944C50 /* CSCustomBetButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 74C852CE1F8B520B00944C50 /* CSCustomBetButton.m */; };
+		74C852D11F8B579C00944C50 /* CSNumberKeyboardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 74C852D01F8B579C00944C50 /* CSNumberKeyboardView.xib */; };
+		74C852D41F8B57E100944C50 /* CSCustomNumberButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 74C852D31F8B57E100944C50 /* CSCustomNumberButton.m */; };
+		74C852D71F8B587500944C50 /* CSNumberKeyboardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 74C852D61F8B587500944C50 /* CSNumberKeyboardView.m */; };
+		74C852DA1F8B5F7B00944C50 /* CSBetInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = 74C852D91F8B5F7B00944C50 /* CSBetInputView.m */; };
+		74C852DE1F8B764F00944C50 /* JSWave.m in Sources */ = {isa = PBXBuildFile; fileRef = 74C852DD1F8B764F00944C50 /* JSWave.m */; };
+		74C852E11F8B769100944C50 /* CSMineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 74C852E01F8B769100944C50 /* CSMineViewController.m */; };
+		74C852E51F8B7DCB00944C50 /* CSMineTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 74C852E31F8B7DCB00944C50 /* CSMineTableViewCell.m */; };
+		74C852E61F8B7DCB00944C50 /* CSMineTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 74C852E41F8B7DCB00944C50 /* CSMineTableViewCell.xib */; };
+		74C852E81F8B800700944C50 /* CSMineItem.plist in Resources */ = {isa = PBXBuildFile; fileRef = 74C852E71F8B800700944C50 /* CSMineItem.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -807,6 +820,10 @@
 		18B6C6081F8A550A007B1669 /* libmp3lame.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libmp3lame.a; sourceTree = "<group>"; };
 		18B6C6091F8A550A007B1669 /* Mp3Recorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Mp3Recorder.h; sourceTree = "<group>"; };
 		18B6C60A1F8A550A007B1669 /* Mp3Recorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Mp3Recorder.m; sourceTree = "<group>"; };
+		18B6C60D1F8BBF16007B1669 /* CSUploadFileParam.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSUploadFileParam.h; sourceTree = "<group>"; };
+		18B6C60E1F8BBF16007B1669 /* CSUploadFileParam.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSUploadFileParam.m; sourceTree = "<group>"; };
+		18B6C6101F8BBF61007B1669 /* CSUploadFileModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSUploadFileModel.h; sourceTree = "<group>"; };
+		18B6C6111F8BBF61007B1669 /* CSUploadFileModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSUploadFileModel.m; sourceTree = "<group>"; };
 		18C81F3D1F74B8E00012150B /* ChangSheng.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChangSheng.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		18C81F411F74B8E00012150B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		18C81F431F74B8E00012150B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -953,6 +970,24 @@
 		747D5C261F7DF75000F40A41 /* TTChatInputToolBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTChatInputToolBar.h; sourceTree = "<group>"; };
 		747D5C271F7DF75000F40A41 /* TTChatInputToolBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTChatInputToolBar.m; sourceTree = "<group>"; };
 		747D5C291F7F6A2A00F40A41 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		74C852CB1F8B4F8200944C50 /* CSBetInputView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CSBetInputView.xib; sourceTree = "<group>"; };
+		74C852CD1F8B520B00944C50 /* CSCustomBetButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSCustomBetButton.h; sourceTree = "<group>"; };
+		74C852CE1F8B520B00944C50 /* CSCustomBetButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSCustomBetButton.m; sourceTree = "<group>"; };
+		74C852D01F8B579C00944C50 /* CSNumberKeyboardView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CSNumberKeyboardView.xib; sourceTree = "<group>"; };
+		74C852D21F8B57E100944C50 /* CSCustomNumberButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSCustomNumberButton.h; sourceTree = "<group>"; };
+		74C852D31F8B57E100944C50 /* CSCustomNumberButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSCustomNumberButton.m; sourceTree = "<group>"; };
+		74C852D51F8B587500944C50 /* CSNumberKeyboardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSNumberKeyboardView.h; sourceTree = "<group>"; };
+		74C852D61F8B587500944C50 /* CSNumberKeyboardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSNumberKeyboardView.m; sourceTree = "<group>"; };
+		74C852D81F8B5F7B00944C50 /* CSBetInputView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSBetInputView.h; sourceTree = "<group>"; };
+		74C852D91F8B5F7B00944C50 /* CSBetInputView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSBetInputView.m; sourceTree = "<group>"; };
+		74C852DC1F8B764F00944C50 /* JSWave.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSWave.h; sourceTree = "<group>"; };
+		74C852DD1F8B764F00944C50 /* JSWave.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSWave.m; sourceTree = "<group>"; };
+		74C852DF1F8B769100944C50 /* CSMineViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CSMineViewController.h; path = ChangSheng/Class/General/JSWave/CSMineViewController.h; sourceTree = SOURCE_ROOT; };
+		74C852E01F8B769100944C50 /* CSMineViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CSMineViewController.m; path = ChangSheng/Class/General/JSWave/CSMineViewController.m; sourceTree = SOURCE_ROOT; };
+		74C852E21F8B7DCB00944C50 /* CSMineTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CSMineTableViewCell.h; path = ChangSheng/Class/General/JSWave/CSMineTableViewCell.h; sourceTree = SOURCE_ROOT; };
+		74C852E31F8B7DCB00944C50 /* CSMineTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CSMineTableViewCell.m; path = ChangSheng/Class/General/JSWave/CSMineTableViewCell.m; sourceTree = SOURCE_ROOT; };
+		74C852E41F8B7DCB00944C50 /* CSMineTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CSMineTableViewCell.xib; path = ChangSheng/Class/General/JSWave/CSMineTableViewCell.xib; sourceTree = SOURCE_ROOT; };
+		74C852E71F8B800700944C50 /* CSMineItem.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = CSMineItem.plist; sourceTree = "<group>"; };
 		84C57046CFB3067E7FF70B34 /* libPods-ChangSheng.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ChangSheng.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -1968,6 +2003,7 @@
 		18C81F571F7656A00012150B /* Class */ = {
 			isa = PBXGroup;
 			children = (
+				74C852C71F8B4F3A00944C50 /* Bet */,
 				184B5D331F794C4F007A1C22 /* IMKit */,
 				18C8201F1F7768C50012150B /* NetWork */,
 				18C8201A1F765F400012150B /* LoginRegister */,
@@ -2053,6 +2089,8 @@
 		18C81F5F1F7656A00012150B /* C */ = {
 			isa = PBXGroup;
 			children = (
+				74C852DF1F8B769100944C50 /* CSMineViewController.h */,
+				74C852E01F8B769100944C50 /* CSMineViewController.m */,
 			);
 			path = C;
 			sourceTree = "<group>";
@@ -2076,6 +2114,9 @@
 		18C81F621F7656A00012150B /* V */ = {
 			isa = PBXGroup;
 			children = (
+				74C852E21F8B7DCB00944C50 /* CSMineTableViewCell.h */,
+				74C852E31F8B7DCB00944C50 /* CSMineTableViewCell.m */,
+				74C852E41F8B7DCB00944C50 /* CSMineTableViewCell.xib */,
 			);
 			path = V;
 			sourceTree = "<group>";
@@ -2083,6 +2124,7 @@
 		18C81F631F7656A00012150B /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				74C852E71F8B800700944C50 /* CSMineItem.plist */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -2153,6 +2195,7 @@
 		18C81F661F76570D0012150B /* General */ = {
 			isa = PBXGroup;
 			children = (
+				74C852DB1F8B764F00944C50 /* JSWave */,
 				184B5D001F77D6ED007A1C22 /* GPCustomNSLayoutConstraint */,
 				18C81F671F7657900012150B /* BaseController */,
 			);
@@ -2352,6 +2395,8 @@
 				184B5CFE1F77CC65007A1C22 /* CSRegisterParam.m */,
 				181343D21F79523800CD1312 /* CSLoginRequestParam.h */,
 				181343D31F79523800CD1312 /* CSLoginRequestParam.m */,
+				18B6C60D1F8BBF16007B1669 /* CSUploadFileParam.h */,
+				18B6C60E1F8BBF16007B1669 /* CSUploadFileParam.m */,
 			);
 			path = CPRequestModel;
 			sourceTree = "<group>";
@@ -2367,6 +2412,8 @@
 				184B5D101F77DA7A007A1C22 /* GPLoginInfoModel.m */,
 				18C8202C1F776A850012150B /* CSHttpsResModel.h */,
 				18C8202D1F776A850012150B /* CSHttpsResModel.m */,
+				18B6C6101F8BBF61007B1669 /* CSUploadFileModel.h */,
+				18B6C6111F8BBF61007B1669 /* CSUploadFileModel.m */,
 			);
 			path = CPResponseModel;
 			sourceTree = "<group>";
@@ -2377,6 +2424,56 @@
 				84C57046CFB3067E7FF70B34 /* libPods-ChangSheng.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		74C852C71F8B4F3A00944C50 /* Bet */ = {
+			isa = PBXGroup;
+			children = (
+				74C852C81F8B4F3A00944C50 /* C */,
+				74C852C91F8B4F3A00944C50 /* M */,
+				74C852CA1F8B4F3A00944C50 /* V */,
+			);
+			path = Bet;
+			sourceTree = "<group>";
+		};
+		74C852C81F8B4F3A00944C50 /* C */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = C;
+			sourceTree = "<group>";
+		};
+		74C852C91F8B4F3A00944C50 /* M */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = M;
+			sourceTree = "<group>";
+		};
+		74C852CA1F8B4F3A00944C50 /* V */ = {
+			isa = PBXGroup;
+			children = (
+				74C852CB1F8B4F8200944C50 /* CSBetInputView.xib */,
+				74C852D81F8B5F7B00944C50 /* CSBetInputView.h */,
+				74C852D91F8B5F7B00944C50 /* CSBetInputView.m */,
+				74C852D01F8B579C00944C50 /* CSNumberKeyboardView.xib */,
+				74C852D51F8B587500944C50 /* CSNumberKeyboardView.h */,
+				74C852D61F8B587500944C50 /* CSNumberKeyboardView.m */,
+				74C852CD1F8B520B00944C50 /* CSCustomBetButton.h */,
+				74C852CE1F8B520B00944C50 /* CSCustomBetButton.m */,
+				74C852D21F8B57E100944C50 /* CSCustomNumberButton.h */,
+				74C852D31F8B57E100944C50 /* CSCustomNumberButton.m */,
+			);
+			path = V;
+			sourceTree = "<group>";
+		};
+		74C852DB1F8B764F00944C50 /* JSWave */ = {
+			isa = PBXGroup;
+			children = (
+				74C852DC1F8B764F00944C50 /* JSWave.h */,
+				74C852DD1F8B764F00944C50 /* JSWave.m */,
+			);
+			path = JSWave;
 			sourceTree = "<group>";
 		};
 		B34E9B3CE5E6651B4B98E88A /* Pods */ = {
@@ -2454,9 +2551,11 @@
 				18C81F501F74B8E00012150B /* LaunchScreen.storyboard in Resources */,
 				747D5C2A1F7F6A2A00F40A41 /* Assets.xcassets in Resources */,
 				1804AD271F7BDC6100508C1C /* imageDownloadFail@2x.png in Resources */,
+				74C852CC1F8B4F8200944C50 /* CSBetInputView.xib in Resources */,
 				1804ACE21F7BDC6100508C1C /* CellGreySelected@2x.png in Resources */,
 				1804ACE51F7BDC6100508C1C /* FriendsSendsPicturesQuitBigIcon.png in Resources */,
 				1804ACB01F7BDC6100508C1C /* LLConversationListCell.xib in Resources */,
+				74C852E81F8B800700944C50 /* CSMineItem.plist in Resources */,
 				1804AC8F1F7BDC6100508C1C /* LLVideoPlaybackController.xib in Resources */,
 				1804ACEA1F7BDC6100508C1C /* FriendsSendsPicturesSelectBigYIcon@2x.png in Resources */,
 				1804ACE01F7BDC6100508C1C /* CellBlueSelected@2x.png in Resources */,
@@ -2472,9 +2571,11 @@
 				1804ACC01F7BDC6100508C1C /* LLMessageSearchResultCell.xib in Resources */,
 				1804ACE41F7BDC6100508C1C /* FriendsSendsPicturesNumberIcon@2x.png in Resources */,
 				1804ACE61F7BDC6100508C1C /* FriendsSendsPicturesQuitBigIcon@2x.png in Resources */,
+				74C852E61F8B7DCB00944C50 /* CSMineTableViewCell.xib in Resources */,
 				1804ACDF1F7BDC6100508C1C /* CellBlueSelected.png in Resources */,
 				1804ACEB1F7BDC6100508C1C /* FriendsSendsPicturesSelectIcon.png in Resources */,
 				1804ACF21F7BDC6100508C1C /* MMVideoPreviewPlayHL@3x.png in Resources */,
+				74C852D11F8B579C00944C50 /* CSNumberKeyboardView.xib in Resources */,
 				181346901F7AA93200CD1312 /* LICENSE in Resources */,
 				1804ACED1F7BDC6100508C1C /* FriendsSendsPicturesSelectYIcon.png in Resources */,
 				187773C81F7D1C6100A98B7C /* Main.storyboard in Resources */,
@@ -2609,10 +2710,12 @@
 				1804ACFD1F7BDC6100508C1C /* LLImageShowController.m in Sources */,
 				1804AD121F7BDC6100508C1C /* UIImage+LLExt.m in Sources */,
 				1804ACD01F7BDC6100508C1C /* LLMessageSearchResultModel.m in Sources */,
+				74C852E51F8B7DCB00944C50 /* CSMineTableViewCell.m in Sources */,
 				1804AD3A1F7BDC6100508C1C /* TTWebSocketChannel.m in Sources */,
 				1804AC851F7BDC6100508C1C /* LLChatImageScrollView.m in Sources */,
 				18C820071F76585F0012150B /* UIImage+Cut.m in Sources */,
 				1804AD2B1F7BDC6100508C1C /* CSIMMessageQueueManager.m in Sources */,
+				74C852DA1F8B5F7B00944C50 /* CSBetInputView.m in Sources */,
 				1804AD0A1F7BDC6100508C1C /* LLTipView.m in Sources */,
 				1804AD071F7BDC6100508C1C /* LLSimpleTextLabel.m in Sources */,
 				18C820181F76585F0012150B /* UIView+Line.m in Sources */,
@@ -2634,6 +2737,7 @@
 				1804ACC21F7BDC6100508C1C /* LLSNSSearchController.m in Sources */,
 				1804AD161F7BDC6100508C1C /* UITextView+LLDebugOnly.m in Sources */,
 				1804ACB21F7BDC6100508C1C /* LLDiscoveryController.m in Sources */,
+				74C852E11F8B769100944C50 /* CSMineViewController.m in Sources */,
 				1804AD131F7BDC6100508C1C /* UINavigationBar+LLExt.m in Sources */,
 				18C81F811F7657900012150B /* TTNav_RootTableViewController.m in Sources */,
 				184B5CFC1F77CC03007A1C22 /* CSBaseRequestModel.m in Sources */,
@@ -2657,6 +2761,7 @@
 				1804AD341F7BDC6100508C1C /* LLChatManager+MessageExt.m in Sources */,
 				1804ACDD1F7BDC6100508C1C /* LLAssetModel.m in Sources */,
 				1804AD111F7BDC6100508C1C /* UIImage+EMGIF.m in Sources */,
+				18B6C6121F8BBF61007B1669 /* CSUploadFileModel.m in Sources */,
 				18C820271F7768C50012150B /* CSHttpRequestManager.m in Sources */,
 				1804AC7A1F7BDC6100508C1C /* LLViewController.m in Sources */,
 				1804AD0C1F7BDC6100508C1C /* LLWebViewProgressView.m in Sources */,
@@ -2667,6 +2772,7 @@
 				18C8200A1F76585F0012150B /* UIImage+Water.m in Sources */,
 				1804ACD31F7BDC6100508C1C /* LLUserGeneralOptions.m in Sources */,
 				18C820161F76585F0012150B /* UITextField+LimitLength.m in Sources */,
+				74C852CF1F8B520B00944C50 /* CSCustomBetButton.m in Sources */,
 				1804ACA71F7BDC6100508C1C /* LLVoiceIndicatorView.m in Sources */,
 				1804AD1C1F7BDC6100508C1C /* LLUtils+File.m in Sources */,
 				1804AD211F7BDC6100508C1C /* LLUtils+Video.m in Sources */,
@@ -2694,6 +2800,7 @@
 				1804AC8B1F7BDC6100508C1C /* LLVideoBarSlider.m in Sources */,
 				1804AD2F1F7BDC6100508C1C /* CSIMSendMessageRequestModel.m in Sources */,
 				1804ACD81F7BDC6100508C1C /* EMVoiceConverter.mm in Sources */,
+				74C852D71F8B587500944C50 /* CSNumberKeyboardView.m in Sources */,
 				1804ACB11F7BDC6100508C1C /* LLConversationListController.m in Sources */,
 				18C820051F76585F0012150B /* UIFont+Extend.m in Sources */,
 				1804AD2C1F7BDC6100508C1C /* CSIMReceiveManager.m in Sources */,
@@ -2708,6 +2815,7 @@
 				18C820391F777A1F0012150B /* CSRegisterViewController.m in Sources */,
 				1829A0481F8A4B8D00EAA1AB /* VoiceRecordHelper.m in Sources */,
 				1804ACBF1F7BDC6100508C1C /* LLMessageSearchResultCell.m in Sources */,
+				74C852DE1F8B764F00944C50 /* JSWave.m in Sources */,
 				18C8200E1F76585F0012150B /* UIView+Extend.m in Sources */,
 				1804ACFC1F7BDC6100508C1C /* LLAuthorizationDeniedController.m in Sources */,
 				181343E11F7961B400CD1312 /* CSHomeTableViewCell.m in Sources */,
@@ -2734,6 +2842,7 @@
 				18C81FF41F76585F0012150B /* CALayer+Anim.m in Sources */,
 				1804AD171F7BDC6100508C1C /* UIView+LLExt.m in Sources */,
 				187773CE1F7D1D5600A98B7C /* CSMsgHistoryRequestModel.m in Sources */,
+				74C852D41F8B57E100944C50 /* CSCustomNumberButton.m in Sources */,
 				1804ACB31F7BDC6100508C1C /* LLMainViewController.m in Sources */,
 				181346911F7AA93200CD1312 /* README.md in Sources */,
 				1829A0451F8A4A2D00EAA1AB /* NSFileManager+Paths.m in Sources */,
@@ -2749,6 +2858,7 @@
 				184B5D031F77D6ED007A1C22 /* TTLineLayoutConstraint.m in Sources */,
 				1804ACCA1F7BDC6100508C1C /* InvitationManager.m in Sources */,
 				1804AD0E1F7BDC6100508C1C /* NSString+encrypto.m in Sources */,
+				18B6C60F1F8BBF16007B1669 /* CSUploadFileParam.m in Sources */,
 				1804ACCB1F7BDC6100508C1C /* LLEmotionModelManager.m in Sources */,
 				1804AC871F7BDC6100508C1C /* LLImageBottomBar.m in Sources */,
 				1804AD321F7BDC6100508C1C /* LLMessageAttachmentDownloader.m in Sources */,
@@ -2963,7 +3073,7 @@
 					"$(PROJECT_DIR)/ChangSheng/Class/Lib/HyphenateSDK/lib",
 					"$(PROJECT_DIR)/ChangSheng/Class/IMKit/General/Audio/TTVoiceLib",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = Tianyu.ChangSheng;
+				PRODUCT_BUNDLE_IDENTIFIER = Tianyu.ChangSheng1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -2994,7 +3104,7 @@
 					"$(PROJECT_DIR)/ChangSheng/Class/Lib/HyphenateSDK/lib",
 					"$(PROJECT_DIR)/ChangSheng/Class/IMKit/General/Audio/TTVoiceLib",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = Tianyu.ChangSheng;
+				PRODUCT_BUNDLE_IDENTIFIER = Tianyu.ChangSheng1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

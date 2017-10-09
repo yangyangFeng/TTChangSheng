@@ -431,12 +431,16 @@ static LLAudioManager *instance;
 
     }else if (self.isFinishRecording) {
         //录音格式转换，从wav转为amr
-        NSString *amrFilePath = [[recordPath stringByDeletingPathExtension]
-                                 stringByAppendingPathExtension:@"amr"];
-        BOOL convertResult = [self convertWAV:recordPath toAMR:amrFilePath];
+//        NSString *amrFilePath = [[recordPath stringByDeletingPathExtension]
+//                                 stringByAppendingPathExtension:@"amr"];
+//        [self convertWAV:recordPath toAMR:amrFilePath];
+        //录音格式转换，从wav转为amr
+        NSString *mp3FilePath = [[recordPath stringByDeletingPathExtension]
+                                 stringByAppendingPathExtension:@"mp3"];
+        BOOL convertResult = [self convertWAV:recordPath toMP3:mp3FilePath];
         if (convertResult) {
             if ([self.recordDelegate respondsToSelector:@selector(audioRecordDidFinishSuccessed:duration:)]) {
-                [self.recordDelegate audioRecordDidFinishSuccessed:amrFilePath duration:endDuration];
+                [self.recordDelegate audioRecordDidFinishSuccessed:mp3FilePath duration:endDuration];
             }
         }else {
             if ([self.recordDelegate respondsToSelector:@selector(audioRecordDidFailed)]) {
@@ -795,12 +799,12 @@ static LLAudioManager *instance;
         fclose(pcm);
     }
     @catch (NSException *exception) {
-        NSLog(@"%@",[exception description]);
+        DLog(@"%@",[exception description]);
         return NO;
     }
     @finally {
-        return NO;
         [[AVAudioSession sharedInstance] setCategory: AVAudioSessionCategorySoloAmbient error: nil];
+        return YES;
     }
     return YES;
 }

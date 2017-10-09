@@ -8,6 +8,10 @@
 #import "CSNewWorking.h"
 #import <Foundation/Foundation.h>
 
+typedef enum : NSUInteger {
+    CS_UPLOAD_FILE_IMAGE = UpLoad_Image,
+    CS_UPLOAD_FILE_VOICE = UpLoad_Voice,
+} CS_UPLOAD_FILE;
 @interface CSHttpRequestManager : NSObject
 + (void)getRequstWithURL:(NSString*)url
                paramters:(NSDictionary*)params
@@ -19,6 +23,28 @@
                    success:(TTSuccessBlock)successBlock
                    failure:(TTFailureBlock)failureBlock
                    showHUD:(BOOL)showHUD;
+
++ (void)upLoadFileRequestWithUrl:(NSString*)url
+                 paramters:(NSDictionary*)params
+                        filePath:(NSString*)filePath
+                        fileType:(CS_UPLOAD_FILE)fileType
+                   success:(TTSuccessBlock)successBlock
+                   failure:(TTFailureBlock)failureBlock
+            uploadprogress:(TTUploadProgressBlock)progressBlock
+                   showHUD:(BOOL)showHUD;
+
+/**
+ 上传IM语音和图片
+ @param filePath 文件路径
+ @param fileType 文件类型
+ */
++ (void)upLoadFileRequestParamters:(NSDictionary*)params
+                        filePath:(NSString*)filePath
+                        fileType:(CS_UPLOAD_FILE)fileType
+                         success:(TTSuccessBlock)successBlock
+                         failure:(TTFailureBlock)failureBlock
+                  uploadprogress:(TTUploadProgressBlock)progressBlock
+                         showHUD:(BOOL)showHUD;
 #pragma mark - 1.获取验证码
 /**
  *  1.获取验证码

@@ -701,6 +701,137 @@
     return self;
 }
 
+- (id)initWithRequestType:(TTREQUEST_TYPE)networkType
+                      url:(NSString*)url
+                paramters:(NSDictionary*)params
+                  success:(TTSuccessBlock)successBlock
+                  failure:(TTFailureBlock)failureBlock
+       uploadFileProgress:(void(^)(NSProgress *uploadProgress))uploadFileProgress
+                 filePath:(NSString *)filePath
+                  showHUD:(BOOL)showHUD
+{
+    
+    if (self = [super init]) {
+        
+        _manager = [AFHTTPSessionManager manager];
+        //        manager.responseSerializer.acceptableContentTypes =  [NSSet setWithObject:@"text/html"];
+        _manager.requestSerializer = [AFJSONRequestSerializer serializer]; //申明请求的数据是json类型
+        //        _manager.responseSerializer = [AFJSONResponseSerializer serializer];//申明返回的结果是json类型
+        _manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+        _manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/html", nil];
+        _manager.requestSerializer.timeoutInterval = 30;
+        _manager.requestSerializer.stringEncoding = NSUTF8StringEncoding;
+        
+        //        _manager.securityPolicy = [CSNetWorkingRequest customSecurityPolicy];
+#pragma mark - 登陆后已token作为用户标示.
+        if ([CSUserInfo shareInstance].isOnline) {
+            [_manager.requestSerializer setValue:[CSUserInfo shareInstance].info.token forHTTPHeaderField:@"token"];
+        }
+        
+        [_manager POST:url parameters:params constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
+            NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+            // 设置时间格式
+            formatter.dateFormat = @"yyyyMMddHHmmss";
+            NSString *str = [formatter stringFromDate:[NSDate date]];
+            NSString *fileName;
+            NSString * mimeType;
+            switch (networkType) {
+                case UpLoad_Image:
+                {
+                    fileName = [NSString stringWithFormat:@"%@.png", str];
+                    mimeType = @"image/png";
+                }
+                    break;
+                case UpLoad_Voice:
+                {
+                    fileName = [NSString stringWithFormat:@"%@.mp3", str];
+                    mimeType = @"audio/mpeg";
+                }
+                    break;
+                default:
+                    break;
+            }
+            [formData appendPartWithFileURL:[NSURL fileURLWithPath:filePath] name:@"file" fileName:fileName mimeType:mimeType error:nil];
+//            [formData appendPartWithFileData:image name:[params objectForKey:@"fileKey"] fileName:fileName mimeType:mimeType];
+        } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject) {
+#if SWITCH_OPEN_LOG
+            DLog(@"--------------------------------------------------------------------------------------\n🍎🍎🍎POST.url--->👇👇👇\n%@\n--------------------------------------------------------------------------------------\n%@\n======================================================================================",
+                 task.response.URL, [responseObject mj_JSONString]);
+#endif
+            CSHttpsResModel* back = [CSHttpsResModel mj_objectWithKeyValues:responseObject];
+            if (back.code == successCode) {
+                if (successBlock) {
+                    successBlock(responseObject);
+                }
+            }
+            else {
+                
+                if (showHUD) {
+                    if (back.msg) {
+                        [MBProgressHUD tt_ErrorTitle:back.msg];
+                    }
+                    else {
+                        [MBProgressHUD tt_ErrorTitle:@"程序猿哥哥正在紧急修复!"];
+                    }
+                }
+                
+                NSError* error = [NSError errorWithDomain:back.msg.length ? back.msg : @"程序猿哥哥正在紧急修复" code:201 userInfo:nil];
+                if (failureBlock) {
+                    DLog(@"%@", error);
+                    failureBlock(error);
+                }
+            }
+            DLog(@"---> %@", back.mj_keyValues);
+            
+        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+            if (error.code == -1009) {
+                [MBProgressHUD tt_ErrorTitle:@"网络已断开"];
+            }
+            else if (error.code == -1005) {
+                [MBProgressHUD tt_ErrorTitle:@"网络连接已中断"];
+            }
+            else if (error.code == -1001) {
+                [MBProgressHUD tt_ErrorTitle:@"请求超时"];
+            }
+            else if (error.code == -1003) {
+                [MBProgressHUD tt_ErrorTitle:@"未能找到使用指定主机名的服务器"];
+            }
+            else {
+                [MBProgressHUD tt_ErrorTitle:[NSString stringWithFormat:@"code:%ld %@", error.code, error.localizedDescription]];
+            }
+            if (showHUD) {
+                [MBProgressHUD tt_ErrorTitle:@"连接失败"];
+            }
+            else {
+                //                        [MBProgressHUD tt_Hide];
+            }
+            if (failureBlock) {
+                if (error.code == -1009) {
+                    error = [NSError errorWithDomain:@"连接失败" code:201 userInfo:nil];
+                }
+                DLog(@"%@", error);
+                failureBlock(error);
+            }
+        }];
+    }
+    return self;
+}
+
+- (NSString *)mimeTypeForFileAtPath:(NSString *)path
+{
+    if (![[[NSFileManager alloc] init] fileExistsAtPath:path]) {
+        return nil;
+    }
+    
+    CFStringRef UTI = UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, (__bridge CFStringRef)[path pathExtension], NULL);
+    CFStringRef MIMEType = UTTypeCopyPreferredTagWithClass (UTI, kUTTagClassMIMEType);
+    CFRelease(UTI);
+    if (!MIMEType) {
+        return @"application/octet-stream";
+    }
+    return (__bridge NSString *)(MIMEType);
+}
+
 - (void)dealloc
 {
     DLog(@"---------");

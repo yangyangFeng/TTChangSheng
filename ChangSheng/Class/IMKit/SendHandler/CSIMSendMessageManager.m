@@ -102,7 +102,6 @@ static CSIMSendMessageManager * msgManager = nil;
     
     // 设置回调
     dispatch_source_set_event_handler(self.timer, ^{
-        NSLog(@"计时器当前线程------------%@\ntimer---->%@", [NSThread currentThread],self.timer);
         
         //发送失败的消息从发
         NSArray * messages = [[CSIMMessageQueueManager shareInstance] resendCacheMessage];
