@@ -580,8 +580,8 @@ static NSMutableDictionary<NSString *, UIImage *> *tmpImageDict;
                 self.isMediaPlayed = [_sdk_message.ext[@"isPlayed"] boolValue];
             }
             // 音频路径
-            self.fileLocalPath = voiceBody.localPath;
-            self.cellHeight = [LLMessageVoiceCell heightForModel:self];
+//            self.fileLocalPath = voiceBody.localPath;
+//            self.cellHeight = [LLMessageVoiceCell heightForModel:self];
             
             break;
         }

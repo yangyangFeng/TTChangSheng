@@ -645,7 +645,7 @@ CSIMReceiveManagerDelegate
 //    [[LLMessageCellManager sharedManager] reuseIdentifierForMessegeModel:messageModel];
     UITableViewCell *_cell;
 
-    switch (messageModel.msgType) {
+    switch (messageModel.messageBodyType) {
         case CSMessageBodyTypeText:
         case CSMessageBodyTypeVideo:
         case CSMessageBodyTypeVoice:
@@ -898,21 +898,23 @@ CSIMReceiveManagerDelegate
 
 - (void)scrollToBottom:(BOOL)animated {
     DLog(@"未实现 新消息滚动");
-    if (self.dataSource.count == 0)
-        return;
-    
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.dataSource.count - 1 inSection:0];
-    [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:animated];
-    
-    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
-    if (cell) {
-        CGFloat offsetY = self.tableView.contentSize.height + self.tableView.contentInset.bottom - CGRectGetHeight(self.tableView.frame);
-        if (offsetY < -self.tableView.contentInset.top)
-            offsetY = -self.tableView.contentInset.top;
-        [self.tableView setContentOffset:CGPointMake(0, offsetY) animated:animated];
-    }else {
-        [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:animated];
-    }
+//    if (self.dataSource.count == 0)
+//        return;
+//    if (!self.tableView.visibleCells.count) {
+//        return;
+//    }
+//    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.dataSource.count - 1 inSection:0];
+//    [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:animated];
+//    
+//    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+//    if (cell) {
+//        CGFloat offsetY = self.tableView.contentSize.height + self.tableView.contentInset.bottom - CGRectGetHeight(self.tableView.frame);
+//        if (offsetY < -self.tableView.contentInset.top)
+//            offsetY = -self.tableView.contentInset.top;
+//        [self.tableView setContentOffset:CGPointMake(0, offsetY) animated:animated];
+//    }else {
+//        [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:animated];
+//    }
 
 }
 
@@ -1858,7 +1860,7 @@ CSIMReceiveManagerDelegate
     
     return _voiceIndicatorView;
 }
-
+#pragma mark - Input 录音操作 回调
 - (void)voiceRecordingShouldStart {
     [[LLAudioManager sharedManager] stopPlaying];
     
@@ -1892,7 +1894,7 @@ CSIMReceiveManagerDelegate
     
     [self hideVoiceIndicatorViewAfterDelay:MIN_RECORD_TIME_REQUIRED];
 }
-
+//到此结束
 - (void)audioRecordAuthorizationDidGranted {
     [LLTipView showTipView:self.voiceIndicatorView];
     [self.voiceIndicatorView setStyle:kLLVoiceIndicatorStyleRecord];
@@ -1906,9 +1908,10 @@ CSIMReceiveManagerDelegate
         return;
     }
 
-    LLMessageModel *messageModel = [[LLMessageModel alloc] initWithType:kLLMessageBodyTypeRecording];
-    
-    [self addModelToDataSourceAndScrollToBottom:messageModel animated:YES];
+    CSMessageModel *messageModel = [[CSMessageModel alloc] initWithType:kCSMessageBodyTypeRecording];
+    CSIMSendMessageRequestModel * model = [CSIMSendMessageRequestModel new];
+    model.body = messageModel;
+    [self addModelToDataSourceAndScrollToBottom:model animated:YES];
 }
 
 - (void)audioRecordDidUpdateVoiceMeter:(double)averagePower {
@@ -1992,8 +1995,8 @@ CSIMReceiveManagerDelegate
         
     }
 }
-
-//声音录制结束
+#pragma mark - 结束录音 发送录音
+//#FIXME: 声音录制结束
 - (void)audioRecordDidFinishSuccessed:(NSString *)voiceFilePath duration:(CFTimeInterval)duration {
     if (_voiceIndicatorView.superview)  {
         if (_voiceIndicatorView.style == kLLVoiceIndicatorStyleTooLong) {
@@ -2007,37 +2010,46 @@ CSIMReceiveManagerDelegate
             });
         }else {
             [LLTipView hideTipView:_voiceIndicatorView];
-//            if ([UIApplication sharedApplication].applicationState == UIApplicationStateBackground) {
-//                [self.chatInputView cancelRecordButtonTouchEvent];
-//            }
+            if ([UIApplication sharedApplication].applicationState == UIApplicationStateBackground) {
+                [self.chatInputView cancelRecordButtonTouchEvent];
+            }
         }
     }
     
 //    LLChatType chatType = chatTypeForConversationType(self.conversationModel.conversationType);
-    CSChatType chatType = self.conversationModel.conversationType;
-    LLMessageModel *voiceModel = [[LLChatManager sharedManager]
-            sendVoiceMessageWithLocalPath:voiceFilePath
-                                 duration:duration
-                                       to:self.conversationModel.chatId
-                              messageType:chatType
-                               messageExt:nil
-                               completion:nil];
+//#FIXME: 待处理
+
+    CSIMSendMessageRequestModel * model = [CSIMSendMessageRequestModel new];
+    CSMessageModel * msgModel = [[CSMessageModel alloc] sendVoiceMessageWithLocalPath:voiceFilePath duration:duration to:@"3" messageType:CSChatTypeChat msgType:kCSMessageBodyTypeVoice messageExt:nil completion:nil];
+//                                 sendVoiceMessageWithLocalPath:voiceFilePath duration:duration to:@"3" messageType:kLLChatTypeChat messageExt:nil completion:nil];
+//                                 newMessageChatType:CSChatTypeChat chatId:@"3" msgId:nil msgType:CSMessageBodyTypeVoice action:4 content:text];
     
+    model.body = msgModel;
+    
+//    CSChatType chatType = self.conversationModel.conversationType;
+//    LLMessageModel *voiceModel = [[LLChatManager sharedManager]
+//            sendVoiceMessageWithLocalPath:voiceFilePath
+//                                 duration:duration
+//                                       to:self.conversationModel.chatId
+//                              messageType:chatType
+//                               messageExt:nil
+//                               completion:nil];
+//    
     LLMessageModel *recordingModel = [self getRecordingModel];
     if (recordingModel) {
-        [[LLChatManager sharedManager] updateMessageModelWithTimestamp:voiceModel timestamp:recordingModel.timestamp];
-
-        NSInteger index = [self.dataSource indexOfObject:recordingModel];
-        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
-        [self.dataSource replaceObjectAtIndex:index withObject:voiceModel];
-        
-        index = [self.conversationModel.allMessageModels indexOfObject:recordingModel];
-        [self.conversationModel.allMessageModels replaceObjectAtIndex:index withObject:voiceModel];
-        
-        [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+//        [[LLChatManager sharedManager] updateMessageModelWithTimestamp:voiceModel timestamp:recordingModel.timestamp];
+//
+//        NSInteger index = [self.dataSource indexOfObject:recordingModel];
+//        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
+//        [self.dataSource replaceObjectAtIndex:index withObject:voiceModel];
+//        
+//        index = [self.conversationModel.allMessageModels indexOfObject:recordingModel];
+//        [self.conversationModel.allMessageModels replaceObjectAtIndex:index withObject:voiceModel];
+//        
+//        [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
         
     }else {
-        [self addModelToDataSourceAndScrollToBottom:voiceModel animated:YES];
+        [self addModelToDataSourceAndScrollToBottom:model animated:YES];
     }
 
 }

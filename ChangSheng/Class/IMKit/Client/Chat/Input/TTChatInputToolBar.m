@@ -192,23 +192,23 @@
 // 录音按钮点击事件
 - (void) voiceButtonDown:(UIButton *)sender
 {
-//    TTChatInputToolBarStatus lastStatus = self.status;
-//    if (lastStatus == TTChatInputToolBarStatusShowVoice) {//正在显示talkButton，改为键盘状态
-//        self.status = TTChatInputToolBarStatusShowKeyboard;
-//        [self.talkButton setHidden:YES];
-//        [self.textView setHidden:NO];
-//        [self.textView becomeFirstResponder];
-//        [_voiceButton setImage:[UIImage imageNamed:@"ToolViewInputVoice"] forState:UIControlStateNormal];
-//    } else {    // 变成talkButton的状态
-//        self.status = TTChatInputToolBarStatusShowVoice;
-//        [self.textView resignFirstResponder];
-//        [self.textView setHidden:YES];
-//        [self.talkButton setHidden:NO];
-//        [_voiceButton setImage:[UIImage imageNamed:@"ToolViewKeyboard"] forState:UIControlStateNormal];
-//    }
-//    if (_delegate && [_delegate respondsToSelector:@selector(chatBox:changeStatusForm:to:)]) {
-//        [_delegate chatBox:self changeStatusForm:lastStatus to:self.status];
-//    }
+    TTChatInputToolBarStatus lastStatus = self.status;
+    if (lastStatus == TTChatInputToolBarStatusShowVoice) {//正在显示talkButton，改为键盘状态
+        self.status = TTChatInputToolBarStatusShowKeyboard;
+        [self.talkButton setHidden:YES];
+        [self.textView setHidden:NO];
+        [self.textView becomeFirstResponder];
+        [_voiceButton setImage:[UIImage imageNamed:@"ToolViewInputVoice"] forState:UIControlStateNormal];
+    } else {    // 变成talkButton的状态
+        self.status = TTChatInputToolBarStatusShowVoice;
+        [self.textView resignFirstResponder];
+        [self.textView setHidden:YES];
+        [self.talkButton setHidden:NO];
+        [_voiceButton setImage:[UIImage imageNamed:@"ToolViewKeyboard"] forState:UIControlStateNormal];
+    }
+    if (_delegate && [_delegate respondsToSelector:@selector(chatBox:changeStatusForm:to:)]) {
+        [_delegate chatBox:self changeStatusForm:lastStatus to:self.status];
+    }
 }
 
 // 更多（+）按钮

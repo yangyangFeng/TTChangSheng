@@ -9,7 +9,7 @@
 //该类移植过来
 
 #import "VoiceRecordHelper.h"
-#import "KeyBoardHelpDefine.h"
+//#import "KeyBoardHelpDefine.h"
 
 
 static VoiceRecordHelper *audioRecorderUtil = nil;

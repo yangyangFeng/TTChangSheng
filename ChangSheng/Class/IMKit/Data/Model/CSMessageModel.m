@@ -88,6 +88,31 @@ NSMutableDictionary * tmpImageDict;
 
 #pragma mark - 消息初始化 -
 
+- (CSMessageModel *)sendVoiceMessageWithLocalPath:(NSString *)localPath
+                                         duration:(NSInteger)duration
+                                               to:(NSString *)to
+                                      messageType:(CSChatType)messageType
+                                          msgType:(CSMessageBodyType)msgBodyType
+                                       messageExt:(nullable NSDictionary *)messageExt
+                                       completion:(void (^ __nullable)(CSMessageModel *model, NSError *error))completion
+{
+    CSMessageModel * model = [[CSMessageModel alloc] initWithType:msgBodyType];
+    model.mediaDuration = duration;
+    model.fileLocalPath = localPath;
+    model.msgType = msgBodyType;
+//    model.messageBodyType = CS_changeMessageType(msgBodyType);
+    model.chartType = messageType;
+//    CSMessageBodyModel * bodyModel = [CSMessageBodyModel new];
+//    bodyModel
+//    model.body =
+//    kCSMessageBodyTypeVoice
+    model.fromMe = YES;
+    model.isSelf = YES;
+    [model formaterMessage];
+    return model;
+
+}
+
 + (CSMessageModel*)newMessageChatType:(CSChatType)chatType
                   chatId:(NSString *)chatId
                    msgId:(NSString *)msgId
@@ -171,6 +196,7 @@ NSMutableDictionary * tmpImageDict;
     self = [super init];
     if (self) {
         _messageBodyType = type;
+        CS_changeMessageType(type);
         
         switch (type) {
             case kCSMessageBodyTypeDateTime:
