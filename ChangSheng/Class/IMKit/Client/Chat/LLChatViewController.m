@@ -1441,6 +1441,13 @@ CSIMReceiveManagerDelegate
         
         [picker dismissViewControllerAnimated:YES completion:nil];
 //#FIXME:发送拍摄照片正在处理
+        [CSHttpRequestManager upLoadFileRequestParamters:nil fileData:UIImagePNGRepresentation(orgImage) fileType:(CS_UPLOAD_FILE_IMAGE) success:^(id responseObject) {
+            
+        } failure:^(NSError *error) {
+            
+        } uploadprogress:^(NSProgress *uploadProgress) {
+            DLog(@"--->%@",uploadProgress);
+        } showHUD:YES];
     }
     
 }

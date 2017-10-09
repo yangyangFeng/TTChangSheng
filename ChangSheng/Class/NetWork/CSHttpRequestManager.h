@@ -45,6 +45,13 @@ typedef enum : NSUInteger {
                          failure:(TTFailureBlock)failureBlock
                   uploadprogress:(TTUploadProgressBlock)progressBlock
                          showHUD:(BOOL)showHUD;
++ (void)upLoadFileRequestParamters:(NSDictionary*)params
+                        fileData:(NSData*)fileData
+                        fileType:(CS_UPLOAD_FILE)fileType
+                         success:(TTSuccessBlock)successBlock
+                         failure:(TTFailureBlock)failureBlock
+                  uploadprogress:(TTUploadProgressBlock)progressBlock
+                         showHUD:(BOOL)showHUD;
 #pragma mark - 1.获取验证码
 /**
  *  1.获取验证码

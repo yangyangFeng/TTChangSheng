@@ -101,6 +101,44 @@
     }
     [self upLoadFileRequestWithUrl:url paramters:params filePath:filePath fileType:fileType success:successBlock failure:failureBlock uploadprogress:progressBlock showHUD:showHUD];
 }
+
++ (void)upLoadFileRequestWithUrl:(NSString*)url
+                       paramters:(NSDictionary*)params
+                        fileData:(NSData*)fileData
+                        fileType:(CS_UPLOAD_FILE)fileType
+                         success:(TTSuccessBlock)successBlock
+                         failure:(TTFailureBlock)failureBlock
+                  uploadprogress:(TTUploadProgressBlock)progressBlock
+                         showHUD:(BOOL)showHUD
+{
+    [[CSNewWorkHandler sharedInstance] uploadFileHttpRequestType:(TTREQUEST_TYPE)fileType
+                                                             url:url
+                                                       paramters:params
+                                                         success:successBlock
+                                                         failure:failureBlock
+                                                  uploadprogress:progressBlock
+                                                        fileData:fileData
+                                                         showHUD:showHUD];
+}
+
++ (void)upLoadFileRequestParamters:(NSDictionary*)params
+                          fileData:(NSData*)fileData
+                          fileType:(CS_UPLOAD_FILE)fileType
+                           success:(TTSuccessBlock)successBlock
+                           failure:(TTFailureBlock)failureBlock
+                    uploadprogress:(TTUploadProgressBlock)progressBlock
+                           showHUD:(BOOL)showHUD
+{
+    NSString * url;
+    if (fileType == CS_UPLOAD_FILE_VOICE) {
+        url = @"chat/uploadVoice";
+    }
+    else
+    {
+        url = @"chat/uploadImage";
+    }
+    [self upLoadFileRequestWithUrl:url paramters:params fileData:fileData fileType:fileType success:successBlock failure:failureBlock uploadprogress:progressBlock showHUD:showHUD];
+}
 #pragma mark - 1.获取验证码
 + (void)request_verification_paramters:(NSDictionary *)params success:(TTSuccessBlock)success failure:(TTFailureBlock)failure showHUD:(BOOL)showHUD
 {
