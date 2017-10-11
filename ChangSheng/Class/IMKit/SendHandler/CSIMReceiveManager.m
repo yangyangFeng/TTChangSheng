@@ -34,6 +34,8 @@ static CSIMReceiveManager * _manager = nil;
             //计算数据高度
             [message.result processModelForCell];
             message.result.msgType = message.result.body.msgType;
+            [message.result syncMessageBodyType:CS_changeMessageType(message.result.body.msgType)];
+            
             message.result.timestamp = message.result.body.timestamp;
             
             if ([self.delegate respondsToSelector:@selector(cs_receiveMessage:)]) {
@@ -50,13 +52,18 @@ static CSIMReceiveManager * _manager = nil;
             if (message.code == successCode) {
                 [sendMsg syncMsgID:message];
                 [sendMsg.msgStatus resolve:nil];
+                [sendMsg successed];
             }
             else
             {
                 [sendMsg.msgStatus reject:[NSError errorWithDomain:message.msg code:message.code userInfo:nil]];
+                [sendMsg failed];
             }
             message.result.msgId = msgId;
             [[CSIMMessageQueueManager shareInstance] removeMessages:message];
+            if ([self.delegate respondsToSelector:@selector(cs_sendMessageCallBlock:)]) {
+                [self.delegate cs_sendMessageCallBlock:sendMsg.body];
+            }
         }
             break;
         case 3:

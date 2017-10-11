@@ -24,8 +24,8 @@ typedef NS_ENUM(NSInteger, LLConnectionState) {
 typedef NS_ENUM(NSInteger, LLMessageBodyType) {
     kLLMessageBodyTypeText = EMMessageBodyTypeText,
     kLLMessageBodyTypeImage = EMMessageBodyTypeImage,
-    kLLMessageBodyTypeVideo = EMMessageBodyTypeVideo,
     kLLMessageBodyTypeVoice = EMMessageBodyTypeVoice,
+    kLLMessageBodyTypeVideo = EMMessageBodyTypeVideo,
     kLLMessageBodyTypeEMLocation = EMMessageBodyTypeLocation,
     kLLMessageBodyTypeFile = EMMessageBodyTypeFile,
     kLLMessageBodyTypeDateTime,

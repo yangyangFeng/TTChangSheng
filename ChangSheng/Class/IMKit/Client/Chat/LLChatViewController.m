@@ -385,7 +385,7 @@ CSIMReceiveManagerDelegate
 }
 
 - (void)messageUploadHandler:(NSNotification *)notification {
-    LLMessageModel *messageModel = notification.userInfo[LLChatManagerMessageModelKey];
+    CSMessageModel *messageModel = notification.userInfo[LLChatManagerMessageModelKey];
     if (!messageModel)
         return;
     
@@ -646,10 +646,10 @@ CSIMReceiveManagerDelegate
     UITableViewCell *_cell;
 
     switch (messageModel.messageBodyType) {
-        case CSMessageBodyTypeText:
-        case CSMessageBodyTypeVideo:
-        case CSMessageBodyTypeVoice:
-        case CSMessageBodyTypeImage:
+        case kCSMessageBodyTypeText:
+        case kCSMessageBodyTypeVideo:
+        case kCSMessageBodyTypeVoice:
+        case kCSMessageBodyTypeImage:
         {
             LLMessageBaseCell *cell = [[LLMessageCellManager sharedManager] messageCellForMessageModel:messageModel tableView:tableView];
             [messageModel setNeedsUpdateForReuse];
@@ -736,7 +736,7 @@ CSIMReceiveManagerDelegate
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     CSMessageModel *messageModel = self.dataSource[indexPath.row];
-//    NSLog(@"height->%g,str->%@",messageModel.cellHeight,messageModel.body.content);
+    NSLog(@"height->%g,str->%@",messageModel.cellHeight,messageModel.body.content);
     return messageModel.cellHeight;
 }
 
@@ -757,9 +757,9 @@ CSIMReceiveManagerDelegate
 #pragma mark - TableView 相关方法 -
 
 - (LLMessageBaseCell *)visibleCellForMessageModel:(CSMessageModel *)model {
-    if (!model || !(self.conversationModel.chatId.intValue == model.chatId)) {
-        return nil;
-    }
+//    if (!model || !(self.conversationModel.chatId.intValue == model.chatId)) {
+//        return nil;
+//    }
     
     for (UITableViewCell *cell in self.tableView.visibleCells) {
         if ([cell isKindOfClass:[LLMessageDateCell class]]){
@@ -898,23 +898,23 @@ CSIMReceiveManagerDelegate
 
 - (void)scrollToBottom:(BOOL)animated {
     DLog(@"未实现 新消息滚动");
-//    if (self.dataSource.count == 0)
-//        return;
+    if (self.dataSource.count == 0)
+        return;
 //    if (!self.tableView.visibleCells.count) {
 //        return;
 //    }
-//    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.dataSource.count - 1 inSection:0];
-//    [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:animated];
-//    
-//    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
-//    if (cell) {
-//        CGFloat offsetY = self.tableView.contentSize.height + self.tableView.contentInset.bottom - CGRectGetHeight(self.tableView.frame);
-//        if (offsetY < -self.tableView.contentInset.top)
-//            offsetY = -self.tableView.contentInset.top;
-//        [self.tableView setContentOffset:CGPointMake(0, offsetY) animated:animated];
-//    }else {
-//        [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:animated];
-//    }
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.dataSource.count - 1 inSection:0];
+    [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:animated];
+    
+    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+    if (cell) {
+        CGFloat offsetY = self.tableView.contentSize.height + self.tableView.contentInset.bottom - CGRectGetHeight(self.tableView.frame);
+        if (offsetY < -self.tableView.contentInset.top)
+            offsetY = -self.tableView.contentInset.top;
+        [self.tableView setContentOffset:CGPointMake(0, offsetY) animated:animated];
+    }else {
+        [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:animated];
+    }
 
 }
 
@@ -1098,23 +1098,23 @@ CSIMReceiveManagerDelegate
 //4、文本内电话、URL、邮件、控制字符串等可点击区域不会造成干扰
 //所以文本也采用单击触发的方式
 - (void)cellDidTapped:(LLMessageBaseCell *)cell {
-    switch (cell.messageModel.messageBodyType) {
-        case kLLMessageBodyTypeImage:
+    switch (cell.messageModel.body.msgType) {
+        case kCSMessageBodyTypeImage:
             [self cellImageDidTapped:(LLMessageImageCell *)cell];
             break;
-        case kLLMessageBodyTypeGif:
+        case kCSMessageBodyTypeGif:
             [self cellGifDidTapped:(LLMessageGifCell *)cell];
             break;
-        case kLLMessageBodyTypeVideo:
+        case kCSMessageBodyTypeVideo:
             [self cellVideoDidTapped:(LLMessageVideoCell *)cell];
             break;
-        case kLLMessageBodyTypeVoice:
+        case kCSMessageBodyTypeVoice:
             [self cellVoiceDidTapped:(LLMessageVoiceCell *)cell];
             break;
-        case kLLMessageBodyTypeLocation:
+        case kCSMessageBodyTypeLocation:
             [self cellLocationDidTapped:(LLMessageLocationCell *)cell];
             break;
-        case kLLMessageBodyTypeText:
+        case kCSMessageBodyTypeText:
             if (![LLUserProfile myUserProfile].userOptions.doubleTapToShowTextMessage) {
                 [self displayTextMessage:cell.messageModel];
             }
@@ -1304,7 +1304,7 @@ CSIMReceiveManagerDelegate
 
 #pragma mark - 处理照片
 
-- (LLMessageModel *)createImageMessageModel:(NSData *)imageData imageSize:(CGSize)imageSize {
+- (CSMessageModel *)createImageMessageModel:(NSData *)imageData imageSize:(CGSize)imageSize {
     if (!imageData || imageData.length == 0 || imageSize.height == 0 || imageSize.width == 0) {
         NSString *msg = @"照片可能已被删除或损坏，无法发送";
         if ([NSThread isMainThread]) {
@@ -1317,7 +1317,7 @@ CSIMReceiveManagerDelegate
     
         return nil;
     }
-    LLMessageModel * messageModel;
+    CSMessageModel * messageModel;
 //    LLChatType chatType = chatTypeForConversationType(self.conversationModel.conversationType);
 //    LLMessageModel * messageModel = [[LLChatManager sharedManager]
 //                                     sendImageMessageWithData:imageData
@@ -1436,6 +1436,8 @@ CSIMReceiveManagerDelegate
         UIImage *orgImage = info[UIImagePickerControllerOriginalImage];
         NSData * imageData = UIImageJPEGRepresentation(orgImage, 0.01);
         LLMessageModel * messageModel = [self createImageMessageModel:imageData imageSize:[orgImage pixelSize]];
+        
+//        CSMessageModel
         
         if (messageModel)
             [self addModelToDataSourceAndScrollToBottom:messageModel animated:NO];
@@ -1713,6 +1715,20 @@ CSIMReceiveManagerDelegate
     [self addModelToDataSourceAndScrollToBottom:model animated:YES];
 }
 
+- (void)cs_sendMessageCallBlock:(CSMessageModel *)message
+{
+    WEAK_SELF;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        LLMessageBaseCell *baseCell = [weakSelf visibleCellForMessageModel:message];
+        if (!baseCell) {
+            [message setNeedsUpdateUploadStatus];
+            return;
+        }
+        
+        [baseCell updateMessageUploadStatus];
+        
+    });
+}
 #pragma mark - 文字消息 -
 
 - (void)sendTextMessage:(NSString *)text {
@@ -2034,10 +2050,12 @@ CSIMReceiveManagerDelegate
     __block CSMessageModel * msgModel;
     [CSHttpRequestManager upLoadFileRequestParamters:nil filePath:voiceFilePath fileType:CS_UPLOAD_FILE_VOICE success:^(id responseObject) {
         CSUploadFileModel * rsp = [CSUploadFileModel mj_objectWithKeyValues:responseObject];
-         msgModel = [[CSMessageModel alloc] sendVoiceMessageWithLocalPath:voiceFilePath duration:duration to:@"3" messageType:CSChatTypeChat msgType:kCSMessageBodyTypeVoice messageExt:@{@"content":rsp.result.file_url} completion:nil];
+        
+        msgModel = [CSMessageModel newVoiceMessageChatType:CSChatTypeChat chatId:@"3" msgId:nil msgType:(CSMessageBodyTypeVoice) action:4 content:rsp.result.file_url localPath:voiceFilePath duration:duration messageExt:nil completion:nil];
+
         CSMessageModel *recordingModel = [self getRecordingModel];
-        if (recordingModel) {
-            dispatch_async(dispatch_get_main_queue(), ^{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (recordingModel) {
                 NSInteger index = [self.dataSource indexOfObject:recordingModel];
                 NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
                 [self.dataSource replaceObjectAtIndex:index withObject:msgModel];
@@ -2046,9 +2064,20 @@ CSIMReceiveManagerDelegate
                 //        [self.conversationModel.allMessageModels replaceObjectAtIndex:index withObject:voiceModel];
                 
                 [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
-            });        
-        }
+            }
+            model.body = msgModel;// 发送语音 model
         
+            [model.msgStatus when:^(id obj) {
+                DLog(@"语音一FASONG");
+            } failed:^(NSError *error) {
+                
+            }];
+            
+            [[CSIMSendMessageManager shareInstance] sendMessage:model];
+            
+        });
+            
+                    
     } failure:^(NSError *error) {
         
     } uploadprogress:^(NSProgress *uploadProgress) {
@@ -2060,7 +2089,7 @@ CSIMReceiveManagerDelegate
 //                                 sendVoiceMessageWithLocalPath:voiceFilePath duration:duration to:@"3" messageType:kLLChatTypeChat messageExt:nil completion:nil];
 //                                 newMessageChatType:CSChatTypeChat chatId:@"3" msgId:nil msgType:CSMessageBodyTypeVoice action:4 content:text];
     
-    model.body = msgModel;
+//    model.body = msgModel;
     
 //    CSChatType chatType = self.conversationModel.conversationType;
 //    LLMessageModel *voiceModel = [[LLChatManager sharedManager]

@@ -162,6 +162,14 @@ typedef NS_ENUM(NSInteger, CSMessageStatus) {
  */
 - (void)processModelForCell;
 
+/**
+ 同步 message body type
+
+ @param type <#type description#>
+ */
+- (void)syncMessageBodyType:(kCSMessageBodyType)type;
+
+- (void)syncMessageSendStatus:(CSMessageStatus)status;
 @property (nonatomic,assign) BOOL isSelf;
 //展示消息的CellHeight，计算一次，然后缓存
 @property (nonatomic) CGFloat cellHeight;
@@ -289,6 +297,17 @@ typedef NS_ENUM(NSInteger, CSMessageStatus) {
                  msgType:(CSMessageBodyType)msgType
                   action:(int)action
                  content:(NSString *)content;
+
++ (CSMessageModel *)newVoiceMessageChatType:(CSChatType)chatType
+                                     chatId:(NSString *)chatId
+                                      msgId:(NSString *)msgId
+                                    msgType:(CSMessageBodyType)msgType
+                                     action:(int)action
+                                    content:(NSString *)content
+                                  localPath:(NSString *)localPath
+                                   duration:(NSInteger)duration
+                                 messageExt:(nullable NSDictionary *)messageExt
+                                 completion:(void (^ __nullable)(CSMessageModel *model, NSError *error))completion;
 //- (void)updateMessage:(CSMessageModel *)aMessage updateReason:(LLMessageModelUpdateReason)updateReason;
 
 + (NSString *)messageTypeTitle:(EMMessage *)message;

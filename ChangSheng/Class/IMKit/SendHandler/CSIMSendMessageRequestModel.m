@@ -42,6 +42,16 @@
     self.body.msgId = message.body.msgId;
 }
 
+- (void)successed
+{
+    [self.body syncMessageSendStatus:kCSMessageStatusSuccessed];
+}
+
+- (void)failed
+{
+    [self.body syncMessageSendStatus:kCSMessageStatusFailed];
+}
+
 - (NSString *)msgId
 {
     return _body.msgId;

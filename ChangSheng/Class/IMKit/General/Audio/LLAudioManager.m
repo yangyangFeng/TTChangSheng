@@ -87,7 +87,7 @@ static LLAudioManager *instance;
                           //线性采样位数  8、16、24、32
                           [NSNumber numberWithInt:16],AVLinearPCMBitDepthKey,
                           //录音通道数  1 或 2
-                          [NSNumber numberWithInt: 1], AVNumberOfChannelsKey,
+                          [NSNumber numberWithInt: 2], AVNumberOfChannelsKey,
                           nil];
     }
     
@@ -517,23 +517,23 @@ static LLAudioManager *instance;
 
         
     //保证WAV格式录音文件存在
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    NSString *wavFilePath = [[amrFileName stringByDeletingPathExtension] stringByAppendingPathExtension:@"wav"];
-    if (![fileManager fileExistsAtPath:wavFilePath]) {
-        BOOL covertRet = [self convertAMR:amrFileName toWAV:wavFilePath];
-        if (!covertRet) {
-            NSError *error1 = [NSError errorWithDomain:ERROR_AUDIO_DOMAIN
-                                                  code:kLLErrorPlayTypeFileNotExist
-                                              userInfo:nil];
-            
-            callback(error1);
-            return ;
-        }
-    }
+//    NSFileManager *fileManager = [NSFileManager defaultManager];
+//    NSString *wavFilePath = [[amrFileName stringByDeletingPathExtension] stringByAppendingPathExtension:@"wav"];
+//    if (![fileManager fileExistsAtPath:wavFilePath]) {
+//        BOOL covertRet = [self convertAMR:amrFileName toWAV:wavFilePath];
+//        if (!covertRet) {
+//            NSError *error1 = [NSError errorWithDomain:ERROR_AUDIO_DOMAIN
+//                                                  code:kLLErrorPlayTypeFileNotExist
+//                                              userInfo:nil];
+//            
+//            callback(error1);
+//            return ;
+//        }
+//    }
     
     //创建AVAudioPlayer
-    error = nil;
-    NSURL *wavURL = [NSURL URLWithString:wavFilePath];
+//    error = nil;
+    NSURL *wavURL = [NSURL fileURLWithPath:amrFileName];
     _audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:wavURL error:&error];
     if(!_audioPlayer || error) {
         _audioPlayer = nil;
@@ -771,7 +771,7 @@ static LLAudioManager *instance;
         
         FILE *pcm = fopen([wavFilePath cStringUsingEncoding:1], "rb");  //source 被转换的音频文件位置
         fseek(pcm, 4*1024, SEEK_CUR);                                   //skip file header
-        FILE *mp3 = fopen([mp3FilePath cStringUsingEncoding:1], "wb");  //output 输出生成的Mp3文件位置
+        FILE *mp3 = fopen([mp3FilePath cStringUsingEncoding:1], "wb+");  //output 输出生成的Mp3文件位置
         
         const int PCM_SIZE = 8192;
         const int MP3_SIZE = 8192;
@@ -779,20 +779,26 @@ static LLAudioManager *instance;
         unsigned char mp3_buffer[MP3_SIZE];
         
         lame_t lame = lame_init();
-        lame_set_in_samplerate(lame, 11025.0);
+        lame_set_num_channels(lame,1);//设置1为单通道，默认为2双通道
+        lame_set_in_samplerate(lame, 8000);
         lame_set_VBR(lame, vbr_default);
         lame_init_params(lame);
         
         do {
-            read = fread(pcm_buffer, 2*sizeof(short int), PCM_SIZE, pcm);
-            if (read == 0)
+            
+            read = (int)fread(pcm_buffer, 2*sizeof(short int), PCM_SIZE, pcm);
+            if (read == 0) {
                 write = lame_encode_flush(lame, mp3_buffer, MP3_SIZE);
-            else
+                
+            } else {
                 write = lame_encode_buffer_interleaved(lame, pcm_buffer, read, mp3_buffer, MP3_SIZE);
+            }
             
             fwrite(mp3_buffer, write, 1, mp3);
             
         } while (read != 0);
+        
+        lame_mp3_tags_fid(lame, mp3);
         
         lame_close(lame);
         fclose(mp3);

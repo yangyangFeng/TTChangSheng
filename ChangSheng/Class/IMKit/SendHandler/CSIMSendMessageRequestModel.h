@@ -69,4 +69,8 @@ typedef enum {
  将成功发送的消息,msgid 同步.替换客户端临时生成的 msgid.更换成服务端返回的msgid.
  */
 - (void)syncMsgID:(CSIMSendMessageRequestModel *)message;
+
+- (void)successed;
+
+- (void)failed;
 @end

@@ -124,7 +124,7 @@ static VoiceRecordHelper *audioRecorderUtil = nil;
         NSMutableDictionary * recordSetting = [NSMutableDictionary dictionary];
         [recordSetting setValue :[NSNumber numberWithInt:kAudioFormatMPEG4AAC] forKey:AVFormatIDKey];
         [recordSetting setValue:[NSNumber numberWithFloat:16000.0] forKey:AVSampleRateKey];
-        [recordSetting setValue:[NSNumber numberWithInt: 1] forKey:AVNumberOfChannelsKey];
+        [recordSetting setValue:[NSNumber numberWithInt: 2] forKey:AVNumberOfChannelsKey];
         
             self.recordPath = path;
             error = nil;

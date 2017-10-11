@@ -224,17 +224,17 @@ BOOL LLMessageCell_isEditing = NO;
 
 - (void)updateMessageUploadStatus {
     switch (self.messageModel.messageStatus) {
-        case kLLMessageStatusDelivering:
-        case kLLMessageStatusWaiting:
+        case kCSMessageStatusDelivering:
+        case kCSMessageStatusWaiting:
             HIDE_STATUS_BUTTON;
             SHOW_INDICATOR_VIEW;
             break;
-        case kLLMessageStatusSuccessed:
+        case kCSMessageStatusSuccessed:
             HIDE_STATUS_BUTTON;
             HIDE_INDICATOR_VIEW;
             break;
-        case kLLMessageStatusFailed:
-        case kLLMessageStatusPending:
+        case kCSMessageStatusFailed:
+        case kCSMessageStatusPending:
             SHOW_STATUS_BUTTON;
             HIDE_INDICATOR_VIEW;
             break;

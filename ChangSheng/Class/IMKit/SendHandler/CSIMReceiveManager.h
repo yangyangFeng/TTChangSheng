@@ -15,6 +15,7 @@
 
 - (void)cs_receiveMessage:(CSMessageModel *)message;
 
+- (void)cs_sendMessageCallBlock:(CSMessageModel *)message;
 @end
 @interface CSIMReceiveManager : NSObject
 

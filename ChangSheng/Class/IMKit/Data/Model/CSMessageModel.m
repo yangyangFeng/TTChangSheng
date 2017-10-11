@@ -88,26 +88,28 @@ NSMutableDictionary * tmpImageDict;
 
 #pragma mark - 消息初始化 -
 
-- (CSMessageModel *)sendVoiceMessageWithLocalPath:(NSString *)localPath
-                                         duration:(NSInteger)duration
-                                               to:(NSString *)to
-                                      messageType:(CSChatType)messageType
-                                          msgType:(CSMessageBodyType)msgBodyType
-                                       messageExt:(nullable NSDictionary *)messageExt
-                                       completion:(void (^ __nullable)(CSMessageModel *model, NSError *error))completion
++ (CSMessageModel *)newVoiceMessageChatType:(CSChatType)chatType
+                                chatId:(NSString *)chatId
+                                 msgId:(NSString *)msgId
+                               msgType:(CSMessageBodyType)msgType
+                                action:(int)action
+                               content:(NSString *)content
+                             localPath:(NSString *)localPath
+                              duration:(NSInteger)duration
+                            messageExt:(nullable NSDictionary *)messageExt
+                            completion:(void (^ __nullable)(CSMessageModel *model, NSError *error))completion
 {
-    CSMessageModel * model = [[CSMessageModel alloc] initWithType:msgBodyType];
+    CSMessageModel * model = [[CSMessageModel alloc]initNewMessageChatType:chatType chatId:chatId msgId:msgId msgType:msgType action:action content:content];
+    
+    
     model.mediaDuration = duration;
     model.fileLocalPath = localPath;
-    model.msgType = msgBodyType;
-//    model.messageBodyType = CS_changeMessageType(msgBodyType);
-    model.chartType = messageType;
-//    CSMessageBodyModel * bodyModel = [CSMessageBodyModel new];
-//    bodyModel
-//    model.body =
-//    kCSMessageBodyTypeVoice
-    model.fromMe = YES;
-    model.isSelf = YES;
+//    model.msgType = msgType;
+//    model.messageStatus = kCSMessageStatusWaiting;
+//    [model setValue:@(kCSMessageStatusWaiting) forKey:@"messageStatus"];
+//    model.chartType = chatType;
+//    model.fromMe = YES;
+//    model.isSelf = YES;
     [model formaterMessage];
     return model;
 
@@ -128,6 +130,23 @@ NSMutableDictionary * tmpImageDict;
 - (id)initNewMessageChatType:(CSChatType)chatType chatId:(NSString *)chatId msgId:(NSString *)msgId msgType:(CSMessageBodyType)msgType action:(int)action content:(NSString *)content
 {
     if (self = [super init]) {
+        _messageBodyType = msgType;
+        
+        switch (msgType) {
+            case kCSMessageBodyTypeDateTime:
+                self.cellHeight = [LLMessageDateCell heightForModel:self];
+                break;
+            case kCSMessageBodyTypeVoice:
+                self.cellHeight = [LLMessageVoiceCell heightForModel:self];
+                break;
+            case kCSMessageBodyTypeRecording:
+                self.fromMe = YES;
+                self.timestamp = [NSString stringWithFormat:@"%d",[[NSDate date] timeIntervalSince1970]];
+                self.cellHeight = [LLMessageRecordingCell heightForModel:self];
+            default:
+                break;
+        }
+        
         self.chartType = chatType;
         self.chatId = chatId;
         if (msgId) {
@@ -191,12 +210,33 @@ NSMutableDictionary * tmpImageDict;
     return self;
 }
 
+#pragma makr - create Image Model
++ (CSMessageModel *)sendImageMessageWithData:(NSData *)imageData
+                                   imageSize:(CGSize)imageSize
+                                          to:(NSString *)toUser
+                                 messageType:(LLChatType)messageType
+                                  messageExt:(NSDictionary *)messageExt
+                                    progress:(void (^)(CSMessageModel *model, int progress))progress
+                                  completion:(void (^)(CSMessageModel *model, LLSDKError *error))completion {
+    
+    EMImageMessageBody *body = [[EMImageMessageBody alloc] initWithData:imageData displayName:@"image.png"];
+    body.size = imageSize;
+    
+    NSString *from = [[EMClient sharedClient] currentUsername];
+    EMMessage *message = [[EMMessage alloc] initWithConversationID:toUser from:from to:toUser body:body ext:messageExt];
+    message.chatType = (EMChatType)messageType;
+    
+    CSMessageModel *model = [LLMessageModel messageModelFromPool:message];
+    
+    
+    return model;
+}
+
 
 - (instancetype)initWithType:(CSMessageBodyType)type {
     self = [super init];
     if (self) {
         _messageBodyType = type;
-        CS_changeMessageType(type);
         
         switch (type) {
             case kCSMessageBodyTypeDateTime:
@@ -218,6 +258,9 @@ NSMutableDictionary * tmpImageDict;
 }
 
 - (void)commonInit:(EMMessage *)message {
+    
+    
+    
     DLog(@"废弃方法未实现");
 //    _sdk_message = message;
 //    _messageBodyType = (LLMessageBodyType)_sdk_message.body.type;
@@ -241,8 +284,8 @@ NSMutableDictionary * tmpImageDict;
 //    
 //    _ext = message.ext;
 //    _error = nil;
-//    
-//    [self processModelForCell];
+    
+    [self processModelForCell];
 }
 
 - (instancetype)initWithMessage:(EMMessage *)message {
@@ -444,15 +487,15 @@ NSMutableDictionary * tmpImageDict;
 
 #pragma mark - 消息状态
 
-- (void)internal_setMessageStatus:(LLMessageStatus)messageStatus {
+- (void)internal_setMessageStatus:(CSMessageStatus)messageStatus {
     _messageStatus = messageStatus;
 }
 
-- (void)internal_setMessageDownloadStatus:(LLMessageDownloadStatus)messageDownloadStatus {
+- (void)internal_setMessageDownloadStatus:(CSMessageDownloadStatus)messageDownloadStatus {
     _messageDownloadStatus = messageDownloadStatus;
 }
 
-- (void)internal_setThumbnailDownloadStatus:(LLMessageDownloadStatus)thumbnailDownloadStatus {
+- (void)internal_setThumbnailDownloadStatus:(CSMessageDownloadStatus)thumbnailDownloadStatus {
     _thumbnailDownloadStatus = thumbnailDownloadStatus;
 }
 
@@ -476,7 +519,15 @@ NSMutableDictionary * tmpImageDict;
 //    return (LLMessageDirection)_sdk_message.direction;
 //    return kLLMessageDirectionSend;
 //}
-
+//同步 body  type
+- (void)syncMessageBodyType:(kCSMessageBodyType)type
+{
+    _messageBodyType = type;
+}
+- (void)syncMessageSendStatus:(CSMessageStatus)status
+{
+    _messageStatus = status;
+}
 - (CSMessageDownloadStatus)messageDownloadStatus {
     if (_messageDownloadStatus != kCSMessageDownloadStatusNone)
         return _messageDownloadStatus;

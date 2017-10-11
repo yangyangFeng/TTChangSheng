@@ -330,6 +330,8 @@
 		74C852E51F8B7DCB00944C50 /* CSMineTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 74C852E31F8B7DCB00944C50 /* CSMineTableViewCell.m */; };
 		74C852E61F8B7DCB00944C50 /* CSMineTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 74C852E41F8B7DCB00944C50 /* CSMineTableViewCell.xib */; };
 		74C852E81F8B800700944C50 /* CSMineItem.plist in Resources */ = {isa = PBXBuildFile; fileRef = 74C852E71F8B800700944C50 /* CSMineItem.plist */; };
+		74C853031F8DF4A600944C50 /* ConvertAudioFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 74C853001F8DF4A600944C50 /* ConvertAudioFile.m */; };
+		74C853041F8DF4A600944C50 /* lame.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 74C853021F8DF4A600944C50 /* lame.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -988,6 +990,9 @@
 		74C852E31F8B7DCB00944C50 /* CSMineTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CSMineTableViewCell.m; path = ChangSheng/Class/General/JSWave/CSMineTableViewCell.m; sourceTree = SOURCE_ROOT; };
 		74C852E41F8B7DCB00944C50 /* CSMineTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CSMineTableViewCell.xib; path = ChangSheng/Class/General/JSWave/CSMineTableViewCell.xib; sourceTree = SOURCE_ROOT; };
 		74C852E71F8B800700944C50 /* CSMineItem.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = CSMineItem.plist; sourceTree = "<group>"; };
+		74C852FF1F8DF4A600944C50 /* ConvertAudioFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConvertAudioFile.h; sourceTree = "<group>"; };
+		74C853001F8DF4A600944C50 /* ConvertAudioFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConvertAudioFile.m; sourceTree = "<group>"; };
+		74C853021F8DF4A600944C50 /* lame.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = lame.framework; sourceTree = "<group>"; };
 		84C57046CFB3067E7FF70B34 /* libPods-ChangSheng.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ChangSheng.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -1001,6 +1006,7 @@
 				1804AD6F1F7BDCCE00508C1C /* AMapLocationKit.framework in Frameworks */,
 				1804AD731F7BDCCF00508C1C /* libcurl.a in Frameworks */,
 				1804AD721F7BDCCF00508C1C /* libcrypto.a in Frameworks */,
+				74C853041F8DF4A600944C50 /* lame.framework in Frameworks */,
 				1804AD711F7BDCCE00508C1C /* MAMapKit.framework in Frameworks */,
 				1804AD751F7BDCCF00508C1C /* libHyphenateSDK.a in Frameworks */,
 				1804AD701F7BDCCE00508C1C /* AMapSearchKit.framework in Frameworks */,
@@ -1420,6 +1426,7 @@
 		1804ABA81F7BDC6100508C1C /* Audio */ = {
 			isa = PBXGroup;
 			children = (
+				74C852FE1F8DF4A600944C50 /* ConvertAudio */,
 				18B6C6061F8A550A007B1669 /* TTVoiceLib */,
 				1804ABA91F7BDC6100508C1C /* LLAudioManager.h */,
 				1804ABAA1F7BDC6100508C1C /* LLAudioManager.m */,
@@ -2476,6 +2483,24 @@
 			path = JSWave;
 			sourceTree = "<group>";
 		};
+		74C852FE1F8DF4A600944C50 /* ConvertAudio */ = {
+			isa = PBXGroup;
+			children = (
+				74C852FF1F8DF4A600944C50 /* ConvertAudioFile.h */,
+				74C853001F8DF4A600944C50 /* ConvertAudioFile.m */,
+				74C853011F8DF4A600944C50 /* Lame */,
+			);
+			path = ConvertAudio;
+			sourceTree = "<group>";
+		};
+		74C853011F8DF4A600944C50 /* Lame */ = {
+			isa = PBXGroup;
+			children = (
+				74C853021F8DF4A600944C50 /* lame.framework */,
+			);
+			path = Lame;
+			sourceTree = "<group>";
+		};
 		B34E9B3CE5E6651B4B98E88A /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -2519,7 +2544,7 @@
 				TargetAttributes = {
 					18C81F3C1F74B8E00012150B = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = L8K3653HCA;
+						DevelopmentTeam = BYXKWL5C3R;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -2757,6 +2782,7 @@
 				1804ACA31F7BDC6100508C1C /* LLChatSharePanel.m in Sources */,
 				1804AD361F7BDC6100508C1C /* LLClientManager.m in Sources */,
 				18C81FEF1F76585F0012150B /* NSString+TTLengthExtend.m in Sources */,
+				74C853031F8DF4A600944C50 /* ConvertAudioFile.m in Sources */,
 				1804AC951F7BDC6100508C1C /* LLShareInputView.m in Sources */,
 				1804AD341F7BDC6100508C1C /* LLChatManager+MessageExt.m in Sources */,
 				1804ACDD1F7BDC6100508C1C /* LLAssetModel.m in Sources */,
@@ -3054,12 +3080,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = L8K3653HCA;
+				DEVELOPMENT_TEAM = BYXKWL5C3R;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/ChangSheng/Class/IMKit/Class/Tool/Vendor/VoiceLib",
 					"$(PROJECT_DIR)/ChangSheng/Class/Lib/AMap",
+					"$(PROJECT_DIR)/ChangSheng/Class/IMKit/General/Audio/ConvertAudio/Lame",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/ChangSheng/changShengPch.pch";
@@ -3085,12 +3112,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = L8K3653HCA;
+				DEVELOPMENT_TEAM = BYXKWL5C3R;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/ChangSheng/Class/IMKit/Class/Tool/Vendor/VoiceLib",
 					"$(PROJECT_DIR)/ChangSheng/Class/Lib/AMap",
+					"$(PROJECT_DIR)/ChangSheng/Class/IMKit/General/Audio/ConvertAudio/Lame",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/ChangSheng/changShengPch.pch";

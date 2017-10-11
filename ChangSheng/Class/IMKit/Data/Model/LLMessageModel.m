@@ -334,7 +334,7 @@ static NSMutableDictionary<NSString *, UIImage *> *tmpImageDict;
 #pragma mark - 消息状态
 
 - (void)internal_setMessageStatus:(LLMessageStatus)messageStatus {
-    _messageStatus = messageStatus;
+    messageStatus = messageStatus;
 }
 
 - (void)internal_setMessageDownloadStatus:(LLMessageDownloadStatus)messageDownloadStatus {
