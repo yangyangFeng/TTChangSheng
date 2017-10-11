@@ -868,7 +868,7 @@
             }
             [formData appendPartWithFileData:fileData name:@"file" fileName:fileName mimeType:mimeType];
 //            [formData appendPartWithFileURL:[NSURL fileURLWithPath:filePath] name:@"file" fileName:fileName mimeType:mimeType error:nil];
-            //            [formData appendPartWithFileData:image name:[params objectForKey:@"fileKey"] fileName:fileName mimeType:mimeType];
+//                        [formData appendPartWithFileData:image name:[params objectForKey:@"fileKey"] fileName:fileName mimeType:mimeType];
         } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject) {
 #if SWITCH_OPEN_LOG
             DLog(@"--------------------------------------------------------------------------------------\n🍎🍎🍎POST.url--->👇👇👇\n%@\n--------------------------------------------------------------------------------------\n%@\n======================================================================================",

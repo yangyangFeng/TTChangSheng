@@ -9,8 +9,11 @@
 #import "CSHttpsResModel.h"
 
 @interface CSUploadFileModel : CSHttpsResModel
+
+@property (nonatomic, strong)CSUploadFileModel * result;
 /**
  语音文件地址
  */
 @property (nonatomic,copy) NSString *file_url;
+
 @end

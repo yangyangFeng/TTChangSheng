@@ -53,7 +53,7 @@
 
 #define TABLEVIEW_BACKGROUND_COLOR kLLBackgroundColor_lightGray
 
-
+#import "CSUploadFileModel.h"
 #import "IQKeyboardManager.h"
 #import "CSIMReceiveManager.h"
 #import "CSIMSendMessageRequest.h"
@@ -1434,14 +1434,15 @@ CSIMReceiveManagerDelegate
 
     }else{
         UIImage *orgImage = info[UIImagePickerControllerOriginalImage];
-        LLMessageModel * messageModel = [self createImageMessageModel:UIImageJPEGRepresentation(orgImage, 1) imageSize:[orgImage pixelSize]];
+        NSData * imageData = UIImageJPEGRepresentation(orgImage, 0.01);
+        LLMessageModel * messageModel = [self createImageMessageModel:imageData imageSize:[orgImage pixelSize]];
         
         if (messageModel)
             [self addModelToDataSourceAndScrollToBottom:messageModel animated:NO];
         
         [picker dismissViewControllerAnimated:YES completion:nil];
 //#FIXME:发送拍摄照片正在处理
-        [CSHttpRequestManager upLoadFileRequestParamters:nil fileData:UIImagePNGRepresentation(orgImage) fileType:(CS_UPLOAD_FILE_IMAGE) success:^(id responseObject) {
+        [CSHttpRequestManager upLoadFileRequestParamters:nil fileData:imageData fileType:(CS_UPLOAD_FILE_IMAGE) success:^(id responseObject) {
             
         } failure:^(NSError *error) {
             
@@ -1935,9 +1936,9 @@ CSIMReceiveManagerDelegate
     [[LLMessageRecordingCell sharedRecordingCell] updateDurationLabel:round(duration)];
 }
 
-- (LLMessageModel *)getRecordingModel {
+- (CSMessageModel *)getRecordingModel {
     for (NSInteger i = self.dataSource.count - 1; i >= 0; i--) {
-        if (self.dataSource[i].messageBodyType == kLLMessageBodyTypeRecording) {
+        if (self.dataSource[i].messageBodyType == kCSMessageBodyTypeRecording) {
             return self.dataSource[i];
         }
     }
@@ -2029,16 +2030,33 @@ CSIMReceiveManagerDelegate
     
 //    LLChatType chatType = chatTypeForConversationType(self.conversationModel.conversationType);
 //#FIXME: 待处理
+    CSIMSendMessageRequestModel * model = [CSIMSendMessageRequestModel new];
+    __block CSMessageModel * msgModel;
     [CSHttpRequestManager upLoadFileRequestParamters:nil filePath:voiceFilePath fileType:CS_UPLOAD_FILE_VOICE success:^(id responseObject) {
+        CSUploadFileModel * rsp = [CSUploadFileModel mj_objectWithKeyValues:responseObject];
+         msgModel = [[CSMessageModel alloc] sendVoiceMessageWithLocalPath:voiceFilePath duration:duration to:@"3" messageType:CSChatTypeChat msgType:kCSMessageBodyTypeVoice messageExt:@{@"content":rsp.result.file_url} completion:nil];
+        CSMessageModel *recordingModel = [self getRecordingModel];
+        if (recordingModel) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                NSInteger index = [self.dataSource indexOfObject:recordingModel];
+                NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
+                [self.dataSource replaceObjectAtIndex:index withObject:msgModel];
+                
+                //        index = [self.conversationModel.allMessageModels indexOfObject:recordingModel];
+                //        [self.conversationModel.allMessageModels replaceObjectAtIndex:index withObject:voiceModel];
+                
+                [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+            });        
+        }
         
     } failure:^(NSError *error) {
         
     } uploadprogress:^(NSProgress *uploadProgress) {
         NSLog(@"上传进度->%@",uploadProgress);
     } showHUD:YES];
-    return;
-    CSIMSendMessageRequestModel * model = [CSIMSendMessageRequestModel new];
-    CSMessageModel * msgModel = [[CSMessageModel alloc] sendVoiceMessageWithLocalPath:voiceFilePath duration:duration to:@"3" messageType:CSChatTypeChat msgType:kCSMessageBodyTypeVoice messageExt:nil completion:nil];
+//    return;
+    
+  
 //                                 sendVoiceMessageWithLocalPath:voiceFilePath duration:duration to:@"3" messageType:kLLChatTypeChat messageExt:nil completion:nil];
 //                                 newMessageChatType:CSChatTypeChat chatId:@"3" msgId:nil msgType:CSMessageBodyTypeVoice action:4 content:text];
     
@@ -2053,8 +2071,8 @@ CSIMReceiveManagerDelegate
 //                               messageExt:nil
 //                               completion:nil];
 //    
-    LLMessageModel *recordingModel = [self getRecordingModel];
-    if (recordingModel) {
+//    CSMessageModel *recordingModel = [self getRecordingModel];
+//    if (recordingModel) {
 //        [[LLChatManager sharedManager] updateMessageModelWithTimestamp:voiceModel timestamp:recordingModel.timestamp];
 //
 //        NSInteger index = [self.dataSource indexOfObject:recordingModel];
@@ -2065,10 +2083,19 @@ CSIMReceiveManagerDelegate
 //        [self.conversationModel.allMessageModels replaceObjectAtIndex:index withObject:voiceModel];
 //        
 //        [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+//        [[LLChatManager sharedManager] updateMessageModelWithTimestamp:voiceModel timestamp:recordingModel.timestamp];
         
-    }else {
-        [self addModelToDataSourceAndScrollToBottom:model animated:YES];
-    }
+//        NSInteger index = [self.dataSource indexOfObject:recordingModel];
+//        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
+//        [self.dataSource replaceObjectAtIndex:index withObject:msgModel];
+        
+//        index = [self.conversationModel.allMessageModels indexOfObject:recordingModel];
+//        [self.conversationModel.allMessageModels replaceObjectAtIndex:index withObject:voiceModel];
+        
+//        [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+//    }else {
+//        [self addModelToDataSourceAndScrollToBottom:model animated:YES];
+//    }
 
 }
 

@@ -573,34 +573,38 @@ NSMutableDictionary * tmpImageDict;
 #pragma mark - 辅助 -
 
 - (long long)fileAttachmentSize {
-//    switch (_messageBodyType) {
-//        case kLLMessageBodyTypeImage:
-//        case kLLMessageBodyTypeVideo:
-//        case kLLMessageBodyTypeFile:
-//            return ((EMFileMessageBody *)(_sdk_message.body)).fileLength;
-//            
-//        default:
-//            return 0;
-//    }
+    switch (_messageBodyType) {
+        case kCSMessageBodyTypeImage:
+        case kCSMessageBodyTypeVideo:
+        case kCSMessageBodyTypeFile:
+            return [LLUtils getFileSize:self.fileLocalPath];
+//            ((EMFileMessageBody *)(_sdk_message.body)).fileLength;
+            
+        default:
+            return 0;
+    }
     DLog(@"计算文集大小,未实现");
     return 100;
 }
 
 - (BOOL)isVideoPlayable {
     DLog(@"监测是否可以播放,未实现");
-    return YES;
+    return (self.body.msgType == CSMessageBodyTypeVideo) && (self.fromMe || self.messageDownloadStatus == kCSMessageDownloadStatusSuccessed);
+//    return YES;
 //    return (_sdk_message.body.type == EMMessageBodyTypeVideo) && (self.fromMe || self.messageDownloadStatus == kLLMessageDownloadStatusSuccessed);
 }
 
 - (BOOL)isFullImageAvailable {
     DLog(@"监测是否可以播放,未实现");
-    return  YES;
+    return (self.body.msgType == CSMessageBodyTypeImage) && (self.fromMe || self.messageDownloadStatus == kCSMessageDownloadStatusSuccessed);
+    //    return  YES;
 //    return (_sdk_message.body.type == EMMessageBodyTypeImage) && (self.fromMe || self.messageDownloadStatus == kLLMessageDownloadStatusSuccessed);
 }
 
 - (BOOL)isVoicePlayable {
     DLog(@"监测是否可以播放,未实现");
-    return YES;
+    return (self.body.msgType == CSMessageBodyTypeVoice) && (self.fromMe || self.messageDownloadStatus == kCSMessageDownloadStatusSuccessed);
+//    return YES;
 //    return (_sdk_message.body.type == EMMessageBodyTypeVoice) && (self.fromMe || self.messageDownloadStatus == kLLMessageDownloadStatusSuccessed);
 }
 
