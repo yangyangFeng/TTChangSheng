@@ -59,4 +59,8 @@
  *  基类方法
  */
 - (UIViewController *)addChildTableViewController:(UIViewController *)childController;
+
+- (void)whiteStatusBar;
+
+- (void)blackStatusBar;
 @end

@@ -28,6 +28,7 @@
 @property (nonatomic, strong) TTBaseNavigationBar * my_base_navigationBar;
 @property (nonatomic, weak) TTNavigationBar * output_navigationBar;
 @property (nonatomic, strong) NSLayoutConstraint * my_navigationBarTopConstraint;
+@property(nonatomic,assign)UIStatusBarStyle ststusBarStyle;
 @end
 
 @implementation TTNav_RootViewController
@@ -318,4 +319,19 @@
     [self addChildViewController:childController];
     return childController;
 }
+
+- (void)whiteStatusBar
+{
+    self.ststusBarStyle = UIStatusBarStyleLightContent;
+//    [self setNeedsStatusBarAppearanceUpdate];
+    [self.navigationController performSelector:@selector(whiteStatusBar)];
+}
+- (void)blackStatusBar
+{
+    self.ststusBarStyle = UIStatusBarStyleDefault;
+//    [self setNeedsStatusBarAppearanceUpdate];
+    [self.navigationController performSelector:@selector(blackStatusBar)];
+}
+
+
 @end

@@ -16,6 +16,7 @@
 #import "CSMineViewController.h"
 #import "CSNumberKeyboardView.h"
 #import "CSBetInputView.h"
+#import "CSUserServiceListViewController.h"
 @interface CSHomeViewController ()<TTBaseTableViewHandlerDelegate>
 @property (nonatomic,strong) CSHomeTableViewHandler *tableHandler;
 @end
@@ -95,21 +96,32 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UIViewController * chatC = [StoryBoardController storyBoardName:@"Main" ViewControllerIdentifiter:@"LLChatViewController"];
- 
-    [self.navigationController pushViewController:chatC animated:YES];
-    CSMsgHistoryRequestModel * param = [CSMsgHistoryRequestModel new];
-    param.chat_type = 2;
-    param.ID = 3;
     
-//    TTSingleChatViewController * vc = [TTSingleChatViewController new];
-//    [self.navigationController pushViewController:vc animated:YES];
-    
-    [CSHttpRequestManager request_chatRecord_paramters:param.mj_keyValues success:^(id responseObject) {
-        
-    } failure:^(NSError *error) {
-        
-    } showHUD:YES];
+    switch (indexPath.row) {
+        case 0:
+        {
+            
+        }
+            break;
+        case 1:
+        {
+            
+        }
+            break;
+        case 2:
+        {
+            CSUserServiceListViewController * C = [CSUserServiceListViewController new];
+            [self.navigationController pushViewController:C animated:YES];
+        }
+            break;
+        case 3:
+        {
+            
+        }
+            break;
+        default:
+            break;
+    }
 }
 
 
