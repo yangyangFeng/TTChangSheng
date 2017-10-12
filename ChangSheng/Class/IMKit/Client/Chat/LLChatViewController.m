@@ -163,6 +163,16 @@ CSIMReceiveManagerDelegate
     isLoading = NO;
     
     [self.view layoutIfNeeded];
+    
+    [self loadMessageData];
+}
+
+- (void)loadMessageData
+{
+    for (CSIMSendMessageRequestModel * sendMsgModel in self.conversationModel.allMessageModels) {
+        [self.dataSource addObject:sendMsgModel.body];
+    }
+    [self.tableView reloadData];
 }
 
 - (void)updateViewConstraints {
@@ -1436,8 +1446,6 @@ CSIMReceiveManagerDelegate
         UIImage *orgImage = info[UIImagePickerControllerOriginalImage];
         NSData * imageData = UIImageJPEGRepresentation(orgImage, 0.01);
         LLMessageModel * messageModel = [self createImageMessageModel:imageData imageSize:[orgImage pixelSize]];
-        
-//        CSMessageModel
         
         if (messageModel)
             [self addModelToDataSourceAndScrollToBottom:messageModel animated:NO];

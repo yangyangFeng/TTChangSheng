@@ -257,6 +257,32 @@ NSMutableDictionary * tmpImageDict;
     return self;
 }
 
++ (CSMessageModel *)conversionWithRecordModel:(CSMsgRecordModel*)msgRecordModel
+                                     chatType:(CSChatType)chatType
+                                       chatId:(NSString *)chatId
+{
+    CSMessageModel * msgBody;
+    switch ((CSMessageBodyType)msgRecordModel.type.integerValue) {
+        case CSMessageBodyTypeText:
+            msgBody = [CSMessageModel newMessageChatType:chatType chatId:chatId msgId:msgRecordModel.msg_id msgType:CSMessageBodyTypeText action:1 content:msgRecordModel.content];
+            break;
+            case CSMessageBodyTypeImage:
+            break;
+            case CSMessageBodyTypeVoice:
+            msgBody = [CSMessageModel newVoiceMessageChatType:chatType chatId:chatId msgId:msgRecordModel.msg_id msgType:CSMessageBodyTypeVoice action:1 content:msgRecordModel.content localPath:nil duration:0 messageExt:nil completion:nil];
+            break;
+            case CSMessageBodyTypeLink:
+            break;
+        default:
+            break;
+    }
+    msgBody.isSelf = msgRecordModel.is_self.intValue;
+    msgBody.fromMe = msgRecordModel.is_self.intValue;;
+    
+    return msgBody;
+}
+
+
 - (void)commonInit:(EMMessage *)message {
     
     
@@ -376,96 +402,96 @@ NSMutableDictionary * tmpImageDict;
 - (UIImage *)thumbnailImage {
     DLog(@"待实现方法");
     
-    if (!_thumbnailImage) {
-        _thumbnailImage = [[LLMessageThumbnailManager sharedManager] thumbnailForMessageModel:self];
-        if (_thumbnailImage)
-            return _thumbnailImage;
-        
-        UIImage *thumbnailImage;
-        BOOL needSaveToCache = NO;
-        BOOL needSaveToDisk = NO;
-        BOOL needSaveToTemp = NO;
-        switch (self.messageBodyType) {
-            case kLLMessageBodyTypeImage:{
-                EMImageMessageBody *imgMessageBody = (EMImageMessageBody *)self.sdk_message.body;
-                
-                self.thumbnailImageSize = [LLMessageImageCell thumbnailSize:imgMessageBody.size];
-                if (_fromMe || imgMessageBody.downloadStatus == EMDownloadStatusSuccessed) {
-                    UIImage *fullImage = [UIImage imageWithContentsOfFile:imgMessageBody.localPath];
-                    _thumbnailImageSize = [LLMessageImageCell thumbnailSize:fullImage.size];
-                    thumbnailImage = [fullImage resizeImageToSize:self.thumbnailImageSize opaque:YES scale:0];
-                    
-                    needSaveToCache = YES;
-                    needSaveToDisk = YES;
-                }else if (imgMessageBody.thumbnailDownloadStatus == EMDownloadStatusSuccessed) {
-                    UIImage *image = [UIImage imageWithContentsOfFile:imgMessageBody.thumbnailLocalPath];
-                    _thumbnailImageSize = [LLMessageImageCell thumbnailSize:image.size];
-                    thumbnailImage = [image resizeImageToSize:self.thumbnailImageSize opaque:YES scale:0];
-                    
-                    needSaveToTemp = YES;
-                }
-                //FIXME:对于特殊图，比如超长、超宽、超小图，应该做特殊处理
-                //调用该方法createWithImageInRect后，VM：raster data内存没有变化
-                //以后再解决这个问题
-                //                if (_thumbnailImageSize.height > 2 * IMAGE_MAX_SIZE) {
-                //                    _thumbnailImage = [_thumbnailImage createWithImageInRect:CGRectMake(0, (_thumbnailImageSize.height - IMAGE_MAX_SIZE) / 2 * _thumbnailImage.scale, _thumbnailImageSize.width * _thumbnailImage.scale, IMAGE_MAX_SIZE * _thumbnailImage.scale)];
-                //                }else if (_thumbnailImageSize.width > 2 * IMAGE_MAX_SIZE) {
-                //                    _thumbnailImage = [_thumbnailImage createWithImageInRect:CGRectMake((_thumbnailImageSize.width - IMAGE_MAX_SIZE)/2 * _thumbnailImage.scale, 0, IMAGE_MAX_SIZE * _thumbnailImage.scale, _thumbnailImageSize.height * _thumbnailImage.scale)];
-                //                }
-                
-                break;
-            }
-            case kLLMessageBodyTypeVideo:{
-                EMVideoMessageBody *videoMessageBody = (EMVideoMessageBody *)self.sdk_message.body;
-                
-                if (_fromMe || videoMessageBody.downloadStatus == EMDownloadStatusSuccessed ) {
-                    UIImage *image = [LLUtils getVideoThumbnailImage:videoMessageBody.localPath];
-                    thumbnailImage = [image resizeImageToSize:self.thumbnailImageSize];
-                    
-                    needSaveToCache = YES;
-                    needSaveToDisk = YES;
-                }else if (videoMessageBody.thumbnailDownloadStatus == EMDownloadStatusSuccessed) {
-                    UIImage *image = [[UIImage alloc] initWithContentsOfFile:videoMessageBody.thumbnailLocalPath];
-                    thumbnailImage = [image resizeImageToSize:self.thumbnailImageSize];
-                    
-                    needSaveToTemp = YES;
-                }
-                
-                break;
-            }
-            case kLLMessageBodyTypeLocation: {
-                if (self.defaultSnapshot)
-                    return nil;
-                
-                EMFileMessageBody *body = (EMFileMessageBody *)self.sdk_message.body;
-                if (_fromMe || body.downloadStatus == EMDownloadStatusSuccessed) {
-                    NSData *data = [NSData dataWithContentsOfFile:body.localPath];
-                    thumbnailImage = [UIImage imageWithData:data scale:_snapshotScale];
-                    
-                    needSaveToCache = YES;
-                    needSaveToDisk = NO;
-                }
-                
-                break;
-            }
-                
-            default:
-                break;
-        }
-        
-        if (thumbnailImage) {
-            if (needSaveToTemp) {
-                tmpImageDict[_messageId] = thumbnailImage;
-            }else if (needSaveToCache) {
-                tmpImageDict[_messageId] = nil;
-                [[LLMessageThumbnailManager sharedManager] addThumbnailForMessageModel:self thumbnail:thumbnailImage toDisk:needSaveToDisk];
-            }
-        }
-        
-        _thumbnailImage = thumbnailImage;
-    }
-    
-    _thumbnailImage = [UIImage new];
+//    if (!_thumbnailImage) {
+//        _thumbnailImage = [[LLMessageThumbnailManager sharedManager] thumbnailForMessageModel:self];
+//        if (_thumbnailImage)
+//            return _thumbnailImage;
+//        
+//        UIImage *thumbnailImage;
+//        BOOL needSaveToCache = NO;
+//        BOOL needSaveToDisk = NO;
+//        BOOL needSaveToTemp = NO;
+//        switch (self.messageBodyType) {
+//            case kLLMessageBodyTypeImage:{
+//                EMImageMessageBody *imgMessageBody = (EMImageMessageBody *)self.sdk_message.body;
+//                
+//                self.thumbnailImageSize = [LLMessageImageCell thumbnailSize:imgMessageBody.size];
+//                if (_fromMe || imgMessageBody.downloadStatus == EMDownloadStatusSuccessed) {
+//                    UIImage *fullImage = [UIImage imageWithContentsOfFile:imgMessageBody.localPath];
+//                    _thumbnailImageSize = [LLMessageImageCell thumbnailSize:fullImage.size];
+//                    thumbnailImage = [fullImage resizeImageToSize:self.thumbnailImageSize opaque:YES scale:0];
+//                    
+//                    needSaveToCache = YES;
+//                    needSaveToDisk = YES;
+//                }else if (imgMessageBody.thumbnailDownloadStatus == EMDownloadStatusSuccessed) {
+//                    UIImage *image = [UIImage imageWithContentsOfFile:imgMessageBody.thumbnailLocalPath];
+//                    _thumbnailImageSize = [LLMessageImageCell thumbnailSize:image.size];
+//                    thumbnailImage = [image resizeImageToSize:self.thumbnailImageSize opaque:YES scale:0];
+//                    
+//                    needSaveToTemp = YES;
+//                }
+//                //FIXME:对于特殊图，比如超长、超宽、超小图，应该做特殊处理
+//                //调用该方法createWithImageInRect后，VM：raster data内存没有变化
+//                //以后再解决这个问题
+//                //                if (_thumbnailImageSize.height > 2 * IMAGE_MAX_SIZE) {
+//                //                    _thumbnailImage = [_thumbnailImage createWithImageInRect:CGRectMake(0, (_thumbnailImageSize.height - IMAGE_MAX_SIZE) / 2 * _thumbnailImage.scale, _thumbnailImageSize.width * _thumbnailImage.scale, IMAGE_MAX_SIZE * _thumbnailImage.scale)];
+//                //                }else if (_thumbnailImageSize.width > 2 * IMAGE_MAX_SIZE) {
+//                //                    _thumbnailImage = [_thumbnailImage createWithImageInRect:CGRectMake((_thumbnailImageSize.width - IMAGE_MAX_SIZE)/2 * _thumbnailImage.scale, 0, IMAGE_MAX_SIZE * _thumbnailImage.scale, _thumbnailImageSize.height * _thumbnailImage.scale)];
+//                //                }
+//                
+//                break;
+//            }
+//            case kLLMessageBodyTypeVideo:{
+//                EMVideoMessageBody *videoMessageBody = (EMVideoMessageBody *)self.sdk_message.body;
+//                
+//                if (_fromMe || videoMessageBody.downloadStatus == EMDownloadStatusSuccessed ) {
+//                    UIImage *image = [LLUtils getVideoThumbnailImage:videoMessageBody.localPath];
+//                    thumbnailImage = [image resizeImageToSize:self.thumbnailImageSize];
+//                    
+//                    needSaveToCache = YES;
+//                    needSaveToDisk = YES;
+//                }else if (videoMessageBody.thumbnailDownloadStatus == EMDownloadStatusSuccessed) {
+//                    UIImage *image = [[UIImage alloc] initWithContentsOfFile:videoMessageBody.thumbnailLocalPath];
+//                    thumbnailImage = [image resizeImageToSize:self.thumbnailImageSize];
+//                    
+//                    needSaveToTemp = YES;
+//                }
+//                
+//                break;
+//            }
+//            case kLLMessageBodyTypeLocation: {
+//                if (self.defaultSnapshot)
+//                    return nil;
+//                
+//                EMFileMessageBody *body = (EMFileMessageBody *)self.sdk_message.body;
+//                if (_fromMe || body.downloadStatus == EMDownloadStatusSuccessed) {
+//                    NSData *data = [NSData dataWithContentsOfFile:body.localPath];
+//                    thumbnailImage = [UIImage imageWithData:data scale:_snapshotScale];
+//                    
+//                    needSaveToCache = YES;
+//                    needSaveToDisk = NO;
+//                }
+//                
+//                break;
+//            }
+//                
+//            default:
+//                break;
+//        }
+//        
+//        if (thumbnailImage) {
+//            if (needSaveToTemp) {
+//                tmpImageDict[_messageId] = thumbnailImage;
+//            }else if (needSaveToCache) {
+//                tmpImageDict[_messageId] = nil;
+//                [[LLMessageThumbnailManager sharedManager] addThumbnailForMessageModel:self thumbnail:thumbnailImage toDisk:needSaveToDisk];
+//            }
+//        }
+//        
+//        _thumbnailImage = thumbnailImage;
+//    }
+//    
+//    _thumbnailImage = [UIImage new];
     return _thumbnailImage;
 }
 

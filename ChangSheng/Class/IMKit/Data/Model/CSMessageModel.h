@@ -16,7 +16,7 @@
 #import "LLSDKError.h"
 #import "LLSDKType.h"
 #import <MapKit/MapKit.h>
-
+#import "CSMsgRecordModel.h"
 
 @class CSMessageBodyModel;
 @class CSUnreadListModel;
@@ -308,7 +308,14 @@ typedef NS_ENUM(NSInteger, CSMessageStatus) {
                                    duration:(NSInteger)duration
                                  messageExt:(nullable NSDictionary *)messageExt
                                  completion:(void (^ __nullable)(CSMessageModel *model, NSError *error))completion;
-//- (void)updateMessage:(CSMessageModel *)aMessage updateReason:(LLMessageModelUpdateReason)updateReason;
+
+//+ (CSMessageModel *)conversionWithRecordModel1:(CSMsgRecordModel*)msgRecordModel
+//                                         chatType:(CSChatType)chatType
+//                                       chatId:(NSString*)chatId;
+
+
+
++ (CSMessageModel *)conversionWithRecordModel:(CSMsgRecordModel*)msgRecordModel chatType:(CSChatType)chatType chatId:(NSString *)chatId;
 
 + (NSString *)messageTypeTitle:(EMMessage *)message;
 

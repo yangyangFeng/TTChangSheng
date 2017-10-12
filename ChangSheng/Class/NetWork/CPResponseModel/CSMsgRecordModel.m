@@ -13,4 +13,9 @@
 {
     return @{@"data":[self class]};
 }
+
++ (NSDictionary *)mj_replacedKeyFromPropertyName
+{
+    return @{@"msg_id":@"id"};
+}
 @end
