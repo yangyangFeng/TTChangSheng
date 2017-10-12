@@ -336,6 +336,10 @@
 		74C8530B1F8E336600944C50 /* CSUserTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 74C853091F8E336600944C50 /* CSUserTableViewCell.m */; };
 		74C8530C1F8E336600944C50 /* CSUserTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 74C8530A1F8E336600944C50 /* CSUserTableViewCell.xib */; };
 		74C8530F1F8E375900944C50 /* CSMsgHistoryModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 74C8530E1F8E375900944C50 /* CSMsgHistoryModel.m */; };
+		74C853121F8F763200944C50 /* CSMsgRecordModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 74C853111F8F763200944C50 /* CSMsgRecordModel.m */; };
+		74C8531A1F8F8FA400944C50 /* MCDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 74C853151F8F8FA400944C50 /* MCDownloader.m */; };
+		74C8531B1F8F8FA400944C50 /* MCDownloadOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 74C853171F8F8FA400944C50 /* MCDownloadOperation.m */; };
+		74C8531C1F8F8FA400944C50 /* MCDownloadReceipt.m in Sources */ = {isa = PBXBuildFile; fileRef = 74C853191F8F8FA400944C50 /* MCDownloadReceipt.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -1004,6 +1008,14 @@
 		74C8530A1F8E336600944C50 /* CSUserTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CSUserTableViewCell.xib; sourceTree = "<group>"; };
 		74C8530D1F8E375900944C50 /* CSMsgHistoryModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSMsgHistoryModel.h; sourceTree = "<group>"; };
 		74C8530E1F8E375900944C50 /* CSMsgHistoryModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSMsgHistoryModel.m; sourceTree = "<group>"; };
+		74C853101F8F763200944C50 /* CSMsgRecordModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSMsgRecordModel.h; sourceTree = "<group>"; };
+		74C853111F8F763200944C50 /* CSMsgRecordModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSMsgRecordModel.m; sourceTree = "<group>"; };
+		74C853141F8F8FA400944C50 /* MCDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCDownloader.h; sourceTree = "<group>"; };
+		74C853151F8F8FA400944C50 /* MCDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCDownloader.m; sourceTree = "<group>"; };
+		74C853161F8F8FA400944C50 /* MCDownloadOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCDownloadOperation.h; sourceTree = "<group>"; };
+		74C853171F8F8FA400944C50 /* MCDownloadOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCDownloadOperation.m; sourceTree = "<group>"; };
+		74C853181F8F8FA400944C50 /* MCDownloadReceipt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCDownloadReceipt.h; sourceTree = "<group>"; };
+		74C853191F8F8FA400944C50 /* MCDownloadReceipt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCDownloadReceipt.m; sourceTree = "<group>"; };
 		84C57046CFB3067E7FF70B34 /* libPods-ChangSheng.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ChangSheng.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -2155,6 +2167,7 @@
 		18C81F641F7656A00012150B /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				74C853131F8F8FA400944C50 /* CSFileDownLoader */,
 				184B5D161F794C0F007A1C22 /* Log */,
 				184B5D1B1F794C0F007A1C22 /* Promise */,
 				18C81F651F7656A00012150B /* Category */,
@@ -2439,6 +2452,8 @@
 				18B6C6111F8BBF61007B1669 /* CSUploadFileModel.m */,
 				74C8530D1F8E375900944C50 /* CSMsgHistoryModel.h */,
 				74C8530E1F8E375900944C50 /* CSMsgHistoryModel.m */,
+				74C853101F8F763200944C50 /* CSMsgRecordModel.h */,
+				74C853111F8F763200944C50 /* CSMsgRecordModel.m */,
 			);
 			path = CPResponseModel;
 			sourceTree = "<group>";
@@ -2517,6 +2532,19 @@
 				74C853021F8DF4A600944C50 /* lame.framework */,
 			);
 			path = Lame;
+			sourceTree = "<group>";
+		};
+		74C853131F8F8FA400944C50 /* CSFileDownLoader */ = {
+			isa = PBXGroup;
+			children = (
+				74C853141F8F8FA400944C50 /* MCDownloader.h */,
+				74C853151F8F8FA400944C50 /* MCDownloader.m */,
+				74C853161F8F8FA400944C50 /* MCDownloadOperation.h */,
+				74C853171F8F8FA400944C50 /* MCDownloadOperation.m */,
+				74C853181F8F8FA400944C50 /* MCDownloadReceipt.h */,
+				74C853191F8F8FA400944C50 /* MCDownloadReceipt.m */,
+			);
+			path = CSFileDownLoader;
 			sourceTree = "<group>";
 		};
 		B34E9B3CE5E6651B4B98E88A /* Pods */ = {
@@ -2736,6 +2764,7 @@
 				1804AD1A1F7BDC6100508C1C /* LLUtils+Audio.m in Sources */,
 				18C820291F7768C50012150B /* CSNewWorkHandler.m in Sources */,
 				18C81FF21F76585F0012150B /* UIImage+BetterFace.m in Sources */,
+				74C8531C1F8F8FA400944C50 /* MCDownloadReceipt.m in Sources */,
 				1804ACA91F7BDC6100508C1C /* LLContactAddController.m in Sources */,
 				18C81FEB1F76585F0012150B /* ILBarButtonItem.m in Sources */,
 				1804AD181F7BDC6100508C1C /* LLDeviceManager.m in Sources */,
@@ -2744,6 +2773,7 @@
 				184B5D221F794C0F007A1C22 /* Deferred.m in Sources */,
 				1804AD1F1F7BDC6100508C1C /* LLUtils+Popover.m in Sources */,
 				18C81FEE1F76585F0012150B /* NSString+TTExtend.m in Sources */,
+				74C8531A1F8F8FA400944C50 /* MCDownloader.m in Sources */,
 				1804AC971F7BDC6100508C1C /* LLGaoDeLocationViewController.m in Sources */,
 				1804ACB91F7BDC6100508C1C /* LLNoDisturbTableViewController.m in Sources */,
 				1804AC8A1F7BDC6100508C1C /* LLChatAssetDisplayController.m in Sources */,
@@ -2779,6 +2809,7 @@
 				1804AC941F7BDC6100508C1C /* LLEmotionInputView.m in Sources */,
 				1804AD041F7BDC6100508C1C /* LLLeftAlignedCollectionViewFlowLayout.m in Sources */,
 				1804ACC21F7BDC6100508C1C /* LLSNSSearchController.m in Sources */,
+				74C8531B1F8F8FA400944C50 /* MCDownloadOperation.m in Sources */,
 				1804AD161F7BDC6100508C1C /* UITextView+LLDebugOnly.m in Sources */,
 				1804ACB21F7BDC6100508C1C /* LLDiscoveryController.m in Sources */,
 				74C852E11F8B769100944C50 /* CSMineViewController.m in Sources */,
@@ -2975,6 +3006,7 @@
 				18C820131F76585F0012150B /* UIStoryboard+VireController.m in Sources */,
 				1804ACFA1F7BDC6100508C1C /* LLAlbumListController.m in Sources */,
 				1804AC991F7BDC6100508C1C /* LLLocationSearchResultController.m in Sources */,
+				74C853121F8F763200944C50 /* CSMsgRecordModel.m in Sources */,
 				1804AD2E1F7BDC6100508C1C /* CSIMSendMessageRequest.m in Sources */,
 				18C81FFD1F76585F0012150B /* NSString+Extend.m in Sources */,
 				1804AD1E1F7BDC6100508C1C /* LLUtils+Notification.m in Sources */,

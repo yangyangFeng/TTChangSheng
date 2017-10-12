@@ -628,12 +628,12 @@
                   moduleName = "ChangSheng"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/xunlei/TTWork/TTChangSheng/ChangSheng/Class/IMKit/General/Audio/LLAudioManager.m"
-                  timestampString = "529409212.104366"
+                  timestampString = "529495910.003522"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "568"
                   endingLineNumber = "568"
-                  offsetFromSymbolStart = "136">
+                  offsetFromSymbolStart = "146">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -643,12 +643,12 @@
                   moduleName = "ChangSheng"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/xunlei/TTWork/TTChangSheng/ChangSheng/Class/IMKit/General/Audio/LLAudioManager.m"
-                  timestampString = "529409212.106564"
+                  timestampString = "529495910.006546"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "569"
                   endingLineNumber = "569"
-                  offsetFromSymbolStart = "48">
+                  offsetFromSymbolStart = "44">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -756,12 +756,12 @@
                   moduleName = "ChangSheng"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/xunlei/TTWork/TTChangSheng/ChangSheng/Class/IMKit/Server/LLMessageUploader.m"
-                  timestampString = "529409212.131854"
+                  timestampString = "529495910.034365"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "72"
                   endingLineNumber = "72"
-                  offsetFromSymbolStart = "108">
+                  offsetFromSymbolStart = "90">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -771,12 +771,12 @@
                   moduleName = "ChangSheng"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/xunlei/TTWork/TTChangSheng/ChangSheng/Class/IMKit/Server/LLMessageUploader.m"
-                  timestampString = "529409212.134046"
+                  timestampString = "529495910.037276"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "72"
                   endingLineNumber = "72"
-                  offsetFromSymbolStart = "16">
+                  offsetFromSymbolStart = "12">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -948,12 +948,12 @@
                   moduleName = "ChangSheng"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/xunlei/TTWork/TTChangSheng/ChangSheng/Class/IMKit/Client/Chat/LLChatViewController.m"
-                  timestampString = "529409212.151149"
+                  timestampString = "529495910.055385"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "1721"
                   endingLineNumber = "1721"
-                  offsetFromSymbolStart = "76">
+                  offsetFromSymbolStart = "69">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -963,12 +963,12 @@
                   moduleName = "ChangSheng"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/xunlei/TTWork/TTChangSheng/ChangSheng/Class/IMKit/Client/Chat/LLChatViewController.m"
-                  timestampString = "529409212.153322"
+                  timestampString = "529495910.05762"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "1721"
                   endingLineNumber = "1721"
-                  offsetFromSymbolStart = "16">
+                  offsetFromSymbolStart = "12">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -996,12 +996,12 @@
                   moduleName = "ChangSheng"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/xunlei/TTWork/TTChangSheng/ChangSheng/Class/IMKit/Client/Chat/LLChatViewController.m"
-                  timestampString = "529409212.157735"
+                  timestampString = "529495910.062292"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "764"
                   endingLineNumber = "764"
-                  offsetFromSymbolStart = "92">
+                  offsetFromSymbolStart = "86">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -1011,12 +1011,12 @@
                   moduleName = "ChangSheng"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/xunlei/TTWork/TTChangSheng/ChangSheng/Class/IMKit/Client/Chat/LLChatViewController.m"
-                  timestampString = "529409212.160206"
+                  timestampString = "529495910.064803"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "764"
                   endingLineNumber = "764"
-                  offsetFromSymbolStart = "108">
+                  offsetFromSymbolStart = "94">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -1050,6 +1050,38 @@
             startingLineNumber = "765"
             endingLineNumber = "765"
             landmarkName = "-visibleCellForMessageModel:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ChangSheng/Class/IMKit/Client/Chat/LLChatViewController.m"
+            timestampString = "529481487.757595"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1739"
+            endingLineNumber = "1739"
+            landmarkName = "-sendTextMessage:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ChangSheng/Class/Home/C/CSUserServiceListViewController.m"
+            timestampString = "529495979.558476"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "122"
+            endingLineNumber = "122"
+            landmarkName = "-tableView:didSelectRowAtIndexPath:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

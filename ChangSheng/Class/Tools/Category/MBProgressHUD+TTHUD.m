@@ -53,7 +53,7 @@ static BOOL _isShow;
 + (void)tt_ShowWithTitle:(NSString*)title
 {
     UIWindow* keyWindow = [UIApplication sharedApplication].keyWindow;
-    MBProgressHUD* hud = [MBProgressHUD HUDForView:keyWindow];
+    MBProgressHUD* hud = [MBProgressHUD getCurrentHUDView:keyWindow];
     
     hud.mode = MBProgressHUDModeText;
     hud.label.text = title;
@@ -63,7 +63,7 @@ static BOOL _isShow;
 
 + (void)tt_ShowInView:(UIView*)view WithTitle:(NSString*)title
 {
-    MBProgressHUD* hud = [self getCurrentHUDView:view];
+    MBProgressHUD* hud = [MBProgressHUD getCurrentHUDView:view];
     hud.mode = MBProgressHUDModeText;
     hud.label.text = title;
     //    hud.backgroundColor = GROUNDCOLOR;
@@ -100,9 +100,9 @@ static BOOL _isShow;
 + (void)tt_ShowInViewDefaultTitle:(UIView*)view
 {
     MBProgressHUD* hud = [self getCurrentHUDView:view];
-    hud.mode = MBProgressHUDModeText;
+    hud.mode = MBProgressHUDModeIndeterminate;
     hud.label.text = defaultTitle;
-    //    hud.backgroundColor = GROUNDCOLOR;
+    hud.userInteractionEnabled = YES;
     [hud showAnimated:YES];
     hud.isShow = YES;
 }
@@ -173,10 +173,7 @@ static BOOL _isShow;
 {
     MBProgressHUD* hud = [self getCurrentHUDView:view];
     hud.label.text = title;
-    
-//    [hud show:YES];
-//    hud.isShow = YES;
-    
+        
     if (!hud.isShow) {
         [hud showAnimated:YES];
     }

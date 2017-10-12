@@ -375,7 +375,7 @@ NSMutableDictionary * tmpImageDict;
 
 - (UIImage *)thumbnailImage {
     DLog(@"待实现方法");
-    /*
+    
     if (!_thumbnailImage) {
         _thumbnailImage = [[LLMessageThumbnailManager sharedManager] thumbnailForMessageModel:self];
         if (_thumbnailImage)
@@ -464,7 +464,7 @@ NSMutableDictionary * tmpImageDict;
         
         _thumbnailImage = thumbnailImage;
     }
-    */
+    
     _thumbnailImage = [UIImage new];
     return _thumbnailImage;
 }

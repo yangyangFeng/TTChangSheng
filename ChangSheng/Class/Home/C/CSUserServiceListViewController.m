@@ -7,12 +7,14 @@
 //
 
 #import "CSUserServiceListViewController.h"
+#import "LLChatViewController.h"
 
 #import "CSUserTableViewCell.h"
 #import "StoryBoardController.h"
 #import "CSMsgHistoryRequestModel.h"
 
 #import "CSMsgHistoryModel.h"
+#import "CSMsgRecordModel.h"
 @interface CSUserServiceListViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property(nonatomic,strong)UITableView * tableView;
 @property(nonatomic,strong)NSMutableArray * dataSource;
@@ -34,7 +36,13 @@
     
     [self.tt_navigationBar.contentView setBackgroundColor:[UIColor whiteColor]];
     
+    self.tt_navigationBar.titleLabel.textColor = [UIColor colorWithHexColorString:@"333333"];
+    
+    self.view.backgroundColor = [UIColor colorWithRed:230/255.0 green:230/255.0 blue:230/255.0 alpha:1];
+    
     [self tt_Title:@"客服列表"];
+    
+    
     // Do any additional setup after loading the view.
 }
 
@@ -44,13 +52,14 @@
     
     //    TTSingleChatViewController * vc = [TTSingleChatViewController new];
     //    [self.navigationController pushViewController:vc animated:YES];
-    
+    [MBProgressHUD tt_ShowInViewDefaultTitle:self.view];
     [CSHttpRequestManager request_helperList_paramters:nil success:^(id responseObject) {
         CSMsgHistoryModel * obj = [CSMsgHistoryModel mj_objectWithKeyValues:responseObject];
         self.dataSource = [NSMutableArray arrayWithArray:obj.result];
         [self.tableView reloadData];
+        [MBProgressHUD tt_HideFromeView:self.view];
     } failure:^(NSError *error) {
-        
+        [MBProgressHUD tt_HideFromeView:self.view];
     } showHUD:YES];
 }
 
@@ -61,6 +70,7 @@
     self.tableView.tableFooterView = [UIView new];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
+    self.tableView.backgroundColor = self.view.backgroundColor;
     
     [self.view addSubview:self.tableView];
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -85,7 +95,7 @@
     CSUserTableViewCell * cell = [CSUserTableViewCell cellWithTableView:tableView];
     CSMsgHistoryModel * model = self.dataSource[indexPath.row];
     
-    [cell.userIcon yy_setImageWithURL:[NSURL URLWithString:model.avatar] options:YYWebImageOptionShowNetworkActivity];
+     [cell.userIcon yy_setImageWithURL:[NSURL URLWithString:model.avatar] placeholder:[UIImage imageNamed:@"聊天自定义头像"]];
     cell.userName.text = model.nickname;
     return cell;
 }
@@ -99,12 +109,21 @@
     param.chat_type = 2;//客服为单聊
     param.ID = userServiceModel.id.intValue;
     
+    [MBProgressHUD tt_ShowInViewDefaultTitle:self.tableView];
     [CSHttpRequestManager request_chatRecord_paramters:param.mj_keyValues success:^(id responseObject) {
-//        UIViewController * chatC = [StoryBoardController storyBoardName:@"Main" ViewControllerIdentifiter:@"LLChatViewController"];
-//                                   
-//                                   [self.navigationController pushViewController:chatC animated:YES];
-    } failure:^(NSError *error) {
+        CSMsgRecordModel * obj = [CSMsgRecordModel mj_objectWithKeyValues:responseObject];
         
+        [MBProgressHUD tt_HideFromeView:self.tableView];
+        LLChatViewController * chatC = (LLChatViewController*)[StoryBoardController storyBoardName:@"Main" ViewControllerIdentifiter:@"LLChatViewController"];
+        CSIMConversationModel * model = [CSIMConversationModel new];
+        model.chatId = [userServiceModel id];
+        model.nickName = userServiceModel.nickname;
+        
+        model.allMessageModels = [NSMutableArray arrayWithArray:obj.result.data];
+        chatC.conversationModel = model;
+        [self.navigationController pushViewController:chatC animated:YES];
+    } failure:^(NSError *error) {
+        [MBProgressHUD tt_HideFromeView:self.tableView];
     } showHUD:YES];
 }
 

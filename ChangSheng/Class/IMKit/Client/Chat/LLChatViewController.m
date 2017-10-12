@@ -122,13 +122,13 @@ CSIMReceiveManagerDelegate
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.conversationModel = [CSIMConversationModel new];
+//    self.conversationModel = [CSIMConversationModel new];
     
     [self tt_SetNaviBarHide:NO withAnimation:NO];
     
     self.tt_navigationBar.contentView.backgroundColor = [UIColor whiteColor];
-    
-    self.title = self.conversationModel.nickName;
+    self.tt_navigationBar.titleLabel.textColor = [UIColor colorWithHexColorString:@"333333"];
+    [self tt_Title:self.conversationModel.nickName];
     self.view.backgroundColor = VIEW_BACKGROUND_COLOR;
     
     UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:@"Debug1" style:UIBarButtonItemStylePlain target:self action:@selector(debug1:)];
@@ -736,7 +736,7 @@ CSIMReceiveManagerDelegate
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     CSMessageModel *messageModel = self.dataSource[indexPath.row];
-    NSLog(@"height->%g,str->%@",messageModel.cellHeight,messageModel.body.content);
+//    NSLog(@"height->%g,str->%@",messageModel.cellHeight,messageModel.body.content);
     return messageModel.cellHeight;
 }
 
@@ -748,10 +748,10 @@ CSIMReceiveManagerDelegate
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
-//    if ([cell isKindOfClass:[LLMessageBaseCell class]]) {
-//        LLMessageBaseCell *baseCell = (LLMessageBaseCell *)cell;
-//        [baseCell willDisplayCell];
-//    }
+    if ([cell isKindOfClass:[LLMessageBaseCell class]]) {
+        LLMessageBaseCell *baseCell = (LLMessageBaseCell *)cell;
+        [baseCell willDisplayCell];
+    }
 }
 
 #pragma mark - TableView 相关方法 -
@@ -1655,6 +1655,7 @@ CSIMReceiveManagerDelegate
 #pragma mark - 重新发送/下载消息
 
 - (void)resendMessage:(LLMessageModel *)model {
+    DLog(@"消息重发");
     [[LLChatManager sharedManager] resendMessage:model
         progress:nil
       completion:nil];
@@ -1666,7 +1667,8 @@ CSIMReceiveManagerDelegate
 
 }
 
-- (void)redownloadMessage:(LLMessageModel *)model {
+- (void)redownloadMessage:(CSMessageModel *)model {
+    DLog(@"消息重发");
     switch (model.messageBodyType) {
         case kLLMessageBodyTypeImage:
             break;
@@ -1734,7 +1736,7 @@ CSIMReceiveManagerDelegate
 - (void)sendTextMessage:(NSString *)text {
     
     CSIMSendMessageRequestModel * model = [CSIMSendMessageRequestModel new];
-    CSMessageModel * msgModel = [CSMessageModel newMessageChatType:CSChatTypeChat chatId:@"3" msgId:nil msgType:CSMessageBodyTypeText action:4 content:text];
+    CSMessageModel * msgModel = [CSMessageModel newMessageChatType:CSChatTypeChat chatId:self.conversationModel.chatId msgId:nil msgType:CSMessageBodyTypeText action:4 content:text];
     
     model.body = msgModel;
     
@@ -2051,7 +2053,7 @@ CSIMReceiveManagerDelegate
     [CSHttpRequestManager upLoadFileRequestParamters:nil filePath:voiceFilePath fileType:CS_UPLOAD_FILE_VOICE success:^(id responseObject) {
         CSUploadFileModel * rsp = [CSUploadFileModel mj_objectWithKeyValues:responseObject];
         
-        msgModel = [CSMessageModel newVoiceMessageChatType:CSChatTypeChat chatId:@"3" msgId:nil msgType:(CSMessageBodyTypeVoice) action:4 content:rsp.result.file_url localPath:voiceFilePath duration:duration messageExt:nil completion:nil];
+        msgModel = [CSMessageModel newVoiceMessageChatType:CSChatTypeChat chatId:self.conversationModel.chatId msgId:nil msgType:(CSMessageBodyTypeVoice) action:4 content:rsp.result.file_url localPath:voiceFilePath duration:duration messageExt:nil completion:nil];
 
         CSMessageModel *recordingModel = [self getRecordingModel];
         dispatch_async(dispatch_get_main_queue(), ^{
