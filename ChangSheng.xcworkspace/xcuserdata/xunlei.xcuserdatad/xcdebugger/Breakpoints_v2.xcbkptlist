@@ -484,11 +484,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ChangSheng/Class/IMKit/Client/Chat/LLChatViewController.m"
-            timestampString = "529408423.68174"
+            timestampString = "529581930.061649"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2041"
-            endingLineNumber = "2041"
+            startingLineNumber = "2067"
+            endingLineNumber = "2067"
             landmarkName = "-audioRecordDidFinishSuccessed:duration:"
             landmarkType = "7">
          </BreakpointContent>
@@ -516,11 +516,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ChangSheng/Class/IMKit/Client/Chat/LLChatViewController.m"
-            timestampString = "529400343.449046"
+            timestampString = "529581930.061649"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1526"
-            endingLineNumber = "1526"
+            startingLineNumber = "1552"
+            endingLineNumber = "1552"
             landmarkName = "-showAssetFromCell:"
             landmarkType = "7">
          </BreakpointContent>
@@ -532,11 +532,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ChangSheng/Class/IMKit/Client/Chat/LLChatViewController.m"
-            timestampString = "529400343.449046"
+            timestampString = "529581930.061649"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1503"
-            endingLineNumber = "1503"
+            startingLineNumber = "1529"
+            endingLineNumber = "1529"
             landmarkName = "-cellVideoDidTapped:"
             landmarkType = "7">
          </BreakpointContent>
@@ -548,11 +548,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ChangSheng/Class/IMKit/Client/Chat/LLChatViewController.m"
-            timestampString = "529398097.44379"
+            timestampString = "529580586.762758"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1336"
-            endingLineNumber = "1336"
+            startingLineNumber = "1337"
+            endingLineNumber = "1337"
             landmarkName = "-createImageMessageModel:imageSize:"
             landmarkType = "7">
          </BreakpointContent>
@@ -564,11 +564,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ChangSheng/Class/IMKit/Client/Chat/LLChatViewController.m"
-            timestampString = "529400343.449046"
+            timestampString = "529581930.061649"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1491"
-            endingLineNumber = "1491"
+            startingLineNumber = "1517"
+            endingLineNumber = "1517"
             landmarkName = "-sendVideoMessageWithURL:"
             landmarkType = "7">
          </BreakpointContent>
@@ -596,11 +596,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ChangSheng/Class/IMKit/Data/Model/CSMessageModel.m"
-            timestampString = "529566010.958857"
+            timestampString = "529580586.762758"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "653"
-            endingLineNumber = "653"
+            startingLineNumber = "668"
+            endingLineNumber = "668"
             landmarkName = "-isVideoPlayable"
             landmarkType = "7">
          </BreakpointContent>
@@ -628,7 +628,7 @@
                   moduleName = "ChangSheng"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/xunlei/TTWork/TTChangSheng/ChangSheng/Class/IMKit/General/Audio/LLAudioManager.m"
-                  timestampString = "529567128.197812"
+                  timestampString = "529582038.242141"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "568"
@@ -643,7 +643,7 @@
                   moduleName = "ChangSheng"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/xunlei/TTWork/TTChangSheng/ChangSheng/Class/IMKit/General/Audio/LLAudioManager.m"
-                  timestampString = "529567128.200727"
+                  timestampString = "529582038.244391"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "569"
@@ -740,7 +740,7 @@
                   moduleName = "ChangSheng"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/xunlei/TTWork/TTChangSheng/ChangSheng/Class/IMKit/Server/LLMessageUploader.m"
-                  timestampString = "529567128.226487"
+                  timestampString = "529582038.351054"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "72"
@@ -755,7 +755,7 @@
                   moduleName = "ChangSheng"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/xunlei/TTWork/TTChangSheng/ChangSheng/Class/IMKit/Server/LLMessageUploader.m"
-                  timestampString = "529567128.228776"
+                  timestampString = "529582038.354376"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "72"
@@ -884,11 +884,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ChangSheng/Class/IMKit/Data/Model/CSMessageModel.m"
-            timestampString = "529566010.958857"
+            timestampString = "529580586.762758"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "643"
-            endingLineNumber = "643"
+            startingLineNumber = "658"
+            endingLineNumber = "658"
             landmarkName = "-fileAttachmentSize"
             landmarkType = "7">
          </BreakpointContent>
@@ -916,11 +916,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ChangSheng/Class/IMKit/Client/Chat/LLChatViewController.m"
-            timestampString = "529408339.043133"
+            timestampString = "529581930.061649"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1721"
-            endingLineNumber = "1721"
+            startingLineNumber = "1747"
+            endingLineNumber = "1747"
             landmarkName = "-cs_receiveMessage:"
             landmarkType = "7">
          </BreakpointContent>
@@ -932,11 +932,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ChangSheng/Class/IMKit/Client/Chat/LLChatViewController.m"
-            timestampString = "529408483.428293"
+            timestampString = "529581930.061649"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1723"
-            endingLineNumber = "1723"
+            startingLineNumber = "1749"
+            endingLineNumber = "1749"
             landmarkName = "-cs_receiveMessage:"
             landmarkType = "7">
          </BreakpointContent>
@@ -948,11 +948,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ChangSheng/Class/IMKit/Client/Chat/LLChatViewController.m"
-            timestampString = "529481487.757595"
+            timestampString = "529581930.061649"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1739"
-            endingLineNumber = "1739"
+            startingLineNumber = "1765"
+            endingLineNumber = "1765"
             landmarkName = "-cs_sendMessageCallBlock:"
             landmarkType = "7">
             <Locations>
@@ -964,41 +964,41 @@
                   moduleName = "ChangSheng"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/xunlei/TTWork/TTChangSheng/ChangSheng/Class/IMKit/Client/Chat/LLChatViewController.m"
-                  timestampString = "529567128.257348"
+                  timestampString = "529582038.434718"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1740"
-                  endingLineNumber = "1740"
+                  startingLineNumber = "1766"
+                  endingLineNumber = "1766"
                   offsetFromSymbolStart = "158">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "__copy_helper_block_.826"
+                  symbolName = "__copy_helper_block_.833"
                   moduleName = "ChangSheng"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/xunlei/TTWork/TTChangSheng/ChangSheng/Class/IMKit/Client/Chat/LLChatViewController.m"
-                  timestampString = "529567128.259736"
+                  timestampString = "529582038.438458"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1740"
-                  endingLineNumber = "1740"
+                  startingLineNumber = "1766"
+                  endingLineNumber = "1766"
                   offsetFromSymbolStart = "111">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "__destroy_helper_block_.827"
+                  symbolName = "__destroy_helper_block_.834"
                   moduleName = "ChangSheng"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/xunlei/TTWork/TTChangSheng/ChangSheng/Class/IMKit/Client/Chat/LLChatViewController.m"
-                  timestampString = "529567128.26204"
+                  timestampString = "529582038.441354"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1740"
-                  endingLineNumber = "1740"
+                  startingLineNumber = "1766"
+                  endingLineNumber = "1766"
                   offsetFromSymbolStart = "55">
                </Location>
             </Locations>
@@ -1027,11 +1027,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ChangSheng/Class/IMKit/Data/Model/CSMessageModel.m"
-            timestampString = "529566010.958857"
+            timestampString = "529580586.762758"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "670"
-            endingLineNumber = "670"
+            startingLineNumber = "685"
+            endingLineNumber = "685"
             landmarkName = "-isVoicePlayable"
             landmarkType = "7">
          </BreakpointContent>
@@ -1043,11 +1043,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ChangSheng/Class/IMKit/Client/Chat/LLChatViewController.m"
-            timestampString = "529566010.958857"
+            timestampString = "529581930.061649"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2151"
-            endingLineNumber = "2151"
+            startingLineNumber = "2177"
+            endingLineNumber = "2177"
             landmarkName = "-cellVoiceDidTapped:"
             landmarkType = "7">
          </BreakpointContent>
@@ -1059,11 +1059,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ChangSheng/Class/IMKit/Data/Model/CSMessageModel.m"
-            timestampString = "529565839.015202"
+            timestampString = "529580586.762758"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "186"
-            endingLineNumber = "186"
+            startingLineNumber = "201"
+            endingLineNumber = "201"
             landmarkName = "-initWithImageModel:"
             landmarkType = "7">
          </BreakpointContent>
@@ -1075,11 +1075,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ChangSheng/Class/IMKit/Data/Model/CSMessageModel.m"
-            timestampString = "529565849.080561"
+            timestampString = "529580586.762758"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "544"
-            endingLineNumber = "544"
+            startingLineNumber = "559"
+            endingLineNumber = "559"
             landmarkName = "-messageDownloadStatus"
             landmarkType = "7">
          </BreakpointContent>
@@ -1113,6 +1113,22 @@
             startingLineNumber = "543"
             endingLineNumber = "543"
             landmarkName = "-checkAvailabilityWithFile:callback:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ChangSheng/Class/IMKit/Client/Chat/LLChatViewController.m"
+            timestampString = "529582029.776272"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1384"
+            endingLineNumber = "1384"
+            landmarkName = "-imagePickerController:didFinishPickingImages:withError:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

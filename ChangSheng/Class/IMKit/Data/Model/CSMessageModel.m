@@ -87,6 +87,21 @@ NSMutableDictionary * tmpImageDict;
 }
 
 #pragma mark - 消息初始化 -
++ (CSMessageModel *)sendImageMessageWithImageData:(NSData *)imageData
+                                        imageSize:(CGSize)imageSize
+                                           chatId:(NSString *)chatId
+                                         chatType:(CSChatType)chatType
+                                          msgType:(CSMessageBodyType)msgBodyType
+                                           action:(int)action
+                                          content:(NSString *)content
+{
+    CSMessageModel * model = [[CSMessageModel alloc]initNewMessageChatType:chatType chatId:chatId msgId:nil msgType:msgBodyType action:action content:content];
+    model.thumbnailImage = [UIImage imageWithData:imageData];
+    model.thumbnailImageSize = imageSize;
+    [model formaterMessage];
+
+    return model;
+}
 
 + (CSMessageModel *)newVoiceMessageChatType:(CSChatType)chatType
                                 chatId:(NSString *)chatId
@@ -166,7 +181,7 @@ NSMutableDictionary * tmpImageDict;
         _isSelf = YES;
         
 
-        _messageStatus = kCSMessageStatusSuccessed;
+        _messageStatus = kCSMessageDownloadStatusNone;
         _messageDownloadStatus = kCSMessageDownloadStatusNone;
         _thumbnailDownloadStatus = kCSMessageDownloadStatusNone;
         

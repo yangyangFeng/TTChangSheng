@@ -567,7 +567,7 @@ static long long  MAX_ACCEPT_BITMAP_SIZE = 52428800;
         UIImage *image = [UIImage imageWithCGImage:imageRef
                                              scale:assetRepresentation.scale
                                        orientation:(UIImageOrientation)assetRepresentation.orientation];
-        data = UIImageJPEGRepresentation(image, 1);
+        data = UIImageJPEGRepresentation(image, 0.01);
         
     }else if (model.asset_PH) {
         PHImageRequestOptions *options = [[PHImageRequestOptions alloc] init];

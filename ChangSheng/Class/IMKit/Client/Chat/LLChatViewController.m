@@ -1329,6 +1329,7 @@ CSIMReceiveManagerDelegate
     }
     CSMessageModel * messageModel;
 //    LLChatType chatType = chatTypeForConversationType(self.conversationModel.conversationType);
+    messageModel = [CSMessageModel sendImageMessageWithImageData:imageData imageSize:imageSize chatId:self.conversationModel.chatId chatType:(CSChatTypeChat) msgType:(CSMessageBodyTypeImage) action:4 content:@""];
 //    LLMessageModel * messageModel = [[LLChatManager sharedManager]
 //                                     sendImageMessageWithData:imageData
 //                                     imageSize:imageSize
@@ -1380,17 +1381,41 @@ CSIMReceiveManagerDelegate
          NSMutableArray<LLMessageModel *> *messageModels = [NSMutableArray arrayWithCapacity:assets.count];
         
          for (LLAssetModel *asset in assets) {
-             LLMessageModel *messageModel = [weakSelf createImageMessageModel:[[LLAssetManager sharedAssetManager] fetchImageDataFromAssetModel:asset] imageSize:asset.imageSize];
-             if (messageModel)
-                 [messageModels addObject:messageModel];
+             NSData * imageData = [[LLAssetManager sharedAssetManager] fetchImageDataFromAssetModel:asset];
+             CSMessageModel *messageModel = [weakSelf createImageMessageModel:imageData imageSize:asset.imageSize];
+//             if (messageModel)
+//                 [messageModels addObject:messageModel];
+
+             
+             if (messageModel){
+                 CSIMSendMessageRequestModel * messageRequest = [CSIMSendMessageRequestModel new];
+                 messageRequest.body = messageModel;
+                 [self addModelToDataSourceAndScrollToBottom:messageRequest animated:NO];
+         }
+
+             //#FIXME:发送拍摄照片正在处理
+             [CSHttpRequestManager upLoadFileRequestParamters:nil fileData:imageData fileType:(CS_UPLOAD_FILE_IMAGE) success:^(id responseObject) {
+                 
+             } failure:^(NSError *error) {
+                 
+             } uploadprogress:^(NSProgress *uploadProgress) {
+                 DLog(@"--->%@",uploadProgress);
+                 messageModel.fileUploadProgress = uploadProgress.completedUnitCount /uploadProgress.totalUnitCount * 100;
+                 
+                 //            updateMessageUploadStatus
+                 LLMessageBaseCell *cell = [self visibleCellForMessageModel:messageModel];
+                 if (cell) {
+                     [cell updateMessageUploadStatus];
+                 }
+             } showHUD:YES];
          }
         
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [weakSelf addModelsInArrayToDataSourceAndScrollToBottom:messageModels animated:NO];
-            [picker.presentingViewController dismissViewControllerAnimated:YES completion:^{
-                [LLUtils hideHUD:HUD animated:YES];
-            }];
-        });
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            [weakSelf addModelsInArrayToDataSourceAndScrollToBottom:messageModels animated:NO];
+//            [picker.presentingViewController dismissViewControllerAnimated:YES completion:^{
+//                [LLUtils hideHUD:HUD animated:YES];
+//            }];
+//        });
         
     });
 
@@ -1445,7 +1470,7 @@ CSIMReceiveManagerDelegate
     }else{
         UIImage *orgImage = info[UIImagePickerControllerOriginalImage];
         NSData * imageData = UIImageJPEGRepresentation(orgImage, 0.01);
-        LLMessageModel * messageModel = [self createImageMessageModel:imageData imageSize:[orgImage pixelSize]];
+        CSMessageModel * messageModel = [self createImageMessageModel:imageData imageSize:[orgImage pixelSize]];
         
         if (messageModel)
             [self addModelToDataSourceAndScrollToBottom:messageModel animated:NO];
@@ -1458,6 +1483,7 @@ CSIMReceiveManagerDelegate
             
         } uploadprogress:^(NSProgress *uploadProgress) {
             DLog(@"--->%@",uploadProgress);
+//            updateMessageUploadStatus
         } showHUD:YES];
     }
     

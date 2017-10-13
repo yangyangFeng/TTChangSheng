@@ -236,12 +236,12 @@
 
 - (void)updateMessageUploadStatus {
     switch (self.messageModel.messageStatus) {
-        case kLLMessageStatusPending:
-        case kLLMessageStatusFailed:
+        case kCSMessageStatusPending:
+        case kCSMessageStatusFailed:
             goto LABEL_MessageStatusFailed;
             
-        case kLLMessageStatusDelivering:
-        case kLLMessageStatusWaiting:
+        case kCSMessageStatusDelivering:
+        case kCSMessageStatusWaiting:
             //如果录音文件时长小于20秒，就不出现ActivityIndicator了，按发送成功处理
             if (self.messageModel.mediaDuration > 20) {
                 goto LABEL_MessageStatusDelivering;
@@ -249,7 +249,7 @@
                 goto LABEL_MessageStatusSuccessed;
             }
             
-        case kLLMessageStatusSuccessed:
+        case kCSMessageStatusSuccessed:
             goto LABEL_MessageStatusSuccessed;
         default:
             break;

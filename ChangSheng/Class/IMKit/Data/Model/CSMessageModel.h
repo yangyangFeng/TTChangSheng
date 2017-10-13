@@ -286,6 +286,14 @@ typedef NS_ENUM(NSInteger, CSMessageStatus) {
 
 - (instancetype)initWithType:(CSMessageBodyType)type;
 
++ (CSMessageModel *)sendImageMessageWithImageData:(NSData *)imageData
+                                        imageSize:(CGSize)imageSize
+                                           chatId:(NSString *)chatId
+                                         chatType:(CSChatType)chatType
+                                          msgType:(CSMessageBodyType)msgBodyType
+                                           action:(int)action
+                                          content:(NSString *)content;
+
 - (CSMessageModel *)sendVoiceMessageWithLocalPath:(NSString *)localPath
                                          duration:(NSInteger)duration
                                                to:(NSString *)to
