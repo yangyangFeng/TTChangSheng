@@ -105,11 +105,11 @@ static inline kCSMessageBodyType CS_changeMessageType (CSMessageBodyType type){
 }
 
 typedef NS_ENUM(NSInteger, CSMessageDownloadStatus) {
-    kCSMessageDownloadStatusDownloading = EMDownloadStatusDownloading,
-    kCSMessageDownloadStatusSuccessed = EMDownloadStatusSuccessed,
-    kCSMessageDownloadStatusFailed = EMDownloadStatusFailed,
-    kCSMessageDownloadStatusPending = EMDownloadStatusPending,
-    kCSMessageDownloadStatusWaiting = 10086,
+    kCSMessageDownloadStatusDownloading ,
+    kCSMessageDownloadStatusSuccessed ,
+    kCSMessageDownloadStatusFailed ,
+    kCSMessageDownloadStatusPending ,
+    kCSMessageDownloadStatusWaiting ,
     kCSMessageDownloadStatusNone
 };
 
@@ -170,6 +170,16 @@ typedef NS_ENUM(NSInteger, CSMessageStatus) {
 - (void)syncMessageBodyType:(kCSMessageBodyType)type;
 
 - (void)syncMessageSendStatus:(CSMessageStatus)status;
+
+
+- (void)internal_setMessageDownloadStatus:(CSMessageDownloadStatus)messageDownloadStatus;
+
+- (void)internal_setThumbnailDownloadStatus:(CSMessageDownloadStatus)thumbnailDownloadStatus;
+
+- (void)internal_setIsFetchingAttachment:(BOOL)isFetchingAttachment;
+
+- (void)internal_setIsFetchingThumbnail:(BOOL)isFetchingThumbnail;
+
 @property (nonatomic,assign) BOOL isSelf;
 //展示消息的CellHeight，计算一次，然后缓存
 @property (nonatomic) CGFloat cellHeight;

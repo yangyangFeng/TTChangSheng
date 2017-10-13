@@ -165,27 +165,12 @@ NSMutableDictionary * tmpImageDict;
         _fromMe = YES;
         _isSelf = YES;
         
-//        _sdk_message = message;
-//        _messageBodyType = (LLMessageBodyType)_sdk_message.body.type;
-//        _messageId = [message.messageId copy];
-//        _conversationId = [message.conversationId copy];
-        _messageStatus = kLLMessageStatusNone;
-        _messageDownloadStatus = kLLMessageDownloadStatusNone;
-        _thumbnailDownloadStatus = kLLMessageDownloadStatusNone;
+
+        _messageStatus = kCSMessageStatusSuccessed;
+        _messageDownloadStatus = kCSMessageDownloadStatusNone;
+        _thumbnailDownloadStatus = kCSMessageDownloadStatusNone;
         
-//        _from = [message.from copy];
-//        _to = [message.to copy];
-//        _fromMe = _sdk_message.direction == EMMessageDirectionSend;
-        
-//        _updateType = kLLMessageCellUpdateTypeNewForReuse;
-//        
-//            if (_fromMe) {
-//        _timestamp = adjustTimestampFromServer(message.timestamp);
-//            }else {
-//                _timestamp = adjustTimestampFromServer(message.serverTime);
-//            }
-//    
-//        _ext = message.ext;
+
         _error = nil;
         [self formaterMessage];
         [self processModelForCell];
@@ -554,6 +539,7 @@ NSMutableDictionary * tmpImageDict;
 {
     _messageStatus = status;
 }
+
 - (CSMessageDownloadStatus)messageDownloadStatus {
     if (_messageDownloadStatus != kCSMessageDownloadStatusNone)
         return _messageDownloadStatus;
@@ -680,7 +666,8 @@ NSMutableDictionary * tmpImageDict;
 
 - (BOOL)isVoicePlayable {
     DLog(@"监测是否可以播放,未实现");
-    return (self.body.msgType == CSMessageBodyTypeVoice) && (self.fromMe || self.messageDownloadStatus == kCSMessageDownloadStatusSuccessed);
+     return (self.body.msgType == CSMessageBodyTypeVoice) && (self.messageDownloadStatus == kCSMessageDownloadStatusSuccessed) && (self.fileLocalPath.length);
+//    return (self.body.msgType == CSMessageBodyTypeVoice) && (self.fromMe || self.messageDownloadStatus == kCSMessageDownloadStatusSuccessed);
 //    return YES;
 //    return (_sdk_message.body.type == EMMessageBodyTypeVoice) && (self.fromMe || self.messageDownloadStatus == kLLMessageDownloadStatusSuccessed);
 }

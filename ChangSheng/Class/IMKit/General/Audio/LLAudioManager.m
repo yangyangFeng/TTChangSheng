@@ -534,7 +534,7 @@ static LLAudioManager *instance;
     //创建AVAudioPlayer
 //    error = nil;
     NSURL *wavURL = [NSURL fileURLWithPath:amrFileName];
-    _audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:wavURL error:&error];
+    _audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:wavURL fileTypeHint:AVFileTypeMPEGLayer3 error:&error];
     if(!_audioPlayer || error) {
         _audioPlayer = nil;
         NSError *error1 = [NSError errorWithDomain:ERROR_AUDIO_DOMAIN

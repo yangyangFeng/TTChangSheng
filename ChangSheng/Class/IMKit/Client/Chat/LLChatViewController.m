@@ -2141,11 +2141,19 @@ CSIMReceiveManagerDelegate
 #pragma mark - 播放录音 -
 
 - (void)cellVoiceDidTapped:(LLMessageVoiceCell *)cell {
-    LLMessageModel *messageModel = cell.messageModel;
+    CSMessageModel *messageModel = cell.messageModel;
     
     if (!messageModel.isVoicePlayable) {
-        if (messageModel.messageDownloadStatus == kLLMessageDownloadStatusPending || messageModel.messageDownloadStatus == kLLMessageDownloadStatusFailed) {
-            [[LLChatManager sharedManager] asynDownloadMessageAttachments:messageModel progress:nil completion:nil];
+//        if (messageModel.messageDownloadStatus == kCSMessageDownloadStatusPending || messageModel.messageDownloadStatus == kCSMessageDownloadStatusFailed) {
+            if (!messageModel.fileLocalPath.length) {
+//            [[LLChatManager sharedManager] asynDownloadMessageAttachments:messageModel progress:nil completion:nil];
+            [[CSIMMessageQueueManager shareInstance] asynsDownLoaderVoiceWithModel:messageModel success:^(id responseObject) {
+                [messageModel internal_setMessageDownloadStatus:kCSMessageDownloadStatusSuccessed];
+                [cell updateMessageDownloadStatus];//更新下载状态
+                [self cellVoiceDidTapped:cell];
+            } fail:^(NSError *error) {
+                
+            }];
         }
         
         return;
@@ -2163,7 +2171,7 @@ CSIMReceiveManagerDelegate
 }
 
 - (void)audioPlayDidStarted:(id)userinfo {
-    LLMessageModel *messageModel = (LLMessageModel *)userinfo;
+    CSMessageModel *messageModel = (CSMessageModel *)userinfo;
     LLMessageVoiceCell *cell = (LLMessageVoiceCell *)[self visibleCellForMessageModel:messageModel];
     
     [[LLChatManager sharedManager] changeVoiceMessageModelPlayStatus:messageModel];
@@ -2187,7 +2195,7 @@ CSIMReceiveManagerDelegate
     if (_voiceIndicatorView.superview)
         [LLTipView hideTipView:_voiceIndicatorView];
     
-    LLMessageModel *messageModel = (LLMessageModel *)userinfo;
+    CSMessageModel *messageModel = (LLMessageModel *)userinfo;
     messageModel.isMediaPlaying = NO;
     LLMessageVoiceCell *cell = (LLMessageVoiceCell *)[self visibleCellForMessageModel:messageModel];
     [cell stopVoicePlaying];
@@ -2205,7 +2213,7 @@ CSIMReceiveManagerDelegate
 - (void)audioPlayDidFinished:(id)userinfo {
     [self hideVoiceIndicatorViewAfterDelay:3];
     
-    LLMessageModel *messageModel = (LLMessageModel *)userinfo;
+    CSMessageModel *messageModel = (CSMessageModel *)userinfo;
     messageModel.isMediaPlaying = NO;
     LLMessageVoiceCell *cell = (LLMessageVoiceCell *)[self visibleCellForMessageModel:messageModel];
     [cell stopVoicePlaying];
