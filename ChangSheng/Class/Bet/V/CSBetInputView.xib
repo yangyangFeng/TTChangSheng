@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -27,7 +27,9 @@
                                     <constraints>
                                         <constraint firstAttribute="height" constant="33" id="7eV-r1-S1p"/>
                                     </constraints>
-                                    <state key="normal" image="分数表"/>
+                                    <connections>
+                                        <action selector="topDidAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="3NG-Sh-6Zk"/>
+                                    </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BHg-q4-pLW">
                                     <rect key="frame" x="0.0" y="58" width="75" height="33"/>
@@ -36,6 +38,9 @@
                                         <constraint firstAttribute="height" constant="33" id="meg-UY-8Rc"/>
                                     </constraints>
                                     <state key="normal" image="分数表"/>
+                                    <connections>
+                                        <action selector="bottomDidAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="jih-7V-z99"/>
+                                    </connections>
                                 </button>
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -61,6 +66,9 @@
                                     <state key="normal" title="闲">
                                         <color key="titleColor" red="0.058823529409999999" green="0.015686274510000001" blue="0.77647058820000003" alpha="1" colorSpace="calibratedRGB"/>
                                     </state>
+                                    <connections>
+                                        <action selector="xianDidAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="zxj-g1-rzZ"/>
+                                    </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zV8-fy-zSV" customClass="CSCustomBetButton">
                                     <rect key="frame" x="96" y="5" width="91" height="44"/>
@@ -71,6 +79,9 @@
                                     <state key="normal" title="和">
                                         <color key="titleColor" red="0.28235294119999998" green="1" blue="0.30196078430000001" alpha="1" colorSpace="calibratedRGB"/>
                                     </state>
+                                    <connections>
+                                        <action selector="heDidAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="u1D-ym-eTt"/>
+                                    </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RBS-t6-oJI" customClass="CSCustomBetButton">
                                     <rect key="frame" x="192" y="5" width="91" height="44"/>
@@ -81,6 +92,9 @@
                                     <state key="normal" title="庄">
                                         <color key="titleColor" red="1" green="0.0" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
                                     </state>
+                                    <connections>
+                                        <action selector="zhuangDidAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="t6L-ZO-fbB"/>
+                                    </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Iz-yN-MUv" customClass="CSCustomBetButton">
                                     <rect key="frame" x="0.0" y="56" width="68" height="44"/>
@@ -92,6 +106,9 @@
                                     <state key="normal" title="庄对">
                                         <color key="titleColor" red="1" green="0.0" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
                                     </state>
+                                    <connections>
+                                        <action selector="zhuangDuiDidAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="ioa-gs-HnO"/>
+                                    </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TXC-pD-vrN" customClass="CSCustomBetButton">
                                     <rect key="frame" x="71" y="56" width="68" height="44"/>
@@ -103,6 +120,9 @@
                                     <state key="normal" title="闲对">
                                         <color key="titleColor" red="0.058823529409999999" green="0.015686274510000001" blue="0.77647058820000003" alpha="1" colorSpace="calibratedRGB"/>
                                     </state>
+                                    <connections>
+                                        <action selector="xianDuiDidAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="aez-zA-ef9"/>
+                                    </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KU8-8u-ADv" customClass="CSCustomBetButton">
                                     <rect key="frame" x="142" y="56" width="68" height="44"/>
@@ -114,6 +134,9 @@
                                     <state key="normal" title="双对">
                                         <color key="titleColor" red="0.28235294119999998" green="1" blue="0.30196078430000001" alpha="1" colorSpace="calibratedRGB"/>
                                     </state>
+                                    <connections>
+                                        <action selector="shuangDuiDidAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="g9q-RF-6gY"/>
+                                    </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PvU-EP-Qsj" customClass="CSCustomBetButton">
                                     <rect key="frame" x="213" y="56" width="68" height="44"/>
@@ -125,6 +148,9 @@
                                     <state key="normal" title="三宝">
                                         <color key="titleColor" red="0.86274509799999999" green="0.86666666670000003" blue="0.023529411760000001" alpha="1" colorSpace="calibratedRGB"/>
                                     </state>
+                                    <connections>
+                                        <action selector="sanBaoDidAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="0vl-u6-JB6"/>
+                                    </connections>
                                 </button>
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>

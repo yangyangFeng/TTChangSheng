@@ -425,7 +425,9 @@ BOOL LLMessageCell_isEditing = NO;
 }
 
 - (void)contentEventTappedInView:(UIView *)view {
-    [self.delegate cellDidTapped:self];
+    if ([self.delegate respondsToSelector:@selector(cellDidTapped:)]) {
+        [self.delegate cellDidTapped:self];
+    }
 }
 
 - (void)contentLongPressed:(UILongPressGestureRecognizer *)longPress {

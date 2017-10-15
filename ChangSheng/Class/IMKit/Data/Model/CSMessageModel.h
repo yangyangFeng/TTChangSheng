@@ -171,6 +171,7 @@ typedef NS_ENUM(NSInteger, CSMessageStatus) {
 
 - (void)syncMessageSendStatus:(CSMessageStatus)status;
 
+- (void)internal_setMessageStatus:(CSMessageStatus)messageStatus;
 
 - (void)internal_setMessageDownloadStatus:(CSMessageDownloadStatus)messageDownloadStatus;
 
@@ -302,12 +303,28 @@ typedef NS_ENUM(NSInteger, CSMessageStatus) {
                                        messageExt:(nullable NSDictionary *)messageExt
                                        completion:(void (^ __nullable)(CSMessageModel *model, NSError *error))completion;
 
++ (CSMessageModel*)sendBetMessageChatType:(CSChatType)chatType
+                               chatId:(NSString *)chatId
+                                msgId:(NSString *)msgId
+                              msgType:(CSMessageBodyType)msgType
+                                  betType:(int)betType
+                                betNumber:(int)betNumber
+                               action:(int)action
+                              content:(NSString *)content;
+
 + (CSMessageModel*)newMessageChatType:(CSChatType)chatType
                   chatId:(NSString *)chatId
                    msgId:(NSString *)msgId
                  msgType:(CSMessageBodyType)msgType
                   action:(int)action
                  content:(NSString *)content;
+
++ (CSMessageModel *)newImageMessageWithImageSize:(CGSize)imageSize
+                                          chatId:(NSString *)chatId
+                                        chatType:(CSChatType)chatType
+                                         msgType:(CSMessageBodyType)msgBodyType
+                                          action:(int)action
+                                         content:(NSString *)content;
 
 - (id)initNewMessageChatType:(CSChatType)chatType
                   chatId:(NSString *)chatId
@@ -390,7 +407,8 @@ typedef NS_ENUM(NSInteger, CSMessageStatus) {
 @property(nonatomic,copy)NSString* chatId;
 //消息id （如果action=1 不需要， =2 || ==5 代表服务器返回的消息自增id, ==3 || ==4 代表客户端生成的唯一id  *
 @property(nonatomic,copy)NSString * msgId;
-// 1、普通消息 2、消息回执 3、路单图片 4、连接成功回执 5、用户上线 6 、用户下线
+//服务端发给客户端: 1、普通消息 2、消息回执 3、路单图片 4、连接成功回执 5、用户上线 6 、用户下线
+//客户端发给服务端: 1、进群  2、出群 3、下注  4、普通消息  5、撤销 6、加群  7、退群 99、web前端心跳    ps: 1 暂时不用
 @property(nonatomic,assign)int action;
 //:1|2|3|4, 1,文字 2,图片 3,语音, 4点击跳转外部连接 // action=4 需要
 @property(nonatomic,assign)CSMessageBodyType msgType;
@@ -431,6 +449,11 @@ typedef NS_ENUM(NSInteger, CSMessageStatus) {
 @property(nonatomic,copy)NSString * date;
 //时间戳
 @property (nonatomic,copy) NSString *timestamp;
+
+/**
+ 语音长度
+ */
+@property (nonatomic,assign) NSInteger voiceLength;
 @end
 
 @interface CSUnreadListModel : NSObject

@@ -8,6 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CSNumberKeyboardView : UIView
+@protocol CSNumberKeyboardViewDelegate <NSObject>
+- (void)cs_keyboardWithNumber:(NSString *)number;
+- (void)cs_keyboardWithCancle;
+- (void)cs_keyboardWithDelete;
+- (void)cs_keyboardWithBetAction;
+@end
 
+@interface CSNumberKeyboardView : UIView
+@property (nonatomic,weak) id<CSNumberKeyboardViewDelegate> delegate;
 @end

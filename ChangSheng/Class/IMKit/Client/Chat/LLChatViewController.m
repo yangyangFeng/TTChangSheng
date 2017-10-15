@@ -59,7 +59,7 @@
 #import "CSIMSendMessageRequest.h"
 #import "CSIMSendMessageManager.h"
 #import "CSIMSendMessageRequestModel.h"
-
+#import "TTNavigationController.h"
 @interface LLChatViewController ()
 <UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate,
 LLMessageCellActionDelegate, LLChatImagePreviewDelegate,
@@ -131,14 +131,14 @@ CSIMReceiveManagerDelegate
     [self tt_Title:self.conversationModel.nickName];
     self.view.backgroundColor = VIEW_BACKGROUND_COLOR;
     
-    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:@"Debug1" style:UIBarButtonItemStylePlain target:self action:@selector(debug1:)];
-    
-    UIBarButtonItem *item2 = [[UIBarButtonItem alloc] initWithTitle:@"Debug2" style:UIBarButtonItemStylePlain target:self action:@selector(debug2:)];
-    rightBarButtonItems = @[item, item2];
-    self.navigationItem.rightBarButtonItems = rightBarButtonItems;
-    
-    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:nil action:nil];
-    self.navigationItem.backBarButtonItem = backItem;
+//    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:@"Debug1" style:UIBarButtonItemStylePlain target:self action:@selector(debug1:)];
+//    
+//    UIBarButtonItem *item2 = [[UIBarButtonItem alloc] initWithTitle:@"Debug2" style:UIBarButtonItemStylePlain target:self action:@selector(debug2:)];
+//    rightBarButtonItems = @[item, item2];
+//    self.navigationItem.rightBarButtonItems = rightBarButtonItems;
+//    
+//    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:nil action:nil];
+//    self.navigationItem.backBarButtonItem = backItem;
     
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.tableView.backgroundColor = TABLEVIEW_BACKGROUND_COLOR;
@@ -190,7 +190,8 @@ CSIMReceiveManagerDelegate
     
     [CSIMReceiveManager shareInstance].delegate = self;
     
-    //    [self.navigationController performSelector:@selector(blackStatusBar)];
+    
+//    [self.navigationController performSelector:@selector(blackStatusBar)];
 //    if (!firstViewWillAppear) {
 //        firstViewWillAppear = YES;
 //        
@@ -215,7 +216,10 @@ CSIMReceiveManagerDelegate
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+    [self blackStatusBar];
     
+    TTNavigationController * nav = (TTNavigationController *)self.navigationController;
+    [nav navigationCanDragBack:NO];
 //    if (!firstViewDidAppear) {
 //        firstViewDidAppear = YES;
 //        
@@ -230,11 +234,11 @@ CSIMReceiveManagerDelegate
 //    isChatControllerDidAppear = YES;
     _voiceTipView.hidden = NO;
 //    
-//    self.navigationController.interactivePopGestureRecognizer.delaysTouchesBegan= NO;
-//    
-//    self.navigationController.navigationBar.subviews[0].alpha = 1;
-//    UIView *blackView = [self.view viewWithTag:BLACK_BAR_VIEW_TAG];
-//    [blackView removeFromSuperview];
+    self.navigationController.interactivePopGestureRecognizer.delaysTouchesBegan= NO;
+//
+    self.navigationController.navigationBar.subviews[0].alpha = 1;
+    UIView *blackView = [self.view viewWithTag:BLACK_BAR_VIEW_TAG];
+    [blackView removeFromSuperview];
 
 }
 
@@ -277,6 +281,11 @@ CSIMReceiveManagerDelegate
 
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
+    
+    [self whiteStatusBar];
+    
+    TTNavigationController * nav = (TTNavigationController *)self.navigationController;
+    [nav navigationCanDragBack:YES];
     
     self.navigationController.interactivePopGestureRecognizer.delaysTouchesBegan = YES;
     
@@ -327,7 +336,7 @@ CSIMReceiveManagerDelegate
 - (void)cleanMessageModelWhenExit {
     NSArray<CSMessageModel *> *models = self.conversationModel.allMessageModels;
     for (CSMessageModel *model in models) {
-//        [model cleanWhenConversationSessionEnded];
+        [model cleanWhenConversationSessionEnded];
     }
     /*
     NSArray<LLMessageModel *> *models = self.conversationModel.allMessageModels;
@@ -339,7 +348,7 @@ CSIMReceiveManagerDelegate
 
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
-    return UIStatusBarStyleLightContent;
+    return UIStatusBarStyleDefault;
 }
 
 - (BOOL)shouldAutorotate {
@@ -910,9 +919,6 @@ CSIMReceiveManagerDelegate
     DLog(@"未实现 新消息滚动");
     if (self.dataSource.count == 0)
         return;
-//    if (!self.tableView.visibleCells.count) {
-//        return;
-//    }
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.dataSource.count - 1 inSection:0];
     [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:animated];
     
@@ -925,7 +931,6 @@ CSIMReceiveManagerDelegate
     }else {
         [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:animated];
     }
-
 }
 
 
@@ -1324,21 +1329,9 @@ CSIMReceiveManagerDelegate
                 [LLUtils showTextHUD:msg];
             });
         }
-    
         return nil;
     }
-    CSMessageModel * messageModel;
-//    LLChatType chatType = chatTypeForConversationType(self.conversationModel.conversationType);
-    messageModel = [CSMessageModel sendImageMessageWithImageData:imageData imageSize:imageSize chatId:self.conversationModel.chatId chatType:(CSChatTypeChat) msgType:(CSMessageBodyTypeImage) action:4 content:@""];
-//    LLMessageModel * messageModel = [[LLChatManager sharedManager]
-//                                     sendImageMessageWithData:imageData
-//                                     imageSize:imageSize
-//                                     to:self.conversationModel.conversationId
-//                                     messageType:chatType
-//                                     messageExt:nil
-//                                     progress:nil
-//                                     completion:nil];
-    
+    CSMessageModel * messageModel = [CSMessageModel sendImageMessageWithImageData:imageData imageSize:imageSize chatId:self.conversationModel.chatId chatType:(CSChatTypeChat) msgType:(CSMessageBodyTypeImage) action:4 content:@""];
     return messageModel;
 }
 
@@ -1355,7 +1348,7 @@ CSIMReceiveManagerDelegate
 - (void)presentImagePickerController {
     LLImagePickerController *vc = [[LLImagePickerController alloc] init];
     vc.pickerDelegate = self;
-    [self.navigationController presentViewController:vc animated:YES completion:nil];
+    [self presentViewController:vc animated:YES completion:nil];
 }
 
 - (void)imagePickerControllerDidCancel:(id)picker {
@@ -1366,7 +1359,6 @@ CSIMReceiveManagerDelegate
         [((UIImagePickerController_L1 *)picker).presentingViewController
          dismissViewControllerAnimated:YES completion:nil];
     }
-    
 }
 
 - (void)imagePickerController:(LLImagePickerController *)picker
@@ -1377,7 +1369,8 @@ CSIMReceiveManagerDelegate
     MBProgressHUD *HUD = [LLUtils showActivityIndicatiorHUDWithTitle:@"正在处理..." inView:picker.view];
     
     WEAK_SELF;
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+    //dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
+    dispatch_async(dispatch_get_main_queue(), ^{
          NSMutableArray<LLMessageModel *> *messageModels = [NSMutableArray arrayWithCapacity:assets.count];
         
          for (LLAssetModel *asset in assets) {
@@ -1387,35 +1380,62 @@ CSIMReceiveManagerDelegate
 //                 [messageModels addObject:messageModel];
 
              
-             if (messageModel){
-                 CSIMSendMessageRequestModel * messageRequest = [CSIMSendMessageRequestModel new];
-                 messageRequest.body = messageModel;
-                 [self addModelToDataSourceAndScrollToBottom:messageRequest animated:NO];
-         }
+             if (!messageModel){
+                 return ;
+             }
+             CSIMSendMessageRequestModel * messageRequest = [CSIMSendMessageRequestModel new];
+             messageRequest.body = messageModel;
+             
+             
+             [messageRequest.msgStatus when:^(id obj) {
+               
+                 dispatch_async(dispatch_get_main_queue(), ^{
+                     DLog(@"图片发送成功");
+                     
+//                     [self successMessageRefreshSendStatusWithModel:messageModel];
+                     [messageModel syncMessageSendStatus:(kCSMessageStatusSuccessed)];
+                     LLMessageBaseCell *cell = [self visibleCellForMessageModel:messageModel];
+                     if (cell) {
+                         [cell updateMessageUploadStatus];
+                     }
+                 });
+             } failed:^(NSError *error) {
+                 [self failMessageRefreshSendStatusWithModel:messageModel];
+             }];
+             
+             [self addModelToDataSourceAndScrollToBottom:messageRequest animated:NO];
+             
 
              //#FIXME:发送拍摄照片正在处理
              [CSHttpRequestManager upLoadFileRequestParamters:nil fileData:imageData fileType:(CS_UPLOAD_FILE_IMAGE) success:^(id responseObject) {
-                 
+                 CSUploadFileModel * obj = [CSUploadFileModel mj_objectWithKeyValues:responseObject];
+                 messageModel.content = obj.result.file_url;
+                 messageModel.body.content = obj.result.file_url;
+                 //                 messageRequest.body.body.content
+                 [[CSIMSendMessageManager shareInstance] sendMessage:messageRequest];
              } failure:^(NSError *error) {
                  
              } uploadprogress:^(NSProgress *uploadProgress) {
                  DLog(@"--->%@",uploadProgress);
-                 messageModel.fileUploadProgress = uploadProgress.completedUnitCount /uploadProgress.totalUnitCount * 100;
+                 messageModel.fileUploadProgress = uploadProgress.fractionCompleted * 100;
                  
                  //            updateMessageUploadStatus
-                 LLMessageBaseCell *cell = [self visibleCellForMessageModel:messageModel];
-                 if (cell) {
-                     [cell updateMessageUploadStatus];
-                 }
+                 dispatch_async(dispatch_get_main_queue(), ^{
+                     LLMessageBaseCell *cell = [self visibleCellForMessageModel:messageModel];
+                     if (cell) {
+                         [cell updateMessageUploadStatus];
+                     }
+                 });
+                 
              } showHUD:YES];
          }
         
-//        dispatch_async(dispatch_get_main_queue(), ^{
+        dispatch_async(dispatch_get_main_queue(), ^{
 //            [weakSelf addModelsInArrayToDataSourceAndScrollToBottom:messageModels animated:NO];
-//            [picker.presentingViewController dismissViewControllerAnimated:YES completion:^{
-//                [LLUtils hideHUD:HUD animated:YES];
-//            }];
-//        });
+            [picker.presentingViewController dismissViewControllerAnimated:YES completion:^{
+                [LLUtils hideHUD:HUD animated:YES];
+            }];
+        });
         
     });
 
@@ -1452,7 +1472,6 @@ CSIMReceiveManagerDelegate
     NSString *mediaType = info[UIImagePickerControllerMediaType];
     if ([mediaType isEqualToString:(NSString *)kUTTypeMovie]) {
         NSURL *videoURL = info[UIImagePickerControllerMediaURL];
-        
         WEAK_SELF;
         [LLUtils compressVideoForSend:videoURL
                         removeMOVFile:YES
@@ -1495,7 +1514,6 @@ CSIMReceiveManagerDelegate
     [picker dismissViewControllerAnimated:YES completion:nil];
 }
 
-
 /**
  *  发送视频文件
  *
@@ -1527,9 +1545,7 @@ CSIMReceiveManagerDelegate
     }else if (!cell.messageModel.isFetchingThumbnail){
         [[LLChatManager sharedManager] asyncDownloadMessageThumbnail:cell.messageModel completion:nil];
     }
-  
 }
-
 
 #pragma mark - 视频、图片弹出、弹入动画 -
 
@@ -1538,9 +1554,9 @@ CSIMReceiveManagerDelegate
     [self.chatInputView dismissKeyboard];
     
     NSMutableArray *array = [NSMutableArray array];
-    for (LLMessageModel *model in self.dataSource) {
-        if (model.messageBodyType == kLLMessageBodyTypeImage ||
-            model.messageBodyType == kLLMessageBodyTypeVideo) {
+    for (CSMessageModel *model in self.dataSource) {
+        if (model.messageBodyType == kCSMessageBodyTypeImage ||
+            model.messageBodyType == kCSMessageBodyTypeVideo) {
             [array addObject:model];
         }
     }
@@ -1550,13 +1566,14 @@ CSIMReceiveManagerDelegate
     vc.curShowMessageModel = cell.messageModel;
     vc.originalWindowFrame = [cell contentFrameInWindow];
     vc.delegate = self;
-    
+//    UINavigationController * nav = [[UINavigationController alloc]initWithRootViewController:vc];
+//        [self presentViewController:nav animated:YES completion:nil];
     [self.navigationController pushViewController:vc animated:NO];
 
 }
 
 
-- (void)didFinishWithMessageModel:(LLMessageModel *)model targetView:(UIView<LLAssetDisplayView> *)assetView scrollToTop:(BOOL)scrollToTop {
+- (void)didFinishWithMessageModel:(CSMessageModel *)model targetView:(UIView<LLAssetDisplayView> *)assetView scrollToTop:(BOOL)scrollToTop {
     NSInteger index = [self.dataSource indexOfObject:model];
     NSIndexPath *cellIndexPath = [NSIndexPath indexPathForRow:index inSection:0];
     if (scrollToTop) {
@@ -1589,7 +1606,7 @@ CSIMReceiveManagerDelegate
         LLMessageVideoCell *videoCell;
         
         
-        if (model.messageBodyType == kLLMessageBodyTypeImage) {
+        if (model.messageBodyType == kCSMessageBodyTypeImage) {
             imageCell = (LLMessageImageCell *)cell;
             [imageCell willExitFullScreenShow];
         
@@ -1609,7 +1626,7 @@ CSIMReceiveManagerDelegate
             
             maskImage = [LLMessageImageCell bubbleImageForModel:model];
             
-        }else if (model.messageBodyType == kLLMessageBodyTypeVideo) {
+        }else if (model.messageBodyType == kCSMessageBodyTypeVideo) {
             videoCell = (LLMessageVideoCell *)cell;
             [videoCell willExitFullScreenShow];
 
@@ -1688,17 +1705,17 @@ CSIMReceiveManagerDelegate
 
 #pragma mark - 重新发送/下载消息
 
-- (void)resendMessage:(LLMessageModel *)model {
-    DLog(@"消息重发");
-    [[LLChatManager sharedManager] resendMessage:model
-        progress:nil
-      completion:nil];
-    
-    LLMessageBaseCell *cell = [self visibleCellForMessageModel:model];
-    if (cell) {
-        [cell updateMessageUploadStatus];
-    }
-
+- (void)resendMessage:(CSMessageModel *)model {
+    [self waitingMessageRefreshSendStatusWithModel:model];
+    CSIMSendMessageRequestModel * modelRequest = [CSIMSendMessageRequestModel new];
+    modelRequest.body = model;
+    [modelRequest.msgStatus when:^(id obj) {
+        [self successMessageRefreshSendStatusWithModel:model];
+    } failed:^(NSError *error) {
+        [self failMessageRefreshSendStatusWithModel:model];
+        
+    }];
+    [[CSIMSendMessageManager shareInstance] sendMessage:modelRequest];
 }
 
 - (void)redownloadMessage:(CSMessageModel *)model {
@@ -1775,9 +1792,9 @@ CSIMReceiveManagerDelegate
     model.body = msgModel;
     
     [model.msgStatus when:^(id obj) {
-        DLog(@"文本:%@已发送",text);
+        [self successMessageRefreshSendStatusWithModel:msgModel];
     } failed:^(NSError *error) {
-        
+        [self failMessageRefreshSendStatusWithModel:msgModel];
     }];
     [[CSIMSendMessageManager shareInstance] sendMessage:model];
     
@@ -1818,7 +1835,6 @@ CSIMReceiveManagerDelegate
     targetWindow.rootViewController = vc;
     targetWindow.hidden = NO;
     [vc showInWindow:targetWindow];
-    
 }
 
 
@@ -1969,8 +1985,7 @@ CSIMReceiveManagerDelegate
             [LLTipView hideTipView:_voiceIndicatorView];
         return;
     }
-
-
+    
     CSMessageModel *messageModel = [[CSMessageModel alloc] initWithType:kCSMessageBodyTypeRecording];
     CSIMSendMessageRequestModel * model = [CSIMSendMessageRequestModel new];
     model.body = messageModel;
@@ -2012,7 +2027,6 @@ CSIMReceiveManagerDelegate
             [weakSelf deleteTableRowWithModel:voiceModel withRowAnimation:UITableViewRowAnimationFade];
         });
     }
- 
 }
 
 - (void)audioRecordDidCancelled {
@@ -2099,14 +2113,15 @@ CSIMReceiveManagerDelegate
                 //        index = [self.conversationModel.allMessageModels indexOfObject:recordingModel];
                 //        [self.conversationModel.allMessageModels replaceObjectAtIndex:index withObject:voiceModel];
                 
-                [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+                [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
             }
             model.body = msgModel;// 发送语音 model
         
             [model.msgStatus when:^(id obj) {
                 DLog(@"语音一FASONG");
+                [self successMessageRefreshSendStatusWithModel:msgModel];
             } failed:^(NSError *error) {
-                
+                [self failMessageRefreshSendStatusWithModel:msgModel];
             }];
             
             [[CSIMSendMessageManager shareInstance] sendMessage:model];
@@ -2429,7 +2444,32 @@ CSIMReceiveManagerDelegate
     return ret;
 }
 
+- (void)failMessageRefreshSendStatusWithModel:(CSMessageModel *)model
+{
+    LLMessageBaseCell * cell = [self visibleCellForMessageModel:model];
+    if (cell) {
+        [model internal_setMessageStatus:kCSMessageStatusFailed];
+        [cell updateMessageUploadStatus];
+    }
+}
 
+- (void)successMessageRefreshSendStatusWithModel:(CSMessageModel *)model
+{
+    LLMessageBaseCell * cell = [self visibleCellForMessageModel:model];
+    if (cell) {
+        [model internal_setMessageStatus:kCSMessageStatusWaiting];
+        [cell updateMessageUploadStatus];
+    }
+}
+
+- (void)waitingMessageRefreshSendStatusWithModel:(CSMessageModel *)model
+{
+    LLMessageBaseCell * cell = [self visibleCellForMessageModel:model];
+    if (cell) {
+        [model internal_setMessageStatus:kCSMessageStatusSuccessed];
+        [cell updateMessageUploadStatus];
+    }
+}
 #pragma mark - 其他 -
 
 - (void)didReceiveMemoryWarning {

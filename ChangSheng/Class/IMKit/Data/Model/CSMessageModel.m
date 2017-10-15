@@ -70,6 +70,7 @@ NSMutableDictionary * tmpImageDict;
     [param setObject:@(self.playType) forKey:@"playType"];
     [param setObject:@(self.score) forKey:@"score"];
     [param setObject:@(2) forKey:@"receiveUserType"];
+    [param setObject:@(self.mediaDuration) forKey:@"voiceLength"];
     return param;
 }
 
@@ -103,6 +104,21 @@ NSMutableDictionary * tmpImageDict;
     return model;
 }
 
++ (CSMessageModel *)newImageMessageWithImageSize:(CGSize)imageSize
+                                          chatId:(NSString *)chatId
+                                        chatType:(CSChatType)chatType
+                                           msgId:(NSString *)msgId
+                                         msgType:(CSMessageBodyType)msgBodyType
+                                          action:(int)action
+                                         content:(NSString *)content
+{
+    CSMessageModel * model = [[CSMessageModel alloc]initNewMessageChatType:chatType chatId:chatId msgId:msgId msgType:msgBodyType action:action content:content];
+//    model.thumbnailImage = [UIImage imageWithData:imageData];
+//    model.thumbnailImageSize = imageSize;
+    [model formaterMessage];
+    
+    return model;
+}
 + (CSMessageModel *)newVoiceMessageChatType:(CSChatType)chatType
                                 chatId:(NSString *)chatId
                                  msgId:(NSString *)msgId
@@ -119,6 +135,7 @@ NSMutableDictionary * tmpImageDict;
     
     model.mediaDuration = duration;
     model.fileLocalPath = localPath;
+    model.mediaDuration = duration;
 //    model.msgType = msgType;
 //    model.messageStatus = kCSMessageStatusWaiting;
 //    [model setValue:@(kCSMessageStatusWaiting) forKey:@"messageStatus"];
@@ -147,6 +164,9 @@ NSMutableDictionary * tmpImageDict;
     if (self = [super init]) {
         _messageBodyType = msgType;
         
+        _messageStatus = kCSMessageStatusWaiting;
+        _messageDownloadStatus = kCSMessageDownloadStatusSuccessed;
+        _thumbnailDownloadStatus = kCSMessageDownloadStatusWaiting;
         switch (msgType) {
             case kCSMessageBodyTypeDateTime:
                 self.cellHeight = [LLMessageDateCell heightForModel:self];
@@ -181,9 +201,7 @@ NSMutableDictionary * tmpImageDict;
         _isSelf = YES;
         
 
-        _messageStatus = kCSMessageDownloadStatusNone;
-        _messageDownloadStatus = kCSMessageDownloadStatusNone;
-        _thumbnailDownloadStatus = kCSMessageDownloadStatusNone;
+        
         
 
         _error = nil;
@@ -232,6 +250,21 @@ NSMutableDictionary * tmpImageDict;
     return model;
 }
 
++ (CSMessageModel*)sendBetMessageChatType:(CSChatType)chatType
+                                   chatId:(NSString *)chatId
+                                    msgId:(NSString *)msgId
+                                  msgType:(CSMessageBodyType)msgType
+                                  betType:(int)betType
+                                betNumber:(int)betNumber
+                                   action:(int)action
+                                  content:(NSString *)content
+{
+    CSMessageModel * messageModel = [[CSMessageModel alloc]initNewMessageChatType:chatType chatId:chatId msgId:msgId msgType:msgType action:action content:content];
+    messageModel.playType = betType;
+    messageModel.score = betNumber;
+    
+    return messageModel;
+}
 
 - (instancetype)initWithType:(CSMessageBodyType)type {
     self = [super init];
@@ -267,15 +300,18 @@ NSMutableDictionary * tmpImageDict;
             msgBody = [CSMessageModel newMessageChatType:chatType chatId:chatId msgId:msgRecordModel.msg_id msgType:CSMessageBodyTypeText action:1 content:msgRecordModel.content];
             break;
             case CSMessageBodyTypeImage:
+            msgBody = [CSMessageModel newImageMessageWithImageSize:CGSizeMake(55, 155) chatId:chatId chatType:chatType msgId:msgRecordModel.msg_id msgType:(CSMessageBodyTypeImage) action:1 content:msgRecordModel.content];
+//                       newMessageChatType:chatType chatId:chatId msgId:msgRecordModel.msg_id msgType:CSMessageBodyTypeImage action:1 content:msgRecordModel.content];
             break;
             case CSMessageBodyTypeVoice:
-            msgBody = [CSMessageModel newVoiceMessageChatType:chatType chatId:chatId msgId:msgRecordModel.msg_id msgType:CSMessageBodyTypeVoice action:1 content:msgRecordModel.content localPath:nil duration:0 messageExt:nil completion:nil];
+            msgBody = [CSMessageModel newVoiceMessageChatType:chatType chatId:chatId msgId:msgRecordModel.msg_id msgType:CSMessageBodyTypeVoice action:1 content:msgRecordModel.content localPath:nil duration:msgRecordModel.voice_length messageExt:nil completion:nil];
             break;
             case CSMessageBodyTypeLink:
             break;
         default:
             break;
     }
+    [msgBody internal_setMessageStatus:(kCSMessageStatusSuccessed)];
     msgBody.isSelf = msgRecordModel.is_self.intValue;
     msgBody.fromMe = msgRecordModel.is_self.intValue;;
     
@@ -387,7 +423,7 @@ NSMutableDictionary * tmpImageDict;
 
 //FIXME: 环信有时候会出现DownloadStatus==Success,但文件获取为空的情况
 - (UIImage *)fullImage {
-    DLog(@"待实现方法");
+    
 //    if (self.messageBodyType == kLLMessageBodyTypeImage) {
 //        EMImageMessageBody *imgMessageBody = (EMImageMessageBody *)self.sdk_message.body;
 //        if (_fromMe || imgMessageBody.downloadStatus == EMDownloadStatusSuccessed) {
@@ -396,26 +432,35 @@ NSMutableDictionary * tmpImageDict;
 //        }
 //    }
     
-    return [UIImage new];
+    return self.thumbnailImage;
 }
 
 - (UIImage *)thumbnailImage {
+    
+    return _thumbnailImage;
+}
+
+/*
+- (UIImage *)thumbnailImage {
     DLog(@"待实现方法");
     
-//    if (!_thumbnailImage) {
-//        _thumbnailImage = [[LLMessageThumbnailManager sharedManager] thumbnailForMessageModel:self];
-//        if (_thumbnailImage)
-//            return _thumbnailImage;
-//        
-//        UIImage *thumbnailImage;
-//        BOOL needSaveToCache = NO;
-//        BOOL needSaveToDisk = NO;
-//        BOOL needSaveToTemp = NO;
-//        switch (self.messageBodyType) {
-//            case kLLMessageBodyTypeImage:{
+    if (!_thumbnailImage) {
+        UIImageView * tempView = [UIImageView new];
+        [tempView yy_setImageWithURL:self.body.content options:YYWebImageOptionShowNetworkActivity];
+        _thumbnailImage = tempView.image;
+        if (_thumbnailImage)
+            return _thumbnailImage;
+        
+        UIImage *thumbnailImage;
+        BOOL needSaveToCache = NO;
+        BOOL needSaveToDisk = NO;
+        BOOL needSaveToTemp = NO;
+        switch (self.messageBodyType) {
+            case kCSMessageBodyTypeImage:{
 //                EMImageMessageBody *imgMessageBody = (EMImageMessageBody *)self.sdk_message.body;
-//                
-//                self.thumbnailImageSize = [LLMessageImageCell thumbnailSize:imgMessageBody.size];
+                
+                self.thumbnailImageSize = [LLMessageImageCell thumbnailSize:self.thumbnailImageSize];
+                
 //                if (_fromMe || imgMessageBody.downloadStatus == EMDownloadStatusSuccessed) {
 //                    UIImage *fullImage = [UIImage imageWithContentsOfFile:imgMessageBody.localPath];
 //                    _thumbnailImageSize = [LLMessageImageCell thumbnailSize:fullImage.size];
@@ -430,18 +475,18 @@ NSMutableDictionary * tmpImageDict;
 //                    
 //                    needSaveToTemp = YES;
 //                }
-//                //FIXME:对于特殊图，比如超长、超宽、超小图，应该做特殊处理
-//                //调用该方法createWithImageInRect后，VM：raster data内存没有变化
-//                //以后再解决这个问题
-//                //                if (_thumbnailImageSize.height > 2 * IMAGE_MAX_SIZE) {
-//                //                    _thumbnailImage = [_thumbnailImage createWithImageInRect:CGRectMake(0, (_thumbnailImageSize.height - IMAGE_MAX_SIZE) / 2 * _thumbnailImage.scale, _thumbnailImageSize.width * _thumbnailImage.scale, IMAGE_MAX_SIZE * _thumbnailImage.scale)];
-//                //                }else if (_thumbnailImageSize.width > 2 * IMAGE_MAX_SIZE) {
-//                //                    _thumbnailImage = [_thumbnailImage createWithImageInRect:CGRectMake((_thumbnailImageSize.width - IMAGE_MAX_SIZE)/2 * _thumbnailImage.scale, 0, IMAGE_MAX_SIZE * _thumbnailImage.scale, _thumbnailImageSize.height * _thumbnailImage.scale)];
-//                //                }
-//                
-//                break;
-//            }
-//            case kLLMessageBodyTypeVideo:{
+                //FIXME:对于特殊图，比如超长、超宽、超小图，应该做特殊处理
+                //调用该方法createWithImageInRect后，VM：raster data内存没有变化
+                //以后再解决这个问题
+                //                if (_thumbnailImageSize.height > 2 * IMAGE_MAX_SIZE) {
+                //                    _thumbnailImage = [_thumbnailImage createWithImageInRect:CGRectMake(0, (_thumbnailImageSize.height - IMAGE_MAX_SIZE) / 2 * _thumbnailImage.scale, _thumbnailImageSize.width * _thumbnailImage.scale, IMAGE_MAX_SIZE * _thumbnailImage.scale)];
+                //                }else if (_thumbnailImageSize.width > 2 * IMAGE_MAX_SIZE) {
+                //                    _thumbnailImage = [_thumbnailImage createWithImageInRect:CGRectMake((_thumbnailImageSize.width - IMAGE_MAX_SIZE)/2 * _thumbnailImage.scale, 0, IMAGE_MAX_SIZE * _thumbnailImage.scale, _thumbnailImageSize.height * _thumbnailImage.scale)];
+                //                }
+                
+                break;
+            }
+            case kCSMessageBodyTypeVideo:{
 //                EMVideoMessageBody *videoMessageBody = (EMVideoMessageBody *)self.sdk_message.body;
 //                
 //                if (_fromMe || videoMessageBody.downloadStatus == EMDownloadStatusSuccessed ) {
@@ -456,10 +501,10 @@ NSMutableDictionary * tmpImageDict;
 //                    
 //                    needSaveToTemp = YES;
 //                }
-//                
-//                break;
-//            }
-//            case kLLMessageBodyTypeLocation: {
+                
+                break;
+            }
+            case kCSMessageBodyTypeLocation: {
 //                if (self.defaultSnapshot)
 //                    return nil;
 //                
@@ -471,30 +516,30 @@ NSMutableDictionary * tmpImageDict;
 //                    needSaveToCache = YES;
 //                    needSaveToDisk = NO;
 //                }
-//                
-//                break;
-//            }
-//                
-//            default:
-//                break;
-//        }
-//        
-//        if (thumbnailImage) {
-//            if (needSaveToTemp) {
-//                tmpImageDict[_messageId] = thumbnailImage;
-//            }else if (needSaveToCache) {
-//                tmpImageDict[_messageId] = nil;
-//                [[LLMessageThumbnailManager sharedManager] addThumbnailForMessageModel:self thumbnail:thumbnailImage toDisk:needSaveToDisk];
-//            }
-//        }
-//        
-//        _thumbnailImage = thumbnailImage;
-//    }
-//    
+                
+                break;
+            }
+                
+            default:
+                break;
+        }
+        
+        if (thumbnailImage) {
+            if (needSaveToTemp) {
+                tmpImageDict[_messageId] = thumbnailImage;
+            }else if (needSaveToCache) {
+                tmpImageDict[_messageId] = nil;
+                [[LLMessageThumbnailManager sharedManager] addThumbnailForMessageModel:self thumbnail:thumbnailImage toDisk:needSaveToDisk];
+            }
+        }
+        
+        _thumbnailImage = thumbnailImage;
+    }
+    
 //    _thumbnailImage = [UIImage new];
     return _thumbnailImage;
 }
-
+*/
 //注释掉的代码是通常方法，但由于所有MessageModel都缓存起来了，一个MessageId唯一对应一个MessageModel
 //所以MessageModel的比较只需要进行对象指针比较即可
 - (BOOL)isEqual:(id)object {

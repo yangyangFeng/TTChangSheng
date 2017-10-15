@@ -7,13 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "LLMessageModel.h"
+#import "CSMessageModel.h"
 
 
 @interface LLMessageDateCell : UITableViewCell
 
-@property (nonatomic) LLMessageModel *messageModel;
+@property (nonatomic) CSMessageModel *messageModel;
 
-+ (CGFloat)heightForModel:(LLMessageModel *)model;
++ (CGFloat)heightForModel:(CSMessageModel *)model;
 
 @end

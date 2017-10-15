@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "LLViewController.h"
+#import "CSMessageModel.h"
 #import "LLMessageModel.h"
 #import "LLChatImageScrollView.h"
 #import "LLVideoDownloadStatusHUD.h"
@@ -15,7 +16,7 @@
 
 @protocol LLChatImagePreviewDelegate <NSObject>
 
-- (void)didFinishWithMessageModel:(LLMessageModel *)model targetView:(UIView<LLAssetDisplayView> *)assetView scrollToTop:(BOOL)scrollToTop;
+- (void)didFinishWithMessageModel:(CSMessageModel *)model targetView:(UIView<LLAssetDisplayView> *)assetView scrollToTop:(BOOL)scrollToTop;
 
 @end
 
@@ -24,7 +25,7 @@
 
 @property (nonatomic, weak) id<LLChatImagePreviewDelegate> delegate;
 @property (nonatomic) NSArray<LLMessageModel *> *allAssets;
-@property (nonatomic) LLMessageModel *curShowMessageModel;
+@property (nonatomic) CSMessageModel *curShowMessageModel;
 
 @property (nonatomic) CGRect originalWindowFrame;
 

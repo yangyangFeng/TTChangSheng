@@ -93,8 +93,8 @@ typedef NS_ENUM(NSInteger, LLAssetBottomBarStyle) {
     downloadFailedMessageIds = [NSMutableSet set];
     if (_curShowMessageModel.isVideoPlayable) {
         needAutoPlayVideo = YES;
-    }else if ((_curShowMessageModel.messageBodyType == kLLMessageBodyTypeVideo) &&
-              ((_curShowMessageModel.messageDownloadStatus == kLLMessageDownloadStatusPending) || (_curShowMessageModel.messageDownloadStatus == kLLMessageDownloadStatusFailed))){
+    }else if ((_curShowMessageModel.messageBodyType == kCSMessageBodyTypeVideo) &&
+              ((_curShowMessageModel.messageDownloadStatus == kCSMessageDownloadStatusPending) || (_curShowMessageModel.messageDownloadStatus == kCSMessageDownloadStatusFailed))){
         [self downloadAttachmentForMessageModel:_curShowMessageModel];
     }
     
@@ -304,6 +304,7 @@ typedef NS_ENUM(NSInteger, LLAssetBottomBarStyle) {
             shouldExitAfterRotation = NO;
             
             [self.navigationController popViewControllerAnimated:NO];
+            
         }
     }];
 }
@@ -603,10 +604,10 @@ typedef NS_ENUM(NSInteger, LLAssetBottomBarStyle) {
         [self.videoPlaybackController stop];
     }
     
-    if (_curAssetView.messageBodyType == kLLMessageBodyTypeImage) {
+    if (_curAssetView.messageBodyType == kCSMessageBodyTypeImage) {
         switch (_curShowMessageModel.messageDownloadStatus) {
-            case kLLMessageDownloadStatusWaiting:
-            case kLLMessageDownloadStatusDownloading: {
+            case kCSMessageDownloadStatusWaiting:
+            case kCSMessageDownloadStatusDownloading: {
                 //用户点击了查看原图
                 if ([downloadingMessageIds containsObject:_curShowMessageModel.messageId]) {
                     bottomBarStyle = kLLAssetBottomBarStyleImageHide;
@@ -619,7 +620,7 @@ typedef NS_ENUM(NSInteger, LLAssetBottomBarStyle) {
                 
             }
                 break;
-            case kLLMessageDownloadStatusFailed:
+            case kCSMessageDownloadStatusFailed:
                 if ([downloadFailedMessageIds containsObject:_curShowMessageModel.messageId]) {
 
                     bottomBarStyle = kLLAssetBottomBarStyleImageHide;
@@ -631,11 +632,11 @@ typedef NS_ENUM(NSInteger, LLAssetBottomBarStyle) {
                     [self.imageBottomBar setDownloadFullImageSize:[LLUtils sizeStringWithStyle:nil size:[_curShowMessageModel fileAttachmentSize]]];
             }
                 break;
-            case kLLMessageDownloadStatusPending:
+            case kCSMessageDownloadStatusPending:
                 [[LLChatManager sharedManager] asynDownloadMessageAttachments:_curShowMessageModel progress:nil completion:nil];
                 needShowAnimationView = YES;
                 break;
-            case kLLMessageDownloadStatusSuccessed: {
+            case kCSMessageDownloadStatusSuccessed: {
                 bottomBarStyle = kLLAssetBottomBarStyleImageShow;
                 [self.imageBottomBar setBottomBarStyle:kLLImageBottomBarStyleMore animated:YES];
                 [timer invalidate];
@@ -646,7 +647,7 @@ typedef NS_ENUM(NSInteger, LLAssetBottomBarStyle) {
                 break;
         }
         
-    }else if (_curAssetView.messageBodyType == kLLMessageBodyTypeVideo) {
+    }else if (_curAssetView.messageBodyType == kCSMessageBodyTypeVideo) {
         needShowAnimationView = NO;
         bottomBarStyle = kLLAssetBottomBarStyleVideo;
         
@@ -1004,6 +1005,7 @@ typedef NS_ENUM(NSInteger, LLAssetBottomBarStyle) {
         shouldExitAfterRotation = YES;
     }else {
        [self.navigationController popViewControllerAnimated:NO];
+//        [self dismissViewControllerAnimated:YES completion:nil];
     }
     
 }
@@ -1015,7 +1017,7 @@ typedef NS_ENUM(NSInteger, LLAssetBottomBarStyle) {
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
     _imageBottomBar.hidden = YES;
     _videoBottomBar.hidden = YES;
 //    if (_curAssetView.messageBodyType == kLLMessageBodyTypeVideo) {

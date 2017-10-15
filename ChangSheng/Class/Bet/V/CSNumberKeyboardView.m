@@ -10,13 +10,17 @@
 #import "CSCustomNumberButton.h"
 #define BTN_TAG_FLAG 999
 
+@interface CSNumberKeyboardView ()
+@property (nonatomic,copy) NSMutableString *number_string;
+@end
+
 @implementation CSNumberKeyboardView
 
 - (instancetype)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
-        
+        _number_string = [NSMutableString string];
         UIColor * lineColor = rgb(170, 170, 170);
         
         CSCustomNumberButton * delBtn = [CSCustomNumberButton buttonWithType:(UIButtonTypeCustom)];
@@ -32,7 +36,7 @@
         CSCustomNumberButton * betBtn = [CSCustomNumberButton buttonWithType:(UIButtonTypeCustom)];
         [betBtn setTitle:@"下注" forState:(UIControlStateNormal)];
         [betBtn.titleLabel setFont:[UIFont systemFontOfSize:20]];
-        [betBtn addTarget:self action:@selector(deleteDidAction:) forControlEvents:(UIControlEventTouchUpInside)];
+        [betBtn addTarget:self action:@selector(betDidAction:) forControlEvents:(UIControlEventTouchUpInside)];
         [self addSubview:betBtn];
         [betBtn mas_makeConstraints:^(MASConstraintMaker *make) {
             make.right.mas_equalTo(0);
@@ -44,7 +48,7 @@
         CSCustomNumberButton * cancleBtn = [CSCustomNumberButton buttonWithType:(UIButtonTypeCustom)];
         [cancleBtn setTitle:@"撤销" forState:(UIControlStateNormal)];
         [cancleBtn.titleLabel setFont:[UIFont systemFontOfSize:20]];
-        [cancleBtn addTarget:self action:@selector(deleteDidAction:) forControlEvents:(UIControlEventTouchUpInside)];
+        [cancleBtn addTarget:self action:@selector(cancleDidAction:) forControlEvents:(UIControlEventTouchUpInside)];
         [self addSubview:cancleBtn];
         [cancleBtn mas_makeConstraints:^(MASConstraintMaker *make) {
             make.right.bottom.mas_equalTo(0);
@@ -60,7 +64,7 @@
             else if (i == 10)
             {
                 [btn setTitle:[NSString stringWithFormat:@"%d",0] forState:(UIControlStateNormal)];
-                btn.tag = BTN_TAG_FLAG + i + 1;
+                btn.tag = BTN_TAG_FLAG ;
                 [btn addTarget:self action:@selector(btnDidAction:) forControlEvents:(UIControlEventTouchUpInside)];
             }
             else if (i == 11)
@@ -123,10 +127,31 @@
 {
     UIButton * btn = sender;
     NSLog(@"tag->%ld",btn.tag-BTN_TAG_FLAG);
+    NSString * number = [NSString stringWithFormat:@"%ld",btn.tag - BTN_TAG_FLAG];
+//    [self.number_string appendString:[NSString stringWithFormat:@"%ld",btn.tag - BTN_TAG_FLAG]];
+    if ([_delegate respondsToSelector:@selector(cs_keyboardWithNumber:)]) {
+        [_delegate cs_keyboardWithNumber:number];
+    }
+}
+
+- (void)betDidAction:(id)sender
+{
+    if ([_delegate respondsToSelector:@selector(cs_keyboardWithBetAction)]) {
+        [_delegate cs_keyboardWithBetAction];
+    }
 }
 
 - (void)deleteDidAction:(id)sender
 {
-    
+    if ([_delegate respondsToSelector:@selector(cs_keyboardWithDelete)]) {
+        [_delegate cs_keyboardWithDelete];
+    }
+}
+
+- (void)cancleDidAction:(id)sender
+{
+    if ([_delegate respondsToSelector:@selector(cs_keyboardWithCancle)]) {
+        [_delegate cs_keyboardWithCancle];
+    }
 }
 @end

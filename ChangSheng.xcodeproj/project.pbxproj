@@ -222,6 +222,11 @@
 		1813468F1F7AA93200CD1312 /* MLLinkLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 181346831F7AA93200CD1312 /* MLLinkLabel.m */; };
 		181346901F7AA93200CD1312 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 181346841F7AA93200CD1312 /* LICENSE */; };
 		181346911F7AA93200CD1312 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 181346851F7AA93200CD1312 /* README.md */; };
+		181C060A1F9212AB00F4A15E /* CSPublicBetTableViewHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 181C06091F9212AB00F4A15E /* CSPublicBetTableViewHandler.m */; };
+		181C060D1F92138B00F4A15E /* CSBetInputToolBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 181C060C1F92138B00F4A15E /* CSBetInputToolBarView.m */; };
+		181C060F1F92139900F4A15E /* CSBetInputToolBarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 181C060E1F92139900F4A15E /* CSBetInputToolBarView.xib */; };
+		181C06121F92167B00F4A15E /* CSPublicBetInputToolBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 181C06111F92167B00F4A15E /* CSPublicBetInputToolBarView.m */; };
+		181C06151F92180900F4A15E /* CSPublicBetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 181C06141F92180900F4A15E /* CSPublicBetViewController.m */; };
 		1829A0411F8A4A2D00EAA1AB /* NSDate+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 1829A0381F8A4A2D00EAA1AB /* NSDate+Extension.m */; };
 		1829A0421F8A4A2D00EAA1AB /* NSDate+LCCKExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 1829A03A1F8A4A2D00EAA1AB /* NSDate+LCCKExtension.m */; };
 		1829A0431F8A4A2D00EAA1AB /* NSDate+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 1829A03C1F8A4A2D00EAA1AB /* NSDate+Utilities.m */; };
@@ -754,7 +759,7 @@
 		181343D21F79523800CD1312 /* CSLoginRequestParam.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSLoginRequestParam.h; sourceTree = "<group>"; };
 		181343D31F79523800CD1312 /* CSLoginRequestParam.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSLoginRequestParam.m; sourceTree = "<group>"; };
 		181343D51F795FA300CD1312 /* CSHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSHomeViewController.h; sourceTree = "<group>"; };
-		181343D61F795FA300CD1312 /* CSHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSHomeViewController.m; sourceTree = "<group>"; };
+		181343D61F795FA300CD1312 /* CSHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSHomeViewController.m; sourceTree = "<group>"; wrapsLines = 0; };
 		181343D81F795FCF00CD1312 /* TTBaseTableViewHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTBaseTableViewHandler.h; sourceTree = "<group>"; };
 		181343D91F795FCF00CD1312 /* TTBaseTableViewHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTBaseTableViewHandler.m; sourceTree = "<group>"; };
 		181343DB1F79609900CD1312 /* CSHomeTableViewHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSHomeTableViewHandler.h; sourceTree = "<group>"; };
@@ -785,6 +790,15 @@
 		181346831F7AA93200CD1312 /* MLLinkLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLLinkLabel.m; sourceTree = "<group>"; };
 		181346841F7AA93200CD1312 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		181346851F7AA93200CD1312 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		181C06081F9212AB00F4A15E /* CSPublicBetTableViewHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSPublicBetTableViewHandler.h; sourceTree = "<group>"; };
+		181C06091F9212AB00F4A15E /* CSPublicBetTableViewHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSPublicBetTableViewHandler.m; sourceTree = "<group>"; };
+		181C060B1F92138B00F4A15E /* CSBetInputToolBarView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSBetInputToolBarView.h; sourceTree = "<group>"; };
+		181C060C1F92138B00F4A15E /* CSBetInputToolBarView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSBetInputToolBarView.m; sourceTree = "<group>"; };
+		181C060E1F92139900F4A15E /* CSBetInputToolBarView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CSBetInputToolBarView.xib; sourceTree = "<group>"; };
+		181C06101F92167B00F4A15E /* CSPublicBetInputToolBarView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSPublicBetInputToolBarView.h; sourceTree = "<group>"; };
+		181C06111F92167B00F4A15E /* CSPublicBetInputToolBarView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSPublicBetInputToolBarView.m; sourceTree = "<group>"; };
+		181C06131F92180900F4A15E /* CSPublicBetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSPublicBetViewController.h; sourceTree = "<group>"; };
+		181C06141F92180900F4A15E /* CSPublicBetViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSPublicBetViewController.m; sourceTree = "<group>"; };
 		1829A0371F8A4A2D00EAA1AB /* NSDate+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Extension.h"; sourceTree = "<group>"; };
 		1829A0381F8A4A2D00EAA1AB /* NSDate+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Extension.m"; sourceTree = "<group>"; };
 		1829A0391F8A4A2D00EAA1AB /* NSDate+LCCKExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+LCCKExtension.h"; sourceTree = "<group>"; };
@@ -1920,6 +1934,24 @@
 			path = Helper;
 			sourceTree = "<group>";
 		};
+		181C06061F92127600F4A15E /* C */ = {
+			isa = PBXGroup;
+			children = (
+				181C06131F92180900F4A15E /* CSPublicBetViewController.h */,
+				181C06141F92180900F4A15E /* CSPublicBetViewController.m */,
+			);
+			path = C;
+			sourceTree = "<group>";
+		};
+		181C06071F92127600F4A15E /* M */ = {
+			isa = PBXGroup;
+			children = (
+				181C06081F9212AB00F4A15E /* CSPublicBetTableViewHandler.h */,
+				181C06091F9212AB00F4A15E /* CSPublicBetTableViewHandler.m */,
+			);
+			path = M;
+			sourceTree = "<group>";
+		};
 		184B5D001F77D6ED007A1C22 /* GPCustomNSLayoutConstraint */ = {
 			isa = PBXGroup;
 			children = (
@@ -2469,25 +2501,11 @@
 		74C852C71F8B4F3A00944C50 /* Bet */ = {
 			isa = PBXGroup;
 			children = (
-				74C852C81F8B4F3A00944C50 /* C */,
-				74C852C91F8B4F3A00944C50 /* M */,
+				181C06061F92127600F4A15E /* C */,
+				181C06071F92127600F4A15E /* M */,
 				74C852CA1F8B4F3A00944C50 /* V */,
 			);
 			path = Bet;
-			sourceTree = "<group>";
-		};
-		74C852C81F8B4F3A00944C50 /* C */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = C;
-			sourceTree = "<group>";
-		};
-		74C852C91F8B4F3A00944C50 /* M */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = M;
 			sourceTree = "<group>";
 		};
 		74C852CA1F8B4F3A00944C50 /* V */ = {
@@ -2503,6 +2521,11 @@
 				74C852CE1F8B520B00944C50 /* CSCustomBetButton.m */,
 				74C852D21F8B57E100944C50 /* CSCustomNumberButton.h */,
 				74C852D31F8B57E100944C50 /* CSCustomNumberButton.m */,
+				181C060B1F92138B00F4A15E /* CSBetInputToolBarView.h */,
+				181C060C1F92138B00F4A15E /* CSBetInputToolBarView.m */,
+				181C060E1F92139900F4A15E /* CSBetInputToolBarView.xib */,
+				181C06101F92167B00F4A15E /* CSPublicBetInputToolBarView.h */,
+				181C06111F92167B00F4A15E /* CSPublicBetInputToolBarView.m */,
 			);
 			path = V;
 			sourceTree = "<group>";
@@ -2590,7 +2613,7 @@
 				TargetAttributes = {
 					18C81F3C1F74B8E00012150B = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = BYXKWL5C3R;
+						DevelopmentTeam = A6L56BC597;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -2629,6 +2652,7 @@
 				74C852E81F8B800700944C50 /* CSMineItem.plist in Resources */,
 				1804AC8F1F7BDC6100508C1C /* LLVideoPlaybackController.xib in Resources */,
 				1804ACEA1F7BDC6100508C1C /* FriendsSendsPicturesSelectBigYIcon@2x.png in Resources */,
+				181C060F1F92139900F4A15E /* CSBetInputToolBarView.xib in Resources */,
 				1804ACE01F7BDC6100508C1C /* CellBlueSelected@2x.png in Resources */,
 				1804AD251F7BDC6100508C1C /* Emotion.bundle in Resources */,
 				1804ACF01F7BDC6100508C1C /* MMVideoPreviewPlay@3x.png in Resources */,
@@ -2776,6 +2800,7 @@
 				74C8531A1F8F8FA400944C50 /* MCDownloader.m in Sources */,
 				1804AC971F7BDC6100508C1C /* LLGaoDeLocationViewController.m in Sources */,
 				1804ACB91F7BDC6100508C1C /* LLNoDisturbTableViewController.m in Sources */,
+				181C060D1F92138B00F4A15E /* CSBetInputToolBarView.m in Sources */,
 				1804AC8A1F7BDC6100508C1C /* LLChatAssetDisplayController.m in Sources */,
 				1804AC841F7BDC6100508C1C /* LLGIFDisplayController.m in Sources */,
 				18C81FF01F76585F0012150B /* StoryBoardController.m in Sources */,
@@ -2813,6 +2838,7 @@
 				1804AD161F7BDC6100508C1C /* UITextView+LLDebugOnly.m in Sources */,
 				1804ACB21F7BDC6100508C1C /* LLDiscoveryController.m in Sources */,
 				74C852E11F8B769100944C50 /* CSMineViewController.m in Sources */,
+				181C06151F92180900F4A15E /* CSPublicBetViewController.m in Sources */,
 				1804AD131F7BDC6100508C1C /* UINavigationBar+LLExt.m in Sources */,
 				18C81F811F7657900012150B /* TTNav_RootTableViewController.m in Sources */,
 				184B5CFC1F77CC03007A1C22 /* CSBaseRequestModel.m in Sources */,
@@ -2926,6 +2952,7 @@
 				1804ACF81F7BDC6100508C1C /* LLImageSelectIndicator.m in Sources */,
 				1804AD0B1F7BDC6100508C1C /* LLVideoPlaybackView.m in Sources */,
 				1829A0441F8A4A2D00EAA1AB /* NSFileManager+LCCKExtension.m in Sources */,
+				181C06121F92167B00F4A15E /* CSPublicBetInputToolBarView.m in Sources */,
 				74C8530F1F8E375900944C50 /* CSMsgHistoryModel.m in Sources */,
 				184B5D151F77DC8C007A1C22 /* CSLoginHandler.m in Sources */,
 				18C81FF31F76585F0012150B /* UIImageView+BetterFace.m in Sources */,
@@ -2935,6 +2962,7 @@
 				181346871F7AA93200CD1312 /* NSMutableAttributedString+MLLabel.m in Sources */,
 				184B5D031F77D6ED007A1C22 /* TTLineLayoutConstraint.m in Sources */,
 				1804ACCA1F7BDC6100508C1C /* InvitationManager.m in Sources */,
+				181C060A1F9212AB00F4A15E /* CSPublicBetTableViewHandler.m in Sources */,
 				1804AD0E1F7BDC6100508C1C /* NSString+encrypto.m in Sources */,
 				18B6C60F1F8BBF16007B1669 /* CSUploadFileParam.m in Sources */,
 				1804ACCB1F7BDC6100508C1C /* LLEmotionModelManager.m in Sources */,
@@ -3134,7 +3162,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = BYXKWL5C3R;
+				DEVELOPMENT_TEAM = A6L56BC597;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3154,7 +3182,7 @@
 					"$(PROJECT_DIR)/ChangSheng/Class/Lib/HyphenateSDK/lib",
 					"$(PROJECT_DIR)/ChangSheng/Class/IMKit/General/Audio/TTVoiceLib",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = Tianyu.ChangSheng1;
+				PRODUCT_BUNDLE_IDENTIFIER = com.changsheng.www;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -3166,7 +3194,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = BYXKWL5C3R;
+				DEVELOPMENT_TEAM = A6L56BC597;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3186,7 +3214,7 @@
 					"$(PROJECT_DIR)/ChangSheng/Class/Lib/HyphenateSDK/lib",
 					"$(PROJECT_DIR)/ChangSheng/Class/IMKit/General/Audio/TTVoiceLib",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = Tianyu.ChangSheng1;
+				PRODUCT_BUNDLE_IDENTIFIER = com.changsheng.www;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

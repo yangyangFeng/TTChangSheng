@@ -85,4 +85,16 @@ typedef enum : NSUInteger {
  *  6.获取客服列表
  */
 + (void)request_helperList_paramters:(NSDictionary *)params success:(TTSuccessBlock)success failure:(TTFailureBlock)failure showHUD:(BOOL)showHUD;
+
+#pragma mark -  7.加入群组
+/**
+ *  7.加入群组
+ */
++ (void)request_joinGroup_paramters:(NSDictionary *)params success:(TTSuccessBlock)success failure:(TTFailureBlock)failure showHUD:(BOOL)showHUD;
+
+#pragma mark -  8.加入群组
+/**
+ *  8.加入群组
+ */
++ (void)request_quitGroup_paramters:(NSDictionary *)params success:(TTSuccessBlock)success failure:(TTFailureBlock)failure showHUD:(BOOL)showHUD;
 @end

@@ -8,6 +8,19 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CSBetInputView : UIView
+@protocol CSBetInputViewDelegate <NSObject>
+- (void)cs_keyboardBetTypeName:(NSString *)typeName
+                          type:(NSString *)type;
 
+- (void)cs_keyboardBtnActionType:(int)type;
+
+- (void)cs_keyboardHide;
+
+- (void)cs_keyboardShow;
+
+- (void)cs_keyboardSendMessageText:(NSString *)text;
+@end
+
+@interface CSBetInputView : UIView
+@property (nonatomic,weak) id<CSBetInputViewDelegate> delegate;
 @end

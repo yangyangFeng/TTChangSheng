@@ -8,6 +8,7 @@
 
 #import "CSUserServiceListViewController.h"
 #import "LLChatViewController.h"
+#import "CSPublicBetViewController.h"
 
 #import "CSUserTableViewCell.h"
 #import "StoryBoardController.h"
@@ -116,12 +117,15 @@
         
         [MBProgressHUD tt_HideFromeView:self.tableView];
         LLChatViewController * chatC = (LLChatViewController*)[StoryBoardController storyBoardName:@"Main" ViewControllerIdentifiter:@"LLChatViewController"];
+
         CSIMConversationModel * model = [CSIMConversationModel new];
         model.chatId = [userServiceModel id];
         model.nickName = userServiceModel.nickname;
         model.allMessageModels = [NSMutableArray array];
+        
         for (CSMsgRecordModel * msgData in obj.result.data) {
             CSMessageModel * msgModel = [CSMessageModel conversionWithRecordModel:msgData chatType:param.chat_type chatId:userServiceModel.id];
+            
             CSIMSendMessageRequestModel * sendMsgModel = [CSIMSendMessageRequestModel new];
             sendMsgModel.body = msgModel;
             [model.allMessageModels addObject:sendMsgModel];

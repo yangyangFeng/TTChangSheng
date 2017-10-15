@@ -528,7 +528,7 @@ static NSMutableDictionary<NSString *, UIImage *> *tmpImageDict;
 
 - (void)processModelForCell {
     switch (self.messageBodyType) {
-        case kLLMessageBodyTypeText: {
+        case kCSMessageBodyTypeText: {
             if ([self.ext[MESSAGE_EXT_TYPE_KEY] isEqualToString:MESSAGE_EXT_GIF_KEY]) {
                 EMTextMessageBody *textBody = (EMTextMessageBody *)(self.sdk_message.body);
                 self.text = [NSString stringWithFormat:@"[%@]", textBody.text];
@@ -545,10 +545,10 @@ static NSMutableDictionary<NSString *, UIImage *> *tmpImageDict;
             
         }
             break;
-        case kLLMessageBodyTypeDateTime:
+        case kCSMessageBodyTypeDateTime:
             self.cellHeight = [LLMessageDateCell heightForModel:self];
             break;
-        case kLLMessageBodyTypeImage:{
+        case kCSMessageBodyTypeImage:{
             EMImageMessageBody *imgMessageBody = (EMImageMessageBody *)self.sdk_message.body;
 
             self.thumbnailImageSize = [LLMessageImageCell thumbnailSize:imgMessageBody.size];
@@ -556,8 +556,8 @@ static NSMutableDictionary<NSString *, UIImage *> *tmpImageDict;
             self.cellHeight = [LLMessageImageCell heightForModel:self];
             break;
         }
-        case kLLMessageBodyTypeFile:
-        case kLLMessageBodyTypeLocation: {
+        case kCSMessageBodyTypeFile:
+        case kCSMessageBodyTypeLocation: {
             NSDictionary *messageExt = self.sdk_message.ext;
             
             if ([messageExt[MESSAGE_EXT_TYPE_KEY] isEqualToString:MESSAGE_EXT_LOCATION_KEY]) {
@@ -571,7 +571,7 @@ static NSMutableDictionary<NSString *, UIImage *> *tmpImageDict;
             
             break;
         }
-        case kLLMessageBodyTypeVoice: {
+        case kCSMessageBodyTypeVoice: {
             EMVoiceMessageBody *voiceBody = (EMVoiceMessageBody *)self.sdk_message.body;
             self.mediaDuration = voiceBody.duration;
             self.isMediaPlayed = NO;
@@ -585,7 +585,7 @@ static NSMutableDictionary<NSString *, UIImage *> *tmpImageDict;
             
             break;
         }
-        case kLLMessageBodyTypeVideo: {
+        case kCSMessageBodyTypeVideo: {
             EMVideoMessageBody *videoBody = (EMVideoMessageBody *)self.sdk_message.body;
             // 视频路径
             self.fileLocalPath = videoBody.localPath;
@@ -597,7 +597,7 @@ static NSMutableDictionary<NSString *, UIImage *> *tmpImageDict;
             break;
         }
             
-        case kLLMessageBodyTypeGif:
+        case kCSMessageBodyTypeGif:
             self.cellHeight = [LLMessageGifCell heightForModel:self];
             break;
         default:

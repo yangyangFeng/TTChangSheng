@@ -14,6 +14,7 @@
 #import <AFNetworking.h>
 @interface CSNetWorkingRequest ()
 @property (nonatomic, strong) AFHTTPSessionManager* manager;
+@property (nonatomic, strong) AFHTTPRequestOperationManager * uploadManager;
 @end
 @implementation CSNetWorkingRequest
 + (AFSecurityPolicy*)customSecurityPolicy
@@ -753,7 +754,9 @@
             }
             [formData appendPartWithFileURL:[NSURL fileURLWithPath:filePath] name:@"file" fileName:fileName mimeType:mimeType error:nil];
 //            [formData appendPartWithFileData:image name:[params objectForKey:@"fileKey"] fileName:fileName mimeType:mimeType];
-        } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject) {
+        }
+         
+               success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject) {
 #if SWITCH_OPEN_LOG
             DLog(@"--------------------------------------------------------------------------------------\n🍎🍎🍎POST.url--->👇👇👇\n%@\n--------------------------------------------------------------------------------------\n%@\n======================================================================================",
                  task.response.URL, [responseObject mj_JSONString]);
@@ -827,23 +830,23 @@
                   showHUD:(BOOL)showHUD
 {
     if (self = [super init]) {
-        
-        _manager = [AFHTTPSessionManager manager];
+        _uploadManager = [AFHTTPRequestOperationManager manager];
+//        _manager = [AFHTTPSessionManager manager];
         //        manager.responseSerializer.acceptableContentTypes =  [NSSet setWithObject:@"text/html"];
-        _manager.requestSerializer = [AFJSONRequestSerializer serializer]; //申明请求的数据是json类型
+        _uploadManager.requestSerializer = [AFJSONRequestSerializer serializer]; //申明请求的数据是json类型
         //        _manager.responseSerializer = [AFJSONResponseSerializer serializer];//申明返回的结果是json类型
-        _manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-        _manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/html", nil];
-        _manager.requestSerializer.timeoutInterval = 30;
-        _manager.requestSerializer.stringEncoding = NSUTF8StringEncoding;
+        _uploadManager.responseSerializer = [AFHTTPResponseSerializer serializer];
+        _uploadManager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/html", nil];
+        _uploadManager.requestSerializer.timeoutInterval = 30;
+        _uploadManager.requestSerializer.stringEncoding = NSUTF8StringEncoding;
         
         //        _manager.securityPolicy = [CSNetWorkingRequest customSecurityPolicy];
 #pragma mark - 登陆后已token作为用户标示.
         if ([CSUserInfo shareInstance].isOnline) {
-            [_manager.requestSerializer setValue:[CSUserInfo shareInstance].info.token forHTTPHeaderField:@"token"];
+            [_uploadManager.requestSerializer setValue:[CSUserInfo shareInstance].info.token forHTTPHeaderField:@"token"];
         }
         
-        [_manager POST:url parameters:params constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
+         AFHTTPRequestOperation* uploadOperation = [_uploadManager POST:url parameters:params constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
             NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
             // 设置时间格式
             formatter.dateFormat = @"yyyyMMddHHmmss";
@@ -869,10 +872,10 @@
             [formData appendPartWithFileData:fileData name:@"file" fileName:fileName mimeType:mimeType];
 //            [formData appendPartWithFileURL:[NSURL fileURLWithPath:filePath] name:@"file" fileName:fileName mimeType:mimeType error:nil];
 //                        [formData appendPartWithFileData:image name:[params objectForKey:@"fileKey"] fileName:fileName mimeType:mimeType];
-        } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject) {
+        } success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
 #if SWITCH_OPEN_LOG
             DLog(@"--------------------------------------------------------------------------------------\n🍎🍎🍎POST.url--->👇👇👇\n%@\n--------------------------------------------------------------------------------------\n%@\n======================================================================================",
-                 task.response.URL, [responseObject mj_JSONString]);
+                 operation.response.URL, [responseObject mj_JSONString]);
 #endif
             CSHttpsResModel* back = [CSHttpsResModel mj_objectWithKeyValues:responseObject];
             if (back.code == successCode) {
@@ -899,7 +902,7 @@
             }
             DLog(@"---> %@", back.mj_keyValues);
             
-        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
             if (error.code == -1009) {
                 [MBProgressHUD tt_ErrorTitle:@"网络已断开"];
             }
@@ -928,6 +931,19 @@
                 DLog(@"%@", error);
                 failureBlock(error);
             }
+        }];
+        NSProgress * pro = [NSProgress progressWithTotalUnitCount:1];
+        [uploadOperation setUploadProgressBlock:^(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
+            CGFloat progress = ((float)totalBytesWritten) / totalBytesExpectedToWrite;
+            NSLog(@"上传进度---?%g",progress);
+            if(uploadFileProgress)
+            {
+                
+                pro.completedUnitCount = progress;
+                uploadFileProgress(pro);
+                 
+             }
+            
         }];
     }
     return self;

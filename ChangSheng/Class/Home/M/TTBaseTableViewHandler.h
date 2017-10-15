@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import <UIKit/UIKit.h>
 @protocol TTBaseTableViewHandlerDelegate <NSObject>
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath;
@@ -16,6 +16,6 @@
 @interface TTBaseTableViewHandler : NSObject<UITableViewDelegate,UITableViewDataSource>
 
 - (id)initWithTableView:(UITableView *)tableView;
-
+@property (nonatomic,weak) UITableView *tableView;
 @property (nonatomic,weak) id<TTBaseTableViewHandlerDelegate> delegate;
 @end

@@ -8,7 +8,7 @@
 
 #import "LLMessageThumbnailManager.h"
 #import "LLUtils.h"
-#import "LLMessageModel.h"
+#import "CSMessageModel.h"
 #import "UIImage+LLExt.h"
 
 #define THUMBNAIL_DISK_QUEUE "THUMBNAIL_DISK_QUEUE"
@@ -65,14 +65,14 @@ CREATE_SHARED_MANAGER(LLMessageThumbnailManager)
     return self;
 }
 
-- (nullable UIImage *)thumbnailForMessageModel:(LLMessageModel *)messageModel {
+- (nullable UIImage *)thumbnailForMessageModel:(CSMessageModel *)messageModel {
     UIImage *thumbnail = _allMessageThumbnails[messageModel.messageId];
     if (thumbnail)
         return thumbnail;
     
     switch (messageModel.messageBodyType) {
-        case kLLMessageBodyTypeImage:
-        case kLLMessageBodyTypeVideo: {
+        case kCSMessageBodyTypeImage:
+        case kCSMessageBodyTypeVideo: {
             NSString *path = [self cachePathForMessageModel:messageModel];
             NSData *data = [NSData dataWithContentsOfFile:path];
             thumbnail = [UIImage imageWithData:data scale:scale];
@@ -90,8 +90,8 @@ CREATE_SHARED_MANAGER(LLMessageThumbnailManager)
     return thumbnail;
 }
 
-- (void)removeThumbnailForMessageModel:(LLMessageModel *)messageModel removeFromDisk:(BOOL)removeFromDisk {
-    LL_MessageThumbnail_Data *data = [self messageThumbnailDataForConversationId:messageModel.conversationId];
+- (void)removeThumbnailForMessageModel:(CSMessageModel *)messageModel removeFromDisk:(BOOL)removeFromDisk {
+    LL_MessageThumbnail_Data *data = [self messageThumbnailDataForConversationId:messageModel.chatId];
     [data.allMessageIds removeObject:messageModel.messageId];
     
     UIImage *image = _allMessageThumbnails[messageModel.messageId];
@@ -104,12 +104,12 @@ CREATE_SHARED_MANAGER(LLMessageThumbnailManager)
         [self removeThumbnailFromDiskForMessageModel:messageModel];
 }
 
-- (void)removeThumbnailForMessageModelsInArray:(NSArray<LLMessageModel *> *)messageModels removeFromDisk:(BOOL)removeFromDisk {
+- (void)removeThumbnailForMessageModelsInArray:(NSArray<CSMessageModel *> *)messageModels removeFromDisk:(BOOL)removeFromDisk {
     if (messageModels.count == 0)
         return;
     
-    LL_MessageThumbnail_Data *data = [self messageThumbnailDataForConversationId:messageModels[0].conversationId];
-    for (LLMessageModel *model in messageModels) {
+    LL_MessageThumbnail_Data *data = [self messageThumbnailDataForConversationId:messageModels[0].chatId];
+    for (CSMessageModel *model in messageModels) {
         [data.allMessageIds removeObject:model.messageId];
         
         UIImage *image = _allMessageThumbnails[model.messageId];
@@ -124,7 +124,7 @@ CREATE_SHARED_MANAGER(LLMessageThumbnailManager)
     
 }
 
-- (void)addThumbnailForMessageModel:(LLMessageModel *)messageModel thumbnail:(UIImage *)thumbnail toDisk:(BOOL)toDisk {
+- (void)addThumbnailForMessageModel:(CSMessageModel *)messageModel thumbnail:(UIImage *)thumbnail toDisk:(BOOL)toDisk {
     if (toDisk) {
         [self saveThumbnailToDiskForMessageModel:messageModel thumbnail:thumbnail];
     }
@@ -141,7 +141,7 @@ CREATE_SHARED_MANAGER(LLMessageThumbnailManager)
     _allMessageThumbnails[messageModel.messageId] = thumbnail;
     _currentCacheSize += [thumbnail imageFileSize];
     
-    LL_MessageThumbnail_Data *data = [self messageThumbnailDataForConversationId:messageModel.conversationId];
+    LL_MessageThumbnail_Data *data = [self messageThumbnailDataForConversationId:messageModel.chatId];
     [data.allMessageIds addObject:messageModel.messageId];
     
     for (NSInteger index = 0, count = self.allMessageThumbnailDatas.count; _currentCacheSize > MAX_CACHE_SIZE && index < count - 1; index++) {
@@ -211,7 +211,7 @@ CREATE_SHARED_MANAGER(LLMessageThumbnailManager)
 
 #pragma mark - Disk - 
 
-- (void)saveThumbnailToDiskForMessageModel:(nonnull LLMessageModel *)messageModel thumbnail:(nonnull UIImage *)thumbnail {
+- (void)saveThumbnailToDiskForMessageModel:(nonnull CSMessageModel *)messageModel thumbnail:(nonnull UIImage *)thumbnail {
     WEAK_SELF;
     dispatch_async(_diskQueue, ^{
         NSString *path = [weakSelf cachePathForMessageModel:messageModel];
@@ -219,7 +219,7 @@ CREATE_SHARED_MANAGER(LLMessageThumbnailManager)
     });
 }
 
-- (void)removeThumbnailFromDiskForMessageModel:(LLMessageModel *)messageModel {
+- (void)removeThumbnailFromDiskForMessageModel:(CSMessageModel *)messageModel {
     WEAK_SELF;
     dispatch_async(_diskQueue, ^{
         NSString *path = [weakSelf cachePathForMessageModel:messageModel];
@@ -233,8 +233,8 @@ CREATE_SHARED_MANAGER(LLMessageThumbnailManager)
     });
 }
 
-- (NSString *)cachePathForMessageModel:(LLMessageModel *)messageModel {
-    NSString *filename = [NSString stringWithFormat:@"%@_%@",messageModel.conversationId, messageModel.messageId];
+- (NSString *)cachePathForMessageModel:(CSMessageModel *)messageModel {
+    NSString *filename = [NSString stringWithFormat:@"%@_%@",messageModel.chatId, messageModel.messageId];
     return [[LLUtils messageThumbnailDirectory] stringByAppendingPathComponent:filename];
 }
 

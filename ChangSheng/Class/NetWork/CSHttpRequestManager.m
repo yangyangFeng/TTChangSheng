@@ -229,4 +229,36 @@
         failure(error);
     } showHUD:showHUD];
 }
+
+#pragma mark -  7.加入群组
+/**
+ *  7.加入群组
+ */
++ (void)request_joinGroup_paramters:(NSDictionary *)params success:(TTSuccessBlock)success failure:(TTFailureBlock)failure showHUD:(BOOL)showHUD
+{
+    NSString * url = @"chat/joinGroup";
+    [[CSNewWorkHandler sharedInstance] beginHttpRequestType:POST_TTREQUEST_TYPE url:url paramters:params success:^(id responseObject) {
+        
+        success(responseObject);
+        
+    } failure:^(NSError *error) {
+        failure(error);
+    } showHUD:showHUD];
+}
+
+#pragma mark -  8.加入群组
+/**
+ *  8.加入群组
+ */
++ (void)request_quitGroup_paramters:(NSDictionary *)params success:(TTSuccessBlock)success failure:(TTFailureBlock)failure showHUD:(BOOL)showHUD
+{
+    NSString * url = @"chat/quitGroup";
+    [[CSNewWorkHandler sharedInstance] beginHttpRequestType:POST_TTREQUEST_TYPE url:url paramters:params success:^(id responseObject) {
+        
+        success(responseObject);
+        
+    } failure:^(NSError *error) {
+        failure(error);
+    } showHUD:showHUD];
+}
 @end

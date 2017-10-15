@@ -28,5 +28,5 @@
 @property (nonatomic,copy) NSString *nickname;
 @property (nonatomic,copy) NSString *avatar;
 @property (nonatomic,copy) NSString *is_self;
-
+@property (nonatomic,assign) NSInteger voice_length;
 @end

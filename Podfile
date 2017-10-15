@@ -31,6 +31,7 @@ pod 'YYWebImage'
 pod 'MJRefresh'
 pod 'SDWebImage'
 pod 'SocketRocket', '~> 0.5.1'
+pod 'KVOController'
 end
 
 
