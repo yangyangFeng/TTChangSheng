@@ -736,23 +736,36 @@
             NSString *str = [formatter stringFromDate:[NSDate date]];
             NSString *fileName;
             NSString * mimeType;
-            switch (networkType) {
-                case UpLoad_Image:
-                {
-                    fileName = [NSString stringWithFormat:@"%@.png", str];
-                    mimeType = @"image/png";
-                }
-                    break;
-                case UpLoad_Voice:
-                {
-                    fileName = [NSString stringWithFormat:@"%@.mp3", str];
-                    mimeType = @"audio/mpeg";
-                }
-                    break;
-                default:
-                    break;
+            NSString * file = @"file";
+            if (networkType & UpLoad_Image) {
+                fileName = [NSString stringWithFormat:@"%@.png", str];
+                mimeType = @"image/png";
             }
-            [formData appendPartWithFileURL:[NSURL fileURLWithPath:filePath] name:@"file" fileName:fileName mimeType:mimeType error:nil];
+            else{
+                fileName = [NSString stringWithFormat:@"%@.mp3", str];
+                mimeType = @"audio/mpeg";
+            }
+            if (networkType & UpLoad_Custome)
+            {
+                file = params[@"file"];
+            }
+//            switch (networkType) {
+//                case UpLoad_Image:
+//                {
+//                    fileName = [NSString stringWithFormat:@"%@.png", str];
+//                    mimeType = @"image/png";
+//                }
+//                    break;
+//                case UpLoad_Voice:
+//                {
+//                    fileName = [NSString stringWithFormat:@"%@.mp3", str];
+//                    mimeType = @"audio/mpeg";
+//                }
+//                    break;
+//                default:
+//                    break;
+//            }
+            [formData appendPartWithFileURL:[NSURL fileURLWithPath:filePath] name:file fileName:fileName mimeType:mimeType error:nil];
 //            [formData appendPartWithFileData:image name:[params objectForKey:@"fileKey"] fileName:fileName mimeType:mimeType];
         }
          
@@ -853,23 +866,36 @@
             NSString *str = [formatter stringFromDate:[NSDate date]];
             NSString *fileName;
             NSString * mimeType;
-            switch (networkType) {
-                case UpLoad_Image:
-                {
-                    fileName = [NSString stringWithFormat:@"%@.png", str];
-                    mimeType = @"image/png";
-                }
-                    break;
-                case UpLoad_Voice:
-                {
-                    fileName = [NSString stringWithFormat:@"%@.mp3", str];
-                    mimeType = @"audio/mpeg";
-                }
-                    break;
-                default:
-                    break;
-            }
-            [formData appendPartWithFileData:fileData name:@"file" fileName:fileName mimeType:mimeType];
+             NSString * file = @"file";
+             if (networkType & UpLoad_Image) {
+                 fileName = [NSString stringWithFormat:@"%@.png", str];
+                 mimeType = @"image/png";
+             }
+             else{
+                 fileName = [NSString stringWithFormat:@"%@.mp3", str];
+                 mimeType = @"audio/mpeg";
+             }
+             if (networkType & UpLoad_Custome)
+             {
+                 file = params[@"file"];
+             }
+//            switch (networkType) {
+//                case UpLoad_Image:
+//                {
+//                    fileName = [NSString stringWithFormat:@"%@.png", str];
+//                    mimeType = @"image/png";
+//                }
+//                    break;
+//                case UpLoad_Voice:
+//                {
+//                    fileName = [NSString stringWithFormat:@"%@.mp3", str];
+//                    mimeType = @"audio/mpeg";
+//                }
+//                    break;
+//                default:
+//                    break;
+//            }
+            [formData appendPartWithFileData:fileData name:file fileName:fileName mimeType:mimeType];
 //            [formData appendPartWithFileURL:[NSURL fileURLWithPath:filePath] name:@"file" fileName:fileName mimeType:mimeType error:nil];
 //                        [formData appendPartWithFileData:image name:[params objectForKey:@"fileKey"] fileName:fileName mimeType:mimeType];
         } success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {

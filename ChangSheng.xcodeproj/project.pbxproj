@@ -248,6 +248,7 @@
 		185787181F94BC2400BAD542 /* Mine.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 185787171F94BC2400BAD542 /* Mine.storyboard */; };
 		1857871B1F94D4C500BAD542 /* CSCaiwuTableViewInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1857871A1F94D4C500BAD542 /* CSCaiwuTableViewInfoCell.m */; };
 		1857871E1F94D4EB00BAD542 /* CSCaiwuTableViewImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1857871D1F94D4EB00BAD542 /* CSCaiwuTableViewImageCell.m */; };
+		185787211F94EF4800BAD542 /* CSUploadFenRequestModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 185787201F94EF4700BAD542 /* CSUploadFenRequestModel.m */; };
 		187773C81F7D1C6100A98B7C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 187773C61F7D1C6100A98B7C /* Main.storyboard */; };
 		187773CE1F7D1D5600A98B7C /* CSMsgHistoryRequestModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 187773CC1F7D1D5600A98B7C /* CSMsgHistoryRequestModel.m */; };
 		187773D11F7D1D6900A98B7C /* CSHttpGroupResModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 187773D01F7D1D6900A98B7C /* CSHttpGroupResModel.m */; };
@@ -844,6 +845,8 @@
 		1857871A1F94D4C500BAD542 /* CSCaiwuTableViewInfoCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSCaiwuTableViewInfoCell.m; sourceTree = "<group>"; };
 		1857871C1F94D4EB00BAD542 /* CSCaiwuTableViewImageCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSCaiwuTableViewImageCell.h; sourceTree = "<group>"; };
 		1857871D1F94D4EB00BAD542 /* CSCaiwuTableViewImageCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSCaiwuTableViewImageCell.m; sourceTree = "<group>"; };
+		1857871F1F94EF4700BAD542 /* CSUploadFenRequestModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSUploadFenRequestModel.h; sourceTree = "<group>"; };
+		185787201F94EF4700BAD542 /* CSUploadFenRequestModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSUploadFenRequestModel.m; sourceTree = "<group>"; };
 		187773C71F7D1C6100A98B7C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		187773CB1F7D1D5600A98B7C /* CSMsgHistoryRequestModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSMsgHistoryRequestModel.h; sourceTree = "<group>"; };
 		187773CC1F7D1D5600A98B7C /* CSMsgHistoryRequestModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSMsgHistoryRequestModel.m; sourceTree = "<group>"; };
@@ -2483,6 +2486,8 @@
 				181343D31F79523800CD1312 /* CSLoginRequestParam.m */,
 				18B6C60D1F8BBF16007B1669 /* CSUploadFileParam.h */,
 				18B6C60E1F8BBF16007B1669 /* CSUploadFileParam.m */,
+				1857871F1F94EF4700BAD542 /* CSUploadFenRequestModel.h */,
+				185787201F94EF4700BAD542 /* CSUploadFenRequestModel.m */,
 			);
 			path = CPRequestModel;
 			sourceTree = "<group>";
@@ -2756,7 +2761,7 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-ChangSheng/Pods-ChangSheng-resources.sh",
-				"$PODS_CONFIGURATION_BUILD_DIR/FSMediaPicker/FSMediaPicker.bundle",
+				$PODS_CONFIGURATION_BUILD_DIR/FSMediaPicker/FSMediaPicker.bundle,
 				"${PODS_ROOT}/IQKeyboardManager/IQKeyboardManager/Resources/IQKeyboardManager.bundle",
 				"${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle",
 				"${PODS_ROOT}/RedPacketAlipay/AlipaySDK.bundle",
@@ -2856,6 +2861,7 @@
 				1804AD041F7BDC6100508C1C /* LLLeftAlignedCollectionViewFlowLayout.m in Sources */,
 				1804ACC21F7BDC6100508C1C /* LLSNSSearchController.m in Sources */,
 				74C8531B1F8F8FA400944C50 /* MCDownloadOperation.m in Sources */,
+				185787211F94EF4800BAD542 /* CSUploadFenRequestModel.m in Sources */,
 				1804AD161F7BDC6100508C1C /* UITextView+LLDebugOnly.m in Sources */,
 				1804ACB21F7BDC6100508C1C /* LLDiscoveryController.m in Sources */,
 				74C852E11F8B769100944C50 /* CSMineViewController.m in Sources */,

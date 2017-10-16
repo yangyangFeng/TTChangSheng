@@ -78,6 +78,7 @@
     else
     {
         UIImage * newimage = [mediaInfo.originalImage fixOrientation];
+        [CSHttpRequestManager upLoadFileRequestParamters: fileData:<#(NSData *)#> fileType:<#(CS_UPLOAD_FILE)#> success:<#^(id responseObject)successBlock#> failure:<#^(NSError *error)failureBlock#> uploadprogress:<#^(NSProgress *uploadProgress)progressBlock#> showHUD:<#(BOOL)#>]
         self.uploadImageView.image = newimage;
     }
 }
