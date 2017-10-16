@@ -244,6 +244,10 @@
 		184B5D211F794C0F007A1C22 /* NSDictionary+Log.m in Sources */ = {isa = PBXBuildFile; fileRef = 184B5D1A1F794C0F007A1C22 /* NSDictionary+Log.m */; };
 		184B5D221F794C0F007A1C22 /* Deferred.m in Sources */ = {isa = PBXBuildFile; fileRef = 184B5D1D1F794C0F007A1C22 /* Deferred.m */; };
 		184B5D231F794C0F007A1C22 /* Promise.m in Sources */ = {isa = PBXBuildFile; fileRef = 184B5D1F1F794C0F007A1C22 /* Promise.m */; };
+		185787161F94BB1E00BAD542 /* CSCaiwuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 185787151F94BB1C00BAD542 /* CSCaiwuViewController.m */; };
+		185787181F94BC2400BAD542 /* Mine.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 185787171F94BC2400BAD542 /* Mine.storyboard */; };
+		1857871B1F94D4C500BAD542 /* CSCaiwuTableViewInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1857871A1F94D4C500BAD542 /* CSCaiwuTableViewInfoCell.m */; };
+		1857871E1F94D4EB00BAD542 /* CSCaiwuTableViewImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1857871D1F94D4EB00BAD542 /* CSCaiwuTableViewImageCell.m */; };
 		187773C81F7D1C6100A98B7C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 187773C61F7D1C6100A98B7C /* Main.storyboard */; };
 		187773CE1F7D1D5600A98B7C /* CSMsgHistoryRequestModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 187773CC1F7D1D5600A98B7C /* CSMsgHistoryRequestModel.m */; };
 		187773D11F7D1D6900A98B7C /* CSHttpGroupResModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 187773D01F7D1D6900A98B7C /* CSHttpGroupResModel.m */; };
@@ -833,6 +837,13 @@
 		184B5D1D1F794C0F007A1C22 /* Deferred.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Deferred.m; sourceTree = "<group>"; };
 		184B5D1E1F794C0F007A1C22 /* Promise.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Promise.h; sourceTree = "<group>"; };
 		184B5D1F1F794C0F007A1C22 /* Promise.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Promise.m; sourceTree = "<group>"; };
+		185787141F94BB1C00BAD542 /* CSCaiwuViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSCaiwuViewController.h; sourceTree = "<group>"; };
+		185787151F94BB1C00BAD542 /* CSCaiwuViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSCaiwuViewController.m; sourceTree = "<group>"; };
+		185787171F94BC2400BAD542 /* Mine.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Mine.storyboard; sourceTree = "<group>"; };
+		185787191F94D4C500BAD542 /* CSCaiwuTableViewInfoCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSCaiwuTableViewInfoCell.h; sourceTree = "<group>"; };
+		1857871A1F94D4C500BAD542 /* CSCaiwuTableViewInfoCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSCaiwuTableViewInfoCell.m; sourceTree = "<group>"; };
+		1857871C1F94D4EB00BAD542 /* CSCaiwuTableViewImageCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSCaiwuTableViewImageCell.h; sourceTree = "<group>"; };
+		1857871D1F94D4EB00BAD542 /* CSCaiwuTableViewImageCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSCaiwuTableViewImageCell.m; sourceTree = "<group>"; };
 		187773C71F7D1C6100A98B7C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		187773CB1F7D1D5600A98B7C /* CSMsgHistoryRequestModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSMsgHistoryRequestModel.h; sourceTree = "<group>"; };
 		187773CC1F7D1D5600A98B7C /* CSMsgHistoryRequestModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSMsgHistoryRequestModel.m; sourceTree = "<group>"; };
@@ -2158,6 +2169,9 @@
 			children = (
 				74C852DF1F8B769100944C50 /* CSMineViewController.h */,
 				74C852E01F8B769100944C50 /* CSMineViewController.m */,
+				185787141F94BB1C00BAD542 /* CSCaiwuViewController.h */,
+				185787151F94BB1C00BAD542 /* CSCaiwuViewController.m */,
+				185787171F94BC2400BAD542 /* Mine.storyboard */,
 			);
 			path = C;
 			sourceTree = "<group>";
@@ -2184,6 +2198,10 @@
 				74C852E21F8B7DCB00944C50 /* CSMineTableViewCell.h */,
 				74C852E31F8B7DCB00944C50 /* CSMineTableViewCell.m */,
 				74C852E41F8B7DCB00944C50 /* CSMineTableViewCell.xib */,
+				185787191F94D4C500BAD542 /* CSCaiwuTableViewInfoCell.h */,
+				1857871A1F94D4C500BAD542 /* CSCaiwuTableViewInfoCell.m */,
+				1857871C1F94D4EB00BAD542 /* CSCaiwuTableViewImageCell.h */,
+				1857871D1F94D4EB00BAD542 /* CSCaiwuTableViewImageCell.m */,
 			);
 			path = V;
 			sourceTree = "<group>";
@@ -2653,6 +2671,7 @@
 				1804AC8F1F7BDC6100508C1C /* LLVideoPlaybackController.xib in Resources */,
 				1804ACEA1F7BDC6100508C1C /* FriendsSendsPicturesSelectBigYIcon@2x.png in Resources */,
 				181C060F1F92139900F4A15E /* CSBetInputToolBarView.xib in Resources */,
+				185787181F94BC2400BAD542 /* Mine.storyboard in Resources */,
 				1804ACE01F7BDC6100508C1C /* CellBlueSelected@2x.png in Resources */,
 				1804AD251F7BDC6100508C1C /* Emotion.bundle in Resources */,
 				1804ACF01F7BDC6100508C1C /* MMVideoPreviewPlay@3x.png in Resources */,
@@ -2737,6 +2756,7 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-ChangSheng/Pods-ChangSheng-resources.sh",
+				"$PODS_CONFIGURATION_BUILD_DIR/FSMediaPicker/FSMediaPicker.bundle",
 				"${PODS_ROOT}/IQKeyboardManager/IQKeyboardManager/Resources/IQKeyboardManager.bundle",
 				"${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle",
 				"${PODS_ROOT}/RedPacketAlipay/AlipaySDK.bundle",
@@ -2771,6 +2791,7 @@
 				1804AD391F7BDC6100508C1C /* TTSocketChannelManager.m in Sources */,
 				747D5C281F7DF75000F40A41 /* TTChatInputToolBar.m in Sources */,
 				1804AD061F7BDC6100508C1C /* LLSearchViewController.m in Sources */,
+				1857871B1F94D4C500BAD542 /* CSCaiwuTableViewInfoCell.m in Sources */,
 				18C820361F7772C90012150B /* CSLoginViewController.m in Sources */,
 				1804ACD61F7BDC6100508C1C /* amrFileCodec.mm in Sources */,
 				1804AD101F7BDC6100508C1C /* UIColor+LLExt.m in Sources */,
@@ -2839,6 +2860,7 @@
 				1804ACB21F7BDC6100508C1C /* LLDiscoveryController.m in Sources */,
 				74C852E11F8B769100944C50 /* CSMineViewController.m in Sources */,
 				181C06151F92180900F4A15E /* CSPublicBetViewController.m in Sources */,
+				1857871E1F94D4EB00BAD542 /* CSCaiwuTableViewImageCell.m in Sources */,
 				1804AD131F7BDC6100508C1C /* UINavigationBar+LLExt.m in Sources */,
 				18C81F811F7657900012150B /* TTNav_RootTableViewController.m in Sources */,
 				184B5CFC1F77CC03007A1C22 /* CSBaseRequestModel.m in Sources */,
@@ -2901,6 +2923,7 @@
 				1813468D1F7AA93200CD1312 /* MLLabelLayoutManager.m in Sources */,
 				1804AC8B1F7BDC6100508C1C /* LLVideoBarSlider.m in Sources */,
 				1804AD2F1F7BDC6100508C1C /* CSIMSendMessageRequestModel.m in Sources */,
+				185787161F94BB1E00BAD542 /* CSCaiwuViewController.m in Sources */,
 				1804ACD81F7BDC6100508C1C /* EMVoiceConverter.mm in Sources */,
 				74C852D71F8B587500944C50 /* CSNumberKeyboardView.m in Sources */,
 				1804ACB11F7BDC6100508C1C /* LLConversationListController.m in Sources */,

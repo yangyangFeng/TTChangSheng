@@ -12,7 +12,7 @@
 
 //Avatar和SuperView之间的约束
 #define AVATAR_SUPER_LEFT 10
-#define AVATAR_SUPER_TOP 0
+#define AVATAR_SUPER_TOP 20
 #define AVATAR_WIDTH 45
 #define AVATAR_HEIGHT 45
 
@@ -67,6 +67,8 @@ extern UIImage *SenderImageNodeMask;
 }
 
 @property (nonatomic) CSMessageModel *messageModel;
+
+@property (nonatomic,strong) UILabel *nikeName;
 
 @property (nonatomic) UIImageView *avatarImage;
 

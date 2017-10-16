@@ -333,5 +333,9 @@
     [self.navigationController performSelector:@selector(blackStatusBar)];
 }
 
+- (void)dealloc
+{
+    DLog(@"Class->%@.   已释放",[self class]);
+}
 
 @end

@@ -35,7 +35,7 @@ typedef enum : NSUInteger {
     self.textViewInputToolBar.alpha = 0;
     self.biaoqingBtn.alpha = 0;
     self.otherBtn.alpha = 0;
-
+    _my_fenLabel.text = [NSString stringWithFormat:@"身上分:%d",[CSUserInfo shareInstance].info.surplus_score];
 }
 
 - (IBAction)inputChangeDidAction:(id)sender {
@@ -57,7 +57,7 @@ typedef enum : NSUInteger {
                 self.otherBtn.alpha = 1;
             }];
             
-            [self.intputChangeButton setImage:[UIImage imageNamed:@"表情"] forState:(UIControlStateNormal)];
+            [self.intputChangeButton setImage:[UIImage imageNamed:@"投"] forState:(UIControlStateNormal)];
             
             
             if ([_delegate respondsToSelector:@selector(cs_keyboardHide)]) {
@@ -98,7 +98,7 @@ typedef enum : NSUInteger {
             
             
             
-            [self.intputChangeButton setImage:[UIImage imageNamed:@"相机"] forState:(UIControlStateNormal)];
+            [self.intputChangeButton setImage:[UIImage imageNamed:@"聊"] forState:(UIControlStateNormal)];
             
             if ([_delegate respondsToSelector:@selector(cs_keyboardShow)]) {
                 [_delegate cs_keyboardShow];

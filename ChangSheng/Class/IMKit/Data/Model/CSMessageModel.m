@@ -207,6 +207,8 @@ NSMutableDictionary * tmpImageDict;
         _error = nil;
         [self formaterMessage];
         [self processModelForCell];
+        self.body.nickname = [CSUserInfo shareInstance].info.nickname;
+        self.body.avatar = [CSUserInfo shareInstance].info.avatar;
     }
     return self;
 }
@@ -314,6 +316,8 @@ NSMutableDictionary * tmpImageDict;
     [msgBody internal_setMessageStatus:(kCSMessageStatusSuccessed)];
     msgBody.isSelf = msgRecordModel.is_self.intValue;
     msgBody.fromMe = msgRecordModel.is_self.intValue;;
+    msgBody.body.avatar = msgRecordModel.avatar;
+    msgBody.body.nickname = msgRecordModel.nickname;
     
     return msgBody;
 }

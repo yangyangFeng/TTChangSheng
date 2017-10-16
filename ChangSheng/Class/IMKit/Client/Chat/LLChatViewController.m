@@ -756,7 +756,7 @@ CSIMReceiveManagerDelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     CSMessageModel *messageModel = self.dataSource[indexPath.row];
 //    NSLog(@"height->%g,str->%@",messageModel.cellHeight,messageModel.body.content);
-    return messageModel.cellHeight;
+    return messageModel.cellHeight + 5;
 }
 
 - (void)tableView:(UITableView *)tableView didEndDisplayingCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -2457,7 +2457,7 @@ CSIMReceiveManagerDelegate
 {
     LLMessageBaseCell * cell = [self visibleCellForMessageModel:model];
     if (cell) {
-        [model internal_setMessageStatus:kCSMessageStatusWaiting];
+        [model internal_setMessageStatus:kCSMessageStatusSuccessed];
         [cell updateMessageUploadStatus];
     }
 }
@@ -2466,7 +2466,7 @@ CSIMReceiveManagerDelegate
 {
     LLMessageBaseCell * cell = [self visibleCellForMessageModel:model];
     if (cell) {
-        [model internal_setMessageStatus:kCSMessageStatusSuccessed];
+        [model internal_setMessageStatus:kCSMessageStatusWaiting];
         [cell updateMessageUploadStatus];
     }
 }

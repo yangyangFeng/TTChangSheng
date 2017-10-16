@@ -9,5 +9,5 @@
 #import "TTNav_RootViewController.h"
 
 @interface CSUserServiceListViewController : TTNav_RootViewController
-
++ (id)shareInstance;
 @end

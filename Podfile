@@ -8,7 +8,7 @@ target 'ChangSheng' do
     
     
     #=========================================================
-    #======================== Demo Dependency ================
+    #======= pod update --verbose --no-repo-update ===========
     #=========================================================
 
 
@@ -32,6 +32,7 @@ pod 'MJRefresh'
 pod 'SDWebImage'
 pod 'SocketRocket', '~> 0.5.1'
 pod 'KVOController'
+pod 'FSMediaPicker'
 end
 
 

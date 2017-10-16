@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CSBaseViewController : UIViewController
+@interface CSBaseViewController : TTNav_RootViewController
 
 @end
