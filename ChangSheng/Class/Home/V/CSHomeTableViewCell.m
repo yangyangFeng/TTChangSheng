@@ -19,7 +19,7 @@
     if(cell==nil){
         
         cell= [CSHomeTableViewCell viewFromXIB];
-        cell.layer.masksToBounds = YES;
+        cell.layer.masksToBounds = NO;
         cell.layer.cornerRadius = 8.0;
     }
     

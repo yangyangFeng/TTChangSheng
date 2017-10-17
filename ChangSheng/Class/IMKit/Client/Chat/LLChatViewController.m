@@ -185,6 +185,7 @@ CSIMReceiveManagerDelegate
 - (void)dealloc
 {
     [[CSIMReceiveManager shareInstance] removeDelegate:self];
+    [_sightController.contentView.layer removeObserver:self forKeyPath:@"position"];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -373,11 +374,6 @@ CSIMReceiveManagerDelegate
 
 - (void)registerApplicationNotification {
     
-}
-
-
-- (void)dealloc {
-    [_sightController.contentView.layer removeObserver:self forKeyPath:@"position"];
 }
 
 - (void)thumbnailDownloadCompleteHandler:(NSNotification *)notification {

@@ -104,6 +104,8 @@
 - (void)tt_DefaultRightBtnClickAction
 {
     DLog(@"跳转个人中心,我没做");
+//    UIView *view;
+//    view.clipsToBounds
     CSMineViewController * mineC = [CSMineViewController new];
     [self.navigationController pushViewController:mineC animated:YES];
 }
