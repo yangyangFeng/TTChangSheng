@@ -2010,16 +2010,8 @@
 				1804AC761F7BDC6100508C1C /* TTSocketChannelManager.m */,
 				1804AC771F7BDC6100508C1C /* TTWebSocketChannel.h */,
 				1804AC781F7BDC6100508C1C /* TTWebSocketChannel.m */,
-				184B5D3D1F794C4F007A1C22 /* MessageModel */,
 			);
 			path = IMKit;
-			sourceTree = "<group>";
-		};
-		184B5D3D1F794C4F007A1C22 /* MessageModel */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = MessageModel;
 			sourceTree = "<group>";
 		};
 		18B6C6061F8A550A007B1669 /* TTVoiceLib */ = {
@@ -2636,7 +2628,7 @@
 				TargetAttributes = {
 					18C81F3C1F74B8E00012150B = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = A6L56BC597;
+						DevelopmentTeam = BYXKWL5C3R;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -3191,7 +3183,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = A6L56BC597;
+				DEVELOPMENT_TEAM = BYXKWL5C3R;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3223,7 +3215,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = A6L56BC597;
+				DEVELOPMENT_TEAM = BYXKWL5C3R;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

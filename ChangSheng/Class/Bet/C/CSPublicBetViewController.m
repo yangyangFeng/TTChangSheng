@@ -147,6 +147,43 @@ CSPublicBetInputToolBarViewDelegate
         
     }];
 }
+
+- (void)cellDidTapped:(LLMessageBaseCell *)cell {
+    switch (cell.messageModel.body.msgType) {
+//        case kCSMessageBodyTypeImage:
+//            [self cellImageDidTapped:(LLMessageImageCell *)cell];
+//            break;
+//        case kCSMessageBodyTypeGif:
+//            [self cellGifDidTapped:(LLMessageGifCell *)cell];
+//            break;
+//        case kCSMessageBodyTypeVideo:
+//            [self cellVideoDidTapped:(LLMessageVideoCell *)cell];
+//            break;
+//        case kCSMessageBodyTypeVoice:
+//            [self cellVoiceDidTapped:(LLMessageVoiceCell *)cell];
+//            break;
+//        case kCSMessageBodyTypeLocation:
+//            [self cellLocationDidTapped:(LLMessageLocationCell *)cell];
+//            break;
+//        case kCSMessageBodyTypeText:
+//            if (![LLUserProfile myUserProfile].userOptions.doubleTapToShowTextMessage) {
+//                [self displayTextMessage:cell.messageModel];
+//            }
+//            break;
+            
+        default:
+            break;
+    }
+}
+//- (void)cellImageDidTapped:(LLMessageImageCell *)cell {
+//    if (cell.messageModel.thumbnailImage) {
+//        [self showAssetFromCell:cell];
+//    }else if (!cell.messageModel.isFetchingThumbnail){
+//        [[LLChatManager sharedManager] asyncDownloadMessageThumbnail:cell.messageModel completion:nil];
+//    }
+//
+//}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -305,7 +342,7 @@ CSPublicBetInputToolBarViewDelegate
 - (void)sendTextMessage:(NSString *)text {
     
     CSIMSendMessageRequestModel * model = [CSIMSendMessageRequestModel new];
-    CSMessageModel * msgModel = [CSMessageModel newMessageChatType:CSChatTypeGroupChat chatId:self.conversationModel.chatId msgId:nil msgType:CSMessageBodyTypeText action:4 content:text];
+    CSMessageModel * msgModel = [CSMessageModel newMessageChatType:CSChatTypeGroupChat chatId:self.conversationModel.chatId msgId:nil msgType:CSMessageBodyTypeText action:4 content:text isSelf:YES];
     
     model.body = msgModel;
     
@@ -396,7 +433,7 @@ CSPublicBetInputToolBarViewDelegate
 - (void)cs_betMessageModel:(CSMessageModel *)messageModel
 {
     CSIMSendMessageRequestModel * model = [CSIMSendMessageRequestModel new];
-    CSMessageModel * msgModel = [CSMessageModel sendBetMessageChatType:CSChatTypeGroupChat chatId:self.conversationModel.chatId msgId:nil msgType:(CSMessageBodyTypeText) betType:messageModel.playType betNumber:messageModel.score action:messageModel.action content:messageModel.content];
+    CSMessageModel * msgModel = [CSMessageModel sendBetMessageChatType:CSChatTypeGroupChat chatId:self.conversationModel.chatId msgId:nil msgType:(CSMessageBodyTypeText) betType:messageModel.playType betNumber:messageModel.score action:messageModel.action content:messageModel.content isSelf:YES];
     
     model.body = msgModel;
     
@@ -464,7 +501,7 @@ CSPublicBetInputToolBarViewDelegate
             LLMessageGifCell *cell = [tableView dequeueReusableCellWithIdentifier: reuseId];
             if (!cell) {
                 cell = [[LLMessageGifCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseId];
-                [cell prepareForUse:messageModel.isFromMe];
+                [cell prepareForUse:messageModel.isSelf];
             }
             
             [messageModel setNeedsUpdateForReuse];

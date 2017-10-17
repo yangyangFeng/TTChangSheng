@@ -18,9 +18,12 @@
 #import <MapKit/MapKit.h>
 #import "CSMsgRecordModel.h"
 
+@class CSMessageModel;
 @class CSMessageBodyModel;
 @class CSUnreadListModel;
 
+typedef void(^CS_MESSAGE_UPLOAD_PROGRESS)(CGFloat progress);
+typedef void(^CS_MESSAGE_UPLOAD_STATUS)(CSMessageModel *model, NSError *error) ;
 /*!
  *  \~chinese
  *  聊天类型
@@ -193,7 +196,7 @@ typedef NS_ENUM(NSInteger, CSMessageStatus) {
 //消息接收方
 @property (nonatomic, copy) NSString *to;
 
-@property (nonatomic, getter=isFromMe) BOOL fromMe;
+//@property (nonatomic, getter=isFromMe) BOOL fromMe;
 
 @property (nonatomic, readonly) kCSMessageBodyType messageBodyType;
 
@@ -293,45 +296,56 @@ typedef NS_ENUM(NSInteger, CSMessageStatus) {
                                          chatType:(CSChatType)chatType
                                           msgType:(CSMessageBodyType)msgBodyType
                                            action:(int)action
-                                          content:(NSString *)content;
+                                          content:(NSString *)content
+                                   uploadProgress:(CS_MESSAGE_UPLOAD_PROGRESS)cs_uploadProgress
+                                     uploadStatus:(CS_MESSAGE_UPLOAD_STATUS)cs_uploadStatus                                           isSelf:(BOOL)isSelf;
 
 - (CSMessageModel *)sendVoiceMessageWithLocalPath:(NSString *)localPath
                                          duration:(NSInteger)duration
                                                to:(NSString *)to
                                       messageType:(CSChatType)messageType
                                           msgType:(CSMessageBodyType)msgBodyType
-                                       messageExt:(nullable NSDictionary *)messageExt
-                                       completion:(void (^ __nullable)(CSMessageModel *model, NSError *error))completion;
+                                   uploadProgress:(CS_MESSAGE_UPLOAD_PROGRESS)cs_uploadProgress
+                                     uploadStatus:(CS_MESSAGE_UPLOAD_STATUS)cs_uploadStatus
+                                           isSelf:(BOOL)isSelf;
+//                                       messageExt:(nullable NSDictionary *)messageExt
+//                                       completion:(void (^ __nullable)(CSMessageModel *model, NSError *error))completion
+- (void)cs_uploadImageUploadProgress:(CS_MESSAGE_UPLOAD_PROGRESS)cs_uploadProgress
+                        uploadStatus:(CS_MESSAGE_UPLOAD_STATUS)cs_uploadStatus;
 
 + (CSMessageModel*)sendBetMessageChatType:(CSChatType)chatType
                                chatId:(NSString *)chatId
                                 msgId:(NSString *)msgId
                               msgType:(CSMessageBodyType)msgType
-                                  betType:(int)betType
-                                betNumber:(int)betNumber
+                              betType:(int)betType
+                            betNumber:(int)betNumber
                                action:(int)action
-                              content:(NSString *)content;
+                              content:(NSString *)content
+                                   isSelf:(BOOL)isSelf;
 
 + (CSMessageModel*)newMessageChatType:(CSChatType)chatType
                   chatId:(NSString *)chatId
                    msgId:(NSString *)msgId
                  msgType:(CSMessageBodyType)msgType
                   action:(int)action
-                 content:(NSString *)content;
+                 content:(NSString *)content
+                  isSelf:(BOOL)isSelf;
 
 + (CSMessageModel *)newImageMessageWithImageSize:(CGSize)imageSize
                                           chatId:(NSString *)chatId
                                         chatType:(CSChatType)chatType
                                          msgType:(CSMessageBodyType)msgBodyType
                                           action:(int)action
-                                         content:(NSString *)content;
+                                         content:(NSString *)content
+                                          isSelf:(BOOL)isSelf;
 
 - (id)initNewMessageChatType:(CSChatType)chatType
                   chatId:(NSString *)chatId
                    msgId:(NSString *)msgId
                  msgType:(CSMessageBodyType)msgType
                   action:(int)action
-                 content:(NSString *)content;
+                 content:(NSString *)content
+                  isSelf:(BOOL)isSelf;
 
 + (CSMessageModel *)newVoiceMessageChatType:(CSChatType)chatType
                                      chatId:(NSString *)chatId
@@ -341,8 +355,9 @@ typedef NS_ENUM(NSInteger, CSMessageStatus) {
                                     content:(NSString *)content
                                   localPath:(NSString *)localPath
                                    duration:(NSInteger)duration
-                                 messageExt:(nullable NSDictionary *)messageExt
-                                 completion:(void (^ __nullable)(CSMessageModel *model, NSError *error))completion;
+                             uploadProgress:(CS_MESSAGE_UPLOAD_PROGRESS)cs_uploadProgress
+                               uploadStatus:(CS_MESSAGE_UPLOAD_STATUS)cs_uploadStatus
+                                     isSelf:(BOOL)isSelf;
 
 //+ (CSMessageModel *)conversionWithRecordModel1:(CSMsgRecordModel*)msgRecordModel
 //                                         chatType:(CSChatType)chatType
@@ -453,7 +468,15 @@ typedef NS_ENUM(NSInteger, CSMessageStatus) {
 /**
  语音长度
  */
-@property (nonatomic,assign) NSInteger voiceLength;
+@property (nonatomic,assign) NSInteger voice_length;
+/**
+ 图片宽
+ */
+@property(nonatomic,assign) NSInteger img_width;
+/**
+ 图片高
+ */
+@property(nonatomic,assign) NSInteger img_height;
 @end
 
 @interface CSUnreadListModel : NSObject

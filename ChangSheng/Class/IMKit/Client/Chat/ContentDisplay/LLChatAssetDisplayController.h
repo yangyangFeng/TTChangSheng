@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "LLViewController.h"
 #import "CSMessageModel.h"
-#import "LLMessageModel.h"
+
 #import "LLChatImageScrollView.h"
 #import "LLVideoDownloadStatusHUD.h"
 #import "LLAssetDisplayView.h"
@@ -24,7 +24,7 @@
 @interface LLChatAssetDisplayController : LLViewController
 
 @property (nonatomic, weak) id<LLChatImagePreviewDelegate> delegate;
-@property (nonatomic) NSArray<LLMessageModel *> *allAssets;
+@property (nonatomic) NSArray<CSMessageModel *> *allAssets;
 @property (nonatomic) CSMessageModel *curShowMessageModel;
 
 @property (nonatomic) CGRect originalWindowFrame;

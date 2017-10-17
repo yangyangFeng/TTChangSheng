@@ -90,7 +90,7 @@ static void releaseAssetCallback(void* info)
     return newImage;
 }
 
-+ (UIImage*)TTscaleImage:(UIImage*)image toScale:(float)scaleSize
++ (UIImage*)tt_scaleImage:(UIImage*)image toScale:(float)scaleSize
 
 {
 
@@ -102,5 +102,71 @@ static void releaseAssetCallback(void* info)
                                 return scaledImage;
                                 
                                
+}
+
++ (UIImage *)tt_compressImageQuality:(UIImage *)image toByte:(NSInteger)maxLength {
+    CGFloat compression = 1;
+    NSData *data = UIImageJPEGRepresentation(image, compression);
+    if (data.length < maxLength) return image;
+    CGFloat max = 1;
+    CGFloat min = 0;
+    for (int i = 0; i < 6; ++i) {
+        compression = (max + min) / 2;
+        data = UIImageJPEGRepresentation(image, compression);
+        if (data.length < maxLength * 0.9) {
+            min = compression;
+        } else if (data.length > maxLength) {
+            max = compression;
+        } else {
+            break;
+        }
+    }
+    UIImage *resultImage = [UIImage imageWithData:data];
+    return resultImage;
+}
+
+- (NSData *)tt_compressToDataLength:(NSInteger)length {
+//    if (length <= 0 || [self isKindOfClass:[NSNull class]] || self == nil) block(nil);
+    
+//    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        UIImage *newImage = [self copy];
+        {
+            CGFloat scale = 0.9;
+            NSData *pngData = UIImagePNGRepresentation(self);
+            NSLog(@"Original pnglength %zd", pngData.length);
+            NSData *jpgData = UIImageJPEGRepresentation(self, scale);
+            NSLog(@"Original jpglength %zd", pngData.length);
+            
+            while (jpgData.length > length) {
+                newImage = [newImage tt_compressWithWidth:newImage.size.width * scale];
+                NSData *newImageData = UIImageJPEGRepresentation(newImage, 0.0);
+                if (newImageData.length < length) {
+                    CGFloat scale = 1.0;
+                    newImageData = UIImageJPEGRepresentation(newImage, scale);
+                    while (newImageData.length > length) {
+                        scale -= 0.1;
+                        newImageData = UIImageJPEGRepresentation(newImage, scale);
+                    }
+//                    dispatch_async(dispatch_get_main_queue(), ^{
+//                        NSLog(@"Result jpglength %zd", newImageData.length);
+//                        block(newImageData);
+//                    });
+                    return newImageData;
+                }
+            }
+            
+//            block(jpgData);
+            return jpgData;
+        }
+//    });
+}
+- (UIImage *)tt_compressWithWidth:(CGFloat)width {
+    if (width <= 0 || [self isKindOfClass:[NSNull class]] || self == nil) return nil;
+    CGSize newSize = CGSizeMake(width, width * (self.size.height / self.size.width));
+    UIGraphicsBeginImageContext(newSize);
+    [self drawInRect:CGRectMake(0, 0, newSize.width, newSize.height)];
+    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return newImage;
 }
 @end

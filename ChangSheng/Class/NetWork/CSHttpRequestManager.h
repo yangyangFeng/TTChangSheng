@@ -11,7 +11,7 @@
 typedef enum : NSUInteger {
     CS_UPLOAD_FILE_IMAGE = UpLoad_Image,
     CS_UPLOAD_FILE_VOICE = UpLoad_Voice,
-    CS_UPLOAD_FILE_CUSTOME = 1<<5;
+    CS_UPLOAD_FILE_CUSTOME = 1<<5,
 } CS_UPLOAD_FILE;
 @interface CSHttpRequestManager : NSObject
 + (void)getRequstWithURL:(NSString*)url

@@ -9,6 +9,7 @@
 #import "NSString+TTExtend.h"
 
 @implementation NSString (TTExtend)
+
 - (NSString*)addpreStr:(NSString*)preStr sufStr:(NSString*)sufStr
 {
     if (!preStr) {

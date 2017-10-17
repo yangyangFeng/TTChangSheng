@@ -72,11 +72,11 @@
         [self stopVoicePlaying];
     }
     
-    self.isMediaPlayedIndicator.hidden = messageModel.fromMe || messageModel.isMediaPlayed;
+    self.isMediaPlayedIndicator.hidden = messageModel.isSelf || messageModel.isMediaPlayed;
     self.durationLabel.text = [NSString stringWithFormat:@"%.0f''", round(messageModel.mediaDuration)];
     [self.durationLabel sizeToFit];
     
-    if (self.messageModel.isFromMe) {
+    if (self.messageModel.isSelf) {
         if ([messageModel checkNeedsUpdateUploadStatus]){
             [self updateMessageUploadStatus];
         }
@@ -91,8 +91,8 @@
             messageModel.needAnimateVoiceCell = NO;
             [self layoutSubviewsWithAnimation:YES];
         }else {
-            [self layoutMessageContentViews:self.messageModel.isFromMe];
-            [self layoutMessageStatusViews:self.messageModel.isFromMe];
+            [self layoutMessageContentViews:self.messageModel.isSelf];
+            [self layoutMessageStatusViews:self.messageModel.isSelf];
         }
     }
     
@@ -105,7 +105,7 @@
 }
 
 - (void)stopVoicePlaying {
-    self.voiceImageView.image = self.messageModel.isFromMe ?
+    self.voiceImageView.image = self.messageModel.isSelf ?
     [UIImage imageNamed:@"SenderVoiceNodePlaying"] :
     [UIImage imageNamed:@"ReceiverVoiceNodePlaying"];
     [self.voiceImageView stopAnimating];
@@ -114,7 +114,7 @@
 }
 
 - (void)startVoicePlaying {
-    self.voiceImageView.animationImages = self.messageModel.isFromMe ?
+    self.voiceImageView.animationImages = self.messageModel.isSelf ?
     @[[UIImage imageNamed:@"SenderVoiceNodePlaying001"],
       [UIImage imageNamed:@"SenderVoiceNodePlaying002"],
       [UIImage imageNamed:@"SenderVoiceNodePlaying003"]] :
@@ -282,6 +282,7 @@ END:
 }
 
 
+
 - (void)updateMessageDownloadStatus {
     switch (self.messageModel.messageDownloadStatus) {
         case kLLMessageDownloadStatusWaiting:
@@ -307,7 +308,8 @@ END:
 }
 
 + (CGFloat)heightForModel:(CSMessageModel *)model {
-    return AVATAR_HEIGHT + CONTENT_SUPER_BOTTOM + OFFSET_Y;
+//    return AVATAR_HEIGHT + CONTENT_SUPER_BOTTOM + OFFSET_Y;
+    return AVATAR_HEIGHT + CONTENT_SUPER_BOTTOM;
 }
 
 

@@ -91,7 +91,7 @@ BOOL LLMessageCell_isEditing = NO;
         [self.contentView addSubview:_indicatorView];
         _indicatorView.hidden = YES;
         
-        [self layoutMessageStatusViews:self.messageModel.isFromMe];
+        [self layoutMessageStatusViews:self.messageModel.isSelf];
     }
 
     return _indicatorView;
@@ -106,7 +106,7 @@ BOOL LLMessageCell_isEditing = NO;
         [self.contentView addSubview:_statusButton];
         _statusButton.hidden = YES;
         
-        [self layoutMessageStatusViews:self.messageModel.isFromMe];
+        [self layoutMessageStatusViews:self.messageModel.isSelf];
     }
 
     return _statusButton;
@@ -167,7 +167,7 @@ BOOL LLMessageCell_isEditing = NO;
     if (_isCellEditing) {
         self.selectControl.frame = CGRectMake(3, (AVATAR_HEIGHT - EDIT_CONTROL_SIZE)/2, EDIT_CONTROL_SIZE, EDIT_CONTROL_SIZE);
                                  
-        if (!self.messageModel.isFromMe) {
+        if (!self.messageModel.isSelf) {
             self.avatarImage.frame = CGRectMake(CGRectGetMaxX(self.selectControl.frame) + 3,AVATAR_SUPER_TOP, AVATAR_WIDTH, AVATAR_HEIGHT);
             [self layoutMessageContentViews:NO];
             [self layoutMessageStatusViews:NO];
@@ -175,7 +175,7 @@ BOOL LLMessageCell_isEditing = NO;
      }else {
          _selectControl.frame = CGRectMake(-EDIT_CONTROL_SIZE, (AVATAR_HEIGHT - EDIT_CONTROL_SIZE)/2, EDIT_CONTROL_SIZE, EDIT_CONTROL_SIZE);
          
-         if (!self.messageModel.isFromMe) {
+         if (!self.messageModel.isSelf) {
              self.avatarImage.frame = CGRectMake(AVATAR_SUPER_LEFT,AVATAR_SUPER_TOP, AVATAR_WIDTH, AVATAR_HEIGHT);
              [self layoutMessageContentViews:NO];
              [self layoutMessageStatusViews:NO];
@@ -214,15 +214,15 @@ BOOL LLMessageCell_isEditing = NO;
     [self.avatarImage yy_setImageWithURL:[NSURL URLWithString:messageModel.body.avatar] placeholder:[UIImage imageNamed:iconName]];
     
     if ([messageModel checkNeedsUpdateForReuse]) {
-        [self layoutMessageContentViews:messageModel.isFromMe];
-        [self layoutMessageStatusViews:messageModel.isFromMe];
+        [self layoutMessageContentViews:messageModel.isSelf];
+        [self layoutMessageStatusViews:messageModel.isSelf];
     }
 
     if ([messageModel checkNeedsUpdateThumbnail]) {
         [self updateMessageThumbnail];
     }
     
-    if (self.messageModel.isFromMe) {
+    if (self.messageModel.isSelf) {
         if ([messageModel checkNeedsUpdateUploadStatus]){
             [self updateMessageUploadStatus];
         }
@@ -287,7 +287,7 @@ BOOL LLMessageCell_isEditing = NO;
 
 
 + (UIImage *)bubbleImageForModel:(CSMessageModel *)model {
-    return model.isFromMe ? SenderTextNodeBkg : ReceiverTextNodeBkg;
+    return model.isSelf ? SenderTextNodeBkg : ReceiverTextNodeBkg;
 }
 
 + (CGFloat)heightForModel:(CSMessageModel *)model {
@@ -409,7 +409,7 @@ BOOL LLMessageCell_isEditing = NO;
 }
 
 - (void)statusButtonDidTapped {
-    if (self.messageModel.fromMe) {
+    if (self.messageModel.isSelf) {
         SAFE_SEND_MESSAGE(self.delegate, resendMessage:) {
             [LLUtils showConfirmAlertWithTitle:nil
                                    message:@"重发该消息？"

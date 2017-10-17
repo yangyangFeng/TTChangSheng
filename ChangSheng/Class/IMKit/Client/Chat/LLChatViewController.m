@@ -691,7 +691,7 @@ CSIMReceiveManagerDelegate
             LLMessageGifCell *cell = [tableView dequeueReusableCellWithIdentifier: reuseId];
             if (!cell) {
                 cell = [[LLMessageGifCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseId];
-                [cell prepareForUse:messageModel.isFromMe];
+                [cell prepareForUse:messageModel.isSelf];
             }
             
             [messageModel setNeedsUpdateForReuse];
@@ -1310,7 +1310,6 @@ CSIMReceiveManagerDelegate
             [weakSelf deleteTableRowsWithMessageModelInArray:self.selectedMessageModels];
         });
     }
-    
 }
 
 - (IBAction)shareAction:(id)sender {
@@ -1319,7 +1318,9 @@ CSIMReceiveManagerDelegate
 
 #pragma mark - 处理照片
 
-- (CSMessageModel *)createImageMessageModel:(NSData *)imageData imageSize:(CGSize)imageSize {
+- (CSMessageModel *)createImageMessageModel:(NSData *)imageData imageSize:(CGSize)imageSize
+                              uploadSuccess:(void(^)())uploadSuccess
+{
     if (!imageData || imageData.length == 0 || imageSize.height == 0 || imageSize.width == 0) {
         NSString *msg = @"照片可能已被删除或损坏，无法发送";
         if ([NSThread isMainThread]) {
@@ -1331,7 +1332,25 @@ CSIMReceiveManagerDelegate
         }
         return nil;
     }
-    CSMessageModel * messageModel = [CSMessageModel sendImageMessageWithImageData:imageData imageSize:imageSize chatId:self.conversationModel.chatId chatType:(CSChatTypeChat) msgType:(CSMessageBodyTypeImage) action:4 content:@""];
+    CSMessageModel * messageModel = [CSMessageModel sendImageMessageWithImageData:imageData imageSize:imageSize chatId:self.conversationModel.chatId chatType:(CSChatTypeChat) msgType:(CSMessageBodyTypeImage) action:4 content:@"" uploadProgress:^(CGFloat progress) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            messageModel.fileUploadProgress = progress * 100;
+            LLMessageBaseCell *cell = [self visibleCellForMessageModel:messageModel];
+            if (cell) {
+                [cell updateMessageUploadStatus];
+            }
+        });
+    } uploadStatus:^(CSMessageModel *model, NSError *error) {
+        if (error) {
+            [self failMessageRefreshSendStatusWithModel:messageModel];
+        }
+        else
+        {
+            if (uploadSuccess) {
+                uploadSuccess();
+            }
+        }
+    } isSelf:YES];
     return messageModel;
 }
 
@@ -1340,7 +1359,8 @@ CSIMReceiveManagerDelegate
     if (cell.messageModel.thumbnailImage) {
         [self showAssetFromCell:cell];
     }else if (!cell.messageModel.isFetchingThumbnail){
-        [[LLChatManager sharedManager] asyncDownloadMessageThumbnail:cell.messageModel completion:nil];
+//        [[LLChatManager sharedManager] asyncDownloadMessageThumbnail:cell.messageModel completion:nil];
+        [cell willDisplayCell];
     }
     
 }
@@ -1374,25 +1394,21 @@ CSIMReceiveManagerDelegate
          NSMutableArray<LLMessageModel *> *messageModels = [NSMutableArray arrayWithCapacity:assets.count];
         
          for (LLAssetModel *asset in assets) {
-             NSData * imageData = [[LLAssetManager sharedAssetManager] fetchImageDataFromAssetModel:asset];
-             CSMessageModel *messageModel = [weakSelf createImageMessageModel:imageData imageSize:asset.imageSize];
-//             if (messageModel)
-//                 [messageModels addObject:messageModel];
-
              
-             if (!messageModel){
-                 return ;
-             }
+             NSData * imageData = [[LLAssetManager sharedAssetManager] fetchImageDataFromAssetModel:asset];
+             
              CSIMSendMessageRequestModel * messageRequest = [CSIMSendMessageRequestModel new];
+             CSMessageModel *messageModel = [weakSelf createImageMessageModel:imageData imageSize:asset.imageSize uploadSuccess:^{
+                 //上传成功 发送消息
+                 DLog(@"图片上传成功");
+                 [[CSIMSendMessageManager shareInstance] sendMessage:messageRequest];
+             }];
              messageRequest.body = messageModel;
              
              
              [messageRequest.msgStatus when:^(id obj) {
-               
                  dispatch_async(dispatch_get_main_queue(), ^{
                      DLog(@"图片发送成功");
-                     
-//                     [self successMessageRefreshSendStatusWithModel:messageModel];
                      [messageModel syncMessageSendStatus:(kCSMessageStatusSuccessed)];
                      LLMessageBaseCell *cell = [self visibleCellForMessageModel:messageModel];
                      if (cell) {
@@ -1406,29 +1422,29 @@ CSIMReceiveManagerDelegate
              [self addModelToDataSourceAndScrollToBottom:messageRequest animated:NO];
              
 
-             //#FIXME:发送拍摄照片正在处理
-             [CSHttpRequestManager upLoadFileRequestParamters:nil fileData:imageData fileType:(CS_UPLOAD_FILE_IMAGE) success:^(id responseObject) {
-                 CSUploadFileModel * obj = [CSUploadFileModel mj_objectWithKeyValues:responseObject];
-                 messageModel.content = obj.result.file_url;
-                 messageModel.body.content = obj.result.file_url;
-                 //                 messageRequest.body.body.content
-                 [[CSIMSendMessageManager shareInstance] sendMessage:messageRequest];
-                 
-             } failure:^(NSError *error) {
-                 [self failMessageRefreshSendStatusWithModel:messageModel];
-             } uploadprogress:^(NSProgress *uploadProgress) {
-                 DLog(@"--->%@",uploadProgress);
-                 messageModel.fileUploadProgress = uploadProgress.fractionCompleted * 100;
-                 
-                 //            updateMessageUploadStatus
-                 dispatch_async(dispatch_get_main_queue(), ^{
-                     LLMessageBaseCell *cell = [self visibleCellForMessageModel:messageModel];
-                     if (cell) {
-                         [cell updateMessageUploadStatus];
-                     }
-                 });
-                 
-             } showHUD:YES];
+//             //#FIXME:发送拍摄照片正在处理
+//             [CSHttpRequestManager upLoadFileRequestParamters:nil fileData:imageData fileType:(CS_UPLOAD_FILE_IMAGE) success:^(id responseObject) {
+//                 CSUploadFileModel * obj = [CSUploadFileModel mj_objectWithKeyValues:responseObject];
+//                 messageModel.content = obj.result.file_url;
+//                 messageModel.body.content = obj.result.file_url;
+//                 //                 messageRequest.body.body.content
+//                 [[CSIMSendMessageManager shareInstance] sendMessage:messageRequest];
+//
+//             } failure:^(NSError *error) {
+//                 [self failMessageRefreshSendStatusWithModel:messageModel];
+//             } uploadprogress:^(NSProgress *uploadProgress) {
+//                 DLog(@"--->%@",uploadProgress);
+//                 messageModel.fileUploadProgress = uploadProgress.fractionCompleted * 100;
+//
+//                 //            updateMessageUploadStatus
+//                 dispatch_async(dispatch_get_main_queue(), ^{
+//                     LLMessageBaseCell *cell = [self visibleCellForMessageModel:messageModel];
+//                     if (cell) {
+//                         [cell updateMessageUploadStatus];
+//                     }
+//                 });
+//
+//             } showHUD:YES];
          }
         
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -1488,23 +1504,66 @@ CSIMReceiveManagerDelegate
                          }];
 
     }else{
+        
+        
+        
+        
+        
+        
+        
         UIImage *orgImage = info[UIImagePickerControllerOriginalImage];
-        NSData * imageData = UIImageJPEGRepresentation(orgImage, 0.01);
-        CSMessageModel * messageModel = [self createImageMessageModel:imageData imageSize:[orgImage pixelSize]];
+        NSData * imageData = [orgImage tt_compressToDataLength:450*1000];
+//        CSMessageModel * messageModel = [self createImageMessageModel:imageData imageSize:[orgImage pixelSize] uploadSuccess:^{
+//
+//        }];
+//
+//        if (messageModel)
+//            [self addModelToDataSourceAndScrollToBottom:messageModel animated:NO];
+//
+//        [picker dismissViewControllerAnimated:YES completion:nil];
+////#FIXME:发送拍摄照片正在处理
+//        [CSHttpRequestManager upLoadFileRequestParamters:nil fileData:imageData fileType:(CS_UPLOAD_FILE_IMAGE) success:^(id responseObject) {
+//
+//        } failure:^(NSError *error) {
+//
+//        } uploadprogress:^(NSProgress *uploadProgress) {
+//            DLog(@"--->%@",uploadProgress);
+////            updateMessageUploadStatus
+//        } showHUD:YES];
         
-        if (messageModel)
-            [self addModelToDataSourceAndScrollToBottom:messageModel animated:NO];
         
-        [picker dismissViewControllerAnimated:YES completion:nil];
-//#FIXME:发送拍摄照片正在处理
-        [CSHttpRequestManager upLoadFileRequestParamters:nil fileData:imageData fileType:(CS_UPLOAD_FILE_IMAGE) success:^(id responseObject) {
-            
-        } failure:^(NSError *error) {
-            
-        } uploadprogress:^(NSProgress *uploadProgress) {
-            DLog(@"--->%@",uploadProgress);
-//            updateMessageUploadStatus
-        } showHUD:YES];
+        
+        
+        
+        
+        
+        
+        
+        CSIMSendMessageRequestModel * messageRequest = [CSIMSendMessageRequestModel new];
+        CSMessageModel *messageModel = [self createImageMessageModel:imageData imageSize:orgImage.size uploadSuccess:^{
+            //上传成功 发送消息
+            DLog(@"图片上传成功");
+            [[CSIMSendMessageManager shareInstance] sendMessage:messageRequest];
+        }];
+        messageRequest.body = messageModel;
+        
+        
+        [messageRequest.msgStatus when:^(id obj) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                DLog(@"图片发送成功");
+                [messageModel syncMessageSendStatus:(kCSMessageStatusSuccessed)];
+                LLMessageBaseCell *cell = [self visibleCellForMessageModel:messageModel];
+                if (cell) {
+                    [cell updateMessageUploadStatus];
+                }
+            });
+        } failed:^(NSError *error) {
+            [self failMessageRefreshSendStatusWithModel:messageModel];
+        }];
+        
+        [self addModelToDataSourceAndScrollToBottom:messageRequest animated:NO];
+        
+        
     }
     
 }
@@ -1541,7 +1600,7 @@ CSIMReceiveManagerDelegate
  *
  */
 - (void)cellVideoDidTapped:(LLMessageVideoCell *)cell {
-    if (cell.messageModel.isFromMe || cell.messageModel.thumbnailImage) {
+    if (cell.messageModel.isSelf || cell.messageModel.thumbnailImage) {
         [self showAssetFromCell:cell];
     }else if (!cell.messageModel.isFetchingThumbnail){
         [[LLChatManager sharedManager] asyncDownloadMessageThumbnail:cell.messageModel completion:nil];
@@ -1554,16 +1613,16 @@ CSIMReceiveManagerDelegate
     [[LLAudioManager sharedManager] stopPlaying];
     [self.chatInputView dismissKeyboard];
     
-    NSMutableArray *array = [NSMutableArray array];
-    for (CSMessageModel *model in self.dataSource) {
-        if (model.messageBodyType == kCSMessageBodyTypeImage ||
-            model.messageBodyType == kCSMessageBodyTypeVideo) {
-            [array addObject:model];
-        }
-    }
+//    NSMutableArray *array = [NSMutableArray array];
+//    for (CSMessageModel *model in self.dataSource) {
+//        if (model.messageBodyType == kCSMessageBodyTypeImage ||
+//            model.messageBodyType == kCSMessageBodyTypeVideo) {
+//            [array addObject:model];
+//        }
+//    }
     
     LLChatAssetDisplayController *vc = [[LLChatAssetDisplayController alloc] initWithNibName:nil bundle:nil];
-    vc.allAssets = array;
+    vc.allAssets = @[cell.messageModel];
     vc.curShowMessageModel = cell.messageModel;
     vc.originalWindowFrame = [cell contentFrameInWindow];
     vc.delegate = self;
@@ -1788,7 +1847,7 @@ CSIMReceiveManagerDelegate
 - (void)sendTextMessage:(NSString *)text {
     
     CSIMSendMessageRequestModel * model = [CSIMSendMessageRequestModel new];
-    CSMessageModel * msgModel = [CSMessageModel newMessageChatType:CSChatTypeChat chatId:self.conversationModel.chatId msgId:nil msgType:CSMessageBodyTypeText action:4 content:text];
+    CSMessageModel * msgModel = [CSMessageModel newMessageChatType:CSChatTypeChat chatId:self.conversationModel.chatId msgId:nil msgType:CSMessageBodyTypeText action:4 content:text isSelf:YES];
     
     model.body = msgModel;
     
@@ -2102,7 +2161,11 @@ CSIMReceiveManagerDelegate
     [CSHttpRequestManager upLoadFileRequestParamters:nil filePath:voiceFilePath fileType:CS_UPLOAD_FILE_VOICE success:^(id responseObject) {
         CSUploadFileModel * rsp = [CSUploadFileModel mj_objectWithKeyValues:responseObject];
         
-        msgModel = [CSMessageModel newVoiceMessageChatType:CSChatTypeChat chatId:self.conversationModel.chatId msgId:nil msgType:(CSMessageBodyTypeVoice) action:4 content:rsp.result.file_url localPath:voiceFilePath duration:duration messageExt:nil completion:nil];
+        msgModel = [CSMessageModel newVoiceMessageChatType:CSChatTypeChat chatId:self.conversationModel.chatId msgId:nil msgType:(CSMessageBodyTypeVoice) action:4 content:rsp.result.file_url localPath:voiceFilePath duration:duration uploadProgress:^(CGFloat progress) {
+            
+        } uploadStatus:^(CSMessageModel *model, NSError *error) {
+            
+        } isSelf:YES];
 
         CSMessageModel *recordingModel = [self getRecordingModel];
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -2260,11 +2323,11 @@ CSIMReceiveManagerDelegate
     LLMessageVoiceCell *cell = (LLMessageVoiceCell *)[self visibleCellForMessageModel:messageModel];
     [cell stopVoicePlaying];
     
-    NSMutableArray<LLMessageModel *> *allMessageModels = self.dataSource;
+    NSMutableArray<CSMessageModel *> *allMessageModels = self.dataSource;
     for (NSInteger index = [allMessageModels indexOfObject:messageModel] + 1, r = allMessageModels.count; index < r; index ++ ) {
-        LLMessageModel *model = allMessageModels[index];
+        CSMessageModel *model = allMessageModels[index];
     
-        if (model.messageBodyType == kLLMessageBodyTypeVoice && !model.isMediaPlayed && !model.isMediaPlaying && !model.isFromMe && model.isVoicePlayable) {
+        if (model.messageBodyType == kCSMessageBodyTypeVoice && !model.isMediaPlayed && !model.isMediaPlaying && !model.isSelf && model.isVoicePlayable) {
             
             [[LLChatManager sharedManager] changeVoiceMessageModelPlayStatus:model];
             LLMessageBaseCell *cell = [self visibleCellForMessageModel:model];

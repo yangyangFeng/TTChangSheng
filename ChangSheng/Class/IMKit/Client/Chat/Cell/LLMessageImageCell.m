@@ -89,7 +89,7 @@ static UIImage *photoDownloadImage;
         [self.contentView addSubview:_indicatorView];
         _indicatorView.hidden = YES;
         
-        [self layoutMessageStatusViews:self.messageModel.isFromMe];
+        [self layoutMessageStatusViews:self.messageModel.isSelf];
     }
     
     return _indicatorView;
@@ -97,25 +97,30 @@ static UIImage *photoDownloadImage;
 - (void)setMessageModel:(CSMessageModel *)messageModel
 {
     [super setMessageModel:messageModel];
-    if (!self.chatImageView.image) {
-        
-        if (self.messageModel.thumbnailImage) {
-            self.chatImageView.image = self.messageModel.thumbnailImage;
-        }
-        else
-        {
-//            [self.chatImageView yy_setImageWithURL:[NSURL URLWithString:self.messageModel.body.content] options:YYWebImageOptionProgressive ];
-            WEAKSELF;
-            [self.chatImageView yy_setImageWithURL:[NSURL URLWithString:self.messageModel.body.content] placeholder:nil options:YYWebImageOptionProgressive completion:^(UIImage * _Nullable image, NSURL * _Nonnull url, YYWebImageFromType from, YYWebImageStage stage, NSError * _Nullable error) {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    weakSelf.messageModel.thumbnailImage = image;
-                    weakSelf.messageModel.thumbnailImageSize = image.size;
-                    [weakSelf updateMessageThumbnail];
-                });
-            }];
-        }
-    }
- 
+//    if (!self.chatImageView.image) {
+//        
+//        if (self.messageModel.thumbnailImage) {
+//            self.chatImageView.image = self.messageModel.thumbnailImage;
+//        }
+//        else
+//        {
+////            [self.chatImageView yy_setImageWithURL:[NSURL URLWithString:self.messageModel.body.content] options:YYWebImageOptionProgressive ];
+//            WEAKSELF;
+//            [self.chatImageView yy_setImageWithURL:[NSURL URLWithString:self.messageModel.body.content] placeholder:nil options:YYWebImageOptionProgressive completion:^(UIImage * _Nullable image, NSURL * _Nonnull url, YYWebImageFromType from, YYWebImageStage stage, NSError * _Nullable error) {
+//                dispatch_async(dispatch_get_main_queue(), ^{
+//                    weakSelf.messageModel.thumbnailImage = image;
+////                    weakSelf.messageModel.thumbnailImageSize = [LLMessageImageCell thumbnailSize:image.size];
+////                    weakSelf.thumbnailImageView.image = image;
+//                    [weakSelf updateMessageThumbnail];
+////                    weakSelf.messageModel.thumbnailImage = image;
+//////                    weakSelf.messageModel.thumbnailImageSize = [LLMessageImageCell thumbnailSize:image.size];
+////                    [weakSelf updateMessageThumbnail];
+//////                    [weakSelf layoutMessageContentViews:self.messageModel.isSelf];
+//                });
+//            }];
+//        }
+//    }
+//     [self layoutMessageContentViews:self.messageModel.isSelf];
 }
 
 #pragma mark - 布局 -
@@ -135,15 +140,15 @@ static UIImage *photoDownloadImage;
 - (void)layoutMessageContentViews:(BOOL)isFromMe {
     CGRect frame = CGRectZero;
     frame.size = self.messageModel.thumbnailImageSize;
-    
-    frame.size.width = IMAGE_MAX_SIZE ? IMAGE_MAX_SIZE : 0;
-    frame.size.height = IMAGE_MAX_SIZE ? IMAGE_MAX_SIZE : 0;
-//    if (frame.size.width > IMAGE_MAX_SIZE){
-//        frame.size.width = IMAGE_MAX_SIZE ? IMAGE_MAX_SIZE : 0;
-//    }
-//    if (frame.size.height > IMAGE_MAX_SIZE){
-//        frame.size.height = IMAGE_MAX_SIZE ? IMAGE_MAX_SIZE : 0;
-//    }
+    //frame.size = [LLMessageImageCell thumbnailSize:self.messageModel.thumbnailImageSize];
+//    frame.size.width = IMAGE_MAX_SIZE ? IMAGE_MAX_SIZE : 0;
+//    frame.size.height = IMAGE_MAX_SIZE ? IMAGE_MAX_SIZE : 0;
+    if (frame.size.width > IMAGE_MAX_SIZE){
+        frame.size.width = IMAGE_MAX_SIZE ? IMAGE_MAX_SIZE : 0;
+    }
+    if (frame.size.height > IMAGE_MAX_SIZE){
+        frame.size.height = IMAGE_MAX_SIZE ? IMAGE_MAX_SIZE : 0;
+    }
     
     if (isFromMe) {
         frame.origin.x = CGRectGetMinX(self.avatarImage.frame) - CONTENT_AVATAR_MARGIN - frame.size.width;
@@ -332,19 +337,27 @@ static UIImage *photoDownloadImage;
 
 #pragma mark - 菜单
 
+//- (NSArray<NSString *> *)menuItemNames {
+//    return @[@"复制", @"转发", @"收藏", @"删除", @"更多..."];
+//}
+//
+//- (NSArray<NSString *> *)menuItemActionNames {
+//    return @[@"copyAction:", @"transforAction:", @"favoriteAction:", @"deleteAction:", @"moreAction:"];
+//}
 - (NSArray<NSString *> *)menuItemNames {
-    return @[@"复制", @"转发", @"收藏", @"删除", @"更多..."];
+    return @[@"保存图片"];
 }
 
 - (NSArray<NSString *> *)menuItemActionNames {
-    return @[@"copyAction:", @"transforAction:", @"favoriteAction:", @"deleteAction:", @"moreAction:"];
+    return @[@"saveAction:"];
 }
-
 - (void)copyAction:(id)sender {
     
 }
 
-
+- (void)saveAction:(id)sender {
+    [LLUtils saveImageToPhotoAlbum:self.chatImageView.image];
+}
 #pragma mark - 弹入弹出动画
 
 - (CGRect)contentFrameInWindow {
@@ -380,8 +393,8 @@ static UIImage *photoDownloadImage;
             [self.chatImageView yy_setImageWithURL:[NSURL URLWithString:self.messageModel.body.content] placeholder:nil options:YYWebImageOptionProgressive completion:^(UIImage * _Nullable image, NSURL * _Nonnull url, YYWebImageFromType from, YYWebImageStage stage, NSError * _Nullable error) {
                 dispatch_async(dispatch_get_main_queue(), ^{
                     weakSelf.messageModel.thumbnailImage = image;
-                    weakSelf.messageModel.thumbnailImageSize = CGSizeMake(150, 150);
-                    weakSelf.thumbnailImageView.image = image;
+//                    weakSelf.messageModel.thumbnailImageSize = [LLMessageImageCell thumbnailSize:image.size];
+//                    weakSelf.thumbnailImageView.image = image;
                     [weakSelf updateMessageThumbnail];
                 });
             }];
