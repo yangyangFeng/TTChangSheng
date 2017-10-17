@@ -21,8 +21,15 @@
 
 @property (nonatomic, weak)id<CSIMReceiveManagerDelegate> delegate;
 
+- (void)removeDelegate:(id<CSIMReceiveManagerDelegate>)delegate;
+
 + (CSIMReceiveManager *)shareInstance;
 
 - (void)receiveMessage:(CSIMSendMessageRequestModel *)message;
 
+
+- (int)getUnReadMessageNumberChatType:(CSChatType)chatType chatId:(NSString *)chatId;
+- (NSString *)keyWithChatType:(CSChatType)chatType chatId:(NSString *)chatId;
+- (void)inChatWithChatType:(CSChatType)chatType chatId:(NSString *)chatId;
+- (void)outChatWithChatType:(CSChatType)chatType chatId:(NSString *)chatId;
 @end

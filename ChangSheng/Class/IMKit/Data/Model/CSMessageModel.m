@@ -142,9 +142,9 @@ NSMutableDictionary * tmpImageDict;
         if (cs_uploadStatus) {
             cs_uploadStatus(weakSelf,error);
         }
-    } uploadprogress:^(NSProgress *uploadProgress) {
+    } uploadprogress:^(CGFloat uploadProgress) {
         if (cs_uploadProgress) {
-            cs_uploadProgress(uploadProgress.fractionCompleted);
+            cs_uploadProgress(uploadProgress);
         }
         
     } showHUD:NO];

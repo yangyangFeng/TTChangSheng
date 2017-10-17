@@ -417,7 +417,7 @@
                 paramters:(NSDictionary*)params
                   success:(TTSuccessBlock)successBlock
                   failure:(TTFailureBlock)failureBlock
-       uploadFileProgress:(void (^)(NSProgress* uploadProgress))uploadFileProgress
+       uploadFileProgress:(void (^)(CGFloat uploadProgress))uploadFileProgress
                     image:(NSData*)image
                   showHUD:(BOOL)showHUD
 
@@ -707,7 +707,7 @@
                 paramters:(NSDictionary*)params
                   success:(TTSuccessBlock)successBlock
                   failure:(TTFailureBlock)failureBlock
-       uploadFileProgress:(void(^)(NSProgress *uploadProgress))uploadFileProgress
+       uploadFileProgress:(void(^)(CGFloat uploadProgress))uploadFileProgress
                  filePath:(NSString *)filePath
                   showHUD:(BOOL)showHUD
 {
@@ -838,7 +838,7 @@
                 paramters:(NSDictionary*)params
                   success:(TTSuccessBlock)successBlock
                   failure:(TTFailureBlock)failureBlock
-       uploadFileProgress:(void(^)(NSProgress *uploadProgress))uploadFileProgress
+       uploadFileProgress:(void(^)(CGFloat uploadProgress))uploadFileProgress
                  fileData:(NSData *)fileData
                   showHUD:(BOOL)showHUD
 {
@@ -958,15 +958,13 @@
                 failureBlock(error);
             }
         }];
-        NSProgress * pro = [NSProgress progressWithTotalUnitCount:1];
+        
         [uploadOperation setUploadProgressBlock:^(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
-            CGFloat progress = ((float)totalBytesWritten) / totalBytesExpectedToWrite;
-            NSLog(@"上传进度---?%g",progress);
             if(uploadFileProgress)
             {
-                
-                pro.completedUnitCount = progress;
-                uploadFileProgress(pro);
+                CGFloat progress = ((float)totalBytesWritten) / totalBytesExpectedToWrite;
+                NSLog(@"上传进度--->%g",progress);
+                uploadFileProgress(progress);
                  
              }
             

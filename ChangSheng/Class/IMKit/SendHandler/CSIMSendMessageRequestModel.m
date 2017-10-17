@@ -44,12 +44,12 @@
 
 - (void)successed
 {
-    [self.body syncMessageSendStatus:kCSMessageStatusSuccessed];
+    [self.body internal_setMessageStatus:kCSMessageStatusSuccessed];
 }
 
 - (void)failed
 {
-    [self.body syncMessageSendStatus:kCSMessageStatusFailed];
+    [self.body internal_setMessageStatus:kCSMessageStatusFailed];
 }
 
 - (NSString *)msgId

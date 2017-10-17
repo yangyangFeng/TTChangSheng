@@ -130,6 +130,7 @@ CSPublicBetInputToolBarViewDelegate
 -(void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
+    [[CSIMReceiveManager shareInstance] removeDelegate:self];
 }
 - (void)keyboardFrameWillChange:(NSNotification *)notify {
     CGRect kbFrame = [[notify userInfo][UIKeyboardFrameEndUserInfoKey] CGRectValue];
@@ -186,6 +187,8 @@ CSPublicBetInputToolBarViewDelegate
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [CSIMReceiveManager shareInstance].delegate = self;
     
     [self createSubviews];
     

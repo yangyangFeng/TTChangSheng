@@ -11,8 +11,39 @@
 static CSIMReceiveManager * _manager = nil;
 @interface CSIMReceiveManager ()
 @property(nonatomic,strong)dispatch_queue_t  queue;
+@property (nonatomic, strong)NSMutableDictionary * messageDelegates;
+@property (nonatomic, strong)NSMutableDictionary * unReadMessageList;
+@property (nonatomic,copy) NSString *currentChatKey;
 @end
 @implementation CSIMReceiveManager
+-(NSMutableDictionary *)messageDelegates
+{
+    if (!_messageDelegates) {
+        _messageDelegates = [NSMutableDictionary dictionary];
+    }
+    return _messageDelegates;
+}
+
+-(NSMutableDictionary *)unReadMessageList
+{
+    if (!_unReadMessageList) {
+        _unReadMessageList = [NSMutableDictionary dictionary];
+    }
+    return _unReadMessageList;
+}
+
+-(void)setDelegate:(id<CSIMReceiveManagerDelegate>)delegate
+{
+    _messageDelegates = delegate;
+    if (delegate) {
+        [self.messageDelegates setObject:delegate forKey:@(delegate.hash)];
+    }
+}
+
+- (void)removeDelegate:(id<CSIMReceiveManagerDelegate>)delegate
+{
+    [self.messageDelegates removeObjectForKey:@(delegate.hash)];
+}
 
 + (CSIMReceiveManager *)shareInstance
 {
@@ -38,8 +69,14 @@ static CSIMReceiveManager * _manager = nil;
             
             message.result.timestamp = message.result.body.timestamp;
             
-            if ([self.delegate respondsToSelector:@selector(cs_receiveMessage:)]) {
-                [self.delegate cs_receiveMessage:message.result];
+            //记录未读消息
+            [self insertMessage:message.result];
+           
+            
+            for (id<CSIMReceiveManagerDelegate> delegate in self.messageDelegates.allKeys) {
+                if ([delegate respondsToSelector:@selector(cs_receiveMessage:)]) {
+                    [delegate cs_receiveMessage:message.result];
+                }
             }
         }
             break;
@@ -61,13 +98,32 @@ static CSIMReceiveManager * _manager = nil;
             }
             message.result.msgId = msgId;
             [[CSIMMessageQueueManager shareInstance] removeMessages:message];
-            if ([self.delegate respondsToSelector:@selector(cs_sendMessageCallBlock:)]) {
-                [self.delegate cs_sendMessageCallBlock:sendMsg.body];
+            for (id<CSIMReceiveManagerDelegate> delegate in self.messageDelegates.allKeys) {
+                if ([delegate respondsToSelector:@selector(cs_sendMessageCallBlock:)]) {
+                    [delegate cs_sendMessageCallBlock:sendMsg.body];
+                }
             }
         }
             break;
         case 3:
         {
+            DLog(@"新消息-------->%@",message.result.body.content);
+            //计算数据高度
+            [message.result processModelForCell];
+            message.result.msgType = message.result.body.msgType;
+            [message.result syncMessageBodyType:CS_changeMessageType(message.result.body.msgType)];
+            
+            message.result.timestamp = message.result.body.timestamp;
+            
+            //记录未读消息
+            [self insertMessage:message.result];
+//            [self.unReadMessageList setObject:message.result forKey: [self keyWithChatType:message.result.chartType chatId:message.result.chatId]];
+            
+            for (id<CSIMReceiveManagerDelegate> delegate in self.messageDelegates.allKeys) {
+                if ([delegate respondsToSelector:@selector(cs_receiveMessage:)]) {
+                    [delegate cs_receiveMessage:message.result];
+                }
+            }
             
         }
             break;
@@ -86,13 +142,70 @@ static CSIMReceiveManager * _manager = nil;
             CS_HUD(@"用户已下线");
         }
             break;
+        case 7:
+        {
+//            CS_HUD(@"下注台面信息（前台用户不需要");
+        }
+            break;
+        case 8:
+        {
+            //撤销下注回复
+            CS_HUD(message.msg);
+        }
+            break;
         default:
             break;
     }
-    
-    
- 
-    
-    
+}
+
+- (NSString *)keyWithChatType:(CSChatType)chatType chatId:(NSString *)chatId
+{
+    NSString * key;
+    switch (chatType) {
+        case CSChatTypeChat:
+        {
+            key = @"single";
+        }
+            break;
+        case CSChatTypeGroupChat:
+        {
+            key = @"group";
+        }
+            break;
+        default:
+            break;
+    }
+    return key = [NSString stringWithFormat:@"%@-%@",key,chatId];
+}
+
+- (int)getUnReadMessageNumberChatType:(CSChatType)chatType chatId:(NSString *)chatId
+{
+    NSString *key = [self keyWithChatType:chatType chatId:chatId];
+    NSString * number =[self.unReadMessageList objectForKey:key];
+    if (number) {
+        return number.intValue;
+    }
+    return 0;
+}
+
+- (void)inChatWithChatType:(CSChatType)chatType chatId:(NSString *)chatId
+{
+    self.currentChatKey = [self keyWithChatType:chatType chatId:chatId];
+    [self.unReadMessageList setObject:@"0" forKey:self.currentChatKey];
+}
+- (void)outChatWithChatType:(CSChatType)chatType chatId:(NSString *)chatId
+{
+    self.currentChatKey = [self keyWithChatType:chatType chatId:chatId];
+    [self.unReadMessageList setObject:@"0" forKey:self.currentChatKey];
+    self.currentChatKey = @"";
+}
+
+- (void)insertMessage:(CSMessageModel *)messageModel
+{
+    NSString * key = [self keyWithChatType:messageModel.chartType chatId:messageModel.chatId];
+    if (!(self.currentChatKey.length && [self.currentChatKey isEqualToString:key])) {
+        //如果当前未处于聊天室 取出 原有 数目累加
+        [self.unReadMessageList setObject:[NSString stringWithFormat:@"%d",messageModel.body.unreadCount] forKey: [self keyWithChatType:messageModel.chartType chatId:messageModel.chatId]];
+    }
 }
 @end

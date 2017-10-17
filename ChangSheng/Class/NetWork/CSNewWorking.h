@@ -43,7 +43,7 @@ typedef NS_ENUM(NSInteger, TTREQUEST_TYPE) {
 
 typedef void (^TTSuccessBlock)(id responseObject);
 typedef void (^TTFailureBlock)(NSError* error);
-typedef void (^TTUploadProgressBlock)(NSProgress* uploadProgress);
+typedef void (^TTUploadProgressBlock)(CGFloat uploadProgress);
 
 #import "CSHttpRequestManager.h"
 #endif /* CSNewWorking_h */

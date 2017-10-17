@@ -390,7 +390,7 @@ static UIImage *photoDownloadImage;
         {
 //            [self.chatImageView yy_setImageWithURL:[NSURL URLWithString:self.messageModel.body.content] options:YYWebImageOptionProgressive ];
             WEAKSELF;
-            [self.chatImageView yy_setImageWithURL:[NSURL URLWithString:self.messageModel.body.content] placeholder:nil options:YYWebImageOptionProgressive completion:^(UIImage * _Nullable image, NSURL * _Nonnull url, YYWebImageFromType from, YYWebImageStage stage, NSError * _Nullable error) {
+            [self.chatImageView yy_setImageWithURL:[NSURL URLWithString:self.messageModel.body.content] placeholder:nil options:YYWebImageOptionShowNetworkActivity completion:^(UIImage * _Nullable image, NSURL * _Nonnull url, YYWebImageFromType from, YYWebImageStage stage, NSError * _Nullable error) {
                 dispatch_async(dispatch_get_main_queue(), ^{
                     weakSelf.messageModel.thumbnailImage = image;
 //                    weakSelf.messageModel.thumbnailImageSize = [LLMessageImageCell thumbnailSize:image.size];
