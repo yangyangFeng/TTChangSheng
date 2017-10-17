@@ -115,6 +115,19 @@
         case 0:
         {
             CSHttpGroupResModel * model =self.betGroupArray[0];
+            NSUserDefaults * user = [NSUserDefaults standardUserDefaults];
+            if (![user objectForKey:@"vip"]) { //如果未加入该群组
+                [CSHttpRequestManager request_joinGroup_paramters:@{@"group_id":@(model.id)} success:^(id responseObject) {
+                    [user setObject:@(1) forKey:@"vip"];
+                    [self pushBetGroupControllerWithChatId:model.id index:0];
+                } failure:^(NSError *error) {
+                    
+                } showHUD:YES];
+            }
+            else
+            {
+                [self pushBetGroupControllerWithChatId:model.id index:0];
+            }
         }
             break;
         case 1:
@@ -127,14 +140,14 @@
             if (![user objectForKey:@"public"]) { //如果未加入该群组
                 [CSHttpRequestManager request_joinGroup_paramters:@{@"group_id":@(model.id)} success:^(id responseObject) {
                     [user setObject:@(1) forKey:@"public"];
-                    [self pushBetGroupControllerWithChatId:model.id];
+                    [self pushBetGroupControllerWithChatId:model.id index:1];
                 } failure:^(NSError *error) {
                     
                 } showHUD:YES];
             }
             else
             {
-                [self pushBetGroupControllerWithChatId:model.id];
+                [self pushBetGroupControllerWithChatId:model.id index:1];
             }
             
         }
@@ -147,7 +160,8 @@
             break;
         case 3:
         {
-            
+            UIViewController * caiwuController = [StoryBoardController viewControllerID:@"CSCaiwuViewController" SBName:@"Mine"];
+            [self.navigationController pushViewController:caiwuController animated:YES];
         }
             break;
         default:
@@ -155,10 +169,10 @@
     }
 }
 
-- (void)pushBetGroupControllerWithChatId:(int)chatId
+- (void)pushBetGroupControllerWithChatId:(int)chatId index:(int)index
 {
     CSMsgHistoryRequestModel * param = [CSMsgHistoryRequestModel new];
-    param.chat_type = 1;//客服为单聊
+    param.chat_type = 1;//1为群聊
     param.ID = chatId;
     [MBProgressHUD tt_ShowInViewDefaultTitle:self.tableHandler.tableView];
     [CSHttpRequestManager request_chatRecord_paramters:param.mj_keyValues success:^(id responseObject) {
@@ -169,7 +183,7 @@
         CSPublicBetViewController * chatC = [CSPublicBetViewController new];
         CSIMConversationModel * model = [CSIMConversationModel new];
         model.chatId = [NSString stringWithFormat:@"%d",param.ID];
-        model.nickName = @"大众厅";
+        model.nickName = index ? @"大众厅" : @"VIP厅";
         model.allMessageModels = [NSMutableArray array];
         
         for (CSMsgRecordModel * msgData in obj.result.data) {

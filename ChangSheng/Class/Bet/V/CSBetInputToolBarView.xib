@@ -23,7 +23,7 @@
                         <constraint firstAttribute="height" constant="44" id="IZu-ZA-30C"/>
                         <constraint firstAttribute="width" constant="44" id="SC0-lu-CQR"/>
                     </constraints>
-                    <state key="normal" image="表情"/>
+                    <state key="normal" image="聊"/>
                     <connections>
                         <action selector="inputChangeDidAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="Vl8-pe-E1f"/>
                     </connections>
@@ -122,6 +122,7 @@
     </objects>
     <resources>
         <image name="其它" width="25" height="25"/>
+        <image name="聊" width="25" height="25"/>
         <image name="表情" width="25" height="25"/>
         <image name="路单" width="73" height="34"/>
     </resources>

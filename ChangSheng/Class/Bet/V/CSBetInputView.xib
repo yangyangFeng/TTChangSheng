@@ -27,6 +27,7 @@
                                     <constraints>
                                         <constraint firstAttribute="height" constant="33" id="7eV-r1-S1p"/>
                                     </constraints>
+                                    <state key="normal" image="投注表"/>
                                     <connections>
                                         <action selector="topDidAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="3NG-Sh-6Zk"/>
                                     </connections>
@@ -203,5 +204,6 @@
     </objects>
     <resources>
         <image name="分数表" width="73" height="34"/>
+        <image name="投注表" width="73" height="34"/>
     </resources>
 </document>

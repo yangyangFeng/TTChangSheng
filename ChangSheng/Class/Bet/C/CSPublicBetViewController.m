@@ -61,7 +61,7 @@
 #import "CSIMSendMessageManager.h"
 #import "CSIMSendMessageRequestModel.h"
 #import "TTNavigationController.h"
-
+#import "CSUserServiceListViewController.h"
 //#import "KVOController.h"
 
 #import "CSPublicBetViewController.h"
@@ -131,12 +131,6 @@ CSPublicBetInputToolBarViewDelegate
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
 }
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    
-    [self createSubviews];
-}
 - (void)keyboardFrameWillChange:(NSNotification *)notify {
     CGRect kbFrame = [[notify userInfo][UIKeyboardFrameEndUserInfoKey] CGRectValue];
     CGFloat constant = kbFrame.size.height;
@@ -148,11 +142,47 @@ CSPublicBetInputToolBarViewDelegate
         self.tableView.contentInset = UIEdgeInsetsMake(0, 0, constant, 0);
         self.tableView.scrollIndicatorInsets = self.tableView.contentInset;
         [self.tableView scrollsToBottomAnimated:YES];
-//        [self.tableView layoutIfNeeded];
-    
+        
     }completion:^(BOOL finished) {
         
     }];
+}
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+    [self createSubviews];
+    
+    [self createNavigationBarButtons];
+}
+
+- (void)createNavigationBarButtons
+{
+    UIButton * caiwuBtn =self.tt_navigationBar.rightBtn;
+    caiwuBtn.hidden = NO;
+    [caiwuBtn setImage:[UIImage imageNamed:@"财务BTN"] forState:(UIControlStateNormal)];
+    
+    UIButton * kefuBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [kefuBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 20, 0, 0)];
+    [kefuBtn setImage:[UIImage imageNamed:@"客服BTN"] forState:(UIControlStateNormal)];
+    [kefuBtn addTarget:self action:@selector(kefuBtnDidAction) forControlEvents:(UIControlEventTouchUpInside)];
+    [kefuBtn sizeToFit];
+    [self.tt_navigationBar.centerView addSubview:kefuBtn];
+    [kefuBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.bottom.mas_equalTo(0);
+        make.height.mas_equalTo(44);
+        make.width.mas_equalTo(44);
+    }];
+}
+
+- (void)kefuBtnDidAction
+{
+    CSUserServiceListViewController * C = [CSUserServiceListViewController new];
+    [self.navigationController pushViewController:C animated:YES];
+}
+
+- (void)tt_DefaultRightBtnClickAction
+{
+    
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -171,7 +201,7 @@ CSPublicBetInputToolBarViewDelegate
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
     
-    [self whiteStatusBar];
+//    [self whiteStatusBar];
     [self removeKeyboardObserver];
     
     TTNavigationController * nav = (TTNavigationController *)self.navigationController;
@@ -305,7 +335,7 @@ CSPublicBetInputToolBarViewDelegate
 {
     LLMessageBaseCell * cell = [self visibleCellForMessageModel:model];
     if (cell) {
-        [model internal_setMessageStatus:kCSMessageStatusWaiting];
+        [model internal_setMessageStatus:kCSMessageStatusSuccessed];
         [cell updateMessageUploadStatus];
     }
 }
@@ -314,7 +344,7 @@ CSPublicBetInputToolBarViewDelegate
 {
     LLMessageBaseCell * cell = [self visibleCellForMessageModel:model];
     if (cell) {
-        [model internal_setMessageStatus:kCSMessageStatusSuccessed];
+        [model internal_setMessageStatus:kCSMessageStatusWaiting];
         [cell updateMessageUploadStatus];
     }
 }
@@ -326,7 +356,7 @@ CSPublicBetInputToolBarViewDelegate
         [self successMessageRefreshSendStatusWithModel:model];
     } failed:^(NSError *error) {
         [self failMessageRefreshSendStatusWithModel:model];
-
+        [MBProgressHUD tt_ShowInView:self.view WithTitle:error.domain after:1];
     }];
     [[CSIMSendMessageManager shareInstance] sendMessage:modelRequest];
 
@@ -372,8 +402,10 @@ CSPublicBetInputToolBarViewDelegate
     
     [model.msgStatus when:^(id obj) {
         DLog(@"UI层----文本:%@已发送",messageModel.content);
+        [self successMessageRefreshSendStatusWithModel:msgModel];
     } failed:^(NSError *error) {
-        
+        [MBProgressHUD tt_ShowInView:self.view WithTitle:error.domain after:1];
+        [self failMessageRefreshSendStatusWithModel:msgModel];
     }];
     [[CSIMSendMessageManager shareInstance] sendMessage:model];
     
@@ -497,7 +529,22 @@ CSPublicBetInputToolBarViewDelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     CSMessageModel *messageModel = self.dataSource[indexPath.row];
     //    NSLog(@"height->%g,str->%@",messageModel.cellHeight,messageModel.body.content);
-    return messageModel.cellHeight;
+    return messageModel.cellHeight + 10;
+}
+
+- (void)tableView:(UITableView *)tableView didEndDisplayingCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+        if ([cell isKindOfClass:[LLMessageBaseCell class]]) {
+            LLMessageBaseCell *baseCell = (LLMessageBaseCell *)cell;
+            [baseCell didEndDisplayingCell];
+        }
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if ([cell isKindOfClass:[LLMessageBaseCell class]]) {
+        LLMessageBaseCell *baseCell = (LLMessageBaseCell *)cell;
+        [baseCell willDisplayCell];
+        [baseCell updateMessageUploadStatus];
+    }
 }
 
 - (void)addModelToDataSourceAndScrollToBottom:(CSIMSendMessageRequestModel *)messageModel animated:(BOOL)animated {

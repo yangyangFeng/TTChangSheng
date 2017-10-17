@@ -68,6 +68,12 @@ BOOL LLMessageCell_isEditing = NO;
         self.avatarImage.contentMode = UIViewContentModeScaleAspectFill;
         [self.contentView addSubview:self.avatarImage];
         
+        self.nikeName = [[UILabel alloc]initWithFrame:CGRectMake((self.avatarImage.x + self.avatarImage.width + BUBBLE_LEFT_BLANK), 0, 100, 25)];
+        self.nikeName.font = [UIFont systemFontOfSize:12];
+        self.nikeName.textColor = [UIColor colorWithHexRGB:@"#999999"];
+        self.nikeName.textAlignment = NSTextAlignmentLeft;
+        [self.contentView addSubview:self.nikeName];
+        
         self.bubbleImage = [[UIImageView alloc] init];
         self.bubbleImage.contentMode = UIViewContentModeScaleToFill;
         [self.contentView addSubview:self.bubbleImage];
@@ -123,10 +129,14 @@ BOOL LLMessageCell_isEditing = NO;
         self.avatarImage.frame = CGRectMake(SCREEN_WIDTH - CGRectGetWidth(self.avatarImage.frame) - AVATAR_SUPER_LEFT,
                 AVATAR_SUPER_TOP,
                 AVATAR_WIDTH, AVATAR_HEIGHT);
-
+        self.nikeName.frame = CGRectMake(self.avatarImage.x -BUBBLE_LEFT_BLANK - 100, 0, 100, 25);
+        self.nikeName.textAlignment = NSTextAlignmentRight;
+        
     }else {
         CGFloat _x = _isCellEditing ? CGRectGetMaxX(self.selectControl.frame) + 3 : AVATAR_SUPER_LEFT;
         self.avatarImage.frame = CGRectMake(_x, AVATAR_SUPER_TOP, AVATAR_WIDTH, AVATAR_HEIGHT);
+        self.nikeName.textAlignment = NSTextAlignmentLeft;
+        self.nikeName.frame = CGRectMake((self.avatarImage.x + self.avatarImage.width + BUBBLE_LEFT_BLANK), 0, 100, 25);
     }
 }
 
@@ -193,6 +203,15 @@ BOOL LLMessageCell_isEditing = NO;
 - (void)setMessageModel:(CSMessageModel *)messageModel {
     _messageModel = messageModel;
     self.isCellSelected = messageModel.isSelected;
+    if (messageModel.chartType == CSChatTypeChat) {//如果是单聊没有用户名
+        self.nikeName.hidden = YES;
+    }
+    else{
+        self.nikeName.hidden = NO;
+        self.nikeName.text = messageModel.body.nickname;
+    }
+    NSString *iconName = @"聊天自定义头像.png";
+    [self.avatarImage yy_setImageWithURL:[NSURL URLWithString:messageModel.body.avatar] placeholder:[UIImage imageNamed:iconName]];
     
     if ([messageModel checkNeedsUpdateForReuse]) {
         [self layoutMessageContentViews:messageModel.isFromMe];

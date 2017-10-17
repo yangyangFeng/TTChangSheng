@@ -17,12 +17,34 @@
 #import "CSMsgHistoryModel.h"
 #import "CSMsgRecordModel.h"
 #import "CSIMSendMessageRequestModel.h"
+
+static CSUserServiceListViewController * controller = nil;
+
 @interface CSUserServiceListViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property(nonatomic,strong)UITableView * tableView;
 @property(nonatomic,strong)NSMutableArray * dataSource;
 @end
 
 @implementation CSUserServiceListViewController
+
+- (void)loadView
+{
+    [super loadView];
+}
+
++ (id)shareInstance
+{
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        controller = [[CSUserServiceListViewController alloc]init];
+    });
+    return controller;
+}
+
++(instancetype)new
+{
+    return [self shareInstance];
+}
 
 - (void)viewWillAppear:(BOOL)animated
 {
