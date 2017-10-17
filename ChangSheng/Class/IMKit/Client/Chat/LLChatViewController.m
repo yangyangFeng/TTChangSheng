@@ -1413,8 +1413,9 @@ CSIMReceiveManagerDelegate
                  messageModel.body.content = obj.result.file_url;
                  //                 messageRequest.body.body.content
                  [[CSIMSendMessageManager shareInstance] sendMessage:messageRequest];
-             } failure:^(NSError *error) {
                  
+             } failure:^(NSError *error) {
+                 [self failMessageRefreshSendStatusWithModel:messageModel];
              } uploadprogress:^(NSProgress *uploadProgress) {
                  DLog(@"--->%@",uploadProgress);
                  messageModel.fileUploadProgress = uploadProgress.fractionCompleted * 100;

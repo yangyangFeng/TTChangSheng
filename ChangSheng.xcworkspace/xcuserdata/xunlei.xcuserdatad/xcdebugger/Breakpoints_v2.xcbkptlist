@@ -265,7 +265,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "746"
             endingLineNumber = "746"
-            landmarkName = "-tableView:heightForRowAtIndexPath:"
+            landmarkName = "-tableView:cellForRowAtIndexPath:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -489,7 +489,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "2067"
             endingLineNumber = "2067"
-            landmarkName = "-audioRecordDidFinishSuccessed:duration:"
+            landmarkName = "-showCountDownIndicator:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -537,7 +537,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1529"
             endingLineNumber = "1529"
-            landmarkName = "-cellVideoDidTapped:"
+            landmarkName = "-sendVideoMessageWithURL:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -553,8 +553,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1337"
             endingLineNumber = "1337"
-            landmarkName = "-createImageMessageModel:imageSize:"
-            landmarkType = "7">
+            landmarkName = "@implementation LLChatViewController"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -569,8 +569,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1517"
             endingLineNumber = "1517"
-            landmarkName = "-sendVideoMessageWithURL:"
-            landmarkType = "7">
+            landmarkName = "@implementation LLChatViewController"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -585,8 +585,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1101"
             endingLineNumber = "1101"
-            landmarkName = "@implementation LLChatViewController"
-            landmarkType = "3">
+            landmarkName = "-cellWithTagDidTapped:"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -777,7 +777,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "654"
             endingLineNumber = "654"
-            landmarkName = "-tableView:cellForRowAtIndexPath:"
+            landmarkName = "-tableView:numberOfRowsInSection:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -809,8 +809,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "647"
             endingLineNumber = "647"
-            landmarkName = "-tableView:numberOfRowsInSection:"
-            landmarkType = "7">
+            landmarkName = "@implementation LLChatViewController"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -921,7 +921,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1747"
             endingLineNumber = "1747"
-            landmarkName = "-cs_receiveMessage:"
+            landmarkName = "-sendGifMessage:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -937,7 +937,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1749"
             endingLineNumber = "1749"
-            landmarkName = "-cs_receiveMessage:"
+            landmarkName = "-sendGifMessage:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -953,7 +953,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1765"
             endingLineNumber = "1765"
-            landmarkName = "-cs_sendMessageCallBlock:"
+            landmarkName = "-cs_receiveMessage:"
             landmarkType = "7">
             <Locations>
                <Location
@@ -1048,7 +1048,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "2177"
             endingLineNumber = "2177"
-            landmarkName = "-cellVoiceDidTapped:"
+            landmarkName = "-audioRecordDidFinishSuccessed:duration:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
