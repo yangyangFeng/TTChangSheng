@@ -249,6 +249,13 @@
 		1857871B1F94D4C500BAD542 /* CSCaiwuTableViewInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1857871A1F94D4C500BAD542 /* CSCaiwuTableViewInfoCell.m */; };
 		1857871E1F94D4EB00BAD542 /* CSCaiwuTableViewImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1857871D1F94D4EB00BAD542 /* CSCaiwuTableViewImageCell.m */; };
 		185787211F94EF4800BAD542 /* CSUploadFenRequestModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 185787201F94EF4700BAD542 /* CSUploadFenRequestModel.m */; };
+		185787251F96FA0600BAD542 /* TTSubscriptLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 185787241F96FA0500BAD542 /* TTSubscriptLabel.m */; };
+		185787281F97949900BAD542 /* CSTransferScoreModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 185787271F97949200BAD542 /* CSTransferScoreModel.m */; };
+		1857872B1F9795CE00BAD542 /* CSScoreRecordModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1857872A1F9795CE00BAD542 /* CSScoreRecordModel.m */; };
+		1857872E1F97968500BAD542 /* CSChangePWModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1857872D1F97968500BAD542 /* CSChangePWModel.m */; };
+		185787311F9796E200BAD542 /* CSChangeAvatarModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 185787301F9796E100BAD542 /* CSChangeAvatarModel.m */; };
+		185787341F97991A00BAD542 /* CSUserInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 185787331F97991A00BAD542 /* CSUserInfoViewController.m */; };
+		185787371F979D4D00BAD542 /* CSUserNameInputViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 185787361F979D4C00BAD542 /* CSUserNameInputViewController.m */; };
 		187773C81F7D1C6100A98B7C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 187773C61F7D1C6100A98B7C /* Main.storyboard */; };
 		187773CE1F7D1D5600A98B7C /* CSMsgHistoryRequestModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 187773CC1F7D1D5600A98B7C /* CSMsgHistoryRequestModel.m */; };
 		187773D11F7D1D6900A98B7C /* CSHttpGroupResModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 187773D01F7D1D6900A98B7C /* CSHttpGroupResModel.m */; };
@@ -847,6 +854,20 @@
 		1857871D1F94D4EB00BAD542 /* CSCaiwuTableViewImageCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSCaiwuTableViewImageCell.m; sourceTree = "<group>"; };
 		1857871F1F94EF4700BAD542 /* CSUploadFenRequestModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSUploadFenRequestModel.h; sourceTree = "<group>"; };
 		185787201F94EF4700BAD542 /* CSUploadFenRequestModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSUploadFenRequestModel.m; sourceTree = "<group>"; };
+		185787231F96FA0500BAD542 /* TTSubscriptLabel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTSubscriptLabel.h; sourceTree = "<group>"; };
+		185787241F96FA0500BAD542 /* TTSubscriptLabel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TTSubscriptLabel.m; sourceTree = "<group>"; };
+		185787261F97949200BAD542 /* CSTransferScoreModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSTransferScoreModel.h; sourceTree = "<group>"; };
+		185787271F97949200BAD542 /* CSTransferScoreModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSTransferScoreModel.m; sourceTree = "<group>"; };
+		185787291F9795CE00BAD542 /* CSScoreRecordModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSScoreRecordModel.h; sourceTree = "<group>"; };
+		1857872A1F9795CE00BAD542 /* CSScoreRecordModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSScoreRecordModel.m; sourceTree = "<group>"; };
+		1857872C1F97968500BAD542 /* CSChangePWModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSChangePWModel.h; sourceTree = "<group>"; };
+		1857872D1F97968500BAD542 /* CSChangePWModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSChangePWModel.m; sourceTree = "<group>"; };
+		1857872F1F9796E100BAD542 /* CSChangeAvatarModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSChangeAvatarModel.h; sourceTree = "<group>"; };
+		185787301F9796E100BAD542 /* CSChangeAvatarModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSChangeAvatarModel.m; sourceTree = "<group>"; };
+		185787321F97991A00BAD542 /* CSUserInfoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSUserInfoViewController.h; sourceTree = "<group>"; };
+		185787331F97991A00BAD542 /* CSUserInfoViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSUserInfoViewController.m; sourceTree = "<group>"; };
+		185787351F979D4C00BAD542 /* CSUserNameInputViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSUserNameInputViewController.h; sourceTree = "<group>"; };
+		185787361F979D4C00BAD542 /* CSUserNameInputViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSUserNameInputViewController.m; sourceTree = "<group>"; };
 		187773C71F7D1C6100A98B7C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		187773CB1F7D1D5600A98B7C /* CSMsgHistoryRequestModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSMsgHistoryRequestModel.h; sourceTree = "<group>"; };
 		187773CC1F7D1D5600A98B7C /* CSMsgHistoryRequestModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSMsgHistoryRequestModel.m; sourceTree = "<group>"; };
@@ -2014,6 +2035,15 @@
 			path = IMKit;
 			sourceTree = "<group>";
 		};
+		185787221F96F99900BAD542 /* GeneralView */ = {
+			isa = PBXGroup;
+			children = (
+				185787231F96FA0500BAD542 /* TTSubscriptLabel.h */,
+				185787241F96FA0500BAD542 /* TTSubscriptLabel.m */,
+			);
+			path = GeneralView;
+			sourceTree = "<group>";
+		};
 		18B6C6061F8A550A007B1669 /* TTVoiceLib */ = {
 			isa = PBXGroup;
 			children = (
@@ -2166,6 +2196,10 @@
 				74C852E01F8B769100944C50 /* CSMineViewController.m */,
 				185787141F94BB1C00BAD542 /* CSCaiwuViewController.h */,
 				185787151F94BB1C00BAD542 /* CSCaiwuViewController.m */,
+				185787321F97991A00BAD542 /* CSUserInfoViewController.h */,
+				185787331F97991A00BAD542 /* CSUserInfoViewController.m */,
+				185787351F979D4C00BAD542 /* CSUserNameInputViewController.h */,
+				185787361F979D4C00BAD542 /* CSUserNameInputViewController.m */,
 				185787171F94BC2400BAD542 /* Mine.storyboard */,
 			);
 			path = C;
@@ -2276,6 +2310,7 @@
 		18C81F661F76570D0012150B /* General */ = {
 			isa = PBXGroup;
 			children = (
+				185787221F96F99900BAD542 /* GeneralView */,
 				74C852DB1F8B764F00944C50 /* JSWave */,
 				184B5D001F77D6ED007A1C22 /* GPCustomNSLayoutConstraint */,
 				18C81F671F7657900012150B /* BaseController */,
@@ -2480,6 +2515,14 @@
 				18B6C60E1F8BBF16007B1669 /* CSUploadFileParam.m */,
 				1857871F1F94EF4700BAD542 /* CSUploadFenRequestModel.h */,
 				185787201F94EF4700BAD542 /* CSUploadFenRequestModel.m */,
+				185787261F97949200BAD542 /* CSTransferScoreModel.h */,
+				185787271F97949200BAD542 /* CSTransferScoreModel.m */,
+				185787291F9795CE00BAD542 /* CSScoreRecordModel.h */,
+				1857872A1F9795CE00BAD542 /* CSScoreRecordModel.m */,
+				1857872C1F97968500BAD542 /* CSChangePWModel.h */,
+				1857872D1F97968500BAD542 /* CSChangePWModel.m */,
+				1857872F1F9796E100BAD542 /* CSChangeAvatarModel.h */,
+				185787301F9796E100BAD542 /* CSChangeAvatarModel.m */,
 			);
 			path = CPRequestModel;
 			sourceTree = "<group>";
@@ -2786,6 +2829,7 @@
 				1804ACBA1F7BDC6100508C1C /* LLPushNotificationController.m in Sources */,
 				1804ACD41F7BDC6100508C1C /* LLUserProfile.m in Sources */,
 				1804AD391F7BDC6100508C1C /* TTSocketChannelManager.m in Sources */,
+				1857872E1F97968500BAD542 /* CSChangePWModel.m in Sources */,
 				747D5C281F7DF75000F40A41 /* TTChatInputToolBar.m in Sources */,
 				1804AD061F7BDC6100508C1C /* LLSearchViewController.m in Sources */,
 				1857871B1F94D4C500BAD542 /* CSCaiwuTableViewInfoCell.m in Sources */,
@@ -2807,6 +2851,7 @@
 				18C820291F7768C50012150B /* CSNewWorkHandler.m in Sources */,
 				18C81FF21F76585F0012150B /* UIImage+BetterFace.m in Sources */,
 				74C8531C1F8F8FA400944C50 /* MCDownloadReceipt.m in Sources */,
+				1857872B1F9795CE00BAD542 /* CSScoreRecordModel.m in Sources */,
 				1804ACA91F7BDC6100508C1C /* LLContactAddController.m in Sources */,
 				18C81FEB1F76585F0012150B /* ILBarButtonItem.m in Sources */,
 				1804AD181F7BDC6100508C1C /* LLDeviceManager.m in Sources */,
@@ -2852,8 +2897,10 @@
 				1804AC941F7BDC6100508C1C /* LLEmotionInputView.m in Sources */,
 				1804AD041F7BDC6100508C1C /* LLLeftAlignedCollectionViewFlowLayout.m in Sources */,
 				1804ACC21F7BDC6100508C1C /* LLSNSSearchController.m in Sources */,
+				185787311F9796E200BAD542 /* CSChangeAvatarModel.m in Sources */,
 				74C8531B1F8F8FA400944C50 /* MCDownloadOperation.m in Sources */,
 				185787211F94EF4800BAD542 /* CSUploadFenRequestModel.m in Sources */,
+				185787281F97949900BAD542 /* CSTransferScoreModel.m in Sources */,
 				1804AD161F7BDC6100508C1C /* UITextView+LLDebugOnly.m in Sources */,
 				1804ACB21F7BDC6100508C1C /* LLDiscoveryController.m in Sources */,
 				74C852E11F8B769100944C50 /* CSMineViewController.m in Sources */,
@@ -2893,6 +2940,7 @@
 				1804ACC11F7BDC6100508C1C /* LLSearchResultTableController.m in Sources */,
 				18C8200A1F76585F0012150B /* UIImage+Water.m in Sources */,
 				1804ACD31F7BDC6100508C1C /* LLUserGeneralOptions.m in Sources */,
+				185787371F979D4D00BAD542 /* CSUserNameInputViewController.m in Sources */,
 				18C820161F76585F0012150B /* UITextField+LimitLength.m in Sources */,
 				74C852CF1F8B520B00944C50 /* CSCustomBetButton.m in Sources */,
 				1804ACA71F7BDC6100508C1C /* LLVoiceIndicatorView.m in Sources */,
@@ -2930,6 +2978,7 @@
 				1804AD2C1F7BDC6100508C1C /* CSIMReceiveManager.m in Sources */,
 				1804ACC61F7BDC6100508C1C /* LLMessageCellManager.m in Sources */,
 				1804ACDB1F7BDC6100508C1C /* LLAssetManager.m in Sources */,
+				185787251F96FA0600BAD542 /* TTSubscriptLabel.m in Sources */,
 				1804ACA51F7BDC6100508C1C /* LLShareCollectionViewCell.m in Sources */,
 				184B5D201F794C0F007A1C22 /* NSArray+Log.m in Sources */,
 				1804ACBB1F7BDC6100508C1C /* LLArticleSearchController.m in Sources */,
@@ -3013,6 +3062,7 @@
 				18C81FF81F76585F0012150B /* MJRefreshAutoNormalFooter+TTFooter.m in Sources */,
 				1804ACAA1F7BDC6100508C1C /* LLContactApplyController.m in Sources */,
 				1804AC9E1F7BDC6100508C1C /* LLWebViewController.m in Sources */,
+				185787341F97991A00BAD542 /* CSUserInfoViewController.m in Sources */,
 				1804AD141F7BDC6100508C1C /* UIScrollView+LLExt.m in Sources */,
 				1804ACAC1F7BDC6100508C1C /* LLContactSearchHeaderView.m in Sources */,
 				187773D11F7D1D6900A98B7C /* CSHttpGroupResModel.m in Sources */,

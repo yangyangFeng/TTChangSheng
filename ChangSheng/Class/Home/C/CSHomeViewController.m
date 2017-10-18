@@ -71,6 +71,7 @@
 {
     UITableView * tableView = [[UITableView alloc]initWithFrame:CGRectZero style:(UITableViewStylePlain)];
 //    tableView.backgroundColor = [UIColor blackColor];
+    
     tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     UIImageView * bg_view = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"主页背景"]];
     tableView.backgroundView = bg_view;
@@ -93,9 +94,23 @@
 
 - (void)loadData
 {
+//    NSMapTable * tab = [NSMapTable weakToWeakObjectsMapTable];
+//    for (int i = 0; i<10; i++) {
+//        NSString * str = [NSString stringWithFormat:@"%d",i];
+//        [tab setObject:str forKey:str];
+//    }
+//    NSLog(@"%@",tab.objectEnumerator.allObjects);
+//    id delegate = nil;
+//    delegate = [tab.objectEnumerator nextObject];
+//                while (delegate) {
+//                    NSLog(@"obj-->%@",delegate);
+//                    delegate = [tab.objectEnumerator nextObject];
+//                }
+    
     [CSHttpRequestManager request_groupList_paramters:nil success:^(id responseObject) {
         CSHttpGroupResModel * obj = [CSHttpGroupResModel mj_objectWithKeyValues:responseObject];
         self.betGroupArray = obj.result;
+        self.tableHandler.betGroupArray = self.betGroupArray;
     } failure:^(NSError *error) {
         
     } showHUD:NO];

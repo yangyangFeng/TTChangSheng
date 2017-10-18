@@ -16,10 +16,12 @@
     CSUserTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:identifier];
     if (!cell) {
         cell = [CSUserTableViewCell viewFromXIB];
-        cell.layer.masksToBounds = YES;
-        cell.layer.cornerRadius = 3.0;
+        cell.contentView.layer.masksToBounds = YES;
+        cell.contentView.layer.cornerRadius = 3.0;
         cell.userIcon.layer.masksToBounds = YES;
         cell.userIcon.layer.cornerRadius = 3.0;
+        cell.backgroundColor = [UIColor clearColor];
+        cell.contentView.backgroundColor = [UIColor whiteColor];
     }
     return cell;
 }

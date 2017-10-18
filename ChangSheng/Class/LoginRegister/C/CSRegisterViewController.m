@@ -7,6 +7,7 @@
 //
 
 #import "CSRegisterViewController.h"
+#import "LLWebViewController.h"
 
 #import "CSUserInfo.h"
 #import "GPLoginInfoModel.h"
@@ -96,6 +97,11 @@
     
 - (IBAction)readUserInfoAction:(id)sender {
     self.readBtn.selected = !self.readBtn.selected;
+}
+- (IBAction)openWebViewAction:(id)sender {
+    LLWebViewController * webC = [LLWebViewController new];
+    webC.url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/html/reg_pact.html",baseUrl]];
+    [self.navigationController pushViewController:webC animated:YES];
 }
 
 - (void)didReceiveMemoryWarning {

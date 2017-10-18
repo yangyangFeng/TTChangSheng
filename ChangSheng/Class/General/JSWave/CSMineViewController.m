@@ -9,6 +9,10 @@
 #import "CSMineViewController.h"
 #import "JSWave.h"
 #import "CSMineTableViewCell.h"
+#import "CSUserInfoViewController.h"
+#import "StoryBoardController.h"
+#import "CSBaseViewController.h"
+#import "CSCaiwuViewController.h"
 @interface CSMineViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) UITableView *tableView;
 
@@ -43,12 +47,24 @@
     
     [self.tt_navigationBar.leftBtn setImage:[UIImage imageNamed:@"goBackH"] forState:(UIControlStateNormal)];
     [self.tt_navigationBar.leftBtn setImage:[UIImage imageNamed:@"goBackN"] forState:(UIControlStateHighlighted)];
+    
+    UITapGestureRecognizer * tap= [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(headDidAction)];
+    [self.headerView addGestureRecognizer:tap];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
      [self.navigationController performSelector:@selector(whiteStatusBar)];
+}
+
+- (void)headDidAction
+{
+//    UIViewController * userInfoC = [StoryBoardController storyBoardName:@"Mine" ViewControllerIdentifiter:@"CSUserInfoViewController"];
+    CSUserInfoSuperViewController * supC = [CSUserInfoSuperViewController new];
+//    [supC addChildTableViewController:userInfoC];
+//    supC.title = @"个人资料";
+    [self.navigationController pushViewController:supC animated:YES];
 }
 
 #pragma tab del  /  sour
@@ -65,10 +81,37 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     CSMineTableViewCell * cell = [CSMineTableViewCell cellWithTableView:tableView];
-    
+    UIView * view = [UIView new];
+    view.backgroundColor = self.headerView.backgroundColor;
+    cell.selectedBackgroundView = view;
     cell.cs_icon.image = [UIImage imageNamed:self.items[indexPath.row][@"icon"]];
     cell.cs_title.text = self.items[indexPath.row][@"title"];
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    switch (indexPath.row) {
+        case 0:
+        {
+            CSCaiwuViewController *caiwuC = [CSCaiwuViewController new];
+            [self.navigationController pushViewController:caiwuC animated:YES];
+        }
+            break;
+        case 1:
+            {}
+            break;
+        case 2:
+            {}
+            break;
+        case 3:
+            {}
+            break;
+            
+        default:
+            break;
+    }
 }
 
 - (UITableView *)tableView{

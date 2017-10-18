@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "TTSubscriptLabel.h"
 @interface CSHomeTableViewCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UIImageView *bgImageView;
+@property (weak, nonatomic) IBOutlet TTSubscriptLabel *unReadNumber;
 
 @end

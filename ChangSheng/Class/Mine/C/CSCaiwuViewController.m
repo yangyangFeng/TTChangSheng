@@ -11,6 +11,8 @@
 #import "CSCaiwuTableViewInfoCell.h"
 #import "CSCaiwuTableViewImageCell.h"
 #import "FSMediaPicker.h"
+#import "CSUploadFenRequestModel.h"
+
 @interface CSCaiwuViewController ()<UITableViewDelegate,UITableViewDataSource,FSMediaPickerDelegate>
 @property (weak, nonatomic) IBOutlet UIButton *commitBtn;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -31,6 +33,12 @@
 {
     [super awakeFromNib];
     
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    self.my_fenLabel.text = [NSString stringWithFormat:@"%d",[CSUserInfo shareInstance].info.surplus_score];
 }
 
 - (void)viewDidLoad {
@@ -78,8 +86,9 @@
     else
     {
         UIImage * newimage = [mediaInfo.originalImage fixOrientation];
-//        [CSHttpRequestManager upLoadFileRequestParamters: fileData:<#(NSData *)#> fileType:<#(CS_UPLOAD_FILE)#> success:<#^(id responseObject)successBlock#> failure:<#^(NSError *error)failureBlock#> uploadprogress:<#^(NSProgress *uploadProgress)progressBlock#> showHUD:<#(BOOL)#>]
-        self.uploadImageView.image = newimage;
+        
+        
+                self.uploadImageView.image = newimage;
     }
 }
 
@@ -95,6 +104,55 @@
     }
 }
 - (IBAction)commitBtnDidAction:(id)sender {
+    CSUploadFenRequestModel * params = [CSUploadFenRequestModel new];
+    if (!self.inputField_fen.text.length) {
+        CS_HUD(@"请填写分数");
+        return;
+    }
+    else if (!self.inputField_name.text.length)
+    {
+        CS_HUD(@"请填写真实姓名");
+        return;
+    }
+    else if(!self.uploadImageView.image)
+    {
+        CS_HUD(@"请填上传照片");
+        return;
+    }
+    else if (self.inputField_fen.text.length && (self.inputField_fen.text.intValue > [CSUserInfo shareInstance].info.surplus_score))
+    {
+        CS_HUD(@"下分数不能高于身上分");
+        return;
+    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [MBProgressHUD tt_ShowInView:self.view WithTitle:@"正在处理..."];
+        NSData * imageData = [self.uploadImageView.image tt_compressToDataLength:CS_IMAGE_DATA_SIZE];
+        params.score = self.inputField_fen.text.intValue;
+        params.truename = self.inputField_name.text;
+        NSMutableDictionary * paramsDic = [NSMutableDictionary dictionaryWithDictionary:params.mj_keyValues];
+        if (_isUpScore) {
+            [paramsDic setObject:@"pod" forKey:@"file"];
+            [paramsDic setObject:@"1" forKey:@"type"];
+        }
+        else
+        {
+            [paramsDic setObject:@"bank_card" forKey:@"file"];
+            [paramsDic setObject:@"2" forKey:@"type"];
+        }
+        [MBProgressHUD tt_HideFromeView:self.view];
+        [CSHttpRequestManager request_updownFen_paramters:paramsDic fileData:imageData fileType:CS_UPLOAD_FILE_IMAGE | CS_UPLOAD_FILE_CUSTOME success:^(id responseObject) {
+            CSUploadFenRequestModel * obj = [CSUploadFenRequestModel mj_objectWithKeyValues:responseObject];
+            [CSUserInfo shareInstance].info.surplus_score = obj.surplus_score.intValue;
+            self.my_fenLabel.text = obj.surplus_score;
+        } failure:^(NSError *error) {
+            
+        } uploadprogress:^(CGFloat uploadProgress) {
+            
+        } showHUD:YES];
+    });
+    
+   
+
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView

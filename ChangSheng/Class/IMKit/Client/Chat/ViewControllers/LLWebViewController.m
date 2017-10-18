@@ -44,6 +44,7 @@
     self.view.backgroundColor = [UIColor whiteColor];
 
     self.webView = [[WKWebView alloc] initWithFrame:self.view.bounds];
+    
     self.webView.navigationDelegate = self;
 //    self.webView.translatesAutoresizingMaskIntoConstraints = NO;
     //    self.webView.scrollView.backgroundColor = UIColorRGB(45, 49, 50);
@@ -51,13 +52,16 @@
     self.webView.scrollView.backgroundColor = [UIColor whiteColor];
     self.webView.allowsBackForwardNavigationGestures = YES;
     [self.view addSubview:self.webView];
-    
+    [self.webView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(64);
+        make.left.right.bottom.mas_equalTo(0);
+    }];
     NSURLRequest *request = [NSURLRequest requestWithURL:self.url];
     [self.webView loadRequest:request];
     [self.webView setNeedsUpdateConstraints];
     
     CGFloat progressBarHeight = 2.f;
-    _webProgressView = [[LLWebViewProgressView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, progressBarHeight)];
+    _webProgressView = [[LLWebViewProgressView alloc] initWithFrame:CGRectMake(0, 64, self.view.bounds.size.width, progressBarHeight)];
     _webProgressView.progressBarColor = kLLTextColor_green;
     _webProgressView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     [self.view addSubview:_webProgressView];

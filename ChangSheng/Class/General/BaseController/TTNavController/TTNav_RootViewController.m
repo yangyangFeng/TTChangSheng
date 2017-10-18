@@ -41,7 +41,11 @@
     return self;
 }
 
-
+- (void)setTitle:(NSString *)title
+{
+    [super setTitle:title];
+//    [self tt_Title:title];
+}
 
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -314,7 +318,7 @@
     
     
     
-    [(UITableViewController*)childController tableView].backgroundColor = NEW_BG_COLOR;
+    [(UITableViewController*)childController tableView].backgroundColor = [UIColor groupTableViewBackgroundColor];
     [(UITableViewController*)childController tableView].separatorStyle = 0;
     [self addChildViewController:childController];
     return childController;

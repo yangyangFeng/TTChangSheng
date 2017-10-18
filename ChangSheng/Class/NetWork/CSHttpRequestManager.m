@@ -261,4 +261,118 @@
         failure(error);
     } showHUD:showHUD];
 }
+
+#pragma mark -  9.上下分
+/**
+ *  9.上下分
+ */
++ (void)request_updownFen_paramters:(NSDictionary*)params
+                           fileData:(NSData*)fileData
+                           fileType:(CS_UPLOAD_FILE)fileType
+                            success:(TTSuccessBlock)successBlock
+                            failure:(TTFailureBlock)failureBlock
+                     uploadprogress:(TTUploadProgressBlock)progressBlock
+                            showHUD:(BOOL)showHUD
+{
+    NSString * url = @"my/upDownScore";
+
+    [self upLoadFileRequestWithUrl:url paramters:params fileData:fileData fileType:fileType success:successBlock failure:failureBlock uploadprogress:progressBlock showHUD:showHUD];
+}
+
+#pragma mark -  10.转分
+/**
+ *  10.转分
+ */
++ (void)request_zhuanFen_paramters:(NSDictionary *)params success:(TTSuccessBlock)success failure:(TTFailureBlock)failure showHUD:(BOOL)showHUD
+{
+    NSString * url = @"my/transferScore";
+    [[CSNewWorkHandler sharedInstance] beginHttpRequestType:POST_TTREQUEST_TYPE url:url paramters:params success:^(id responseObject) {
+        
+        success(responseObject);
+        
+    } failure:^(NSError *error) {
+        failure(error);
+    } showHUD:showHUD];
+}
+
+#pragma mark -  11.分数操作记录
+/**
+ *  11.分数操作记录
+ */
++ (void)request_fenCaoZuoJiLu_paramters:(NSDictionary *)params success:(TTSuccessBlock)success failure:(TTFailureBlock)failure showHUD:(BOOL)showHUD
+{
+    NSString * url = @"my/scoreRecord";
+    [[CSNewWorkHandler sharedInstance] beginHttpRequestType:POST_TTREQUEST_TYPE url:url paramters:params success:^(id responseObject) {
+        
+        success(responseObject);
+        
+    } failure:^(NSError *error) {
+        failure(error);
+    } showHUD:showHUD];
+}
+
+#pragma mark -  12.修改密码
+/**
+ *  12.修改密码
+ */
++ (void)request_changePW_paramters:(NSDictionary *)params success:(TTSuccessBlock)success failure:(TTFailureBlock)failure showHUD:(BOOL)showHUD
+{
+    NSString * url = @"my/changePwd";
+    [[CSNewWorkHandler sharedInstance] beginHttpRequestType:POST_TTREQUEST_TYPE url:url paramters:params success:^(id responseObject) {
+        
+        success(responseObject);
+        
+    } failure:^(NSError *error) {
+        failure(error);
+    } showHUD:showHUD];
+}
+
+#pragma mark -  13.修改头像
+/**
+ *  13.修改头像
+ */
++ (void)request_changeHeaderImage_paramters:(NSDictionary*)params
+                                   fileData:(NSData*)fileData
+                                   fileType:(CS_UPLOAD_FILE)fileType
+                                    success:(TTSuccessBlock)successBlock
+                                    failure:(TTFailureBlock)failureBlock
+                             uploadprogress:(TTUploadProgressBlock)progressBlock
+                                    showHUD:(BOOL)showHUD
+{
+    NSString * url = @"my/changeAvatar";
+    
+    [self upLoadFileRequestWithUrl:url paramters:params fileData:fileData fileType:fileType success:successBlock failure:failureBlock uploadprogress:progressBlock showHUD:showHUD];
+}
+
+#pragma mark -  12.修改昵称
+/**
+ *  12.修改昵称
+ */
++ (void)request_changeNickName_paramters:(NSDictionary *)params success:(TTSuccessBlock)success failure:(TTFailureBlock)failure showHUD:(BOOL)showHUD
+{
+    NSString * url = @"my/changeNickname";
+    [[CSNewWorkHandler sharedInstance] beginHttpRequestType:POST_TTREQUEST_TYPE url:url paramters:params success:^(id responseObject) {
+        
+        success(responseObject);
+        
+    } failure:^(NSError *error) {
+        failure(error);
+    } showHUD:showHUD];
+}
+
+#pragma mark -  15 退出群聊
+/**
+ *  15.退出群聊
+ */
++ (void)request_outChatGroup_paramters:(NSDictionary *)params success:(TTSuccessBlock)success failure:(TTFailureBlock)failure showHUD:(BOOL)showHUD
+{
+    NSString * url = @"chat/quitGroup";
+    [[CSNewWorkHandler sharedInstance] beginHttpRequestType:POST_TTREQUEST_TYPE url:url paramters:params success:^(id responseObject) {
+        
+        success(responseObject);
+        
+    } failure:^(NSError *error) {
+        failure(error);
+    } showHUD:showHUD];
+}
 @end

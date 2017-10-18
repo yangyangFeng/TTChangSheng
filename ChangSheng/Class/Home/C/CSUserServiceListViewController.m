@@ -18,9 +18,10 @@
 #import "CSMsgRecordModel.h"
 #import "CSIMSendMessageRequestModel.h"
 
+#import "CSIMReceiveManager.h"
 static CSUserServiceListViewController * controller = nil;
 
-@interface CSUserServiceListViewController ()<UITableViewDelegate,UITableViewDataSource>
+@interface CSUserServiceListViewController ()<UITableViewDelegate,UITableViewDataSource,CSIMReceiveManagerDelegate>
 @property(nonatomic,strong)UITableView * tableView;
 @property(nonatomic,strong)NSMutableArray * dataSource;
 @end
@@ -66,8 +67,24 @@ static CSUserServiceListViewController * controller = nil;
     
     [self tt_Title:@"客服列表"];
     
-    
+    [CSIMReceiveManager shareInstance].delegate = self;
     // Do any additional setup after loading the view.
+}
+
+- (void)cs_receiveMessage:(CSMessageModel *)message
+{
+    for (int i =0; i<self.dataSource.count; i++) {
+        CSMsgHistoryModel * model = [self.dataSource objectAtIndex:i];
+        NSIndexPath * indexPath = [NSIndexPath indexPathForRow:i inSection:0];
+        CSUserTableViewCell * cell = (CSUserTableViewCell *)[self.tableView cellForRowAtIndexPath:indexPath];        
+        int count = [[CSIMReceiveManager shareInstance] getUnReadMessageNumberChatType:(CSChatTypeChat) chatId:[NSString stringWithFormat:@"%d",model.id]];
+        cell.unReadNumber.text = [NSString stringWithFormat:@"%d",count];
+    }
+}
+
+-(void)dealloc
+{
+    [[CSIMReceiveManager shareInstance] removeDelegate:self];
 }
 
 - (void)loadData
@@ -118,7 +135,7 @@ static CSUserServiceListViewController * controller = nil;
 {
     CSUserTableViewCell * cell = [CSUserTableViewCell cellWithTableView:tableView];
     CSMsgHistoryModel * model = self.dataSource[indexPath.row];
-    
+//    cell.model = model;
      [cell.userIcon yy_setImageWithURL:[NSURL URLWithString:model.avatar] placeholder:[UIImage imageNamed:@"聊天自定义头像"]];
     cell.userName.text = model.nickname;
     return cell;

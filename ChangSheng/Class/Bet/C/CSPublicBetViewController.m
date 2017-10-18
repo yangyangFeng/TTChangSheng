@@ -131,6 +131,8 @@ CSPublicBetInputToolBarViewDelegate
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
     [[CSIMReceiveManager shareInstance] removeDelegate:self];
+    //退出该聊天室
+    [[CSIMReceiveManager shareInstance] outChatWithChatType:(CSChatTypeGroupChat) chatId:self.conversationModel.chatId];
 }
 - (void)keyboardFrameWillChange:(NSNotification *)notify {
     CGRect kbFrame = [[notify userInfo][UIKeyboardFrameEndUserInfoKey] CGRectValue];
@@ -193,6 +195,9 @@ CSPublicBetInputToolBarViewDelegate
     [self createSubviews];
     
     [self createNavigationBarButtons];
+    //记录进入该聊天室
+    [[CSIMReceiveManager shareInstance] inChatWithChatType:(CSChatTypeGroupChat) chatId:self.conversationModel.chatId];
+    
 }
 
 - (void)createNavigationBarButtons
@@ -473,8 +478,7 @@ CSPublicBetInputToolBarViewDelegate
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     [UIView setAnimationsEnabled:NO];
     CSMessageModel *messageModel = self.dataSource[indexPath.row];
-    NSString *reuseId = @"123";
-    //    [[LLMessageCellManager sharedManager] reuseIdentifierForMessegeModel:messageModel];
+    NSString *reuseId = [[LLMessageCellManager sharedManager] reuseIdentifierForMessegeModel:messageModel];
     UITableViewCell *_cell;
     
     switch (messageModel.messageBodyType) {
@@ -601,7 +605,127 @@ CSPublicBetInputToolBarViewDelegate
     [self.tableView scrollsToBottomAnimated:YES];
 }
 
+#pragma mark - 处理Cell动作
 
+- (void)textPhoneNumberDidTapped:(NSString *)phoneNumber userinfo:(nullable id)userinfo {
+    [self.chatInputView dismissKeyboard];
+    NSString *title = [NSString stringWithFormat:@"%@可能是一个电话号码,你可以", phoneNumber];
+    LLActionSheet *actionSheet = [[LLActionSheet alloc] initWithTitle:title];
+    LLActionSheetAction *action1 = [LLActionSheetAction actionWithTitle:@"呼叫"
+                                                                handler:^(LLActionSheetAction *action) {
+                                                                    [LLUtils callPhoneNumber:phoneNumber];
+                                                                }];
+    WEAK_SELF;
+    LLActionSheetAction *action2 = [LLActionSheetAction actionWithTitle:@"添加到手机通讯录"
+                                                                handler:^(LLActionSheetAction *action) {
+                                                                    [weakSelf addToContact:phoneNumber];
+                                                                }] ;
+    
+    [actionSheet addActions:@[action1]];
+    
+    [actionSheet showInWindow:[LLUtils popOverWindow]];
+}
+
+- (void)addToContact:(NSString *)phone {
+    NSString *title = [NSString stringWithFormat:@"%@可能是一个电话号码,你可以", phone];
+    LLActionSheet *actionSheet = [[LLActionSheet alloc] initWithTitle:title];
+    LLActionSheetAction *action1 = [LLActionSheetAction actionWithTitle:@"创建新联系人"
+                                                                handler:^(LLActionSheetAction *action) {
+                                                                    
+                                                                }];
+    
+    LLActionSheetAction *action2 = [LLActionSheetAction actionWithTitle:@"添加到现有联系人"
+                                                                handler:^(LLActionSheetAction *action) {
+                                                                    
+                                                                }] ;
+    
+    [actionSheet addActions:@[action1, action2]];
+    
+    [actionSheet showInWindow:[LLUtils popOverWindow]];
+}
+
+
+- (void)textLinkDidTapped:(NSURL *)url userinfo:(nullable id)userinfo {
+    [self.chatInputView dismissKeyboard];
+    
+    if ([url.scheme isEqualToString:URL_MAIL_SCHEME]) {
+        NSString *recipient = url.resourceSpecifier;
+        NSString *title = [NSString stringWithFormat:@"向%@发送邮件", recipient];
+        LLActionSheet *actionSheet = [[LLActionSheet alloc] initWithTitle:title];
+        
+        WEAK_SELF;
+        LLActionSheetAction *action1 = [LLActionSheetAction actionWithTitle:@"使用QQ邮箱发送"
+                                                                    handler:nil];
+        LLActionSheetAction *action2 = [LLActionSheetAction actionWithTitle:@"使用默认邮件账户" handler:^(LLActionSheetAction *action) {
+            [weakSelf sendEmailToRecipient:recipient];
+        }];
+        
+        [actionSheet addActions:@[ action2]];
+        
+        [actionSheet showInWindow:[LLUtils popOverWindow]];
+    }else {
+        LLWebViewController *web = [[LLWebViewController alloc] initWithNibName:nil bundle:nil];
+        web.fromViewController = self;
+        web.url = url;
+        
+        [self.navigationController pushViewController:web animated:YES];
+    }
+    
+}
+
+- (void)sendEmailToRecipient:(NSString *)recipient {
+    if([MFMailComposeViewController canSendMail]) {
+        MFMailComposeViewController_LL *mc = [[MFMailComposeViewController_LL alloc] init];
+        mc.mailComposeDelegate = self;
+        [mc setToRecipients:@[recipient]];
+        
+        [self.navigationController presentViewController:mc animated:YES completion:nil];
+    }
+}
+
+- (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error {
+    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+}
+
+
+- (void)textLinkDidLongPressed:(NSURL *)url userinfo:(nullable id)userinfo {
+    [self.chatInputView dismissKeyboard];
+    
+    NSString *title;
+    if ([url.scheme isEqualToString:URL_MAIL_SCHEME]) {
+        title = url.resourceSpecifier;
+    }else {
+        title = url.absoluteString;
+    }
+    
+    LLActionSheet *actionSheet = [[LLActionSheet alloc] initWithTitle:title];
+    LLActionSheetAction *action = [LLActionSheetAction actionWithTitle:@"复制链接"
+                                                               handler:^(LLActionSheetAction *action) {
+                                                                   [LLUtils copyToPasteboard:title];
+                                                               }];
+    [actionSheet addAction:action];
+    
+    [actionSheet showInWindow:[LLUtils popOverWindow]];
+}
+
+- (void)cellWithTagDidTapped:(NSInteger)tag {
+//    switch (tag) {
+//        case TAG_Photo:
+//            [self presentImagePickerController];
+//            break;
+//        case TAG_Location:
+//            [self presendLocationViewController];
+//            break;
+//        case TAG_Camera:
+//            [self takePictureAndVideoAction];
+//            break;
+//        case TAG_Sight:
+//            [self presentSightController];
+//            break;
+//        default:
+//            break;
+//    }
+}
 
 -(UITableView *)tableView
 {

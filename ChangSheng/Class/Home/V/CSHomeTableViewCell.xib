@@ -29,12 +29,12 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="999" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AdY-5s-yqT">
-                        <rect key="frame" x="371" y="-15" width="30" height="30"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AdY-5s-yqT" customClass="TTSubscriptLabel">
+                        <rect key="frame" x="376" y="-10" width="20" height="20"/>
                         <color key="backgroundColor" red="1" green="0.1176470588" blue="0.1960784314" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="30" id="LOk-mg-abM"/>
-                            <constraint firstAttribute="width" constant="30" id="ZYY-m5-ksR"/>
+                            <constraint firstAttribute="height" constant="20" id="LOk-mg-abM"/>
+                            <constraint firstAttribute="width" constant="20" id="ZYY-m5-ksR"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -50,14 +50,15 @@
                     <constraint firstItem="Isd-f1-XRK" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="HnZ-G2-GC7"/>
                     <constraint firstAttribute="trailing" secondItem="Isd-f1-XRK" secondAttribute="trailing" id="bkM-cZ-flC"/>
                     <constraint firstAttribute="bottom" secondItem="Isd-f1-XRK" secondAttribute="bottom" id="cWN-nE-gVR"/>
-                    <constraint firstAttribute="trailing" secondItem="AdY-5s-yqT" secondAttribute="trailing" constant="-15" id="fcr-Xs-NYb"/>
+                    <constraint firstAttribute="trailing" secondItem="AdY-5s-yqT" secondAttribute="trailing" constant="-10" id="fcr-Xs-NYb"/>
                     <constraint firstAttribute="trailingMargin" secondItem="QcF-II-u1D" secondAttribute="trailing" id="ixQ-zQ-Kv1"/>
-                    <constraint firstItem="AdY-5s-yqT" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="-15" id="w0A-8s-9ln"/>
+                    <constraint firstItem="AdY-5s-yqT" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="-10" id="w0A-8s-9ln"/>
                 </constraints>
             </tableViewCellContentView>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <connections>
                 <outlet property="bgImageView" destination="Isd-f1-XRK" id="bWT-ga-8hd"/>
+                <outlet property="unReadNumber" destination="AdY-5s-yqT" id="oIS-sr-fN5"/>
             </connections>
             <point key="canvasLocation" x="67" y="101.5"/>
         </tableViewCell>

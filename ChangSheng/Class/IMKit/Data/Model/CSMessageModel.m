@@ -161,6 +161,11 @@ NSMutableDictionary * tmpImageDict;
 {
     CSMessageModel * model = [[CSMessageModel alloc]initNewMessageChatType:chatType chatId:chatId msgId:msgId msgType:msgBodyType action:action content:content isSelf:isSelf];
 //    model.thumbnailImage = [UIImage imageWithData:imageData];
+    if ([content hasSuffix:@".gif"]) {
+        [model syncMessageBodyType:CSMessageBodyTypeGif];
+        model.msgType = CSMessageBodyTypeGif;
+        model.body.msgType = CSMessageBodyTypeGif;
+    }
     model.thumbnailImageSize = [LLMessageImageCell thumbnailSize:imageSize];
     [model formaterMessage];
     model.body.img_width = imageSize.width;
@@ -241,10 +246,10 @@ NSMutableDictionary * tmpImageDict;
         self.action = action;//普通消息
         self.msgType = msgType;
         self.content = content;
-//        _isSelf = YES;
-//        _isSelf = YES;
+
+
         
-        _isSelf = _isSelf = isSelf;
+        _isSelf = isSelf;
         
         if (isSelf) {
             self.body.nickname = [CSUserInfo shareInstance].info.nickname;
@@ -347,14 +352,14 @@ NSMutableDictionary * tmpImageDict;
     
     switch ((CSMessageBodyType)msgRecordModel.type.integerValue) {
         case CSMessageBodyTypeText:
-            msgBody = [CSMessageModel newMessageChatType:chatType chatId:chatId msgId:msgRecordModel.msg_id msgType:CSMessageBodyTypeText action:1 content:msgRecordModel.content isSelf:msgRecordModel.is_self];
+            msgBody = [CSMessageModel newMessageChatType:chatType chatId:chatId msgId:msgRecordModel.msg_id msgType:CSMessageBodyTypeText action:1 content:msgRecordModel.content isSelf:msgRecordModel.is_self.intValue];
             break;
             case CSMessageBodyTypeImage:
-            msgBody = [CSMessageModel newImageMessageWithImageSize:CGSizeMake(msgRecordModel.img_width, msgRecordModel.img_height) chatId:chatId chatType:chatType msgId:msgRecordModel.msg_id msgType:(CSMessageBodyTypeImage) action:1 content:msgRecordModel.content isSelf:msgRecordModel.is_self];
+            msgBody = [CSMessageModel newImageMessageWithImageSize:CGSizeMake(msgRecordModel.img_width, msgRecordModel.img_height) chatId:chatId chatType:chatType msgId:msgRecordModel.msg_id msgType:(CSMessageBodyTypeImage) action:1 content:msgRecordModel.content isSelf:msgRecordModel.is_self.intValue];
 //                       newMessageChatType:chatType chatId:chatId msgId:msgRecordModel.msg_id msgType:CSMessageBodyTypeImage action:1 content:msgRecordModel.content];
             break;
             case CSMessageBodyTypeVoice:
-            msgBody = [CSMessageModel newVoiceMessageChatType:chatType chatId:chatId msgId:msgRecordModel.msg_id msgType:CSMessageBodyTypeVoice action:1 content:msgRecordModel.content localPath:nil duration:msgRecordModel.voice_length uploadProgress:nil uploadStatus:nil isSelf:msgRecordModel.is_self];
+            msgBody = [CSMessageModel newVoiceMessageChatType:chatType chatId:chatId msgId:msgRecordModel.msg_id msgType:CSMessageBodyTypeVoice action:1 content:msgRecordModel.content localPath:nil duration:msgRecordModel.voice_length uploadProgress:nil uploadStatus:nil isSelf:msgRecordModel.is_self.intValue];
             break;
             case CSMessageBodyTypeLink:
             break;

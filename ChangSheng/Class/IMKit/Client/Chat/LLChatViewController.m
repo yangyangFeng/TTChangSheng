@@ -123,6 +123,8 @@ CSIMReceiveManagerDelegate
     [super viewDidLoad];
 
     [CSIMReceiveManager shareInstance].delegate = self;
+    //记录进入该聊天室
+    [[CSIMReceiveManager shareInstance] inChatWithChatType:(CSChatTypeGroupChat) chatId:self.conversationModel.chatId];
     
     [self tt_SetNaviBarHide:NO withAnimation:NO];
     
@@ -185,6 +187,9 @@ CSIMReceiveManagerDelegate
 - (void)dealloc
 {
     [[CSIMReceiveManager shareInstance] removeDelegate:self];
+    //退出该聊天室
+    [[CSIMReceiveManager shareInstance] outChatWithChatType:(CSChatTypeGroupChat) chatId:self.conversationModel.chatId];
+
     [_sightController.contentView.layer removeObserver:self forKeyPath:@"position"];
 }
 

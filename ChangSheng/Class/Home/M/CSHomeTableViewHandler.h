@@ -9,5 +9,5 @@
 #import "TTBaseTableViewHandler.h"
 
 @interface CSHomeTableViewHandler : TTBaseTableViewHandler
-
+@property (nonatomic,strong) NSArray *betGroupArray;
 @end

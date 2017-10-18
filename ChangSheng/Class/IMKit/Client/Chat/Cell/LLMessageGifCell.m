@@ -17,8 +17,8 @@
 
 
 @interface LLMessageGifCell ()
-@property (nonatomic) LLGIFImageView *gifImageView;
-
+//@property (nonatomic) LLGIFImageView *gifImageView;
+@property(nonatomic,strong)YYAnimatedImageView *gifImageView;
 @end
 
 @implementation LLMessageGifCell
@@ -27,14 +27,23 @@
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        self.gifImageView = [[LLGIFImageView alloc] initWithFrame:CGRectMake(0, CONTENT_SUPER_TOP, GIF_IMAGE_SIZE, GIF_IMAGE_SIZE)];
-        self.gifImageView.contentMode = UIViewContentModeScaleAspectFit;
+//        self.gifImageView = [[YYAnimatedImageView alloc] initWithFrame:CGRectMake(0, CONTENT_SUPER_TOP, GIF_IMAGE_SIZE, GIF_IMAGE_SIZE)];
+//        self.gifImageView.contentMode = UIViewContentModeScaleAspectFit;
         [self.contentView addSubview:self.gifImageView];
     }
     
     return self;
 }
-
+-(YYAnimatedImageView *)gifImageView{
+    if (!_gifImageView) {
+        _gifImageView =[[YYAnimatedImageView alloc]initWithFrame:CGRectMake(0, CONTENT_SUPER_TOP, GIF_IMAGE_SIZE, GIF_IMAGE_SIZE)];
+        _gifImageView.contentMode = UIViewContentModeScaleAspectFit;
+        _gifImageView.clipsToBounds = YES;
+        _gifImageView.backgroundColor = [UIColor whiteColor];
+        
+    }
+    return _gifImageView;
+}
 - (void)layoutMessageContentViews:(BOOL)isFromMe {
     CGRect frame = self.gifImageView.frame;
     if (isFromMe) {
@@ -57,28 +66,33 @@
 }
 
 
-+ (CGFloat)heightForModel:(LLMessageModel *)model {
++ (CGFloat)heightForModel:(CSMessageModel *)model {
     return GIF_IMAGE_SIZE + CONTENT_SUPER_BOTTOM;
 }
 
 - (void)willDisplayCell {
-    if (!self.gifImageView.gifData) {
-        NSData *gifData = [[LLChatManager sharedManager] gifDataForGIFMessageModel:self.messageModel];
-        
-        self.gifImageView.gifData = gifData;
-        self.gifImageView.startShowIndex = self.messageModel.gifShowIndex;
-        [self.gifImageView startGIFAnimating];
+    if (!self.messageModel.thumbnailImage) {
+        WEAKSELF;
+//        NSData *gifData = [[LLChatManager sharedManager] gifDataForGIFMessageModel:self.messageModel];
+        [self.gifImageView yy_setImageWithURL:[NSURL URLWithString:self.messageModel.body.content] placeholder:nil options:YYWebImageOptionProgressiveBlur |YYWebImageOptionShowNetworkActivity completion:^(UIImage * _Nullable image, NSURL * _Nonnull url, YYWebImageFromType from, YYWebImageStage stage, NSError * _Nullable error) {
+//            weakSelf.gifImageView.startShowIndex = weakSelf.messageModel.gifShowIndex;
+//            [weakSelf.gifImageView startGIFAnimating];
+            weakSelf.messageModel.thumbnailImage = image;
+        }];
+//        self.gifImageView.gifData = gifData;
+//        self.gifImageView.startShowIndex = self.messageModel.gifShowIndex;
+//        [self.gifImageView startGIFAnimating];
     }
   
 }
 
 - (void)didEndDisplayingCell {
-    self.gifImageView.gifData = nil;
+//    self.gifImageView.gifData = nil;
 }
 
 - (void)willBeginScrolling {
     [super willBeginScrolling];
-    self.messageModel.gifShowIndex = self.gifImageView.currentShowIndex;
+//    self.messageModel.gifShowIndex = self.gifImageView.currentShowIndex;
 }
 
 - (void)didEndScrolling {

@@ -11,15 +11,15 @@
 static CSIMReceiveManager * _manager = nil;
 @interface CSIMReceiveManager ()
 @property(nonatomic,strong)dispatch_queue_t  queue;
-@property (nonatomic, strong)NSMutableDictionary * messageDelegates;
+@property (nonatomic, strong)NSMapTable * messageDelegates;
 @property (nonatomic, strong)NSMutableDictionary * unReadMessageList;
 @property (nonatomic,copy) NSString *currentChatKey;
 @end
 @implementation CSIMReceiveManager
--(NSMutableDictionary *)messageDelegates
+-(NSMapTable *)messageDelegates
 {
     if (!_messageDelegates) {
-        _messageDelegates = [NSMutableDictionary dictionary];
+        _messageDelegates = [NSMapTable weakToWeakObjectsMapTable];
     }
     return _messageDelegates;
 }
@@ -34,9 +34,9 @@ static CSIMReceiveManager * _manager = nil;
 
 -(void)setDelegate:(id<CSIMReceiveManagerDelegate>)delegate
 {
-    _messageDelegates = delegate;
+    __weak id weakDelegate = delegate;
     if (delegate) {
-        [self.messageDelegates setObject:delegate forKey:@(delegate.hash)];
+        [self.messageDelegates setObject:weakDelegate forKey:@(delegate.hash)];
     }
 }
 
@@ -73,7 +73,7 @@ static CSIMReceiveManager * _manager = nil;
             [self insertMessage:message.result];
            
             
-            for (id<CSIMReceiveManagerDelegate> delegate in self.messageDelegates.allKeys) {
+            for (id<CSIMReceiveManagerDelegate> delegate in self.messageDelegates.objectEnumerator.allObjects) {
                 if ([delegate respondsToSelector:@selector(cs_receiveMessage:)]) {
                     [delegate cs_receiveMessage:message.result];
                 }
@@ -98,7 +98,7 @@ static CSIMReceiveManager * _manager = nil;
             }
             message.result.msgId = msgId;
             [[CSIMMessageQueueManager shareInstance] removeMessages:message];
-            for (id<CSIMReceiveManagerDelegate> delegate in self.messageDelegates.allKeys) {
+            for (id<CSIMReceiveManagerDelegate> delegate in self.messageDelegates.objectEnumerator.allObjects) {
                 if ([delegate respondsToSelector:@selector(cs_sendMessageCallBlock:)]) {
                     [delegate cs_sendMessageCallBlock:sendMsg.body];
                 }
@@ -119,7 +119,7 @@ static CSIMReceiveManager * _manager = nil;
             [self insertMessage:message.result];
 //            [self.unReadMessageList setObject:message.result forKey: [self keyWithChatType:message.result.chartType chatId:message.result.chatId]];
             
-            for (id<CSIMReceiveManagerDelegate> delegate in self.messageDelegates.allKeys) {
+            for (id<CSIMReceiveManagerDelegate> delegate in self.messageDelegates.objectEnumerator.allObjects) {
                 if ([delegate respondsToSelector:@selector(cs_receiveMessage:)]) {
                     [delegate cs_receiveMessage:message.result];
                 }

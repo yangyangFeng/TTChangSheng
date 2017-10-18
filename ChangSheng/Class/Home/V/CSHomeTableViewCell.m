@@ -35,7 +35,7 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    // Initialization code
+    // Initialization cod
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

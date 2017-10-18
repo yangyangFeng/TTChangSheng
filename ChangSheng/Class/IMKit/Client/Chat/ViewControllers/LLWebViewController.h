@@ -8,8 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "LLViewController.h"
-
-@interface LLWebViewController : LLViewController
+#import "CSBaseViewController.h"
+@interface LLWebViewController : CSBaseViewController
 
 @property (nonatomic) NSURL *url;
 

@@ -9,8 +9,8 @@
 #import "CSHomeTableViewHandler.h"
 #import "UIView+Extend.h"
 #import "CSHomeTableViewCell.h"
-
-
+#import "CSHttpGroupResModel.h"
+#import "CSIMReceiveManager.h"
 NSString* Home_GetBgImageNameWithIndex(NSInteger index) {
     switch (index) {
         case 0:
@@ -31,7 +31,42 @@ NSString* Home_GetBgImageNameWithIndex(NSInteger index) {
     return @"vip";
 }
 
+@interface CSHomeTableViewCell()<CSIMReceiveManagerDelegate>
+@end
+
 @implementation CSHomeTableViewHandler
+
+-(void)awakeFromNib
+{
+    [super awakeFromNib];
+}
+
+-(void)dealloc
+{
+    [[CSIMReceiveManager shareInstance] removeDelegate:self];
+}
+
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        [CSIMReceiveManager shareInstance].delegate = self;
+    }
+    return self;
+}
+
+- (void)cs_receiveMessage:(CSMessageModel *)message
+{
+
+    for (int i =0; i<self.betGroupArray.count; i++) {
+        CSHttpGroupResModel * model = [self.betGroupArray objectAtIndex:i];
+        NSIndexPath * indexPath = [NSIndexPath indexPathForRow:i inSection:0];
+        CSHomeTableViewCell * cell = (CSHomeTableViewCell *)[self.tableView cellForRowAtIndexPath:indexPath];
+        int count = [[CSIMReceiveManager shareInstance] getUnReadMessageNumberChatType:(CSChatTypeGroupChat) chatId:[NSString stringWithFormat:@"%d",model.code]];
+        cell.unReadNumber.text = [NSString stringWithFormat:@"%d",count];
+    }
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return 4;
@@ -47,7 +82,17 @@ NSString* Home_GetBgImageNameWithIndex(NSInteger index) {
 {
     CSHomeTableViewCell * cell = [CSHomeTableViewCell cellWithTableView:tableView];
     cell.bgImageView.image = [UIImage imageNamed:Home_GetBgImageNameWithIndex(indexPath.row)];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [super tableView:tableView didSelectRowAtIndexPath:indexPath];
+//    if (indexPath.row < self.betGroupArray.count) {
+//        CSHttpGroupResModel * model = [self.betGroupArray objectAtIndex:i];
+//        [[CSIMReceiveManager shareInstance] inChatWithChatType:(CSChatTypeGroupChat) chatId:[NSString stringWithFormat:@"%d",model.code]];
+//    }
 }
 
 @end

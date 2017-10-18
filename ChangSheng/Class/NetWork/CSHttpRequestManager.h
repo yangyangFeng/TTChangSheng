@@ -46,6 +46,8 @@ typedef enum : NSUInteger {
                          failure:(TTFailureBlock)failureBlock
                   uploadprogress:(TTUploadProgressBlock)progressBlock
                          showHUD:(BOOL)showHUD;
+
+
 + (void)upLoadFileRequestParamters:(NSDictionary*)params
                         fileData:(NSData*)fileData
                         fileType:(CS_UPLOAD_FILE)fileType
@@ -53,6 +55,7 @@ typedef enum : NSUInteger {
                          failure:(TTFailureBlock)failureBlock
                   uploadprogress:(TTUploadProgressBlock)progressBlock
                          showHUD:(BOOL)showHUD;
+
 #pragma mark - 1.获取验证码
 /**
  *  1.获取验证码
@@ -98,4 +101,58 @@ typedef enum : NSUInteger {
  *  8.加入群组
  */
 + (void)request_quitGroup_paramters:(NSDictionary *)params success:(TTSuccessBlock)success failure:(TTFailureBlock)failure showHUD:(BOOL)showHUD;
+#pragma mark -  9.上下分
+/**
+ *  9.上下分
+ */
++ (void)request_updownFen_paramters:(NSDictionary*)params
+                          fileData:(NSData*)fileData
+                          fileType:(CS_UPLOAD_FILE)fileType
+                           success:(TTSuccessBlock)successBlock
+                           failure:(TTFailureBlock)failureBlock
+                    uploadprogress:(TTUploadProgressBlock)progressBlock
+                           showHUD:(BOOL)showHUD;
+
+#pragma mark -  10.转分
+/**
+ *  10.转分
+ */
++ (void)request_zhuanFen_paramters:(NSDictionary *)params success:(TTSuccessBlock)success failure:(TTFailureBlock)failure showHUD:(BOOL)showHUD;
+
+#pragma mark -  11.分数操作记录
+/**
+ *  11.分数操作记录
+ */
++ (void)request_fenCaoZuoJiLu_paramters:(NSDictionary *)params success:(TTSuccessBlock)success failure:(TTFailureBlock)failure showHUD:(BOOL)showHUD;
+
+#pragma mark -  12.修改密码
+/**
+ *  12.修改密码
+ */
++ (void)request_changePW_paramters:(NSDictionary *)params success:(TTSuccessBlock)success failure:(TTFailureBlock)failure showHUD:(BOOL)showHUD;
+
+#pragma mark -  13.修改头像
+/**
+ *  13.修改头像
+ */
++ (void)request_changeHeaderImage_paramters:(NSDictionary*)params
+                                   fileData:(NSData*)fileData
+                                   fileType:(CS_UPLOAD_FILE)fileType
+                                    success:(TTSuccessBlock)successBlock
+                                    failure:(TTFailureBlock)failureBlock
+                             uploadprogress:(TTUploadProgressBlock)progressBlock
+                                    showHUD:(BOOL)showHUD;
+
+#pragma mark -  14.修改昵称
+/**
+ *  14.修改昵称
+ */
++ (void)request_changeNickName_paramters:(NSDictionary *)params success:(TTSuccessBlock)success failure:(TTFailureBlock)failure showHUD:(BOOL)showHUD;
+
+#pragma mark -  15 退出群聊
+/**
+ *  15.退出群聊
+ */
++ (void)request_outChatGroup_paramters:(NSDictionary *)params success:(TTSuccessBlock)success failure:(TTFailureBlock)failure showHUD:(BOOL)showHUD;
+
 @end

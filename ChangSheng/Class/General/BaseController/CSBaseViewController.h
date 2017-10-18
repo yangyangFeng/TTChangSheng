@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "TTNav_RootViewController.h"
 @interface CSBaseViewController : TTNav_RootViewController
 
 @end

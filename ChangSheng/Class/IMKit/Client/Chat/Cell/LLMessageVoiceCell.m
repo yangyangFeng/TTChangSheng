@@ -76,27 +76,29 @@
     self.durationLabel.text = [NSString stringWithFormat:@"%.0f''", round(messageModel.mediaDuration)];
     [self.durationLabel sizeToFit];
     
-    if (self.messageModel.isSelf) {
-        if ([messageModel checkNeedsUpdateUploadStatus]){
-            [self updateMessageUploadStatus];
-        }
-    }else {
-        if ([messageModel checkNeedsUpdateDownloadStatus]) {
-            [self updateMessageDownloadStatus];
-        }
-    }
     
-    if ([messageModel checkNeedsUpdateForReuse]) {
-        if (messageModel.needAnimateVoiceCell) {
-            messageModel.needAnimateVoiceCell = NO;
-            [self layoutSubviewsWithAnimation:YES];
-        }else {
-            [self layoutMessageContentViews:self.messageModel.isSelf];
-            [self layoutMessageStatusViews:self.messageModel.isSelf];
-        }
-    }
-    
-    [messageModel clearNeedsUpdateForReuse];
+    [super setMessageModel:messageModel];
+//    if (self.messageModel.isSelf) {
+//        if ([messageModel checkNeedsUpdateUploadStatus]){
+//            [self updateMessageUploadStatus];
+//        }
+//    }else {
+//        if ([messageModel checkNeedsUpdateDownloadStatus]) {
+//            [self updateMessageDownloadStatus];
+//        }
+//    }
+//    
+//    if ([messageModel checkNeedsUpdateForReuse]) {
+//        if (messageModel.needAnimateVoiceCell) {
+//            messageModel.needAnimateVoiceCell = NO;
+//            [self layoutSubviewsWithAnimation:YES];
+//        }else {
+//            [self layoutMessageContentViews:self.messageModel.isSelf];
+//            [self layoutMessageStatusViews:self.messageModel.isSelf];
+//        }
+//    }
+//    
+//    [messageModel clearNeedsUpdateForReuse];
 
 }
 
@@ -353,8 +355,10 @@ END:
 #pragma mark - 菜单
 
 - (NSArray<NSString *> *)menuItemNames {
-    return @[@"听筒播放", @"收藏", @"转文字", @"删除", @"更多..."];
+//    return @[@"播放", @"收藏", @"转文字", @"删除", @"更多..."];
+    return @[@"播放"];
 }
+
 
 - (NSArray<NSString *> *)menuItemActionNames {
     return @[@"playAction:", @"favoriteAction:", @"translateToWordsAction:",@"deleteAction:", @"moreAction:"];
@@ -368,6 +372,10 @@ END:
     
 }
 
+- (void)willDisplayCell
+{
+    [super willDisplayCell];
+}
 
 
 @end

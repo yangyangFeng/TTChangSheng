@@ -48,6 +48,7 @@ typedef enum{
     CSMessageBodyTypeImage,         /*! \~chinese 图片类型 \~english Image */
     CSMessageBodyTypeVoice,         /*! \~chinese 语音类型 \~english Voice */
     CSMessageBodyTypeLink,          /*! \~chinese 外部链接类型 \~english Video */
+    CSMessageBodyTypeGif,
     CSMessageBodyTypeVideo,         /*! \~chinese 视频类型 \~english Video */
     CSMessageBodyTypeLocation,      /*! \~chinese 位置类型 \~english Location */
     CSMessageBodyTypeFile,          /*! \~chinese 文件类型 \~english File */
@@ -73,14 +74,14 @@ typedef enum{
 typedef NS_ENUM(NSInteger, kCSMessageBodyType) {
     kCSMessageBodyTypeText = CSMessageBodyTypeText,
     kCSMessageBodyTypeImage = CSMessageBodyTypeImage,
-    kCSMessageBodyTypeVideo = CSMessageBodyTypeVideo,
-    kCSMessageBodyTypeLink = CSMessageBodyTypeLink,
     kCSMessageBodyTypeVoice = CSMessageBodyTypeVoice,
+    kCSMessageBodyTypeLink = CSMessageBodyTypeLink,
+    kCSMessageBodyTypeGif = CSMessageBodyTypeGif,
+    kCSMessageBodyTypeVideo = CSMessageBodyTypeVideo,
     kCSMessageBodyTypeEMLocation = CSMessageBodyTypeLocation,
     kCSMessageBodyTypeFile = CSMessageBodyTypeFile,
-    kCSMessageBodyTypeDateTime,
-    kCSMessageBodyTypeGif,
     kCSMessageBodyTypeLocation,
+    kCSMessageBodyTypeDateTime,
     kCSMessageBodyTypeRecording, //表示正在录音的Cell
     
     

@@ -66,6 +66,7 @@ BOOL LLMessageCell_isEditing = NO;
         
         self.avatarImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, AVATAR_WIDTH, AVATAR_HEIGHT)];
         self.avatarImage.contentMode = UIViewContentModeScaleAspectFill;
+        self.avatarImage.clipsToBounds = YES;
         [self.contentView addSubview:self.avatarImage];
         
         self.nikeName = [[UILabel alloc]initWithFrame:CGRectMake((self.avatarImage.x + self.avatarImage.width + BUBBLE_LEFT_BLANK), 0, 100, 25)];
@@ -113,9 +114,9 @@ BOOL LLMessageCell_isEditing = NO;
 }
 
 - (void)prepareForUse:(BOOL)isFromMe {
-    NSString *iconName = @"聊天自定义头像.png";
-    //isFromMe ? @"icon_avatar" : @"user";
-    self.avatarImage.image = [UIImage imageNamed:iconName];
+//    NSString *iconName = @"聊天自定义头像.png";
+//    //isFromMe ? @"icon_avatar" : @"user";
+//    self.avatarImage.image = [UIImage imageNamed:iconName];
 
     self.bubbleImage.image = isFromMe ? SenderTextNodeBkg : ReceiverTextNodeBkg;
     self.bubbleImage.highlightedImage = isFromMe ? SenderTextNodeBkgHL : ReceiverTextNodeBkgHL;
@@ -210,9 +211,22 @@ BOOL LLMessageCell_isEditing = NO;
         self.nikeName.hidden = NO;
         self.nikeName.text = messageModel.body.nickname;
     }
-    NSString *iconName = @"聊天自定义头像.png";
-    [self.avatarImage yy_setImageWithURL:[NSURL URLWithString:messageModel.body.avatar] placeholder:[UIImage imageNamed:iconName]];
     
+ 
+    NSString *iconName = @"聊天自定义头像.png";
+    
+//    self.avatarImage.image = [UIImage imageNamed:iconName];
+
+    WEAKSELF;
+    [self.avatarImage yy_setImageWithURL:[NSURL URLWithString:messageModel.body.avatar] placeholder:[UIImage imageNamed:iconName] options:YYWebImageOptionSetImageWithFadeAnimation completion:^(UIImage * _Nullable image, NSURL * _Nonnull url, YYWebImageFromType from, YYWebImageStage stage, NSError * _Nullable error) {
+        if (!error) {
+            weakSelf.avatarImage.image = image.roundImage;
+        }
+        else
+        {
+            weakSelf.avatarImage.image = [UIImage imageNamed:iconName];
+        }
+    }];
     if ([messageModel checkNeedsUpdateForReuse]) {
         [self layoutMessageContentViews:messageModel.isSelf];
         [self layoutMessageStatusViews:messageModel.isSelf];
