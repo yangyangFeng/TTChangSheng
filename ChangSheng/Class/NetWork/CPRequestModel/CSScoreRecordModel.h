@@ -8,14 +8,14 @@
 
 #import "CSHttpsResModel.h"
 
-@interface CSScoreRecordModel : CSHttpsResModel
+@interface CSScoreRecordModel : NSObject
 
 @property (nonatomic, strong)NSArray <CSScoreRecordModel *>* result;
 
 @property (nonatomic,copy) NSString *create_time;
 @property (nonatomic,copy) NSString *type_name;
 @property (nonatomic,copy) NSString *score;
-//@property (nonatomic,copy) NSString *code;
+@property (nonatomic,copy) NSString *code;
 @property (nonatomic,copy) NSString *status_name;
 
 @end

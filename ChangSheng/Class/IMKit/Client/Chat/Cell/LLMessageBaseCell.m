@@ -218,14 +218,7 @@ BOOL LLMessageCell_isEditing = NO;
 //    self.avatarImage.image = [UIImage imageNamed:iconName];
 
     WEAKSELF;
-    [self.avatarImage yy_setImageWithURL:[NSURL URLWithString:messageModel.body.avatar] placeholder:[UIImage imageNamed:iconName] options:YYWebImageOptionSetImageWithFadeAnimation completion:^(UIImage * _Nullable image, NSURL * _Nonnull url, YYWebImageFromType from, YYWebImageStage stage, NSError * _Nullable error) {
-        if (!error) {
-            weakSelf.avatarImage.image = image.roundImage;
-        }
-        else
-        {
-            weakSelf.avatarImage.image = [UIImage imageNamed:iconName];
-        }
+    [self.avatarImage yy_setImageWithURL:[NSURL URLWithString:messageModel.body.avatar] placeholder:[UIImage imageNamed:iconName] options:YYWebImageOptionShowNetworkActivity completion:^(UIImage * _Nullable image, NSURL * _Nonnull url, YYWebImageFromType from, YYWebImageStage stage, NSError * _Nullable error) {
     }];
     if ([messageModel checkNeedsUpdateForReuse]) {
         [self layoutMessageContentViews:messageModel.isSelf];

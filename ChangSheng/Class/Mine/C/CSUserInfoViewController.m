@@ -88,8 +88,8 @@
         self.userImageView.image = newimage;
     }
     
+    [MBProgressHUD tt_ShowInView:self.view WithTitle:@"正在处理..."];
     dispatch_async(dispatch_get_main_queue(), ^{
-        [MBProgressHUD tt_ShowInView:self.view WithTitle:@"正在处理..."];
         NSData * imageData = [self.userImageView.image tt_compressToDataLength:CS_IMAGE_DATA_SIZE];
 
         [MBProgressHUD tt_HideFromeView:self.view];

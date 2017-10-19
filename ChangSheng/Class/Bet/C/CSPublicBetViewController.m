@@ -66,7 +66,8 @@
 
 #import "CSPublicBetViewController.h"
 #import "CSPublicBetInputToolBarView.h"
-
+#import "StoryBoardController.h"
+#import "CSMsgHistoryRequestModel.h"
 @interface CSPublicBetViewController ()
 <UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate,
 LLMessageCellActionDelegate, LLChatImagePreviewDelegate,
@@ -198,6 +199,39 @@ CSPublicBetInputToolBarViewDelegate
     //记录进入该聊天室
     [[CSIMReceiveManager shareInstance] inChatWithChatType:(CSChatTypeGroupChat) chatId:self.conversationModel.chatId];
     
+    [self addRefreshTool];
+}
+
+- (void)addRefreshTool
+{
+    self.tableView.mj_header = [TTRefresh tt_headeRefresh:^{
+        CSMessageModel * msgData = [self.dataSource firstObject];
+        CSMsgHistoryRequestModel * param = [CSMsgHistoryRequestModel new];
+        param.chat_type = CSChatTypeGroupChat;//1为群聊
+        param.ID = self.conversationModel.chatId.intValue;
+        param.last_id = msgData.msgId;
+        [CSHttpRequestManager request_chatRecord_paramters:param.mj_keyValues success:^(id responseObject) {
+            CSMsgRecordModel * obj = [CSMsgRecordModel mj_objectWithKeyValues:responseObject];
+
+            NSMutableArray * messagesArray = [NSMutableArray array];
+            NSMutableArray * messagesRequestArray = [NSMutableArray array];
+            for (CSMsgRecordModel * msgData in obj.result.data) {
+                CSMessageModel * msgModel = [CSMessageModel conversionWithRecordModel:msgData chatType:param.chat_type chatId:[NSString stringWithFormat:@"%d",self.conversationModel.chatId]];
+
+                CSIMSendMessageRequestModel * sendMsgModel = [CSIMSendMessageRequestModel new];
+                sendMsgModel.body = msgModel;
+                [messagesArray addObject:msgModel];
+                [messagesRequestArray addObject:sendMsgModel];
+            }
+            [self.dataSource insertObjects:messagesArray atIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, messagesArray.count)]];
+            [self.conversationModel.allMessageModels insertObjects:messagesRequestArray atIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, messagesRequestArray.count)]];
+            
+            [self.tableView reloadData];
+            [self.tableView.mj_header endRefreshing];
+        } failure:^(NSError *error) {
+            [self.tableView.mj_header endRefreshing];
+        } showHUD:NO];
+    }];
 }
 
 - (void)createNavigationBarButtons
@@ -227,7 +261,8 @@ CSPublicBetInputToolBarViewDelegate
 
 - (void)tt_DefaultRightBtnClickAction
 {
-    
+    UIViewController * caiwuController = [StoryBoardController viewControllerID:@"CSCaiwuViewController" SBName:@"Mine"];
+    [self.navigationController pushViewController:caiwuController animated:YES];
 }
 
 - (void)viewDidAppear:(BOOL)animated {

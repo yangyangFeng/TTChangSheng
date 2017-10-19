@@ -133,9 +133,10 @@
         {
             CSHttpGroupResModel * model =self.betGroupArray[0];
             NSUserDefaults * user = [NSUserDefaults standardUserDefaults];
-            if (![user objectForKey:@"vip"]) { //如果未加入该群组
+            NSString * key = [NSString stringWithFormat:@"vip%@",[CSUserInfo shareInstance].info.code];
+            if (![user objectForKey:key]) { //如果未加入该群组
                 [CSHttpRequestManager request_joinGroup_paramters:@{@"group_id":@(model.id)} success:^(id responseObject) {
-                    [user setObject:@(1) forKey:@"vip"];
+                    [user setObject:@(1) forKey:key];
                     [self pushBetGroupControllerWithChatId:model.id index:0];
                 } failure:^(NSError *error) {
                     
@@ -152,11 +153,11 @@
             CSHttpGroupResModel * model =self.betGroupArray[1];
             
             
-            
+            NSString * key = [NSString stringWithFormat:@"public%@",[CSUserInfo shareInstance].info.code];
             NSUserDefaults * user = [NSUserDefaults standardUserDefaults];
-            if (![user objectForKey:@"public"]) { //如果未加入该群组
+            if (![user objectForKey:key]) { //如果未加入该群组
                 [CSHttpRequestManager request_joinGroup_paramters:@{@"group_id":@(model.id)} success:^(id responseObject) {
-                    [user setObject:@(1) forKey:@"public"];
+                    [user setObject:@(1) forKey:key];
                     [self pushBetGroupControllerWithChatId:model.id index:1];
                 } failure:^(NSError *error) {
                     

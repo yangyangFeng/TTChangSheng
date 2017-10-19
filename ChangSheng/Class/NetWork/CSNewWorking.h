@@ -25,7 +25,7 @@
 static NSString* baseUrl = @"http://mapi.qushuawang.com/api9/Home";
 #else
 //线下测试地址
-static NSString* baseUrl = @"http://47.95.238.249:8501";
+static NSString* baseUrl = @"http://api.jcjh.cn";
 #endif
 /**
  *  与后台约定,正确成功状态值

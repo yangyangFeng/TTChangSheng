@@ -7,18 +7,24 @@
 //
 
 #import "CSMineViewController.h"
+#import "CSOperationListViewController.h"
+
 #import "JSWave.h"
+#import "CSMineUserInfoView.h"
 #import "CSMineTableViewCell.h"
 #import "CSUserInfoViewController.h"
 #import "StoryBoardController.h"
-#import "CSBaseViewController.h"
 #import "CSCaiwuViewController.h"
+#import "CSZhuanFenViewController.h"
+#import "CSChangePWViewController.h"
 @interface CSMineViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) UITableView *tableView;
 
+@property(nonatomic,strong)CSMineUserInfoView * userInfoView;
+
 @property (nonatomic, strong) JSWave *headerView;
 
-@property (nonatomic, strong) UIImageView *iconImageView;
+//@property (nonatomic, strong) UIImageView *iconImageView;
 
 @property(nonatomic,strong)NSArray * items;
 @end
@@ -44,26 +50,46 @@
         make.top.mas_equalTo(-20);
     }];
    
-    
+   
     [self.tt_navigationBar.leftBtn setImage:[UIImage imageNamed:@"goBackH"] forState:(UIControlStateNormal)];
     [self.tt_navigationBar.leftBtn setImage:[UIImage imageNamed:@"goBackN"] forState:(UIControlStateHighlighted)];
     
     UITapGestureRecognizer * tap= [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(headDidAction)];
     [self.headerView addGestureRecognizer:tap];
+    
+//    [self.iconImageView yy_setImageWithURL:[NSURL URLWithString:[CSUserInfo shareInstance].info.avatar] placeholder:[UIImage imageNamed:@"个人资料头像.png"]];
+    
+    self.myNavigationBar.rightBtn.hidden = NO;
+    [self.myNavigationBar.rightBtn setImage:[UIImage imageNamed:@"个人中心设置"] forState:(UIControlStateNormal)];
+    
+    self.userInfoView = [CSMineUserInfoView new];
+    [self.headerView addSubview:self.userInfoView];
+    
+    [self.userInfoView mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.top.mas_equalTo(45);
+        make.height.mas_equalTo(140);
+        make.left.right.mas_equalTo(0);
+        make.bottom.mas_equalTo(-20);
+    }];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-     [self.navigationController performSelector:@selector(whiteStatusBar)];
+    [self.userInfoView refreshUserInfo];
+    [self.navigationController performSelector:@selector(whiteStatusBar)];
+}
+
+-(void)tt_DefaultRightBtnClickAction
+{
+    CSUserInfoSuperViewController * supC = [CSUserInfoSuperViewController new];
+    [self.navigationController pushViewController:supC animated:YES];
 }
 
 - (void)headDidAction
 {
-//    UIViewController * userInfoC = [StoryBoardController storyBoardName:@"Mine" ViewControllerIdentifiter:@"CSUserInfoViewController"];
     CSUserInfoSuperViewController * supC = [CSUserInfoSuperViewController new];
-//    [supC addChildTableViewController:userInfoC];
-//    supC.title = @"个人资料";
     [self.navigationController pushViewController:supC animated:YES];
 }
 
@@ -81,9 +107,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     CSMineTableViewCell * cell = [CSMineTableViewCell cellWithTableView:tableView];
-    UIView * view = [UIView new];
-    view.backgroundColor = self.headerView.backgroundColor;
-    cell.selectedBackgroundView = view;
+    cell.selectedBackgroundView = [TTCellSelectionView new];
     cell.cs_icon.image = [UIImage imageNamed:self.items[indexPath.row][@"icon"]];
     cell.cs_title.text = self.items[indexPath.row][@"title"];
     return cell;
@@ -95,18 +119,27 @@
     switch (indexPath.row) {
         case 0:
         {
-            CSCaiwuViewController *caiwuC = [CSCaiwuViewController new];
-            [self.navigationController pushViewController:caiwuC animated:YES];
+            UIViewController * caiwuController = [StoryBoardController viewControllerID:@"CSCaiwuViewController" SBName:@"Mine"];
+            [self.navigationController pushViewController:caiwuController animated:YES];
         }
             break;
         case 1:
-            {}
+            {
+                CSZhuanFenViewController * zhuanfenC = [CSZhuanFenViewController new];
+                [self.navigationController pushViewController:zhuanfenC animated:YES];
+            }
             break;
         case 2:
-            {}
+            {
+                CSOperationListViewController * operationListC = [CSOperationListViewController new];
+                [self.navigationController pushViewController:operationListC animated:YES];
+            }
             break;
         case 3:
-            {}
+            {
+                CSChangePWViewController * changePWC = [CSChangePWViewController new];
+                [self.navigationController pushViewController:changePWC animated:YES];
+            }
             break;
             
         default:
@@ -128,28 +161,29 @@
     return _tableView;
 }
 
-- (UIImageView *)iconImageView{
-    
-    if (!_iconImageView) {
-        _iconImageView = [[UIImageView alloc] initWithFrame:CGRectMake(self.headerView.frame.size.width/2-30, 0, 60, 60)];
-        _iconImageView.layer.borderColor = [UIColor whiteColor].CGColor;
-        _iconImageView.layer.borderWidth = 2;
-        _iconImageView.layer.cornerRadius = 20;
-    }
-    return _iconImageView;
-}
+//- (UIImageView *)iconImageView{
+//
+//    if (!_iconImageView) {
+//        _iconImageView = [[UIImageView alloc] initWithFrame:CGRectMake(self.headerView.frame.size.width/2-30, 0, 60, 60)];
+//        _iconImageView.layer.borderColor = [UIColor whiteColor].CGColor;
+//        _iconImageView.layer.borderWidth = 2;
+//        _iconImageView.layer.cornerRadius = 20;
+//        _iconImageView.layer.masksToBounds = YES;
+//    }
+//    return _iconImageView;
+//}
 
 - (JSWave *)headerView{
     
     if (!_headerView) {
         _headerView = [[JSWave alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 200)];
         _headerView.backgroundColor = XNColor(41, 177, 80, 1);
-        [_headerView addSubview:self.iconImageView];
+//        [_headerView addSubview:self.iconImageView];
         __weak typeof(self)weakSelf = self;
         _headerView.waveBlock = ^(CGFloat currentY){
-            CGRect iconFrame = [weakSelf.iconImageView frame];
-            iconFrame.origin.y = CGRectGetHeight(weakSelf.headerView.frame)-CGRectGetHeight(weakSelf.iconImageView.frame)+currentY-weakSelf.headerView.waveHeight - 20;
-            weakSelf.iconImageView.frame  =iconFrame;
+//            CGRect iconFrame = [weakSelf.iconImageView frame];
+//            iconFrame.origin.y = CGRectGetHeight(weakSelf.headerView.frame)-CGRectGetHeight(weakSelf.iconImageView.frame)+currentY-weakSelf.headerView.waveHeight - 20;
+//            weakSelf.iconImageView.frame  =iconFrame;
         };
         [_headerView startWaveAnimation];
     }

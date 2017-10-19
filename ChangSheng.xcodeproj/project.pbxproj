@@ -336,6 +336,17 @@
 		747D5C251F7DF73C00F40A41 /* TTSingleChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 747D5C241F7DF73C00F40A41 /* TTSingleChatViewController.m */; };
 		747D5C281F7DF75000F40A41 /* TTChatInputToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 747D5C271F7DF75000F40A41 /* TTChatInputToolBar.m */; };
 		747D5C2A1F7F6A2A00F40A41 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 747D5C291F7F6A2A00F40A41 /* Assets.xcassets */; };
+		749A539E1F9868420024DC1B /* CSZhuanFenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 749A539D1F9868420024DC1B /* CSZhuanFenViewController.m */; };
+		749A53A11F9868520024DC1B /* CSChangePWViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 749A53A01F9868520024DC1B /* CSChangePWViewController.m */; };
+		749A53A51F98736A0024DC1B /* CSOperationRecordCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 749A53A31F98736A0024DC1B /* CSOperationRecordCell.m */; };
+		749A53A61F98736A0024DC1B /* CSOperationRecordCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 749A53A41F98736A0024DC1B /* CSOperationRecordCell.xib */; };
+		749A53A91F9876CB0024DC1B /* TTLineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 749A53A81F9876CB0024DC1B /* TTLineView.m */; };
+		749A53AE1F9877B20024DC1B /* CSOperationRecordsHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 749A53AD1F9877B20024DC1B /* CSOperationRecordsHeaderView.m */; };
+		749A53B01F9879070024DC1B /* CSOperationRecordsHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 749A53AF1F9879070024DC1B /* CSOperationRecordsHeaderView.xib */; };
+		749A53B31F987B970024DC1B /* CSOperationListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 749A53B21F987B970024DC1B /* CSOperationListViewController.m */; };
+		749A53B61F98821F0024DC1B /* TTCellSelectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 749A53B51F98821F0024DC1B /* TTCellSelectionView.m */; };
+		749A53B91F988D980024DC1B /* TTRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 749A53B81F988D980024DC1B /* TTRefresh.m */; };
+		749A53BC1F98BF3E0024DC1B /* CSMineUserInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 749A53BB1F98BF3E0024DC1B /* CSMineUserInfoView.m */; };
 		74C852CC1F8B4F8200944C50 /* CSBetInputView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 74C852CB1F8B4F8200944C50 /* CSBetInputView.xib */; };
 		74C852CF1F8B520B00944C50 /* CSCustomBetButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 74C852CE1F8B520B00944C50 /* CSCustomBetButton.m */; };
 		74C852D11F8B579C00944C50 /* CSNumberKeyboardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 74C852D01F8B579C00944C50 /* CSNumberKeyboardView.xib */; };
@@ -1029,6 +1040,26 @@
 		747D5C261F7DF75000F40A41 /* TTChatInputToolBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTChatInputToolBar.h; sourceTree = "<group>"; };
 		747D5C271F7DF75000F40A41 /* TTChatInputToolBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTChatInputToolBar.m; sourceTree = "<group>"; };
 		747D5C291F7F6A2A00F40A41 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		749A539C1F9868420024DC1B /* CSZhuanFenViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSZhuanFenViewController.h; sourceTree = "<group>"; };
+		749A539D1F9868420024DC1B /* CSZhuanFenViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSZhuanFenViewController.m; sourceTree = "<group>"; };
+		749A539F1F9868520024DC1B /* CSChangePWViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSChangePWViewController.h; sourceTree = "<group>"; };
+		749A53A01F9868520024DC1B /* CSChangePWViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSChangePWViewController.m; sourceTree = "<group>"; };
+		749A53A21F98736A0024DC1B /* CSOperationRecordCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSOperationRecordCell.h; sourceTree = "<group>"; };
+		749A53A31F98736A0024DC1B /* CSOperationRecordCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSOperationRecordCell.m; sourceTree = "<group>"; };
+		749A53A41F98736A0024DC1B /* CSOperationRecordCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CSOperationRecordCell.xib; sourceTree = "<group>"; };
+		749A53A71F9876CB0024DC1B /* TTLineView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTLineView.h; sourceTree = "<group>"; };
+		749A53A81F9876CB0024DC1B /* TTLineView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TTLineView.m; sourceTree = "<group>"; };
+		749A53AC1F9877B20024DC1B /* CSOperationRecordsHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSOperationRecordsHeaderView.h; sourceTree = "<group>"; };
+		749A53AD1F9877B20024DC1B /* CSOperationRecordsHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSOperationRecordsHeaderView.m; sourceTree = "<group>"; };
+		749A53AF1F9879070024DC1B /* CSOperationRecordsHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CSOperationRecordsHeaderView.xib; sourceTree = "<group>"; };
+		749A53B11F987B970024DC1B /* CSOperationListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSOperationListViewController.h; sourceTree = "<group>"; };
+		749A53B21F987B970024DC1B /* CSOperationListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSOperationListViewController.m; sourceTree = "<group>"; };
+		749A53B41F98821F0024DC1B /* TTCellSelectionView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTCellSelectionView.h; sourceTree = "<group>"; };
+		749A53B51F98821F0024DC1B /* TTCellSelectionView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TTCellSelectionView.m; sourceTree = "<group>"; };
+		749A53B71F988D980024DC1B /* TTRefresh.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTRefresh.h; sourceTree = "<group>"; };
+		749A53B81F988D980024DC1B /* TTRefresh.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TTRefresh.m; sourceTree = "<group>"; };
+		749A53BA1F98BF3E0024DC1B /* CSMineUserInfoView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSMineUserInfoView.h; sourceTree = "<group>"; };
+		749A53BB1F98BF3E0024DC1B /* CSMineUserInfoView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSMineUserInfoView.m; sourceTree = "<group>"; };
 		74C852CB1F8B4F8200944C50 /* CSBetInputView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CSBetInputView.xib; sourceTree = "<group>"; };
 		74C852CD1F8B520B00944C50 /* CSCustomBetButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSCustomBetButton.h; sourceTree = "<group>"; };
 		74C852CE1F8B520B00944C50 /* CSCustomBetButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSCustomBetButton.m; sourceTree = "<group>"; };
@@ -2120,7 +2151,6 @@
 			children = (
 				18C81F591F7656A00012150B /* C */,
 				18C81F5A1F7656A00012150B /* M */,
-				18C81F5B1F7656A00012150B /* Tool */,
 				18C81F5C1F7656A00012150B /* V */,
 			);
 			path = Home;
@@ -2146,13 +2176,6 @@
 				181343DC1F79609900CD1312 /* CSHomeTableViewHandler.m */,
 			);
 			path = M;
-			sourceTree = "<group>";
-		};
-		18C81F5B1F7656A00012150B /* Tool */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Tool;
 			sourceTree = "<group>";
 		};
 		18C81F5C1F7656A00012150B /* V */ = {
@@ -2183,7 +2206,6 @@
 			children = (
 				18C81F5F1F7656A00012150B /* C */,
 				18C81F601F7656A00012150B /* M */,
-				18C81F611F7656A00012150B /* Tool */,
 				18C81F621F7656A00012150B /* V */,
 			);
 			path = Mine;
@@ -2200,6 +2222,12 @@
 				185787331F97991A00BAD542 /* CSUserInfoViewController.m */,
 				185787351F979D4C00BAD542 /* CSUserNameInputViewController.h */,
 				185787361F979D4C00BAD542 /* CSUserNameInputViewController.m */,
+				749A539C1F9868420024DC1B /* CSZhuanFenViewController.h */,
+				749A539D1F9868420024DC1B /* CSZhuanFenViewController.m */,
+				749A539F1F9868520024DC1B /* CSChangePWViewController.h */,
+				749A53A01F9868520024DC1B /* CSChangePWViewController.m */,
+				749A53B11F987B970024DC1B /* CSOperationListViewController.h */,
+				749A53B21F987B970024DC1B /* CSOperationListViewController.m */,
 				185787171F94BC2400BAD542 /* Mine.storyboard */,
 			);
 			path = C;
@@ -2214,13 +2242,6 @@
 			path = M;
 			sourceTree = "<group>";
 		};
-		18C81F611F7656A00012150B /* Tool */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Tool;
-			sourceTree = "<group>";
-		};
 		18C81F621F7656A00012150B /* V */ = {
 			isa = PBXGroup;
 			children = (
@@ -2231,6 +2252,18 @@
 				1857871A1F94D4C500BAD542 /* CSCaiwuTableViewInfoCell.m */,
 				1857871C1F94D4EB00BAD542 /* CSCaiwuTableViewImageCell.h */,
 				1857871D1F94D4EB00BAD542 /* CSCaiwuTableViewImageCell.m */,
+				749A53A21F98736A0024DC1B /* CSOperationRecordCell.h */,
+				749A53A31F98736A0024DC1B /* CSOperationRecordCell.m */,
+				749A53A41F98736A0024DC1B /* CSOperationRecordCell.xib */,
+				749A53A71F9876CB0024DC1B /* TTLineView.h */,
+				749A53A81F9876CB0024DC1B /* TTLineView.m */,
+				749A53AC1F9877B20024DC1B /* CSOperationRecordsHeaderView.h */,
+				749A53AD1F9877B20024DC1B /* CSOperationRecordsHeaderView.m */,
+				749A53AF1F9879070024DC1B /* CSOperationRecordsHeaderView.xib */,
+				749A53B41F98821F0024DC1B /* TTCellSelectionView.h */,
+				749A53B51F98821F0024DC1B /* TTCellSelectionView.m */,
+				749A53BA1F98BF3E0024DC1B /* CSMineUserInfoView.h */,
+				749A53BB1F98BF3E0024DC1B /* CSMineUserInfoView.m */,
 			);
 			path = V;
 			sourceTree = "<group>";
@@ -2271,7 +2304,6 @@
 				18C81F881F76585F0012150B /* HookObject.m */,
 				18C81F891F76585F0012150B /* ILBarButtonItem.h */,
 				18C81F8A1F76585F0012150B /* ILBarButtonItem.m */,
-				18C81F8B1F76585F0012150B /* MBProgressHUD+BWMExtension */,
 				18C81F8C1F76585F0012150B /* MBProgressHUD+TTHUD.h */,
 				18C81F8D1F76585F0012150B /* MBProgressHUD+TTHUD.m */,
 				18C81F8E1F76585F0012150B /* MJRefreshGifHeader+TTGifHeader.h */,
@@ -2303,6 +2335,8 @@
 				18C81FE71F76585F0012150B /* UIView+Animation.m */,
 				18C81FE81F76585F0012150B /* UIView+Line.h */,
 				18C81FE91F76585F0012150B /* UIView+Line.m */,
+				749A53B71F988D980024DC1B /* TTRefresh.h */,
+				749A53B81F988D980024DC1B /* TTRefresh.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -2352,13 +2386,6 @@
 				18C81F7B1F7657900012150B /* TTNavigationController.m */,
 			);
 			path = TTNavController;
-			sourceTree = "<group>";
-		};
-		18C81F8B1F76585F0012150B /* MBProgressHUD+BWMExtension */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "MBProgressHUD+BWMExtension";
 			sourceTree = "<group>";
 		};
 		18C81F981F76585F0012150B /* TTcategory */ = {
@@ -2671,7 +2698,7 @@
 				TargetAttributes = {
 					18C81F3C1F74B8E00012150B = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = A6L56BC597;
+						DevelopmentTeam = BYXKWL5C3R;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -2711,6 +2738,7 @@
 				1804AC8F1F7BDC6100508C1C /* LLVideoPlaybackController.xib in Resources */,
 				1804ACEA1F7BDC6100508C1C /* FriendsSendsPicturesSelectBigYIcon@2x.png in Resources */,
 				181C060F1F92139900F4A15E /* CSBetInputToolBarView.xib in Resources */,
+				749A53A61F98736A0024DC1B /* CSOperationRecordCell.xib in Resources */,
 				185787181F94BC2400BAD542 /* Mine.storyboard in Resources */,
 				1804ACE01F7BDC6100508C1C /* CellBlueSelected@2x.png in Resources */,
 				1804AD251F7BDC6100508C1C /* Emotion.bundle in Resources */,
@@ -2724,6 +2752,7 @@
 				1804ACAD1F7BDC6100508C1C /* LLContactSearchViews.xib in Resources */,
 				1804ACC01F7BDC6100508C1C /* LLMessageSearchResultCell.xib in Resources */,
 				1804ACE41F7BDC6100508C1C /* FriendsSendsPicturesNumberIcon@2x.png in Resources */,
+				749A53B01F9879070024DC1B /* CSOperationRecordsHeaderView.xib in Resources */,
 				1804ACE61F7BDC6100508C1C /* FriendsSendsPicturesQuitBigIcon@2x.png in Resources */,
 				74C852E61F8B7DCB00944C50 /* CSMineTableViewCell.xib in Resources */,
 				1804ACDF1F7BDC6100508C1C /* CellBlueSelected.png in Resources */,
@@ -2895,6 +2924,7 @@
 				18C81F7D1F7657900012150B /* GPBaseNavifationController.m in Sources */,
 				1804ACB51F7BDC6100508C1C /* LLMeViewController.m in Sources */,
 				1804AC941F7BDC6100508C1C /* LLEmotionInputView.m in Sources */,
+				749A53AE1F9877B20024DC1B /* CSOperationRecordsHeaderView.m in Sources */,
 				1804AD041F7BDC6100508C1C /* LLLeftAlignedCollectionViewFlowLayout.m in Sources */,
 				1804ACC21F7BDC6100508C1C /* LLSNSSearchController.m in Sources */,
 				185787311F9796E200BAD542 /* CSChangeAvatarModel.m in Sources */,
@@ -2915,6 +2945,7 @@
 				1804ACDE1F7BDC6100508C1C /* LLAssetsGroupModel.m in Sources */,
 				1804AD371F7BDC6100508C1C /* LLContactManager.m in Sources */,
 				18C81F7C1F7657900012150B /* GPBaseController.m in Sources */,
+				749A539E1F9868420024DC1B /* CSZhuanFenViewController.m in Sources */,
 				1804AC811F7BDC6100508C1C /* LLMessageTextCell.m in Sources */,
 				1804AC861F7BDC6100508C1C /* LLImageAnimationView.m in Sources */,
 				1804AC7D1F7BDC6100508C1C /* LLMessageGifCell.m in Sources */,
@@ -2979,6 +3010,7 @@
 				1804ACC61F7BDC6100508C1C /* LLMessageCellManager.m in Sources */,
 				1804ACDB1F7BDC6100508C1C /* LLAssetManager.m in Sources */,
 				185787251F96FA0600BAD542 /* TTSubscriptLabel.m in Sources */,
+				749A53A51F98736A0024DC1B /* CSOperationRecordCell.m in Sources */,
 				1804ACA51F7BDC6100508C1C /* LLShareCollectionViewCell.m in Sources */,
 				184B5D201F794C0F007A1C22 /* NSArray+Log.m in Sources */,
 				1804ACBB1F7BDC6100508C1C /* LLArticleSearchController.m in Sources */,
@@ -3035,10 +3067,12 @@
 				181C060A1F9212AB00F4A15E /* CSPublicBetTableViewHandler.m in Sources */,
 				1804AD0E1F7BDC6100508C1C /* NSString+encrypto.m in Sources */,
 				18B6C60F1F8BBF16007B1669 /* CSUploadFileParam.m in Sources */,
+				749A53BC1F98BF3E0024DC1B /* CSMineUserInfoView.m in Sources */,
 				1804ACCB1F7BDC6100508C1C /* LLEmotionModelManager.m in Sources */,
 				1804AC871F7BDC6100508C1C /* LLImageBottomBar.m in Sources */,
 				1804AD321F7BDC6100508C1C /* LLMessageAttachmentDownloader.m in Sources */,
 				184B5D111F77DA7A007A1C22 /* CSUserInfoModel.m in Sources */,
+				749A53A91F9876CB0024DC1B /* TTLineView.m in Sources */,
 				1804ACAE1F7BDC6100508C1C /* LLContactWeChatIdSearchController.m in Sources */,
 				18B6C60C1F8A550A007B1669 /* Mp3Recorder.m in Sources */,
 				18C81FEA1F76585F0012150B /* HookObject.m in Sources */,
@@ -3081,6 +3115,7 @@
 				1804ACA11F7BDC6100508C1C /* LLChatMoreBottomBar.m in Sources */,
 				184B5D211F794C0F007A1C22 /* NSDictionary+Log.m in Sources */,
 				18C820121F76585F0012150B /* UIScrollView+TTNoDataVIew.m in Sources */,
+				749A53B31F987B970024DC1B /* CSOperationListViewController.m in Sources */,
 				1813468A1F7AA93200CD1312 /* MLTextAttachment.m in Sources */,
 				18C81F421F74B8E00012150B /* main.m in Sources */,
 				18C820011F76585F0012150B /* UIButton+Extension.m in Sources */,
@@ -3100,9 +3135,12 @@
 				1804ACF51F7BDC6100508C1C /* LLAssetVideoCell.m in Sources */,
 				1829A0421F8A4A2D00EAA1AB /* NSDate+LCCKExtension.m in Sources */,
 				18C81FF51F76585F0012150B /* CALayer+Transition.m in Sources */,
+				749A53B61F98821F0024DC1B /* TTCellSelectionView.m in Sources */,
 				1804AC901F7BDC6100508C1C /* LLChatInputView.m in Sources */,
 				1804ACC91F7BDC6100508C1C /* LLConfig.m in Sources */,
+				749A53B91F988D980024DC1B /* TTRefresh.m in Sources */,
 				18C820131F76585F0012150B /* UIStoryboard+VireController.m in Sources */,
+				749A53A11F9868520024DC1B /* CSChangePWViewController.m in Sources */,
 				1804ACFA1F7BDC6100508C1C /* LLAlbumListController.m in Sources */,
 				1804AC991F7BDC6100508C1C /* LLLocationSearchResultController.m in Sources */,
 				74C853121F8F763200944C50 /* CSMsgRecordModel.m in Sources */,
@@ -3233,7 +3271,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = A6L56BC597;
+				DEVELOPMENT_TEAM = BYXKWL5C3R;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3265,7 +3303,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = A6L56BC597;
+				DEVELOPMENT_TEAM = BYXKWL5C3R;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

@@ -9,6 +9,8 @@
 #import "CSHttpsResModel.h"
 
 @interface CSTransferScoreModel : CSHttpsResModel
+@property(nonatomic,copy)NSString * msg;
+@property(nonatomic,strong)CSTransferScoreModel * result;
 @property (nonatomic,copy) NSString *score;
 @property (nonatomic,copy) NSString *to_code;
 @property (nonatomic,copy) NSString *password;

@@ -60,6 +60,7 @@
 #import "CSIMSendMessageManager.h"
 #import "CSIMSendMessageRequestModel.h"
 #import "TTNavigationController.h"
+#import "CSMsgHistoryRequestModel.h"
 @interface LLChatViewController ()
 <UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate,
 LLMessageCellActionDelegate, LLChatImagePreviewDelegate,
@@ -167,6 +168,40 @@ CSIMReceiveManagerDelegate
     [self.view layoutIfNeeded];
     
     [self loadMessageData];
+    
+    [self addRefreshTool];
+}
+
+- (void)addRefreshTool
+{
+    self.tableView.mj_header = [TTRefresh tt_headeRefresh:^{
+        CSMessageModel * msgData = [self.dataSource firstObject];
+        CSMsgHistoryRequestModel * param = [CSMsgHistoryRequestModel new];
+        param.chat_type = CSChatTypeChat;//1为群聊
+        param.ID = self.conversationModel.chatId.intValue;
+        param.last_id = msgData.msgId;
+        [CSHttpRequestManager request_chatRecord_paramters:param.mj_keyValues success:^(id responseObject) {
+            CSMsgRecordModel * obj = [CSMsgRecordModel mj_objectWithKeyValues:responseObject];
+            
+            NSMutableArray * messagesArray = [NSMutableArray array];
+            NSMutableArray * messagesRequestArray = [NSMutableArray array];
+            for (CSMsgRecordModel * msgData in obj.result.data) {
+                CSMessageModel * msgModel = [CSMessageModel conversionWithRecordModel:msgData chatType:param.chat_type chatId:[NSString stringWithFormat:@"%d",self.conversationModel.chatId]];
+                
+                CSIMSendMessageRequestModel * sendMsgModel = [CSIMSendMessageRequestModel new];
+                sendMsgModel.body = msgModel;
+                [messagesArray addObject:msgModel];
+                [messagesRequestArray addObject:sendMsgModel];
+            }
+            [self.dataSource insertObjects:messagesArray atIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, messagesArray.count)]];
+            [self.conversationModel.allMessageModels insertObjects:messagesRequestArray atIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, messagesRequestArray.count)]];
+            
+            [self.tableView reloadData];
+            [self.tableView.mj_header endRefreshing];
+        } failure:^(NSError *error) {
+            [self.tableView.mj_header endRefreshing];
+        } showHUD:NO];
+    }];
 }
 
 - (void)loadMessageData
@@ -919,7 +954,7 @@ CSIMReceiveManagerDelegate
 }
 
 - (void)scrollToBottom:(BOOL)animated {
-    DLog(@"未实现 新消息滚动");
+    
     if (self.dataSource.count == 0)
         return;
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.dataSource.count - 1 inSection:0];
@@ -981,7 +1016,7 @@ CSIMReceiveManagerDelegate
 
 - (void)textViewDidChange:(UITextView *)textView {
 //    self.conversationModel.draft = textView.text;
-    DLog(@"textView-->%@",textView.text);
+    
 }
 
 #pragma mark - 处理Cell动作
@@ -1426,12 +1461,12 @@ CSIMReceiveManagerDelegate
              
  
          }
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [picker.presentingViewController dismissViewControllerAnimated:YES completion:^{
-                [LLUtils hideHUD:HUD animated:YES];
-            }];
-        });
+        [picker.presentingViewController dismissViewControllerAnimated:YES completion:^{
+            [LLUtils hideHUD:HUD animated:YES];
+        }];
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//
+//        });
         
     });
 
@@ -1483,36 +1518,38 @@ CSIMReceiveManagerDelegate
                          }];
 
     }else{
-    
-        UIImage *orgImage = info[UIImagePickerControllerOriginalImage];
-        NSData * imageData = [orgImage tt_compressToDataLength:450*1000];
-
-        
-        
-        CSIMSendMessageRequestModel * messageRequest = [CSIMSendMessageRequestModel new];
-        CSMessageModel *messageModel = [self createImageMessageModel:imageData imageSize:orgImage.size uploadSuccess:^{
-            //上传成功 发送消息
-            DLog(@"图片上传成功");
-            [[CSIMSendMessageManager shareInstance] sendMessage:messageRequest];
-        }];
-        messageRequest.body = messageModel;
-        [self addModelToDataSourceAndScrollToBottom:messageRequest animated:NO];
-        
-        [messageRequest.msgStatus when:^(id obj) {
-            dispatch_async(dispatch_get_main_queue(), ^{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [MBProgressHUD tt_Show];
+            UIImage *orgImage = info[UIImagePickerControllerOriginalImage];
+            NSData * imageData = [orgImage tt_compressToDataLength:450*1000];
+            
+            
+            
+            CSIMSendMessageRequestModel * messageRequest = [CSIMSendMessageRequestModel new];
+            CSMessageModel *messageModel = [self createImageMessageModel:imageData imageSize:orgImage.size uploadSuccess:^{
+                //上传成功 发送消息
+                DLog(@"图片上传成功");
+                [MBProgressHUD tt_Hide];
+                [[CSIMSendMessageManager shareInstance] sendMessage:messageRequest];
+            }];
+            messageRequest.body = messageModel;
+            [self addModelToDataSourceAndScrollToBottom:messageRequest animated:NO];
+            
+            [messageRequest.msgStatus when:^(id obj) {
+                
                 DLog(@"图片发送成功");
                 [messageModel internal_setMessageStatus:(kCSMessageStatusSuccessed)];
                 LLMessageBaseCell *cell = [self visibleCellForMessageModel:messageModel];
                 if (cell) {
                     [cell updateMessageUploadStatus];
                 }
-            });
-        } failed:^(NSError *error) {
-            [self failMessageRefreshSendStatusWithModel:messageModel];
-        }];
-        
-        
-        
+                
+            } failed:^(NSError *error) {
+                [self failMessageRefreshSendStatusWithModel:messageModel];
+            }];
+            
+            
+        });
         
     }
     
