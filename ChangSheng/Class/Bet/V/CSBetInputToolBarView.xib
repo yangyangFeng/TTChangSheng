@@ -40,7 +40,7 @@
                 <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xos-xd-7EN">
                     <rect key="frame" x="60" y="7.5" width="315" height="35"/>
                     <subviews>
-                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="请输入" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="P85-4z-Sd1">
+                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="P85-4z-Sd1">
                             <rect key="frame" x="0.0" y="0.0" width="246" height="35"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>

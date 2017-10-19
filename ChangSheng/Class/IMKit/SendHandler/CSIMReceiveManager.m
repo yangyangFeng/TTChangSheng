@@ -57,15 +57,18 @@ static CSIMReceiveManager * _manager = nil;
 - (void)receiveMessage:(CSIMSendMessageRequestModel *)message
 {
     CSIMSendMessageRequestModel * sendMsg = [[CSIMMessageQueueManager shareInstance] checkMessageContains:message];
-    switch (message.body.action) {
-        // 1、普通消息 2、消息回执 3、路单图片 4、连接成功回执 5、用户上线 6 、用户下线
+    //检查参数
+    [message.result cs_checkParams];
+    switch (message.result.action) {
+        // 1、普通消息 2、消息回执 3、路单图片 4、连接成功回执 5、用户上线 6 、用户下线  7、下注台面信息（前台用户不需要） 8、撤销下注回复  9、用户剩余分通知  99、后台回复前端心跳
         case 1://
         {
             DLog(@"新消息-------->%@",message.result.body.content);
+            [message.result cs_checkParams];
             //计算数据高度
-            [message.result processModelForCell];
-            message.result.msgType = message.result.body.msgType;
-            [message.result syncMessageBodyType:CS_changeMessageType(message.result.body.msgType)];
+//            [message.result processModelForCell];
+//            message.result.msgType = message.result.body.msgType;
+//            [message.result syncMessageBodyType:CS_changeMessageType(message.result.body.msgType)];
             
             message.result.timestamp = message.result.body.timestamp;
             
@@ -107,11 +110,12 @@ static CSIMReceiveManager * _manager = nil;
             break;
         case 3:
         {
+            [message.result cs_checkParams];
             DLog(@"新消息-------->%@",message.result.body.content);
             //计算数据高度
-            [message.result processModelForCell];
-            message.result.msgType = message.result.body.msgType;
-            [message.result syncMessageBodyType:CS_changeMessageType(message.result.body.msgType)];
+//            [message.result processModelForCell];
+//            message.result.msgType = message.result.body.msgType;
+//            [message.result syncMessageBodyType:CS_changeMessageType(message.result.body.msgType)];
             
             message.result.timestamp = message.result.body.timestamp;
             
@@ -125,11 +129,14 @@ static CSIMReceiveManager * _manager = nil;
                 }
             }
             
+            
+       
         }
             break;
         case 4:
         {
             CS_HUD(@"socket已连接");
+            [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICE_KEY_SOCKET_OPEN object:nil];
         }
             break;
         case 5:
@@ -149,8 +156,42 @@ static CSIMReceiveManager * _manager = nil;
             break;
         case 8:
         {
+            message.body.msgCacheKey = message.body.receiptId;
+            NSString * msgId = [sendMsg.msgCode copy];
+            //            [sendMsg.msgStatus reject:[NSError errorWithDomain:message.msg code:message.code userInfo:nil]];
+            //            [sendMsg.msgStatus reject:[NSError errorWithDomain:message.msg code:message.code userInfo:nil]];
+            
+          
+                
+            if (message.code == successCode) {
+                if ([message.result.cancelStatus isEqualToString:@"2"]) {
+                    [sendMsg syncMsgID:message];
+                    [sendMsg.msgStatus resolve:nil];
+                    [sendMsg successed];
+                }
+                else
+                {
+                    [sendMsg.msgStatus reject:[NSError errorWithDomain:message.msg code:message.code userInfo:nil]];
+                    [sendMsg failed];
+
+                }
+                
+            }
+            else
+            {
+                [sendMsg.msgStatus reject:[NSError errorWithDomain:message.msg code:message.code userInfo:nil]];
+                [sendMsg failed];
+            }
+            message.result.msgId = msgId;
+            [[CSIMMessageQueueManager shareInstance] removeMessages:message];
+            for (id<CSIMReceiveManagerDelegate> delegate in self.messageDelegates.objectEnumerator.allObjects) {
+                if ([delegate respondsToSelector:@selector(cs_sendMessageCallBlock:)]) {
+                    [delegate cs_sendMessageCallBlock:sendMsg.body];
+                }
+            }
+
             //撤销下注回复
-            CS_HUD(message.msg);
+            [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICE_KEY_SOCKET_CANCLE_BET object:nil];
         }
             break;
         default:
@@ -209,3 +250,15 @@ static CSIMReceiveManager * _manager = nil;
     }
 }
 @end
+
+@interface CSIMUnReadListModel : NSObject
+//@property(nonatomic,strong)<#(nonnull NSString *)#> * <#(nonnull NSString *)#>;
+//@property(nonatomic,strong)(nonnull NSString *) * <#(nonnull NSString *)#>;
+//@property(nonatomic,strong)<#(nonnull NSString *)#> * <#(nonnull NSString *)#>;
+//@property(nonatomic,strong)<#(nonnull NSString *)#> * <#(nonnull NSString *)#>;
+//@property(nonatomic,strong)<#(nonnull NSString *)#> * <#(nonnull NSString *)#>;
+@end
+
+@implementation CSIMUnReadListModel
+
+@end;

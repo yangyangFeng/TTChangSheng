@@ -35,6 +35,7 @@ static TTSocketChannelManager * _manager = nil;
 }
 - (void)openConnection
 {
+    
     [self.socketChannel openConnection];
     self.connectionStatus = CS_IM_Connection_Ststus_Connectioning;
 }
@@ -88,13 +89,26 @@ static TTSocketChannelManager * _manager = nil;
         });
     }
 }
+
+/**
+ 检测当Socket连接 如果短线自动发起一次从连
+ */
+- (void)checkSocketStatus
+{    
+    if ( self.webSocket.readyState != SR_OPEN && self.connectionStatus != CS_IM_Connection_Ststus_Connectioning) {
+        [self openConnection];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            CS_HUD(@"socket正在重连");
+        });
+    }
+}
 #pragma mark - SRWebSocketDelegate
 
 // message will either be an NSString if the server is using text
 // or NSData if the server is using binary.
 - (void)webSocket:(SRWebSocket *)webSocket didReceiveMessage:(id)message
 {
-    NSLog(@"收到消息\n-------------------------------------------\n%@\n---------------------------------------",[self dictionaryWithJsonString:message]);
+    DLog(@"收到消息\n-------------------------------------------\n%@\n---------------------------------------",[self dictionaryWithJsonString:message]);
 //     NSLog(@"收到消息\n-------------------------------------------\n%@\n---------------------------------------",message);
     [[CSIMReceiveManager shareInstance] receiveMessage:[CSIMSendMessageRequestModel mj_objectWithKeyValues:message]];
     if (_delegate && [_delegate respondsToSelector:@selector(webSocket:didReceiveMessage:)]) {

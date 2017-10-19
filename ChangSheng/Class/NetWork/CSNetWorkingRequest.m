@@ -963,7 +963,7 @@
             if(uploadFileProgress)
             {
                 CGFloat progress = ((float)totalBytesWritten) / totalBytesExpectedToWrite;
-                NSLog(@"上传进度--->%g",progress);
+//                NSLog(@"上传进度--->%g",progress);
                 uploadFileProgress(progress);
                  
              }

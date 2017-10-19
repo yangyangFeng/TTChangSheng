@@ -21,6 +21,7 @@
  */
 @property(nonatomic,copy)NSString * last_id;
 
+@property (nonatomic,copy) NSString *linkUrl;
 @property (nonatomic,copy) NSString *msg_id;
 @property (nonatomic,copy) NSString *type;
 @property (nonatomic,copy) NSString *content;

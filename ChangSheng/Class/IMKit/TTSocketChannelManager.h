@@ -33,6 +33,11 @@ typedef enum : NSUInteger {
 - (BOOL)isConnected;
 
 /**
+ 检测当Socket连接 如果短线自动发起一次从连
+ */
+- (void)checkSocketStatus;
+
+/**
  发送消息
 
  @param message CSIMSendMessageRequestModel

@@ -156,6 +156,15 @@ typedef NS_ENUM(NSInteger, CSMessageStatus) {
 
 @interface CSMessageModel : NSObject
 
+
+/**
+ socket action = 9,用户剩余分数
+ */
+@property(nonatomic,copy)NSString * surplusScore;
+/**
+ socket action = 8,撤销回复,  1失败,2成功
+ */
+@property(nonatomic,strong)NSString * cancelStatus;
 /**
  *  将消息转换成约定格式发送给服务端
  */
@@ -339,7 +348,15 @@ typedef NS_ENUM(NSInteger, CSMessageStatus) {
                                           action:(int)action
                                          content:(NSString *)content
                                           isSelf:(BOOL)isSelf;
-
++ (CSMessageModel *)newLinkImageMessageWithImageSize:(CGSize)imageSize
+                                          chatId:(NSString *)chatId
+                                        chatType:(CSChatType)chatType
+                                           msgId:(NSString *)msgId
+                                         msgType:(CSMessageBodyType)msgBodyType
+                                          action:(int)action
+                                         content:(NSString *)content
+                                         linkUrl:(NSString*)linkUrl
+                                          isSelf:(BOOL)isSelf;
 - (id)initNewMessageChatType:(CSChatType)chatType
                   chatId:(NSString *)chatId
                    msgId:(NSString *)msgId
@@ -368,6 +385,13 @@ typedef NS_ENUM(NSInteger, CSMessageStatus) {
 
 + (CSMessageModel *)conversionWithRecordModel:(CSMsgRecordModel*)msgRecordModel chatType:(CSChatType)chatType chatId:(NSString *)chatId;
 
+//socket接受消息必须重新过滤一下参数
+/**
+ *  ******************格式化参数******************
+ */
+- (void)cs_checkParams;
+
+//FIXME:项目完成后删除
 + (NSString *)messageTypeTitle:(EMMessage *)message;
 
 - (long long)fileAttachmentSize;

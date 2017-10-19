@@ -11,6 +11,10 @@
 
 #import "CSMessageModel.h"
 
+#define NOTIFICE_KEY_SOCKET_OPEN @"NOTIFICE_KEY_SOCKET_OPEN"
+#define NOTIFICE_KEY_SOCKET_CLOSE @"NOTIFICE_KEY_SOCKET_CLOSE"
+#define NOTIFICE_KEY_SOCKET_CANCLE_BET @"NOTIFICE_KEY_SOCKET_CANCLE_BET"
+
 @protocol CSIMReceiveManagerDelegate <NSObject>
 
 - (void)cs_receiveMessage:(CSMessageModel *)message;
@@ -33,3 +37,5 @@
 - (void)inChatWithChatType:(CSChatType)chatType chatId:(NSString *)chatId;
 - (void)outChatWithChatType:(CSChatType)chatType chatId:(NSString *)chatId;
 @end
+
+

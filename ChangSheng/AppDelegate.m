@@ -8,7 +8,7 @@
 
 #import "AppDelegate.h"
 
-
+#import "TTSocketChannelManager.h"
 #import "StoryBoardController.h"
 #import "TTNavigationController.h"
 #import "IQKeyboardManager.h"
@@ -64,6 +64,9 @@
 
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
+    if ([CSUserInfo shareInstance].isOnline) {
+        [[TTSocketChannelManager shareInstance] checkSocketStatus];//检测socker连接状态
+    }
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
 }
 

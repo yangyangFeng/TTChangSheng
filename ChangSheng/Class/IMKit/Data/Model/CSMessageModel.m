@@ -172,6 +172,30 @@ NSMutableDictionary * tmpImageDict;
     model.body.img_height =  imageSize.height;
     return model;
 }
++ (CSMessageModel *)newLinkImageMessageWithImageSize:(CGSize)imageSize
+                                              chatId:(NSString *)chatId
+                                            chatType:(CSChatType)chatType
+                                               msgId:(NSString *)msgId
+                                             msgType:(CSMessageBodyType)msgBodyType
+                                              action:(int)action
+                                             content:(NSString *)content
+                                             linkUrl:(NSString*)linkUrl
+                                              isSelf:(BOOL)isSelf
+{
+    CSMessageModel * model = [[CSMessageModel alloc]initNewMessageChatType:chatType chatId:chatId msgId:msgId msgType:msgBodyType action:action content:content isSelf:isSelf];
+    //    model.thumbnailImage = [UIImage imageWithData:imageData];
+//    if ([content hasSuffix:@".gif"]) {
+//        [model syncMessageBodyType:CSMessageBodyTypeGif];
+//        model.msgType = CSMessageBodyTypeGif;
+//        model.body.msgType = CSMessageBodyTypeGif;
+//    }
+    model.thumbnailImageSize = [LLMessageImageCell thumbnailSize:imageSize];
+    model.linkUrl = linkUrl;
+    [model formaterMessage];
+    model.body.img_width = imageSize.width;
+    model.body.img_height =  imageSize.height;
+    return model;
+}
 + (CSMessageModel *)newVoiceMessageChatType:(CSChatType)chatType
                                 chatId:(NSString *)chatId
                                  msgId:(NSString *)msgId
@@ -193,6 +217,27 @@ NSMutableDictionary * tmpImageDict;
     [model formaterMessage];
     return model;
 
+}
+
+- (void)cs_checkParams
+{
+    self.isSelf = NO;
+    _messageStatus = kCSMessageStatusSuccessed;
+    _messageDownloadStatus = kCSMessageDownloadStatusSuccessed;
+    _thumbnailDownloadStatus = kCSMessageDownloadStatusWaiting;
+    
+    if ([self.body.content hasSuffix:@".gif"]) {
+//        [self syncMessageBodyType:CSMessageBodyTypeGif];
+        self.msgType = CSMessageBodyTypeGif;
+        self.body.msgType = CSMessageBodyTypeGif;
+    }
+    if (self.body.msgType == CSMessageBodyTypeImage |
+        self.body.msgType == CSMessageBodyTypeGif |
+        self.body.msgType == CSMessageBodyTypeLink) {
+        self.thumbnailImageSize = [LLMessageImageCell thumbnailSize:CGSizeMake(self.body.img_width, self.body.img_height)];
+    }
+    [self syncMessageBodyType:CS_changeMessageType(self.body.msgType)];
+    [self processModelForCell];
 }
 
 + (CSMessageModel*)newMessageChatType:(CSChatType)chatType
@@ -362,6 +407,8 @@ NSMutableDictionary * tmpImageDict;
             msgBody = [CSMessageModel newVoiceMessageChatType:chatType chatId:chatId msgId:msgRecordModel.msg_id msgType:CSMessageBodyTypeVoice action:1 content:msgRecordModel.content localPath:nil duration:msgRecordModel.voice_length uploadProgress:nil uploadStatus:nil isSelf:msgRecordModel.is_self.intValue];
             break;
             case CSMessageBodyTypeLink:
+            msgBody = [CSMessageModel newLinkImageMessageWithImageSize:CGSizeMake(msgRecordModel.img_width, msgRecordModel.img_height) chatId:chatId chatType:chatType msgId:msgRecordModel.msg_id msgType:(CSMessageBodyTypeImage) action:1 content:msgRecordModel.content
+                                                           linkUrl:msgRecordModel.linkUrl isSelf:msgRecordModel.is_self.intValue];
             break;
         default:
             break;

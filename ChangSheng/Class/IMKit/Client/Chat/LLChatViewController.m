@@ -1350,6 +1350,7 @@ CSIMReceiveManagerDelegate
     }
 }
 
+#pragma mark - 更多
 - (IBAction)shareAction:(id)sender {
     [self.chatSharePanel show];
 }
@@ -1442,6 +1443,8 @@ CSIMReceiveManagerDelegate
                  DLog(@"图片上传成功");
                  [[CSIMSendMessageManager shareInstance] sendMessage:messageRequest];
              }];
+             messageModel.thumbnailImage = [[LLAssetManager sharedAssetManager] fetchImageFromAssetModel:asset];
+             
              messageRequest.body = messageModel;
              [self addModelToDataSourceAndScrollToBottom:messageRequest animated:NO];
              
@@ -1499,6 +1502,7 @@ CSIMReceiveManagerDelegate
 }
 //拍摄照片
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
+    MBProgressHUD *HUD = [LLUtils showActivityIndicatiorHUDWithTitle:@"正在处理..." inView:picker.view];
     
     NSString *mediaType = info[UIImagePickerControllerMediaType];
     if ([mediaType isEqualToString:(NSString *)kUTTypeMovie]) {
@@ -1519,7 +1523,8 @@ CSIMReceiveManagerDelegate
 
     }else{
         dispatch_async(dispatch_get_main_queue(), ^{
-            [MBProgressHUD tt_Show];
+          
+//            [MBProgressHUD tt_Show];
             UIImage *orgImage = info[UIImagePickerControllerOriginalImage];
             NSData * imageData = [orgImage tt_compressToDataLength:450*1000];
             
@@ -1532,6 +1537,7 @@ CSIMReceiveManagerDelegate
                 [MBProgressHUD tt_Hide];
                 [[CSIMSendMessageManager shareInstance] sendMessage:messageRequest];
             }];
+            messageModel.thumbnailImage = orgImage;
             messageRequest.body = messageModel;
             [self addModelToDataSourceAndScrollToBottom:messageRequest animated:NO];
             
@@ -1550,7 +1556,9 @@ CSIMReceiveManagerDelegate
             
             
         });
-        
+        [picker.presentingViewController dismissViewControllerAnimated:YES completion:^{
+            [LLUtils hideHUD:HUD animated:YES];
+        }];
     }
     
 }

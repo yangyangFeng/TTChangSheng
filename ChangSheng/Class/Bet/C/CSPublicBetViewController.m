@@ -521,7 +521,13 @@ CSPublicBetInputToolBarViewDelegate
         case kCSMessageBodyTypeVideo:
         case kCSMessageBodyTypeVoice:
         case kCSMessageBodyTypeImage:
+        case kCSMessageBodyTypeLink:
         {
+            if (messageModel.msgType == CSMessageBodyTypeImage |
+                messageModel.msgType == CSMessageBodyTypeGif |
+                messageModel.msgType == CSMessageBodyTypeLink) {
+                NSLog(@"%@",messageModel.mj_keyValues);
+            }
             LLMessageBaseCell *cell = [[LLMessageCellManager sharedManager] messageCellForMessageModel:messageModel tableView:tableView];
             [messageModel setNeedsUpdateForReuse];
             cell.delegate = self;
