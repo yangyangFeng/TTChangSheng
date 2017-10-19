@@ -449,9 +449,11 @@ CSPublicBetInputToolBarViewDelegate
 #pragma mark - 收到消息 delegate
 - (void)cs_receiveMessage:(CSMessageModel *)message
 {
-    CSIMSendMessageRequestModel * model = [CSIMSendMessageRequestModel new];
-    model.body = message;
-    [self addModelToDataSourceAndScrollToBottom:model animated:YES];
+    if ([message queryMessageWithChatType:CSChatTypeGroupChat chatId:self.conversationModel.chatId]) {
+        CSIMSendMessageRequestModel * model = [CSIMSendMessageRequestModel new];
+        model.body = message;
+        [self addModelToDataSourceAndScrollToBottom:model animated:YES];
+    }
 }
 
 - (void)cs_sendMessageCallBlock:(CSMessageModel *)message
@@ -526,7 +528,7 @@ CSPublicBetInputToolBarViewDelegate
             if (messageModel.msgType == CSMessageBodyTypeImage |
                 messageModel.msgType == CSMessageBodyTypeGif |
                 messageModel.msgType == CSMessageBodyTypeLink) {
-                NSLog(@"%@",messageModel.mj_keyValues);
+//                NSLog(@"%@",messageModel.mj_keyValues);
             }
             LLMessageBaseCell *cell = [[LLMessageCellManager sharedManager] messageCellForMessageModel:messageModel tableView:tableView];
             [messageModel setNeedsUpdateForReuse];

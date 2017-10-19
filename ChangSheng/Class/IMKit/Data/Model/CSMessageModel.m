@@ -84,6 +84,14 @@ NSMutableDictionary * tmpImageDict;
     return param;
 }
 
+- (BOOL)queryMessageWithChatType:(CSChatType)chatType chatId:(NSString *)chatId
+{
+    if (self.chartType == chatType && [self.chatId isEqualToString:chatId]) {
+        return YES;
+    }
+    return NO;
+}
+
 - (void)formaterMessage
 {
     self.body = [CSMessageBodyModel mj_objectWithKeyValues:self.mj_keyValues];

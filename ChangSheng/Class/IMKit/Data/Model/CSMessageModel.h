@@ -156,7 +156,7 @@ typedef NS_ENUM(NSInteger, CSMessageStatus) {
 
 @interface CSMessageModel : NSObject
 
-
+- (BOOL)queryMessageWithChatType:(CSChatType)chatType chatId:(NSString *)chatId;
 /**
  socket action = 9,用户剩余分数
  */

@@ -1818,9 +1818,11 @@ CSIMReceiveManagerDelegate
 #pragma mark - 收到消息 delegate
 - (void)cs_receiveMessage:(CSMessageModel *)message
 {
-    CSIMSendMessageRequestModel * model = [CSIMSendMessageRequestModel new];
-    model.body = message;
-    [self addModelToDataSourceAndScrollToBottom:model animated:YES];
+    if ([message queryMessageWithChatType:CSChatTypeChat chatId:self.conversationModel.chatId]) {
+        CSIMSendMessageRequestModel * model = [CSIMSendMessageRequestModel new];
+        model.body = message;
+        [self addModelToDataSourceAndScrollToBottom:model animated:YES];
+    }
 }
 
 - (void)cs_sendMessageCallBlock:(CSMessageModel *)message
