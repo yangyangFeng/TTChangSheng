@@ -278,6 +278,12 @@ static CSIMReceiveManager * _manager = nil;
     } failed:^(NSError *error) {
         DLog(@"-------------------->进群失败\n失败原因:%@",error.domain);
     }];
+    for (id<CSIMReceiveManagerDelegate> delegate in self.messageDelegates.objectEnumerator.allObjects) {
+        __strong id<CSIMReceiveManagerDelegate> strongDelegate = delegate;
+        if ([strongDelegate respondsToSelector:@selector(cs_receiveUpdateUnreadMessage)]) {
+            [strongDelegate cs_receiveUpdateUnreadMessage];
+        }
+    }
 }
 - (void)outChatWithChatType:(CSChatType)chatType chatId:(NSString *)chatId
 {
