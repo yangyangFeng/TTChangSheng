@@ -46,25 +46,35 @@ NSString* Home_GetBgImageNameWithIndex(NSInteger index) {
     [[CSIMReceiveManager shareInstance] removeDelegate:self];
 }
 
-- (instancetype)init
+
+-(id)initWithTableView:(UITableView *)tableView
 {
-    self = [super init];
-    if (self) {
+    if (self = [super initWithTableView:tableView]) {
         [CSIMReceiveManager shareInstance].delegate = self;
     }
     return self;
 }
 
-- (void)cs_receiveMessage:(CSMessageModel *)message
+- (void)cs_receiveUpdateUnreadMessage
 {
+    [self updateUnreadMessageUI];
+}
 
+- (void)updateUnreadMessageUI
+{
     for (int i =0; i<self.betGroupArray.count; i++) {
         CSHttpGroupResModel * model = [self.betGroupArray objectAtIndex:i];
         NSIndexPath * indexPath = [NSIndexPath indexPathForRow:i inSection:0];
         CSHomeTableViewCell * cell = (CSHomeTableViewCell *)[self.tableView cellForRowAtIndexPath:indexPath];
-        int count = [[CSIMReceiveManager shareInstance] getUnReadMessageNumberChatType:(CSChatTypeGroupChat) chatId:[NSString stringWithFormat:@"%d",model.code]];
+        int count = [[CSIMReceiveManager shareInstance] getUnReadMessageNumberChatType:(CSChatTypeGroupChat) chatId:[NSString stringWithFormat:@"%d",model.id]];
         cell.unReadNumber.text = [NSString stringWithFormat:@"%d",count];
     }
+}
+
+- (void)setBetGroupArray:(NSArray *)betGroupArray
+{
+    _betGroupArray = betGroupArray;
+    [self updateUnreadMessageUI];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section

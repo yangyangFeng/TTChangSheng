@@ -71,13 +71,18 @@ static CSUserServiceListViewController * controller = nil;
     // Do any additional setup after loading the view.
 }
 
-- (void)cs_receiveMessage:(CSMessageModel *)message
+- (void)cs_receiveUpdateUnreadMessage
+{
+    [self updateUnreadMessageRefreshUI];
+}
+
+- (void)updateUnreadMessageRefreshUI
 {
     for (int i =0; i<self.dataSource.count; i++) {
         CSMsgHistoryModel * model = [self.dataSource objectAtIndex:i];
         NSIndexPath * indexPath = [NSIndexPath indexPathForRow:i inSection:0];
-        CSUserTableViewCell * cell = (CSUserTableViewCell *)[self.tableView cellForRowAtIndexPath:indexPath];        
-        int count = [[CSIMReceiveManager shareInstance] getUnReadMessageNumberChatType:(CSChatTypeChat) chatId:[NSString stringWithFormat:@"%d",model.id]];
+        CSUserTableViewCell * cell = (CSUserTableViewCell *)[self.tableView cellForRowAtIndexPath:indexPath];
+        int count = [[CSIMReceiveManager shareInstance] getUnReadMessageNumberChatType:(CSChatTypeChat) chatId:model.id];
         cell.unReadNumber.text = [NSString stringWithFormat:@"%d",count];
     }
 }
@@ -99,6 +104,7 @@ static CSUserServiceListViewController * controller = nil;
         self.dataSource = [NSMutableArray arrayWithArray:obj.result];
         [self.tableView reloadData];
         [MBProgressHUD tt_HideFromeView:self.view];
+        [self updateUnreadMessageRefreshUI];
     } failure:^(NSError *error) {
         [MBProgressHUD tt_HideFromeView:self.view];
     } showHUD:YES];

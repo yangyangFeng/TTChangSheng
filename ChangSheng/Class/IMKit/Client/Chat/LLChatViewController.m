@@ -125,7 +125,7 @@ CSIMReceiveManagerDelegate
 
     [CSIMReceiveManager shareInstance].delegate = self;
     //记录进入该聊天室
-    [[CSIMReceiveManager shareInstance] inChatWithChatType:(CSChatTypeGroupChat) chatId:self.conversationModel.chatId];
+    [[CSIMReceiveManager shareInstance] inChatWithChatType:(CSChatTypeChat) chatId:self.conversationModel.chatId];
     
     [self tt_SetNaviBarHide:NO withAnimation:NO];
     
@@ -221,60 +221,31 @@ CSIMReceiveManagerDelegate
 
 - (void)dealloc
 {
-    [[CSIMReceiveManager shareInstance] removeDelegate:self];
-    //退出该聊天室
-    [[CSIMReceiveManager shareInstance] outChatWithChatType:(CSChatTypeGroupChat) chatId:self.conversationModel.chatId];
-
-    [_sightController.contentView.layer removeObserver:self forKeyPath:@"position"];
+//    [[CSIMReceiveManager shareInstance] removeDelegate:self];
+//    //退出该聊天室
+//    [[CSIMReceiveManager shareInstance] outChatWithChatType:(CSChatTypeGroupChat) chatId:self.conversationModel.chatId];
+//
+//    [_sightController.contentView.layer removeObserver:self forKeyPath:@"position"];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
 
     [[IQKeyboardManager sharedManager] setEnable:NO];
-    
-    
-//    [self.navigationController performSelector:@selector(blackStatusBar)];
-//    if (!firstViewWillAppear) {
-//        firstViewWillAppear = YES;
-//        
-//        lastedMessageModel = [self.conversationModel.allMessageModels lastObject];
-//        if (self.conversationModel.draft.length > 0) {
-//            [self.chatInputView activateKeyboard];
-//        }
-//    }
-    
-//    [LLChatManager sharedManager].messageListDelegate = self;
-//    navigationBarTranslucent = self.navigationController.navigationBar.translucent;
-//    self.navigationController.navigationBar.translucent = NO;
-//    
-//    UIView *blackView = [self.view viewWithTag:BLACK_BAR_VIEW_TAG];
-//    if (self.navigationController.navigationBar.subviews[0].alpha == 0 && !blackView) {
-//        blackView = [[UIView alloc] initWithFrame:CGRectMake(0, -64, SCREEN_WIDTH, 64)];
-//        blackView.backgroundColor = [UIColor blackColor];
-//        [self.view addSubview:blackView];
-//    }
-//    
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+
     [self blackStatusBar];
     
     TTNavigationController * nav = (TTNavigationController *)self.navigationController;
     [nav navigationCanDragBack:NO];
-//    if (!firstViewDidAppear) {
-//        firstViewDidAppear = YES;
-//        
-//        [self.chatInputView prepareKeyboardWhenConversationDidBegan];
-//
-//        [[LLChatManager sharedManager] markAllMessagesAsRead:self.conversationModel];
-//    }
-    
+
     [self.chatInputView registerKeyboardNotification];
     self.chatInputView.delegate = self;
 //
-//    isChatControllerDidAppear = YES;
+
     _voiceTipView.hidden = NO;
 //    
     self.navigationController.interactivePopGestureRecognizer.delaysTouchesBegan= NO;
@@ -322,8 +293,19 @@ CSIMReceiveManagerDelegate
     
 }
 
+- (void)tt_DefaultLeftBtnClickAction
+{
+    [super tt_DefaultLeftBtnClickAction];
+    [[CSIMReceiveManager shareInstance] removeDelegate:self];
+    //退出该聊天室
+    [[CSIMReceiveManager shareInstance] outChatWithChatType:(CSChatTypeChat) chatId:self.conversationModel.chatId];
+
+}
+
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
+    
+    [_sightController.contentView.layer removeObserver:self forKeyPath:@"position"];
     
     [self whiteStatusBar];
     
@@ -331,7 +313,6 @@ CSIMReceiveManagerDelegate
     [nav navigationCanDragBack:YES];
     
     self.navigationController.interactivePopGestureRecognizer.delaysTouchesBegan = YES;
-    
     if (![self.navigationController.childViewControllers containsObject:self]) {
         //清理下拉刷新
         UIActivityIndicatorView *indicator = self.refreshView.subviews[0];

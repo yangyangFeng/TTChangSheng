@@ -377,5 +377,4 @@ END:
     [super willDisplayCell];
 }
 
-
 @end

@@ -111,6 +111,7 @@
         CSHttpGroupResModel * obj = [CSHttpGroupResModel mj_objectWithKeyValues:responseObject];
         self.betGroupArray = obj.result;
         self.tableHandler.betGroupArray = self.betGroupArray;
+        
     } failure:^(NSError *error) {
         
     } showHUD:NO];

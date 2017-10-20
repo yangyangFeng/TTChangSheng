@@ -78,10 +78,16 @@
 //            weakSelf.gifImageView.startShowIndex = weakSelf.messageModel.gifShowIndex;
 //            [weakSelf.gifImageView startGIFAnimating];
             weakSelf.messageModel.thumbnailImage = image;
+            [weakSelf.messageModel internal_setMessageDownloadStatus:kCSMessageDownloadStatusSuccessed];
+            [weakSelf.messageModel internal_setThumbnailDownloadStatus:kCSMessageDownloadStatusSuccessed];
         }];
 //        self.gifImageView.gifData = gifData;
 //        self.gifImageView.startShowIndex = self.messageModel.gifShowIndex;
 //        [self.gifImageView startGIFAnimating];
+    }
+    else
+    {
+        self.gifImageView.image = self.messageModel.thumbnailImage;
     }
   
 }

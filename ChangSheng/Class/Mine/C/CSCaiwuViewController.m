@@ -7,7 +7,7 @@
 //
 
 #import "CSCaiwuViewController.h"
-
+#import "CSOperationListViewController.h"
 #import "CSCaiwuTableViewInfoCell.h"
 #import "CSCaiwuTableViewImageCell.h"
 #import "FSMediaPicker.h"
@@ -170,6 +170,11 @@
             [MBProgressHUD tt_SuccessTitle:obj.msg];
             [CSUserInfo shareInstance].info.surplus_score = obj.result.surplus_score.intValue;
             self.my_fenLabel.text = obj.result.surplus_score;
+            NSArray * array = [self.navigationController viewControllers];
+            NSMutableArray * popViewControllers = [NSMutableArray arrayWithArray:array];
+            CSOperationListViewController * operationC = [CSOperationListViewController new];
+            [popViewControllers replaceObjectAtIndex:popViewControllers.count - 1 withObject:operationC];
+            [self.navigationController setViewControllers:popViewControllers animated:YES];
         } failure:^(NSError *error) {
             
         } uploadprogress:^(CGFloat uploadProgress) {

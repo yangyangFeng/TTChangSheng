@@ -84,8 +84,8 @@ typedef enum {
 
 @interface CSIMUnReadListModel : NSObject
 @property (nonatomic, assign)int chatType;
-@property(nonatomic,strong)NSString *chatId;
-@property (nonatomic,copy) NSString *count;
+@property (nonatomic, assign)int chatId;
+@property (nonatomic, assign)int count;
 @end
 
 

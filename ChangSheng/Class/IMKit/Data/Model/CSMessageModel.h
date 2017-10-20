@@ -202,9 +202,9 @@ typedef NS_ENUM(NSInteger, CSMessageStatus) {
 //@property (nonatomic, copy, readonly) NSString *chatid;
 
 //消息发送方
-@property (nonatomic, copy) NSString *from;
+//@property (nonatomic, copy) NSString *from;
 //消息接收方
-@property (nonatomic, copy) NSString *to;
+//@property (nonatomic, copy) NSString *to;
 
 //@property (nonatomic, getter=isFromMe) BOOL fromMe;
 
@@ -391,6 +391,24 @@ typedef NS_ENUM(NSInteger, CSMessageStatus) {
  */
 - (void)cs_checkParams;
 
+/**
+ *  ******************进入聊天参数******************
+ */
++ (CSMessageModel *)inChatWithChatType:(CSChatType )chatType chatId:(NSString *)chatId;
+/**
+ *  ******************退出当前聊天参数******************
+ */
++ (CSMessageModel *)outChatWithChatType:(CSChatType )chatType chatId:(NSString *)chatId;
+/**
+ *  ******************撤销下注消息******************
+ */
++ (CSMessageModel*)newCancleBetMessageChatType:(CSChatType)chatType
+                               chatId:(NSString *)chatId
+                                msgId:(NSString *)msgId
+                              msgType:(CSMessageBodyType)msgType
+                               action:(int)action
+                              content:(NSString *)content
+                               isSelf:(BOOL)isSelf;
 //FIXME:项目完成后删除
 + (NSString *)messageTypeTitle:(EMMessage *)message;
 

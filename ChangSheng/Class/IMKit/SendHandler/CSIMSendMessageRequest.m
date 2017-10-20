@@ -47,8 +47,9 @@
         //发送失败后,将此条消息移除缓存
         [[CSIMMessageQueueManager shareInstance] removeMessages:message];
         NSLog(@"发送失败   count%d",msgRequestModel.sendNumber              );
-        
         msgRequestModel.sendStatus = IM_SendFailed;
+     
+#ifdef CS_SWITCH_RESEND_MESSAGE
 //        [msgRequestModel.msgStatus clearPromiseState];
         if (msgRequestModel.sendNumber == 1)
         {
@@ -71,6 +72,15 @@
                 fail(error);
             }
         }
+        
+        
+#else
+        [[CSIMMessageQueueManager shareInstance] cacheMessage:msgRequestModel];
+        if (fail) {
+            fail(error);
+        }
+#endif
+       
     }];
 
     

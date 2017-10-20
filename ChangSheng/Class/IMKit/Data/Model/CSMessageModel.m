@@ -127,7 +127,7 @@ NSMutableDictionary * tmpImageDict;
     model.body.img_height =  imageSize.height;
     
     [model cs_uploadImageUploadProgress:cs_uploadProgress uploadStatus:cs_uploadStatus];
-    
+    [model processModelForCell];
     return model;
 }
 
@@ -178,6 +178,7 @@ NSMutableDictionary * tmpImageDict;
     [model formaterMessage];
     model.body.img_width = imageSize.width;
     model.body.img_height =  imageSize.height;
+    [model processModelForCell];
     return model;
 }
 + (CSMessageModel *)newLinkImageMessageWithImageSize:(CGSize)imageSize
@@ -202,6 +203,7 @@ NSMutableDictionary * tmpImageDict;
     [model formaterMessage];
     model.body.img_width = imageSize.width;
     model.body.img_height =  imageSize.height;
+    [model processModelForCell];
     return model;
 }
 + (CSMessageModel *)newVoiceMessageChatType:(CSChatType)chatType
@@ -218,11 +220,11 @@ NSMutableDictionary * tmpImageDict;
 {
     CSMessageModel * model = [[CSMessageModel alloc]initNewMessageChatType:chatType chatId:chatId msgId:msgId msgType:msgType action:action content:content isSelf:isSelf];
     
-    
     model.mediaDuration = duration;
     model.fileLocalPath = localPath;
 
     [model formaterMessage];
+    [model processModelForCell];
     return model;
 
 }
@@ -231,7 +233,7 @@ NSMutableDictionary * tmpImageDict;
 {
     self.isSelf = NO;
     _messageStatus = kCSMessageStatusSuccessed;
-    _messageDownloadStatus = kCSMessageDownloadStatusSuccessed;
+    _messageDownloadStatus = kCSMessageDownloadStatusWaiting;
     _thumbnailDownloadStatus = kCSMessageDownloadStatusWaiting;
     
     if ([self.body.content hasSuffix:@".gif"]) {
@@ -248,6 +250,36 @@ NSMutableDictionary * tmpImageDict;
     [self processModelForCell];
 }
 
+/**
+ *  ******************进入聊天参数******************
+ */
++ (CSMessageModel *)inChatWithChatType:(CSChatType )chatType chatId:(NSString *)chatId
+{
+    CSMessageModel * message = [CSMessageModel newMessageChatType:chatType chatId:chatId msgId:nil msgType:CSMessageBodyTypeText action:1 content:@"" isSelf:NO];
+    return message;
+}
+/**
+ *  ******************退出当前聊天参数******************
+ */
++ (CSMessageModel *)outChatWithChatType:(CSChatType )chatType chatId:(NSString *)chatId
+{
+    CSMessageModel * message = [CSMessageModel newMessageChatType:chatType chatId:chatId msgId:nil msgType:CSMessageBodyTypeText action:2 content:@"" isSelf:NO];
+    return message;
+}
+/**
+ *  ******************撤销下注消息******************
+ */
++ (CSMessageModel*)newCancleBetMessageChatType:(CSChatType)chatType
+                                        chatId:(NSString *)chatId
+                                         msgId:(NSString *)msgId
+                                       msgType:(CSMessageBodyType)msgType
+                                        action:(int)action
+                                       content:(NSString *)content
+                                        isSelf:(BOOL)isSelf
+{
+    CSMessageModel * message = [CSMessageModel newMessageChatType:chatType chatId:chatId msgId:nil msgType:CSMessageBodyTypeText action:5 content:@"" isSelf:YES];
+    return message;
+}
 + (CSMessageModel*)newMessageChatType:(CSChatType)chatType
                   chatId:(NSString *)chatId
                    msgId:(NSString *)msgId
@@ -270,6 +302,22 @@ NSMutableDictionary * tmpImageDict;
         _messageDownloadStatus = kCSMessageDownloadStatusSuccessed;
         _thumbnailDownloadStatus = kCSMessageDownloadStatusWaiting;
         switch (msgType) {
+            case kCSMessageBodyTypeText:
+                if ([self.ext[MESSAGE_EXT_TYPE_KEY] isEqualToString:MESSAGE_EXT_GIF_KEY]) {
+                    
+                    self.text = [NSString stringWithFormat:@"[%@]", content];
+                    _messageBodyType = kCSMessageBodyTypeGif;
+                    self.cellHeight = [LLMessageGifCell heightForModel:self];
+                    
+                }else {
+                    
+                    self.text = self.body.content;
+                    self.attributedText = [LLSimpleTextLabel createAttributedStringWithEmotionString:content font:[LLMessageTextCell font] lineSpacing:0];
+                    
+                    self.cellHeight = [LLMessageTextCell heightForModel:self];
+                }
+                
+                break;
             case kCSMessageBodyTypeDateTime:
                 self.cellHeight = [LLMessageDateCell heightForModel:self];
                 break;
@@ -311,7 +359,7 @@ NSMutableDictionary * tmpImageDict;
 
         _error = nil;
         [self formaterMessage];
-        [self processModelForCell];
+//        [self processModelForCell];
         
     }
     return self;
@@ -883,36 +931,22 @@ NSMutableDictionary * tmpImageDict;
 //            EMImageMessageBody *imgMessageBody;
             DLog(@"图片尺寸");
             //FIXME: 宽高写死要改
-            self.thumbnailImageSize = [LLMessageImageCell thumbnailSize:CGSizeMake(100, 100)];
+//            self.thumbnailImageSize = [LLMessageImageCell thumbnailSize:CGSizeMake(100, 100)];
 //            self.fileLocalPath = imgMessageBody.localPath;
             self.cellHeight = [LLMessageImageCell heightForModel:self];
             break;
         }
-        case kCSMessageBodyTypeFile:
+        case kCSMessageBodyTypeLink:
+        {
+            self.cellHeight = [LLMessageImageCell heightForModel:self];
+        }
+            break;
         case kCSMessageBodyTypeLocation: {
-//            NSDictionary *messageExt = self.sdk_message.ext;
-//            
-//            if ([messageExt[MESSAGE_EXT_TYPE_KEY] isEqualToString:MESSAGE_EXT_LOCATION_KEY]) {
-//                _messageBodyType = kCSMessageBodyTypeLocation;
-//                [[LLChatManager sharedManager] decodeMessageExtForLocationType:self];
-////                EMFileMessageBody *body = (EMFileMessageBody *)self.sdk_message.body;
-//                
-//                self.fileLocalPath = body.localPath;
-//                self.cellHeight = [LLMessageLocationCell heightForModel:self];
-//            }
-            
+
             break;
         }
         case kCSMessageBodyTypeVoice: {
-//            EMVoiceMessageBody *voiceBody = (EMVoiceMessageBody *)self.sdk_message.body;
-//            self.mediaDuration = voiceBody.duration;
-//            self.isMediaPlayed = NO;
-//            self.isMediaPlaying = NO;
-//            if (_sdk_message.ext) {
-//                self.isMediaPlayed = [_sdk_message.ext[@"isPlayed"] boolValue];
-//            }
-            // 音频路径
-//            self.fileLocalPath = voiceBody.localPath;
+
             DLog(@"音频未实现");
             self.cellHeight = [LLMessageVoiceCell heightForModel:self];
             
@@ -948,6 +982,19 @@ NSMutableDictionary * tmpImageDict;
     }
     _isFetchingAddress = NO;
 }
+
++ (NSDictionary *)mj_objectClassInArray
+{
+    return @{@"unreadList" : [CSUnreadListModel class]};
+}
+
+
+//+ (NSArray *)mj_allowedPropertyNames
+//{
+//    return @[@"chatId", @"chatType", @"msgType", @"content", @"msgId", @"action", @"playType", @"score", @"receiptId", @"unreadList", @"body", @"linkUrl", @"surplusScore" ,@"cancelStatus", @"msg", @"code"];
+//
+//
+//}
 @end
 
 @implementation CSMessageBodyModel

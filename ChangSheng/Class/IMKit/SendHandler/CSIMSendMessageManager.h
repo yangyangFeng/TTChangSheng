@@ -13,6 +13,8 @@
 #import "CSIMMessageQueueManager.h"
 #import "CSIMSendMessageRequestModel.h"
 
+#define CS_SWITCH_RESEND_MESSAGE NO
+
 @interface CSIMSendMessageManager : NSObject
 + (CSIMSendMessageManager *)shareInstance;
 

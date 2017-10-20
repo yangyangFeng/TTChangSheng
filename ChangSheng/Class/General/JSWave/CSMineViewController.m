@@ -8,7 +8,9 @@
 
 #import "CSMineViewController.h"
 #import "CSOperationListViewController.h"
-
+#import "TTNavigationController.h"
+#import "AppDelegate.h"
+#import "TTSocketChannelManager.h"
 #import "JSWave.h"
 #import "CSMineUserInfoView.h"
 #import "CSMineTableViewCell.h"
@@ -30,12 +32,6 @@
 @end
 
 @implementation CSMineViewController
-
-//- (void)loadView
-//{
-//    self.view = self.tableView;
-//}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -72,6 +68,7 @@
         make.bottom.mas_equalTo(-20);
     }];
     
+    [self createFooterView];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -91,6 +88,44 @@
 {
     CSUserInfoSuperViewController * supC = [CSUserInfoSuperViewController new];
     [self.navigationController pushViewController:supC animated:YES];
+}
+
+- (void)createFooterView
+{
+    UIView * bgView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, WIDTH, 200)];
+    bgView.backgroundColor = [UIColor clearColor];
+    
+    UIButton * logoutBtn = [UIButton buttonWithName:@"退出登录"];
+    logoutBtn.titleLabel.textColor = [UIColor whiteColor];
+    logoutBtn.titleLabel.font = [UIFont systemFontOfSize:15];
+    [logoutBtn addTarget:self action:@selector(logoutDidAction) forControlEvents:(UIControlEventTouchUpInside)];
+    
+    [logoutBtn setImage:[UIImage imageFromContextWithColor:rgb(41, 177, 80)] forState:(UIControlStateNormal)];
+    logoutBtn.layer.masksToBounds = YES;
+    logoutBtn.layer.cornerRadius = 22.0f;
+    
+    [bgView addSubview:logoutBtn];
+    [logoutBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.mas_equalTo(0);
+        make.top.mas_equalTo(30);
+        make.width.mas_equalTo(275);
+        make.height.mas_equalTo(44);
+    }];
+    
+    self.tableView.tableFooterView = bgView;
+}
+
+- (void)logoutDidAction
+{
+    [MBProgressHUD tt_Show];
+    [[TTSocketChannelManager shareInstance] closeConnection];
+    UIViewController * rootC = [StoryBoardController viewControllerID:@"CSLoginViewController" SBName:@"CSLoginSB"];
+    TTNavigationController * nav = [[TTNavigationController alloc]initWithRootViewController:rootC];
+    AppDelegate * appDelegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
+    appDelegate.window.rootViewController = nav;
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [MBProgressHUD tt_SuccessTitle:@"已退出登录"];
+    });
 }
 
 #pragma tab del  /  sour
@@ -179,7 +214,7 @@
         _headerView = [[JSWave alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 200)];
         _headerView.backgroundColor = XNColor(41, 177, 80, 1);
 //        [_headerView addSubview:self.iconImageView];
-        __weak typeof(self)weakSelf = self;
+        
         _headerView.waveBlock = ^(CGFloat currentY){
 //            CGRect iconFrame = [weakSelf.iconImageView frame];
 //            iconFrame.origin.y = CGRectGetHeight(weakSelf.headerView.frame)-CGRectGetHeight(weakSelf.iconImageView.frame)+currentY-weakSelf.headerView.waveHeight - 20;

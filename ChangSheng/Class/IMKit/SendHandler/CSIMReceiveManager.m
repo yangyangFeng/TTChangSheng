@@ -8,6 +8,7 @@
 
 #import "CSIMReceiveManager.h"
 #import "CSIMMessageQueueManager.h"
+#import "CSIMSendMessageManager.h"
 static CSIMReceiveManager * _manager = nil;
 @interface CSIMReceiveManager ()
 @property(nonatomic,strong)dispatch_queue_t  queue;
@@ -77,8 +78,13 @@ static CSIMReceiveManager * _manager = nil;
            
             
             for (id<CSIMReceiveManagerDelegate> delegate in self.messageDelegates.objectEnumerator.allObjects) {
-                if ([delegate respondsToSelector:@selector(cs_receiveMessage:)]) {
-                    [delegate cs_receiveMessage:message.result];
+                __strong id<CSIMReceiveManagerDelegate> strongDelegate = delegate;
+                if ([strongDelegate respondsToSelector:@selector(cs_receiveMessage:)]) {
+                    [strongDelegate cs_receiveMessage:message.result];
+                }
+                
+                if ([strongDelegate respondsToSelector:@selector(cs_receiveUpdateUnreadMessage)]) {
+                    [strongDelegate cs_receiveUpdateUnreadMessage];
                 }
             }
         }
@@ -101,10 +107,13 @@ static CSIMReceiveManager * _manager = nil;
             }
             message.result.msgId = msgId;
             [[CSIMMessageQueueManager shareInstance] removeMessages:message];
-            for (id<CSIMReceiveManagerDelegate> delegate in self.messageDelegates.objectEnumerator.allObjects) {
-                if ([delegate respondsToSelector:@selector(cs_sendMessageCallBlock:)]) {
-                    [delegate cs_sendMessageCallBlock:sendMsg.body];
+            for (id<CSIMReceiveManagerDelegate> delegate in
+                 self.messageDelegates.objectEnumerator.allObjects) {
+                __strong id<CSIMReceiveManagerDelegate> strongDelegate = delegate;
+                if ([strongDelegate respondsToSelector:@selector(cs_sendMessageCallBlock:)]) {
+                    [strongDelegate cs_sendMessageCallBlock:sendMsg.body];
                 }
+                
             }
         }
             break;
@@ -124,8 +133,12 @@ static CSIMReceiveManager * _manager = nil;
 //            [self.unReadMessageList setObject:message.result forKey: [self keyWithChatType:message.result.chatType chatId:message.result.chatId]];
             
             for (id<CSIMReceiveManagerDelegate> delegate in self.messageDelegates.objectEnumerator.allObjects) {
-                if ([delegate respondsToSelector:@selector(cs_receiveMessage:)]) {
-                    [delegate cs_receiveMessage:message.result];
+                __strong id<CSIMReceiveManagerDelegate> strongDelegate = delegate;
+                if ([strongDelegate respondsToSelector:@selector(cs_receiveMessage:)]) {
+                    [strongDelegate cs_receiveMessage:message.result];
+                }
+                if ([strongDelegate respondsToSelector:@selector(cs_receiveUpdateUnreadMessage)]) {
+                    [strongDelegate cs_receiveUpdateUnreadMessage];
                 }
             }
             
@@ -136,21 +149,23 @@ static CSIMReceiveManager * _manager = nil;
         case 4:
         {
             CS_HUD(@"socket已连接");
-            [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICE_KEY_SOCKET_OPEN object:nil];
+//            [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICE_KEY_SOCKET_OPEN object:nil];
+            for (CSIMUnReadListModel * tempModel in message.result.unreadList) {
+                [self insertChatWithChatType:tempModel.chatType chatId:[NSString stringWithFormat:@"%d",tempModel.chatId] unReadCount:[NSString stringWithFormat:@"%d",tempModel.count]];
+            }
+            for (id<CSIMReceiveManagerDelegate> delegate in self.messageDelegates.objectEnumerator.allObjects) {
+                __strong id<CSIMReceiveManagerDelegate> strongDelegate = delegate;
+                if ([strongDelegate respondsToSelector:@selector(cs_receiveUpdateUnreadMessage)]) {
+                    [strongDelegate cs_receiveUpdateUnreadMessage];
+                }
+            }
             
         }
             break;
         case 5:
         {
             CS_HUD(@"用户已上线");
-            for (CSIMUnReadListModel * tempModel in message.result.unreadList) {
-                [self insertChatWithChatType:tempModel.chatType chatId:tempModel.chatId unReadCount:tempModel.count];
-            }
-            for (id<CSIMReceiveManagerDelegate> delegate in self.messageDelegates.objectEnumerator.allObjects) {
-                if ([delegate respondsToSelector:@selector(cs_receiveMessage:)]) {
-                    [delegate cs_receiveMessage:nil];
-                }
-            }
+     
         }
             break;
             case 6:
@@ -252,12 +267,33 @@ static CSIMReceiveManager * _manager = nil;
 {
     self.currentChatKey = [self keyWithChatType:chatType chatId:chatId];
     [self.unReadMessageList setObject:@"0" forKey:self.currentChatKey];
+    
+    CSIMSendMessageRequestModel * messageRequest = [CSIMSendMessageRequestModel new];
+    CSMessageModel * msg = [CSMessageModel inChatWithChatType:chatType chatId:chatId];
+    messageRequest.body = msg;
+    [[CSIMSendMessageManager shareInstance] sendMessage:messageRequest];
+    
+    [messageRequest.msgStatus when:^(id obj) {
+        DLog(@"-------------------->进群成功");
+    } failed:^(NSError *error) {
+        DLog(@"-------------------->进群失败\n失败原因:%@",error.domain);
+    }];
 }
 - (void)outChatWithChatType:(CSChatType)chatType chatId:(NSString *)chatId
 {
     self.currentChatKey = [self keyWithChatType:chatType chatId:chatId];
     [self.unReadMessageList setObject:@"0" forKey:self.currentChatKey];
     self.currentChatKey = @"";
+    CSIMSendMessageRequestModel * messageRequest = [CSIMSendMessageRequestModel new];
+    CSMessageModel * msg = [CSMessageModel outChatWithChatType:chatType chatId:chatId];
+    messageRequest.body = msg;
+    [[CSIMSendMessageManager shareInstance] sendMessage:messageRequest];
+    
+    [messageRequest.msgStatus when:^(id obj) {
+        DLog(@"-------------------->退群成功");
+    } failed:^(NSError *error) {
+        DLog(@"-------------------->退群失败\n失败原因:%@",error.domain);
+    }];
 }
 
 - (void)insertMessage:(CSMessageModel *)messageModel
@@ -274,7 +310,7 @@ static CSIMReceiveManager * _manager = nil;
     NSString * key = [self keyWithChatType:chatType chatId:chatId];
     if (!(self.currentChatKey.length && [self.currentChatKey isEqualToString:key])) {
         //如果当前未处于聊天室 取出 原有 数目累加
-        [self.unReadMessageList setObject:[NSString stringWithFormat:@"%d",count] forKey: key];
+        [self.unReadMessageList setObject:count forKey: key];
     }
 }
 @end

@@ -97,30 +97,27 @@ static UIImage *photoDownloadImage;
 - (void)setMessageModel:(CSMessageModel *)messageModel
 {
     [super setMessageModel:messageModel];
-//    if (!self.chatImageView.image) {
-//        
-//        if (self.messageModel.thumbnailImage) {
-//            self.chatImageView.image = self.messageModel.thumbnailImage;
-//        }
-//        else
-//        {
-////            [self.chatImageView yy_setImageWithURL:[NSURL URLWithString:self.messageModel.body.content] options:YYWebImageOptionProgressive ];
-//            WEAKSELF;
-//            [self.chatImageView yy_setImageWithURL:[NSURL URLWithString:self.messageModel.body.content] placeholder:nil options:YYWebImageOptionProgressive completion:^(UIImage * _Nullable image, NSURL * _Nonnull url, YYWebImageFromType from, YYWebImageStage stage, NSError * _Nullable error) {
-//                dispatch_async(dispatch_get_main_queue(), ^{
-//                    weakSelf.messageModel.thumbnailImage = image;
-////                    weakSelf.messageModel.thumbnailImageSize = [LLMessageImageCell thumbnailSize:image.size];
-////                    weakSelf.thumbnailImageView.image = image;
-//                    [weakSelf updateMessageThumbnail];
-////                    weakSelf.messageModel.thumbnailImage = image;
-//////                    weakSelf.messageModel.thumbnailImageSize = [LLMessageImageCell thumbnailSize:image.size];
-////                    [weakSelf updateMessageThumbnail];
-//////                    [weakSelf layoutMessageContentViews:self.messageModel.isSelf];
-//                });
-//            }];
-//        }
-//    }
-//     [self layoutMessageContentViews:self.messageModel.isSelf];
+    if (!self.chatImageView.image) {
+        
+        if (self.messageModel.thumbnailImage) {
+            self.chatImageView.image = self.messageModel.thumbnailImage;
+        }
+        else
+        {
+            WEAKSELF;
+            [self.chatImageView yy_setImageWithURL:[NSURL URLWithString:self.messageModel.body.content] placeholder:nil options:YYWebImageOptionProgressive completion:^(UIImage * _Nullable image, NSURL * _Nonnull url, YYWebImageFromType from, YYWebImageStage stage, NSError * _Nullable error) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    weakSelf.messageModel.thumbnailImage = image;
+
+                    [weakSelf.messageModel internal_setMessageDownloadStatus:(kCSMessageDownloadStatusSuccessed)];
+
+                    [weakSelf updateMessageThumbnail];
+
+                });
+            }];
+        }
+    }
+     [self layoutMessageContentViews:self.messageModel.isSelf];
 }
 
 #pragma mark - 布局 -
@@ -395,6 +392,8 @@ static UIImage *photoDownloadImage;
                     weakSelf.messageModel.thumbnailImage = image;
 //                    weakSelf.messageModel.thumbnailImageSize = [LLMessageImageCell thumbnailSize:image.size];
 //                    weakSelf.thumbnailImageView.image = image;
+                    [weakSelf.messageModel internal_setMessageDownloadStatus:kCSMessageDownloadStatusSuccessed];
+                    [weakSelf.messageModel internal_setThumbnailDownloadStatus:kCSMessageDownloadStatusSuccessed];
                     [weakSelf updateMessageThumbnail];
                 });
             }];

@@ -130,10 +130,10 @@ CSPublicBetInputToolBarViewDelegate
 
 -(void)dealloc
 {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
-    [[CSIMReceiveManager shareInstance] removeDelegate:self];
-    //退出该聊天室
-    [[CSIMReceiveManager shareInstance] outChatWithChatType:(CSChatTypeGroupChat) chatId:self.conversationModel.chatId];
+//    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
+//    [[CSIMReceiveManager shareInstance] removeDelegate:self];
+//    //退出该聊天室
+//    [[CSIMReceiveManager shareInstance] outChatWithChatType:(CSChatTypeGroupChat) chatId:self.conversationModel.chatId];
 }
 - (void)keyboardFrameWillChange:(NSNotification *)notify {
     CGRect kbFrame = [[notify userInfo][UIKeyboardFrameEndUserInfoKey] CGRectValue];
@@ -154,30 +154,31 @@ CSPublicBetInputToolBarViewDelegate
 
 - (void)cellDidTapped:(LLMessageBaseCell *)cell {
     switch (cell.messageModel.body.msgType) {
-//        case kCSMessageBodyTypeImage:
+        case kCSMessageBodyTypeImage:
 //            [self cellImageDidTapped:(LLMessageImageCell *)cell];
-//            break;
-//        case kCSMessageBodyTypeGif:
+            break;
+        case kCSMessageBodyTypeGif:
 //            [self cellGifDidTapped:(LLMessageGifCell *)cell];
-//            break;
-//        case kCSMessageBodyTypeVideo:
+            break;
+        case kCSMessageBodyTypeVideo:
 //            [self cellVideoDidTapped:(LLMessageVideoCell *)cell];
-//            break;
-//        case kCSMessageBodyTypeVoice:
+            break;
+        case kCSMessageBodyTypeVoice:
 //            [self cellVoiceDidTapped:(LLMessageVoiceCell *)cell];
-//            break;
-//        case kCSMessageBodyTypeLocation:
+            break;
+        case kCSMessageBodyTypeLocation:
 //            [self cellLocationDidTapped:(LLMessageLocationCell *)cell];
-//            break;
-//        case kCSMessageBodyTypeText:
+            break;
+        case kCSMessageBodyTypeText:
 //            if (![LLUserProfile myUserProfile].userOptions.doubleTapToShowTextMessage) {
 //                [self displayTextMessage:cell.messageModel];
 //            }
-//            break;
+            break;
             
         default:
             break;
     }
+    DLog(@"%@",cell.messageModel.body.msgType);
 }
 //- (void)cellImageDidTapped:(LLMessageImageCell *)cell {
 //    if (cell.messageModel.thumbnailImage) {
@@ -192,12 +193,12 @@ CSPublicBetInputToolBarViewDelegate
     [super viewDidLoad];
     
     [CSIMReceiveManager shareInstance].delegate = self;
+    [[CSIMReceiveManager shareInstance] inChatWithChatType:(CSChatTypeGroupChat) chatId:self.conversationModel.chatId];
     
     [self createSubviews];
     
     [self createNavigationBarButtons];
     //记录进入该聊天室
-    [[CSIMReceiveManager shareInstance] inChatWithChatType:(CSChatTypeGroupChat) chatId:self.conversationModel.chatId];
     
     [self addRefreshTool];
 }
@@ -265,8 +266,19 @@ CSPublicBetInputToolBarViewDelegate
     [self.navigationController pushViewController:caiwuController animated:YES];
 }
 
+- (void)tt_DefaultLeftBtnClickAction
+{
+    [super tt_DefaultLeftBtnClickAction];
+    [[CSIMReceiveManager shareInstance] removeDelegate:self];
+    //退出该聊天室
+    [[CSIMReceiveManager shareInstance] outChatWithChatType:(CSChatTypeGroupChat) chatId:self.conversationModel.chatId];
+}
+
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+    
+ 
+    
     [self blackStatusBar];
     [self addKeyboardObserver];
     
@@ -280,7 +292,7 @@ CSPublicBetInputToolBarViewDelegate
 
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
-    
+
 //    [self whiteStatusBar];
     [self removeKeyboardObserver];
     
@@ -501,7 +513,24 @@ CSPublicBetInputToolBarViewDelegate
 #pragma mark - 撤销下注
 - (void)cs_betCancleMessageModel:(CSMessageModel *)messageModel
 {
+    [MBProgressHUD tt_Show];
+    CSIMSendMessageRequestModel * model = [CSIMSendMessageRequestModel new];
+    CSMessageModel * msgModel = [CSMessageModel newCancleBetMessageChatType:CSChatTypeGroupChat chatId:self.conversationModel.chatId msgId:nil msgType:nil action:5 content:nil isSelf:YES];
     
+    model.body = msgModel;
+    
+    [model.msgStatus when:^(id obj) {
+        DLog(@"UI层----文本:%@已发送",messageModel.content);
+//        [self successMessageRefreshSendStatusWithModel:msgModel];
+        [MBProgressHUD tt_SuccessTitle:@"本局下注已撤销"];
+    } failed:^(NSError *error) {
+        [MBProgressHUD tt_SuccessTitle:error.domain];
+//        [self failMessageRefreshSendStatusWithModel:msgModel];
+    }];
+    
+    [[CSIMSendMessageManager shareInstance] sendMessage:model];
+    
+//    [self addModelToDataSourceAndScrollToBottom:model animated:YES];
 }
 #pragma mark - Table view data source
 
