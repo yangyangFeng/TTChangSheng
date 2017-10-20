@@ -9,6 +9,7 @@
 #import "CSIMReceiveManager.h"
 #import "CSIMMessageQueueManager.h"
 #import "CSIMSendMessageManager.h"
+#import "LLUtils+Audio.h"
 static CSIMReceiveManager * _manager = nil;
 @interface CSIMReceiveManager ()
 @property(nonatomic,strong)dispatch_queue_t  queue;
@@ -64,6 +65,7 @@ static CSIMReceiveManager * _manager = nil;
         // 1、普通消息 2、消息回执 3、路单图片 4、连接成功回执 5、用户上线 6 、用户下线  7、下注台面信息（前台用户不需要） 8、撤销下注回复  9、用户剩余分通知  99、后台回复前端心跳
         case 1://
         {
+            [LLUtils playNewMessageSound];
             DLog(@"新消息-------->%@",message.result.body.content);
             [message.result cs_checkParams];
             //计算数据高度

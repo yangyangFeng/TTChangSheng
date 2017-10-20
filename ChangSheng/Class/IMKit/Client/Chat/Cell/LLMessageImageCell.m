@@ -44,7 +44,7 @@ static UIImage *photoDownloadImage;
         
         self.chatImageView = [[UIImageView alloc] init];
         self.chatImageView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.4];
-        self.chatImageView.contentMode = UIViewContentModeScaleAspectFit;
+        self.chatImageView.contentMode = UIViewContentModeScaleAspectFill;
         [self.contentView addSubview:self.chatImageView];
         
         [self.bubbleImage removeFromSuperview];

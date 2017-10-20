@@ -33,6 +33,8 @@ typedef NS_ENUM(NSInteger, LLSoundVolumeLevel) {
 //播放发送消息成功时的声音
 + (void)playSendMessageSound;
 
++ (void)playSendFailMessageSound;
+
 // 震动
 + (void)playVibration;
 

@@ -12,6 +12,7 @@
 #import "CSIMMessageQueueManager.h"
 #import "CSIMSendMessageManager.h"
 #import "TTSocketChannelManager.h"
+#import "LLUtils+Audio.h"
 @implementation CSIMSendMessageRequest
 + (void)sendMessage:(id)message
      successBlock:(sendSuccess)success
@@ -42,7 +43,7 @@
         if (success) {
             success(obj);
         }
-        
+        [LLUtils playSendMessageSound];
     } failed:^(NSError *error) {
         //发送失败后,将此条消息移除缓存
         [[CSIMMessageQueueManager shareInstance] removeMessages:message];

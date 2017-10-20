@@ -7,6 +7,7 @@
 //
 
 #import "LLUtils+Audio.h"
+#import "NSBundle+LCCKExtension.h"
 @import AVFoundation;
 
 /**
@@ -44,7 +45,8 @@ void _SystemSoundFinishedPlayingCallback(SystemSoundID sound_id, void* user_data
 
 // 播放短声音
 + (void)playShortSound:(NSString *)soundName soundExtension:(NSString *)soundExtension {
-    NSURL *audioPath = [[NSBundle mainBundle] URLForResource:soundName withExtension:soundExtension];
+    NSURL *audioPath = [self soundURLWithName:soundName];
+//    [[NSBundle mainBundle] URLForResource:soundName withExtension:soundExtension];
     // 创建系统声音，同时返回一个ID
     SystemSoundID soundID;
     AudioServicesCreateSystemSoundID((__bridge CFURLRef)(audioPath), &soundID);
@@ -58,6 +60,12 @@ void _SystemSoundFinishedPlayingCallback(SystemSoundID sound_id, void* user_data
     
     AudioServicesPlaySystemSound(soundID);
     
+}
+
++ (NSURL *)soundURLWithName:(NSString *)soundName {
+    NSBundle *bundle = [NSBundle lcck_bundleForName:@"VoiceMessageSource" class:[self class]];
+    NSURL *url = [bundle URLForResource:soundName withExtension:@"caf"];
+    return url;
 }
 
 // 震动
@@ -76,11 +84,16 @@ void _SystemSoundFinishedPlayingCallback(SystemSoundID sound_id, void* user_data
 
 
 + (void)playNewMessageSound {
-    [self playShortSound:@"in" soundExtension:@"caf"];
+    [self playShortSound:@"loudReceive" soundExtension:@"caf"];
 }
 
++ (void)playSendFailMessageSound {
+    [self playShortSound:@"receive" soundExtension:@"caf"];
+}
+
+
 + (void)playSendMessageSound {
-    [self playShortSound:@"sendmsg" soundExtension:@"caf"];
+    [self playShortSound:@"send" soundExtension:@"caf"];
 }
 
 + (void)playNewMessageSoundAndVibration {
