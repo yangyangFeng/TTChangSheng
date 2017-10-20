@@ -36,6 +36,7 @@ typedef enum {
 
 
 
+@class CSIMUnReadListModel;
 
 @interface CSIMSendMessageRequestModel : NSObject<CSIMSendMessageRequestModelDelegate,NSMutableCopying>
 
@@ -58,6 +59,11 @@ typedef enum {
 @property(nonatomic,copy)NSString * msg;
 //发送状态 1000 成功
 @property(nonatomic,assign)int code;
+
+
+/*-------------------------------解析未读消息-------------------------------*/
+@property(nonatomic,strong)NSArray<CSIMUnReadListModel*> * unreadList;
+
 /*-------------------------------消息结构体-------------------------------*/
 
 @property(nonatomic,strong)CSMessageModel * body;
@@ -74,3 +80,12 @@ typedef enum {
 
 - (void)failed;
 @end
+
+
+@interface CSIMUnReadListModel : NSObject
+@property (nonatomic, assign)int chatType;
+@property(nonatomic,strong)NSString *chatId;
+@property (nonatomic,copy) NSString *count;
+@end
+
+

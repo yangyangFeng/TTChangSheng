@@ -38,6 +38,11 @@ typedef enum : NSUInteger {
     _my_fenLabel.text = [NSString stringWithFormat:@"身上分:%d",[CSUserInfo shareInstance].info.surplus_score];
 }
 
+- (void)upDateUserScore
+{
+    _my_fenLabel.text = [NSString stringWithFormat:@"身上分:%d",[CSUserInfo shareInstance].info.surplus_score];
+}
+
 - (IBAction)inputChangeDidAction:(id)sender {
     switch (_currentInputType) {
         case CS_CurrentInputType_Bet:

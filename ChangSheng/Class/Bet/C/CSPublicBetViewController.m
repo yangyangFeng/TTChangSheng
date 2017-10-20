@@ -449,6 +449,10 @@ CSPublicBetInputToolBarViewDelegate
 #pragma mark - 收到消息 delegate
 - (void)cs_receiveMessage:(CSMessageModel *)message
 {
+    //没有值说明是未读消息回调,不用解析
+    if (!message) {
+        return;
+    }
     if ([message queryMessageWithChatType:CSChatTypeGroupChat chatId:self.conversationModel.chatId]) {
         CSIMSendMessageRequestModel * model = [CSIMSendMessageRequestModel new];
         model.body = message;
@@ -800,11 +804,14 @@ CSPublicBetInputToolBarViewDelegate
 - (void)addKeyboardObserver
 {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardFrameWillChange:) name:UIKeyboardWillShowNotification object:nil];
+    //NOTIFICE_KEY_SOCKET_CURRENT_SCORE
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(upDateUserScoreText:) name:NOTIFICE_KEY_SOCKET_CURRENT_SCORE object:nil];
 }
 
 - (void)removeKeyboardObserver
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:NOTIFICE_KEY_SOCKET_CURRENT_SCORE object:nil];
 }
 
 - (LLMessageBaseCell *)visibleCellForMessageModel:(CSMessageModel *)model {
@@ -821,5 +828,10 @@ CSPublicBetInputToolBarViewDelegate
     }
     
     return nil;
+}
+
+- (void)upDateUserScoreText:(NSNotification *)notice
+{
+    [self.inputToolBarView updateUserScore:@"0"];
 }
 @end

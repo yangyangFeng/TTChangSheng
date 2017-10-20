@@ -12,7 +12,7 @@
 #import "CSCaiwuTableViewImageCell.h"
 #import "FSMediaPicker.h"
 #import "CSUploadFenRequestModel.h"
-
+#import "CSIMReceiveManager.h"
 @interface CSCaiwuViewController ()<UITableViewDelegate,UITableViewDataSource,FSMediaPickerDelegate>
 @property (weak, nonatomic) IBOutlet UIButton *commitBtn;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -28,6 +28,23 @@
 @end
 
 @implementation CSCaiwuViewController
+- (void)addKeyboardObserver
+{
+    
+    //NOTIFICE_KEY_SOCKET_CURRENT_SCORE
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(upDateUserScoreText:) name:NOTIFICE_KEY_SOCKET_CURRENT_SCORE object:nil];
+}
+
+- (void)removeKeyboardObserver
+{
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:NOTIFICE_KEY_SOCKET_CURRENT_SCORE object:nil];
+}
+
+- (void)upDateUserScoreText:(NSNotification *)notice
+{
+    self.my_fenLabel.text = [NSString stringWithFormat:@"%d",[CSUserInfo shareInstance].info.surplus_score];
+}
 
 -(void)awakeFromNib
 {

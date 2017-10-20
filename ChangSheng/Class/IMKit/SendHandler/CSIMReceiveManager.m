@@ -121,7 +121,7 @@ static CSIMReceiveManager * _manager = nil;
             
             //记录未读消息
             [self insertMessage:message.result];
-//            [self.unReadMessageList setObject:message.result forKey: [self keyWithChatType:message.result.chartType chatId:message.result.chatId]];
+//            [self.unReadMessageList setObject:message.result forKey: [self keyWithChatType:message.result.chatType chatId:message.result.chatId]];
             
             for (id<CSIMReceiveManagerDelegate> delegate in self.messageDelegates.objectEnumerator.allObjects) {
                 if ([delegate respondsToSelector:@selector(cs_receiveMessage:)]) {
@@ -137,11 +137,20 @@ static CSIMReceiveManager * _manager = nil;
         {
             CS_HUD(@"socket已连接");
             [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICE_KEY_SOCKET_OPEN object:nil];
+            
         }
             break;
         case 5:
         {
             CS_HUD(@"用户已上线");
+            for (CSIMUnReadListModel * tempModel in message.result.unreadList) {
+                [self insertChatWithChatType:tempModel.chatType chatId:tempModel.chatId unReadCount:tempModel.count];
+            }
+            for (id<CSIMReceiveManagerDelegate> delegate in self.messageDelegates.objectEnumerator.allObjects) {
+                if ([delegate respondsToSelector:@selector(cs_receiveMessage:)]) {
+                    [delegate cs_receiveMessage:nil];
+                }
+            }
         }
             break;
             case 6:
@@ -194,6 +203,16 @@ static CSIMReceiveManager * _manager = nil;
             [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICE_KEY_SOCKET_CANCLE_BET object:nil];
         }
             break;
+        case 9:
+        {
+            if (!message.result.surplusScore.length) {
+                return;
+            }
+            
+            [CSUserInfo shareInstance].info.surplus_score = [message.result.surplusScore integerValue];
+            [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICE_KEY_SOCKET_CURRENT_SCORE object:nil];
+        }
+            break;
         default:
             break;
     }
@@ -243,22 +262,21 @@ static CSIMReceiveManager * _manager = nil;
 
 - (void)insertMessage:(CSMessageModel *)messageModel
 {
-    NSString * key = [self keyWithChatType:messageModel.chartType chatId:messageModel.chatId];
+    NSString * key = [self keyWithChatType:messageModel.chatType chatId:messageModel.chatId];
     if (!(self.currentChatKey.length && [self.currentChatKey isEqualToString:key])) {
         //如果当前未处于聊天室 取出 原有 数目累加
-        [self.unReadMessageList setObject:[NSString stringWithFormat:@"%d",messageModel.body.unreadCount] forKey: [self keyWithChatType:messageModel.chartType chatId:messageModel.chatId]];
+        [self.unReadMessageList setObject:[NSString stringWithFormat:@"%d",messageModel.body.unreadCount] forKey: key];
+    }
+}
+
+- (void)insertChatWithChatType:(CSChatType)chatType chatId:(NSString *)chatId unReadCount:(NSString *)count
+{
+    NSString * key = [self keyWithChatType:chatType chatId:chatId];
+    if (!(self.currentChatKey.length && [self.currentChatKey isEqualToString:key])) {
+        //如果当前未处于聊天室 取出 原有 数目累加
+        [self.unReadMessageList setObject:[NSString stringWithFormat:@"%d",count] forKey: key];
     }
 }
 @end
 
-@interface CSIMUnReadListModel : NSObject
-//@property(nonatomic,strong)<#(nonnull NSString *)#> * <#(nonnull NSString *)#>;
-//@property(nonatomic,strong)(nonnull NSString *) * <#(nonnull NSString *)#>;
-//@property(nonatomic,strong)<#(nonnull NSString *)#> * <#(nonnull NSString *)#>;
-//@property(nonatomic,strong)<#(nonnull NSString *)#> * <#(nonnull NSString *)#>;
-//@property(nonatomic,strong)<#(nonnull NSString *)#> * <#(nonnull NSString *)#>;
-@end
 
-@implementation CSIMUnReadListModel
-
-@end;

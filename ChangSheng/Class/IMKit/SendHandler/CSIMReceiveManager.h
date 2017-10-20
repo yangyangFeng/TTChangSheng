@@ -13,7 +13,9 @@
 
 #define NOTIFICE_KEY_SOCKET_OPEN @"NOTIFICE_KEY_SOCKET_OPEN"
 #define NOTIFICE_KEY_SOCKET_CLOSE @"NOTIFICE_KEY_SOCKET_CLOSE"
+#define NOTIFICE_KEY_SOCKET_UNREAD_NUMBER @"NOTIFICE_KEY_SOCKET_UNREAD_NUMBER"
 #define NOTIFICE_KEY_SOCKET_CANCLE_BET @"NOTIFICE_KEY_SOCKET_CANCLE_BET"
+#define NOTIFICE_KEY_SOCKET_CURRENT_SCORE @"NOTIFICE_KEY_SOCKET_CURRENT_SCORE"
 
 @protocol CSIMReceiveManagerDelegate <NSObject>
 
@@ -37,5 +39,9 @@
 - (void)inChatWithChatType:(CSChatType)chatType chatId:(NSString *)chatId;
 - (void)outChatWithChatType:(CSChatType)chatType chatId:(NSString *)chatId;
 @end
+
+
+
+
 
 

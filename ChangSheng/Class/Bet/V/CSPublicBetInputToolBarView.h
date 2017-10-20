@@ -23,6 +23,13 @@
 @property (nonatomic,weak) id<CSPublicBetInputToolBarViewDelegate> delegate;
 - (void)cs_resignFirstResponder;
 @property (nonatomic, strong)UIView * maskView;
+
+/**
+ 更新用户身上分
+
+ @param score <#score description#>
+ */
+- (void)updateUserScore:(NSString*)score;
 @end
 
 @interface CSPublicBetInputToolBarModel : NSObject

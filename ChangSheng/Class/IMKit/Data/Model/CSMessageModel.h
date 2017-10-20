@@ -440,10 +440,10 @@ typedef NS_ENUM(NSInteger, CSMessageStatus) {
 
 /*-----------------------------------------以下为消息体-------------------------------------*/
 //:1|2, //1,群聊 2,单聊
-@property(nonatomic,assign)CSChatType chartType;
-//: 1|2 //消息接收方用户类型 1 代表 普通用户 2 代表 系统客户（主持人） //chartType == 2 && action ==4 需要
+@property(nonatomic,assign)CSChatType chatType;
+//: 1|2 //消息接收方用户类型 1 代表 普通用户 2 代表 系统客户（主持人） //chatType == 2 && action ==4 需要
 @property(nonatomic,assign)int receiveUserType;
-//如果chartType=1 代表群组id 如果chartType=2 代表用户id
+//如果chatType=1 代表群组id 如果chatType=2 代表用户id
 @property(nonatomic,copy)NSString* chatId;
 //消息id （如果action=1 不需要， =2 || ==5 代表服务器返回的消息自增id, ==3 || ==4 代表客户端生成的唯一id  *
 @property(nonatomic,copy)NSString * msgId;
@@ -505,11 +505,11 @@ typedef NS_ENUM(NSInteger, CSMessageStatus) {
 @end
 
 @interface CSUnreadListModel : NSObject
-// chartType:1|2 //1,群聊 2,单聊
-@property(nonatomic,assign)int chartType;
+// chatType:1|2 //1,群聊 2,单聊
+@property(nonatomic,assign)int chatType;
 //:10 //未读数量
 @property(nonatomic,assign)int count;
-//如果chartType=1 代表群组id 如果chartType=2 代表用户id
+//如果chatType=1 代表群组id 如果chatType=2 代表用户id
 @property(nonatomic,assign)int chatId;
 
 @end

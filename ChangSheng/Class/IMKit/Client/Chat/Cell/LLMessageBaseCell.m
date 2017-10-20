@@ -204,7 +204,7 @@ BOOL LLMessageCell_isEditing = NO;
 - (void)setMessageModel:(CSMessageModel *)messageModel {
     _messageModel = messageModel;
     self.isCellSelected = messageModel.isSelected;
-    if (messageModel.chartType == CSChatTypeChat) {//如果是单聊没有用户名
+    if (messageModel.chatType == CSChatTypeChat) {//如果是单聊没有用户名
         self.nikeName.hidden = YES;
     }
     else{

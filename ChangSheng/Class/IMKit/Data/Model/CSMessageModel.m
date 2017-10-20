@@ -66,7 +66,7 @@ NSMutableDictionary * tmpImageDict;
 {
     NSMutableDictionary * param = [NSMutableDictionary dictionary];
     [param setObject:self.chatId forKey:@"chatId"];
-    [param setObject:@(self.chartType) forKey:@"chartType"];
+    [param setObject:@(self.chatType) forKey:@"chatType"];
     [param setObject:@(self.msgType) forKey:@"msgType"];
     [param setObject:self.content forKey:@"content"];
     [param setObject:self.msgId forKey:@"msgId"];
@@ -86,7 +86,7 @@ NSMutableDictionary * tmpImageDict;
 
 - (BOOL)queryMessageWithChatType:(CSChatType)chatType chatId:(NSString *)chatId
 {
-    if (self.chartType == chatType && [self.chatId isEqualToString:chatId]) {
+    if (self.chatType == chatType && [self.chatId isEqualToString:chatId]) {
         return YES;
     }
     return NO;
@@ -284,7 +284,7 @@ NSMutableDictionary * tmpImageDict;
                 break;
         }
         
-        self.chartType = chatType;
+        self.chatType = chatType;
         self.chatId = chatId;
         if (msgId) {
             self.msgId = msgId;

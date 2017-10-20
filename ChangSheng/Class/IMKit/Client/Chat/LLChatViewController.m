@@ -1818,6 +1818,10 @@ CSIMReceiveManagerDelegate
 #pragma mark - 收到消息 delegate
 - (void)cs_receiveMessage:(CSMessageModel *)message
 {
+    //没有值说明是未读消息回调,不用解析
+    if (!message) {
+        return;
+    }
     if ([message queryMessageWithChatType:CSChatTypeChat chatId:self.conversationModel.chatId]) {
         CSIMSendMessageRequestModel * model = [CSIMSendMessageRequestModel new];
         model.body = message;

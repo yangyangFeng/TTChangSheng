@@ -23,6 +23,12 @@
 {
     return @{@"body":@"result"};
 }
+
++ (NSDictionary *)mj_objectClassInArray
+{
+    return @{@"unreadList" : [CSIMUnReadListModel class]};
+}
+
 - (id)mutableCopyWithZone:(NSZone * )zone
 {
     CSIMSendMessageRequestModel * model = [CSIMSendMessageRequestModel new];
@@ -65,3 +71,7 @@
     return _body.msgCacheKey;
 }
 @end
+
+@implementation CSIMUnReadListModel
+
+@end;

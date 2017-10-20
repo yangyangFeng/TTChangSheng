@@ -185,6 +185,11 @@
         [self cs_keyboardShow];
     }
 }
+
+- (void)updateUserScore:(NSString*)score
+{
+    [self.topView upDateUserScore];
+}
 @end
 
 

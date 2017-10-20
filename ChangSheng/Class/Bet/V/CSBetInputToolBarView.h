@@ -27,4 +27,12 @@
 @property (weak, nonatomic) IBOutlet UIButton *otherBtn;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *textInputToolBar_Y;
+
+
+
+
+/**
+ 更新用户身上分
+ */
+- (void)upDateUserScore;
 @end
