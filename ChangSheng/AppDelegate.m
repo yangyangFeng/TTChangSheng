@@ -42,6 +42,7 @@
     IQKManager.toolbarTintColor = [UIColor greenColor];
 //    CSMessageModel * as = [CSMessageModel new];
 //    NSLog(@"%@",as.mj_JSONString);
+    sleep(1);
     return YES;
 }
 
