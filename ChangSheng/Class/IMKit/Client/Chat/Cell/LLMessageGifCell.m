@@ -39,7 +39,7 @@
         _gifImageView =[[YYAnimatedImageView alloc]initWithFrame:CGRectMake(0, CONTENT_SUPER_TOP, GIF_IMAGE_SIZE, GIF_IMAGE_SIZE)];
         _gifImageView.contentMode = UIViewContentModeScaleAspectFit;
         _gifImageView.clipsToBounds = YES;
-        _gifImageView.backgroundColor = [UIColor whiteColor];
+        _gifImageView.backgroundColor = [UIColor clearColor];
         
     }
     return _gifImageView;

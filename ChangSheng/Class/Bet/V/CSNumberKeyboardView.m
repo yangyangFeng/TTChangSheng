@@ -69,7 +69,10 @@
             }
             else if (i == 11)
             {
-                btn.enabled = NO;
+                [btn setTitle:@"00" forState:(UIControlStateNormal)];
+                btn.titleLabel.font = [UIFont systemFontOfSize:20];
+                btn.tag = BTN_TAG_FLAG + 100 ;
+                [btn addTarget:self action:@selector(btnDidAction:) forControlEvents:(UIControlEventTouchUpInside)];
             }
             else
             {
@@ -128,6 +131,9 @@
     UIButton * btn = sender;
     NSLog(@"tag->%ld",btn.tag-BTN_TAG_FLAG);
     NSString * number = [NSString stringWithFormat:@"%ld",btn.tag - BTN_TAG_FLAG];
+    if ([number isEqualToString:@"100"]) {
+        number = @"00";
+    }
 //    [self.number_string appendString:[NSString stringWithFormat:@"%ld",btn.tag - BTN_TAG_FLAG]];
     if ([_delegate respondsToSelector:@selector(cs_keyboardWithNumber:)]) {
         [_delegate cs_keyboardWithNumber:number];

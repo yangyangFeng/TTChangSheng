@@ -1589,16 +1589,17 @@ CSIMReceiveManagerDelegate
     [[LLAudioManager sharedManager] stopPlaying];
     [self.chatInputView dismissKeyboard];
     
-//    NSMutableArray *array = [NSMutableArray array];
-//    for (CSMessageModel *model in self.dataSource) {
-//        if (model.messageBodyType == kCSMessageBodyTypeImage ||
-//            model.messageBodyType == kCSMessageBodyTypeVideo) {
-//            [array addObject:model];
-//        }
-//    }
+    NSMutableArray *array = [NSMutableArray array];
+    for (CSMessageModel *model in self.dataSource) {
+        if (model.messageBodyType == kCSMessageBodyTypeImage ||
+            model.messageBodyType == kCSMessageBodyTypeVideo) {
+            [array addObject:model];
+        }
+    }
     
     LLChatAssetDisplayController *vc = [[LLChatAssetDisplayController alloc] initWithNibName:nil bundle:nil];
-    vc.allAssets = @[cell.messageModel];
+    vc.allAssets = array;
+  //@[cell.messageModel];
     vc.curShowMessageModel = cell.messageModel;
     vc.originalWindowFrame = [cell contentFrameInWindow];
     vc.delegate = self;

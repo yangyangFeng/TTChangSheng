@@ -8,15 +8,15 @@
 
 #import "CSPublicBetInputToolBarView.h"
 
-#import "CSBetInputToolBarView.h"
-#import "CSNumberKeyboardView.h"
+
 
 @interface CSPublicBetInputToolBarView ()<CSNumberKeyboardViewDelegate,CSBetInputToolBarViewDelegate>
 @property (nonatomic,strong) CSPublicBetInputToolBarModel *betModel;
 @property (nonatomic,strong) CSBetInputToolBarView *topView;
 @property (nonatomic,strong) CSBetInputView *centerView;
 @property (nonatomic,strong) CSNumberKeyboardView *keyboardView;
-
+@property(nonatomic,strong)UITapGestureRecognizer * tap;
+@property (nonatomic,copy) NSString * text;
 @property (nonatomic,assign) BOOL isShow;
 @end
 
@@ -25,6 +25,9 @@
 -(instancetype)initWithFrame:(CGRect)frame
 {
     if ([super initWithFrame:frame]) {
+        //默认高度 33
+        self.textViewHeight = CS_TEXTVIEW_HEIGHT;
+        
         _isShow = NO;
         _betModel = [CSPublicBetInputToolBarModel new];
         
@@ -38,9 +41,11 @@
         _centerView.delegate = self;
         _keyboardView.delegate = self;
         
-        UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapDidAction)];
-        [_topView addGestureRecognizer:tap];
+        _tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapDidAction)];
+        [_topView addGestureRecognizer:_tap];
         
+        UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(textViewBecomeResponder)];
+        [self.topView.textViewInputToolBar addGestureRecognizer:tap];
         
         [self addSubview:_topView];
         [self addSubview:_centerView];
@@ -65,17 +70,49 @@
             make.left.right.mas_equalTo(0);
             make.bottom.mas_equalTo(0);
         }];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateFrame:) name:@"updateInputTextViewFrame" object:nil];
     }
     return self;
 }
+
+- (void)textViewBecomeResponder
+{
+    [self.topView.textViewInputToolBar becomeFirstResponder];
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"updateInputTextViewFrame" object:nil];
+}
+
+- (void)updateFrame:(NSNotification *)notice
+{
+    NSNumber * height = notice.object;
+    CGFloat textHeight = height.floatValue;
+    self.textViewHeight = textHeight;
+    //- 33;
+    [UIView animateWithDuration:0.2 animations:^{
+        [self.topView mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.height.mas_equalTo(textHeight + 50 - 33);
+        }];
+        self.topView.textViewHeight.constant =  height.floatValue;
+        [self.topView layoutIfNeeded];
+        [self.centerView layoutIfNeeded];
+        [self layoutIfNeeded];
+    }];
+}
+
 - (void)cs_keyboardWithNumber:(NSString *)number
 {
     if (!self.betModel.betType.length) {
         [MBProgressHUD tt_ErrorTitle:@"请选择下注类型"];
         return;
     }
-    [self.betModel.betNumber appendString:number];
-    self.topView.inputField.text = self.betModel.betMessage;
+    if (self.betModel.betNumber.intValue + number.intValue) {
+        [self.betModel.betNumber appendString:number];
+        self.topView.inputField.text = self.betModel.betMessage;
+    }
 }
 
 - (void)cs_keyboardWithBetAction
@@ -153,17 +190,59 @@
 
 - (void)cs_keyboardHide
 {
+//    self.text = self.topView.textViewInputToolBar.text;
+//    self.topView.textViewInputToolBar.text = @"";
 //    if ([_delegate respondsToSelector:@selector(cs_keyboardHide)]) {
 //        [_delegate cs_keyboardHide];
 //    }
+    //- 33;
+    [UIView animateWithDuration:0.2 animations:^{
+        CGFloat textHeight = self.textViewHeight;;
+        if (self.currentInputType == CS_CurrentInputType_Bet) {
+            textHeight = 0;
+        }
+        else
+        {
+            textHeight = self.textViewHeight - CS_TEXTVIEW_HEIGHT;
+        }
+        
+        [self.topView mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.height.mas_equalTo(50 + textHeight);
+        }];
+        self.topView.textViewHeight.constant =  CS_TEXTVIEW_HEIGHT + textHeight;
+        [self.topView layoutIfNeeded];
+        [self.centerView layoutIfNeeded];
+        [self layoutIfNeeded];
+    }];
+    
 }
 
 - (void)cs_keyboardShow
 {
+//    self.topView.textViewInputToolBar.text = self.text;
+//    self.text = nil;
     _isShow = YES;
     if ([_delegate respondsToSelector:@selector(cs_keyboardShow)]) {
         [_delegate cs_keyboardShow];
     }
+    //- 33;
+    [UIView animateWithDuration:0.2 animations:^{
+        CGFloat textHeight = self.textViewHeight;
+        if (self.currentInputType == CS_CurrentInputType_Bet) {
+            textHeight = 0;
+        }
+        else
+        {
+            textHeight = self.textViewHeight - CS_TEXTVIEW_HEIGHT;
+        }
+        [self.topView mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.height.mas_equalTo(textHeight + 50);
+        }];
+        self.topView.textViewHeight.constant =  textHeight + CS_TEXTVIEW_HEIGHT;//textHeight;
+        [self.topView layoutIfNeeded];
+        [self.centerView layoutIfNeeded];
+        [self layoutIfNeeded];
+    }];
 }
 
 - (void)cs_resignFirstResponder
@@ -190,6 +269,12 @@
 {
     [self.topView upDateUserScore];
 }
+
+-(CS_CurrentInputType)currentInputType
+{
+    return self.topView.currentInputType;
+}
+
 @end
 
 

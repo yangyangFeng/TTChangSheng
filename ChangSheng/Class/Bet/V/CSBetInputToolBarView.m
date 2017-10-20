@@ -8,13 +8,10 @@
 
 #import "CSBetInputToolBarView.h"
 
-typedef enum : NSUInteger {
-    CS_CurrentInputType_Bet,
-    CS_CurrentInputType_Text,
-} CS_CurrentInputType;
 
 @interface CSBetInputToolBarView ()<UITextViewDelegate>
-@property (nonatomic,assign) CS_CurrentInputType currentInputType;
+
+
 @end
 @implementation CSBetInputToolBarView
 
@@ -36,6 +33,24 @@ typedef enum : NSUInteger {
     self.biaoqingBtn.alpha = 0;
     self.otherBtn.alpha = 0;
     _my_fenLabel.text = [NSString stringWithFormat:@"身上分:%d",[CSUserInfo shareInstance].info.surplus_score];
+    
+    self.textViewInputToolBar.layer.masksToBounds = YES;
+    self.textViewInputToolBar.layer.cornerRadius = 5;
+    self.textViewInputToolBar.layer.borderColor = [UIColor colorWithHexColorString:@"333333"].CGColor;
+    self.textViewInputToolBar.layer.borderWidth = 1;
+    
+    self.textViewInputToolBar.maxNumberOfLines = 4;
+    [self.textViewInputToolBar textValueDidChanged:^(NSString *text, CGFloat textHeight) {
+//        CGRect frame = self.textViewInputToolBar.frame;
+//        frame.size.height = textHeight;
+//        self.textViewInputToolBar.frame = frame;
+        [self postUpdateUIAction:textHeight];
+    }];
+}
+
+- (void)postUpdateUIAction:(CGFloat)height
+{
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"updateInputTextViewFrame" object:@(height)];
 }
 
 - (void)upDateUserScore
@@ -128,11 +143,11 @@ typedef enum : NSUInteger {
     
     frame.size.height=size.height;
     
-    textView.frame=frame;
+//    textView.frame=frame;
 
-    
+    DLog(@"-------------------%g----------------/n%@",frame.size.height,textView.text);
 
-    
+//    [[NSNotificationCenter defaultCenter] postNotificationName:@"updateInputTextViewFrame" object:@(frame.size.height)];
 }
 
 -(BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString*)text
@@ -141,6 +156,8 @@ typedef enum : NSUInteger {
         if ([_delegate respondsToSelector:@selector(cs_keyboardSendMessageText:)]) {
             [_delegate cs_keyboardSendMessageText:textView.text];
         }
+        textView.text = @"";
+        [self postUpdateUIAction:CS_TEXTVIEW_HEIGHT];
         return NO;
     }
     return YES;

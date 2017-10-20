@@ -102,6 +102,9 @@ static inline kCSMessageBodyType CS_changeMessageType (CSMessageBodyType type){
         case CSMessageBodyTypeLink:
             newType = kCSMessageBodyTypeLink;
             break;
+        case CSMessageBodyTypeGif:
+            newType = kCSMessageBodyTypeGif;
+            break;
         default:
             break;
     }

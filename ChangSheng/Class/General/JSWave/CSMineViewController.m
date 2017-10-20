@@ -99,7 +99,7 @@
     logoutBtn.titleLabel.textColor = [UIColor whiteColor];
     logoutBtn.titleLabel.font = [UIFont systemFontOfSize:15];
     [logoutBtn addTarget:self action:@selector(logoutDidAction) forControlEvents:(UIControlEventTouchUpInside)];
-    
+    [logoutBtn setBackgroundColor:rgb(41, 177, 80)];
     [logoutBtn setImage:[UIImage imageFromContextWithColor:rgb(41, 177, 80)] forState:(UIControlStateNormal)];
     logoutBtn.layer.masksToBounds = YES;
     logoutBtn.layer.cornerRadius = 22.0f;
@@ -119,11 +119,12 @@
 {
     [MBProgressHUD tt_Show];
     [[TTSocketChannelManager shareInstance] closeConnection];
-    UIViewController * rootC = [StoryBoardController viewControllerID:@"CSLoginViewController" SBName:@"CSLoginSB"];
-    TTNavigationController * nav = [[TTNavigationController alloc]initWithRootViewController:rootC];
-    AppDelegate * appDelegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
-    appDelegate.window.rootViewController = nav;
+
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        UIViewController * rootC = [StoryBoardController viewControllerID:@"CSLoginViewController" SBName:@"CSLoginSB"];
+        TTNavigationController * nav = [[TTNavigationController alloc]initWithRootViewController:rootC];
+        AppDelegate * appDelegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
+        appDelegate.window.rootViewController = nav;
         [MBProgressHUD tt_SuccessTitle:@"已退出登录"];
     });
 }

@@ -14,15 +14,6 @@
 
 #import "TTNav_RootViewController.h"
 
-
-
-
-
-
-
-
-
-
 @interface TTNav_RootViewController ()
 @property (nonatomic, strong) TTNavigationBar * my_navigationBar;
 @property (nonatomic, strong) TTBaseNavigationBar * my_base_navigationBar;

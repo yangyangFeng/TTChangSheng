@@ -63,6 +63,7 @@
 #import "TTNavigationController.h"
 #import "CSUserServiceListViewController.h"
 //#import "KVOController.h"
+#import "LLWebViewController.h"
 
 #import "CSPublicBetViewController.h"
 #import "CSPublicBetInputToolBarView.h"
@@ -106,6 +107,10 @@ CSPublicBetInputToolBarViewDelegate
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *tableViewBottomConstraint;
 
 @property (nonatomic,strong) CSPublicBetInputToolBarView *inputToolBarView;
+
+@property(nonatomic,assign)CGFloat keyboardHeight;
+
+@property(nonatomic,assign)CGFloat textViewChangeHeight;
 @end
 
 @implementation CSPublicBetViewController{
@@ -127,23 +132,25 @@ CSPublicBetInputToolBarViewDelegate
 
 
 #pragma mark - UI/LifeCycle 相关 -
-
--(void)dealloc
-{
-//    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
-//    [[CSIMReceiveManager shareInstance] removeDelegate:self];
-//    //退出该聊天室
-//    [[CSIMReceiveManager shareInstance] outChatWithChatType:(CSChatTypeGroupChat) chatId:self.conversationModel.chatId];
-}
+//#FIXME:    ***************************************inputView
 - (void)keyboardFrameWillChange:(NSNotification *)notify {
     CGRect kbFrame = [[notify userInfo][UIKeyboardFrameEndUserInfoKey] CGRectValue];
     CGFloat constant = kbFrame.size.height;
     
     [UIView animateWithDuration:0.2 animations:^{
-        self.inputToolBarView.y = HEIGHT - 50 - kbFrame.size.height;
+        CGFloat textHeight;
+        if (self.inputToolBarView.currentInputType == CS_CurrentInputType_Bet) {
+            textHeight = 0;
+        }
+        else
+        {
+            textHeight = self.textViewChangeHeight;
+        }
+        self.inputToolBarView.y = HEIGHT - 50 - kbFrame.size.height - textHeight;
+        self.keyboardHeight = kbFrame.size.height;
         self.inputToolBarView.maskView.alpha = 0;
         
-        self.tableView.contentInset = UIEdgeInsetsMake(0, 0, constant, 0);
+        self.tableView.contentInset = UIEdgeInsetsMake(0, 0, constant + textHeight, 0);
         self.tableView.scrollIndicatorInsets = self.tableView.contentInset;
         [self.tableView scrollsToBottomAnimated:YES];
         
@@ -151,47 +158,125 @@ CSPublicBetInputToolBarViewDelegate
         
     }];
 }
-
-- (void)cellDidTapped:(LLMessageBaseCell *)cell {
-    switch (cell.messageModel.body.msgType) {
-        case kCSMessageBodyTypeImage:
-//            [self cellImageDidTapped:(LLMessageImageCell *)cell];
-            break;
-        case kCSMessageBodyTypeGif:
-//            [self cellGifDidTapped:(LLMessageGifCell *)cell];
-            break;
-        case kCSMessageBodyTypeVideo:
-//            [self cellVideoDidTapped:(LLMessageVideoCell *)cell];
-            break;
-        case kCSMessageBodyTypeVoice:
-//            [self cellVoiceDidTapped:(LLMessageVoiceCell *)cell];
-            break;
-        case kCSMessageBodyTypeLocation:
-//            [self cellLocationDidTapped:(LLMessageLocationCell *)cell];
-            break;
-        case kCSMessageBodyTypeText:
-//            if (![LLUserProfile myUserProfile].userOptions.doubleTapToShowTextMessage) {
-//                [self displayTextMessage:cell.messageModel];
-//            }
-            break;
-            
-        default:
-            break;
-    }
-    DLog(@"%@",cell.messageModel.body.msgType);
+//#FIXME:    ***************************************inputView
+//#FIXME:    ***************************************inputView
+- (void)updateFrame:(NSNotification *)notice
+{
+    NSNumber * height = notice.object;
+    
+    CGFloat textHeight = height.floatValue -33 ;
+    [UIView animateWithDuration:0.2 animations:^{
+//        if (self.inputToolBarView.currentInputType == CS_CurrentInputType_Bet) {
+//            textHeight = 0;
+//        }
+//        else
+//        {
+//            textHeight = self.textViewChangeHeight;
+//        }
+        self.textViewChangeHeight = textHeight;
+        self.inputToolBarView.y = HEIGHT - 50 - _keyboardHeight - textHeight;
+        self.tableView.contentInset = UIEdgeInsetsMake(0, 0, _keyboardHeight + textHeight , 0);
+        //UIEdgeInsetsMake(0, 0, HEIGHT - self.inputToolBarView.height - 64 + textHeight , 0);
+        self.tableView.scrollIndicatorInsets = self.tableView.contentInset;
+    }];
 }
-//- (void)cellImageDidTapped:(LLMessageImageCell *)cell {
-//    if (cell.messageModel.thumbnailImage) {
-//        [self showAssetFromCell:cell];
-//    }else if (!cell.messageModel.isFetchingThumbnail){
-//        [[LLChatManager sharedManager] asyncDownloadMessageThumbnail:cell.messageModel completion:nil];
-//    }
-//
-//}
+- (void)cs_keyboardHide
+{
+    [UIView animateWithDuration:0.15 animations:^{
+        self.inputToolBarView.maskView.alpha = 1;
+    }];
+    [UIView animateWithDuration:0.3 delay:0 options:(UIViewAnimationOptionCurveEaseIn) animations:^{
+        CGFloat textHeight;
+        if (self.inputToolBarView.currentInputType == CS_CurrentInputType_Bet) {
+            textHeight = 0;
+        }
+        else
+        {
+            textHeight = self.textViewChangeHeight;
+        }
+        self.inputToolBarView.y = HEIGHT - 50 - textHeight;
+        self.tableView.contentInset = UIEdgeInsetsMake(0, textHeight, 0, 0);
+        self.tableView.scrollIndicatorInsets = self.tableView.contentInset;
+        [self.tableView layoutIfNeeded];
+    } completion:nil];
+}
+
+- (void)cs_keyboardShow
+{
+    [UIView animateWithDuration:0.15 animations:^{
+        self.inputToolBarView.maskView.alpha = 0;
+    }];
+    [UIView animateWithDuration:0.25 animations:^{
+        CGFloat textHeight;
+        if (self.inputToolBarView.currentInputType == CS_CurrentInputType_Bet) {
+            textHeight = 0;
+        }
+        else
+        {
+            textHeight = self.textViewChangeHeight;
+        }
+        self.inputToolBarView.y = HEIGHT - self.inputToolBarView.height - textHeight;
+        
+        self.tableView.contentInset = UIEdgeInsetsMake(0, 0, HEIGHT - self.inputToolBarView.height - 64 + textHeight, 0);
+        self.tableView.scrollIndicatorInsets = self.tableView.contentInset;
+        [self.tableView scrollsToBottomAnimated:YES];
+        [self.tableView layoutIfNeeded];
+    } completion:^(BOOL finished) {
+        //        [self.tableView scrollsToBottomAnimated:YES];
+    }];
+    
+}
+
+
+
+
+
+- (void)cellImageDidTapped:(LLMessageImageCell *)cell {
+    if (cell.messageModel.thumbnailImage) {
+        [self showAssetFromCell:cell];
+    }else if (!cell.messageModel.isFetchingThumbnail){
+        [[LLChatManager sharedManager] asyncDownloadMessageThumbnail:cell.messageModel completion:nil];
+    }
+}
+#pragma mark - 视频、图片弹出、弹入动画 -
+
+- (void)showAssetFromCell:(LLMessageBaseCell *)cell {
+    [[LLAudioManager sharedManager] stopPlaying];
+    [self.chatInputView dismissKeyboard];
+    
+        NSMutableArray *array = [NSMutableArray array];
+        for (CSMessageModel *model in self.dataSource) {
+            if (model.messageBodyType == kCSMessageBodyTypeImage ||
+                model.messageBodyType == kCSMessageBodyTypeVideo) {
+                [array addObject:model];
+            }
+        }
+    
+    LLChatAssetDisplayController *vc = [[LLChatAssetDisplayController alloc] initWithNibName:nil bundle:nil];
+    vc.allAssets = array;
+  //@[cell.messageModel];
+    vc.curShowMessageModel = cell.messageModel;
+    vc.originalWindowFrame = [cell contentFrameInWindow];
+    vc.delegate = self;
+    //    UINavigationController * nav = [[UINavigationController alloc]initWithRootViewController:vc];
+    //        [self presentViewController:nav animated:YES completion:nil];
+    [self.navigationController pushViewController:vc animated:NO];
+    
+}
+
+- (void)loadWebLinkWithUrl:(NSString *)url title:(NSString *)title
+{
+    LLWebViewController *web = [[LLWebViewController alloc] initWithNibName:nil bundle:nil];
+    web.fromViewController = self;
+    web.url = [NSURL URLWithString:url];
+    web.title = title;
+    [self.navigationController pushViewController:web animated:YES];
+}
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateFrame:) name:@"updateInputTextViewFrame" object:nil];
     [CSIMReceiveManager shareInstance].delegate = self;
     [[CSIMReceiveManager shareInstance] inChatWithChatType:(CSChatTypeGroupChat) chatId:self.conversationModel.chatId];
     
@@ -254,6 +339,7 @@ CSPublicBetInputToolBarViewDelegate
     }];
 }
 
+
 - (void)kefuBtnDidAction
 {
     CSUserServiceListViewController * C = [CSUserServiceListViewController new];
@@ -293,7 +379,8 @@ CSPublicBetInputToolBarViewDelegate
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
 
-//    [self whiteStatusBar];
+    [[IQKeyboardManager sharedManager] setEnable:YES];
+    [IQKeyboardManager sharedManager].shouldResignOnTouchOutside = YES;
     [self removeKeyboardObserver];
     
     TTNavigationController * nav = (TTNavigationController *)self.navigationController;
@@ -359,37 +446,6 @@ CSPublicBetInputToolBarViewDelegate
 
 - (void)tapHandler:(UITapGestureRecognizer *)tap {
     [self.inputToolBarView cs_resignFirstResponder];
-}
-
-- (void)cs_keyboardHide
-{
-    [UIView animateWithDuration:0.15 animations:^{
-        self.inputToolBarView.maskView.alpha = 1;
-    }];
-    [UIView animateWithDuration:0.3 delay:0 options:(UIViewAnimationOptionCurveEaseIn) animations:^{
-        self.inputToolBarView.y = HEIGHT - 50;
-        self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
-        self.tableView.scrollIndicatorInsets = self.tableView.contentInset;
-        [self.tableView layoutIfNeeded];
-    } completion:nil];
-}
-
-- (void)cs_keyboardShow
-{
-    [UIView animateWithDuration:0.15 animations:^{
-        self.inputToolBarView.maskView.alpha = 0;
-    }];
-    [UIView animateWithDuration:0.25 animations:^{
-        self.inputToolBarView.y = HEIGHT - self.inputToolBarView.height;
-        
-        self.tableView.contentInset = UIEdgeInsetsMake(0, 0, HEIGHT - self.inputToolBarView.height - 64, 0);
-        self.tableView.scrollIndicatorInsets = self.tableView.contentInset;
-        [self.tableView scrollsToBottomAnimated:YES];
-        [self.tableView layoutIfNeeded];
-    } completion:^(BOOL finished) {
-//        [self.tableView scrollsToBottomAnimated:YES];
-    }];
-    
 }
 
 #pragma mark - 文字消息 -
@@ -490,6 +546,29 @@ CSPublicBetInputToolBarViewDelegate
 {
     [self sendTextMessage:text];
 }
+
+- (void)cs_keyboardBtnActionType:(int)type
+{
+    switch (type) {
+        case 0:
+        {
+            [self loadWebLinkWithUrl:[NSString stringWithFormat:@"%@/chat/bootsImg?group_id=%@&token=%@",baseUrl,self.conversationModel.chatId,[CSUserInfo shareInstance].info.token] title:@"路单图"];
+        }
+            break;
+        case 1:
+        {
+            [self loadWebLinkWithUrl:[NSString stringWithFormat:@"%@/chat/bettingList?group_id=%@&token=%@",baseUrl,self.conversationModel.chatId,[CSUserInfo shareInstance].info.token] title:@"投注表"];
+        }
+            break;
+        case 2:
+        {
+            [self loadWebLinkWithUrl:[NSString stringWithFormat:@"%@/chat/bettingResultList?group_id=%@&token=%@",baseUrl,self.conversationModel.chatId,[CSUserInfo shareInstance].info.token] title:@"分数表"];
+        }
+            break;
+        default:
+            break;
+    }
+}
 #pragma mark - 下注
 - (void)cs_betMessageModel:(CSMessageModel *)messageModel
 {
@@ -513,7 +592,7 @@ CSPublicBetInputToolBarViewDelegate
 #pragma mark - 撤销下注
 - (void)cs_betCancleMessageModel:(CSMessageModel *)messageModel
 {
-    [MBProgressHUD tt_Show];
+//    [MBProgressHUD tt_Show];
     CSIMSendMessageRequestModel * model = [CSIMSendMessageRequestModel new];
     CSMessageModel * msgModel = [CSMessageModel newCancleBetMessageChatType:CSChatTypeGroupChat chatId:self.conversationModel.chatId msgId:nil msgType:nil action:5 content:nil isSelf:YES];
     
@@ -551,7 +630,7 @@ CSPublicBetInputToolBarViewDelegate
     NSString *reuseId = [[LLMessageCellManager sharedManager] reuseIdentifierForMessegeModel:messageModel];
     UITableViewCell *_cell;
     
-    switch (messageModel.messageBodyType) {
+    switch (CS_changeMessageType(messageModel.body.msgType)) {
         case kCSMessageBodyTypeText:
         case kCSMessageBodyTypeVideo:
         case kCSMessageBodyTypeVoice:
@@ -561,7 +640,7 @@ CSPublicBetInputToolBarViewDelegate
             if (messageModel.msgType == CSMessageBodyTypeImage |
                 messageModel.msgType == CSMessageBodyTypeGif |
                 messageModel.msgType == CSMessageBodyTypeLink) {
-//                NSLog(@"%@",messageModel.mj_keyValues);
+                
             }
             LLMessageBaseCell *cell = [[LLMessageCellManager sharedManager] messageCellForMessageModel:messageModel tableView:tableView];
             [messageModel setNeedsUpdateForReuse];
@@ -679,6 +758,38 @@ CSPublicBetInputToolBarViewDelegate
     if (self.dataSource.count == 0)
         return;
     [self.tableView scrollsToBottomAnimated:YES];
+}
+
+#pragma mark - cell点击
+
+- (void)cellDidTapped:(LLMessageBaseCell *)cell {
+    switch (cell.messageModel.body.msgType) {
+        case kCSMessageBodyTypeImage:
+            [self cellImageDidTapped:(LLMessageImageCell *)cell];
+            break;
+        case kCSMessageBodyTypeGif:
+            //            [self cellGifDidTapped:(LLMessageGifCell *)cell];
+            break;
+        case kCSMessageBodyTypeLink:
+            //            [self cellVideoDidTapped:(LLMessageVideoCell *)cell];
+            [self loadWebLinkWithUrl:cell.messageModel.body.linkUrl title:@""];
+            break;
+        case kCSMessageBodyTypeVoice:
+            //            [self cellVoiceDidTapped:(LLMessageVoiceCell *)cell];
+            break;
+        case kCSMessageBodyTypeLocation:
+            //            [self cellLocationDidTapped:(LLMessageLocationCell *)cell];
+            break;
+        case kCSMessageBodyTypeText:
+            //            if (![LLUserProfile myUserProfile].userOptions.doubleTapToShowTextMessage) {
+            //                [self displayTextMessage:cell.messageModel];
+            //            }
+            break;
+            
+        default:
+            break;
+    }
+    //    DLog(@"%@",cell.messageModel.body.msgType);
 }
 
 #pragma mark - 处理Cell动作

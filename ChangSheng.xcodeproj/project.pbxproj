@@ -336,6 +336,7 @@
 		747D5C251F7DF73C00F40A41 /* TTSingleChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 747D5C241F7DF73C00F40A41 /* TTSingleChatViewController.m */; };
 		747D5C281F7DF75000F40A41 /* TTChatInputToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 747D5C271F7DF75000F40A41 /* TTChatInputToolBar.m */; };
 		747D5C2A1F7F6A2A00F40A41 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 747D5C291F7F6A2A00F40A41 /* Assets.xcassets */; };
+		7499E0761F9A181900CD07E6 /* CMInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7499E0741F9A181800CD07E6 /* CMInputView.m */; };
 		749A539E1F9868420024DC1B /* CSZhuanFenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 749A539D1F9868420024DC1B /* CSZhuanFenViewController.m */; };
 		749A53A11F9868520024DC1B /* CSChangePWViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 749A53A01F9868520024DC1B /* CSChangePWViewController.m */; };
 		749A53A51F98736A0024DC1B /* CSOperationRecordCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 749A53A31F98736A0024DC1B /* CSOperationRecordCell.m */; };
@@ -1040,6 +1041,8 @@
 		747D5C261F7DF75000F40A41 /* TTChatInputToolBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTChatInputToolBar.h; sourceTree = "<group>"; };
 		747D5C271F7DF75000F40A41 /* TTChatInputToolBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTChatInputToolBar.m; sourceTree = "<group>"; };
 		747D5C291F7F6A2A00F40A41 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		7499E0741F9A181800CD07E6 /* CMInputView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMInputView.m; sourceTree = "<group>"; };
+		7499E0751F9A181800CD07E6 /* CMInputView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMInputView.h; sourceTree = "<group>"; };
 		749A539C1F9868420024DC1B /* CSZhuanFenViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSZhuanFenViewController.h; sourceTree = "<group>"; };
 		749A539D1F9868420024DC1B /* CSZhuanFenViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSZhuanFenViewController.m; sourceTree = "<group>"; };
 		749A539F1F9868520024DC1B /* CSChangePWViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSChangePWViewController.h; sourceTree = "<group>"; };
@@ -2596,6 +2599,8 @@
 		74C852CA1F8B4F3A00944C50 /* V */ = {
 			isa = PBXGroup;
 			children = (
+				7499E0751F9A181800CD07E6 /* CMInputView.h */,
+				7499E0741F9A181800CD07E6 /* CMInputView.m */,
 				74C852CB1F8B4F8200944C50 /* CSBetInputView.xib */,
 				74C852D81F8B5F7B00944C50 /* CSBetInputView.h */,
 				74C852D91F8B5F7B00944C50 /* CSBetInputView.m */,
@@ -3129,6 +3134,7 @@
 				1804AD231F7BDC6100508C1C /* Reachability.m in Sources */,
 				18C820061F76585F0012150B /* UIImage+Color.m in Sources */,
 				18C820091F76585F0012150B /* UIImage+FixOrientation.m in Sources */,
+				7499E0761F9A181900CD07E6 /* CMInputView.m in Sources */,
 				1804AD021F7BDC6100508C1C /* LLActionSheet.m in Sources */,
 				1813468C1F7AA93200CD1312 /* NSString+MLExpression.m in Sources */,
 				1804AD191F7BDC6100508C1C /* LLUtils+Application.m in Sources */,

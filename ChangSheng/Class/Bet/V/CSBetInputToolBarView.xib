@@ -37,41 +37,6 @@
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits"/>
                 </textField>
-                <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xos-xd-7EN">
-                    <rect key="frame" x="60" y="7.5" width="315" height="35"/>
-                    <subviews>
-                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="P85-4z-Sd1">
-                            <rect key="frame" x="0.0" y="0.0" width="246" height="35"/>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="35" id="Qky-Ep-thV"/>
-                            </constraints>
-                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            <connections>
-                                <outlet property="delegate" destination="iN0-l3-epB" id="flr-vh-e0B"/>
-                            </connections>
-                        </textView>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BTR-Lr-j8S">
-                            <rect key="frame" x="246" y="0.0" width="34.5" height="35"/>
-                            <constraints>
-                                <constraint firstAttribute="width" secondItem="BTR-Lr-j8S" secondAttribute="height" multiplier="1:1" id="A8o-7R-3Ln"/>
-                            </constraints>
-                            <state key="normal" image="表情"/>
-                        </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qE4-yT-nZh">
-                            <rect key="frame" x="280.5" y="0.0" width="34.5" height="35"/>
-                            <constraints>
-                                <constraint firstAttribute="width" secondItem="qE4-yT-nZh" secondAttribute="height" multiplier="1:1" id="qWz-UC-kyw"/>
-                            </constraints>
-                            <state key="normal" image="其它"/>
-                        </button>
-                    </subviews>
-                    <color key="backgroundColor" red="1" green="0.1176470588" blue="0.1960784314" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    <constraints>
-                        <constraint firstItem="BTR-Lr-j8S" firstAttribute="width" secondItem="BTR-Lr-j8S" secondAttribute="height" multiplier="1:1" id="1j0-uY-eEW"/>
-                    </constraints>
-                </stackView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4uj-kJ-gAW">
                     <rect key="frame" x="300" y="9" width="75" height="33"/>
                     <constraints>
@@ -90,17 +55,29 @@
                     <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="P85-4z-Sd1" customClass="CMInputView">
+                    <rect key="frame" x="64" y="7.5" width="271" height="35"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="35" id="Qky-Ep-thV"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                    <connections>
+                        <outlet property="delegate" destination="iN0-l3-epB" id="SOs-ER-0hN"/>
+                    </connections>
+                </textView>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="xos-xd-7EN" secondAttribute="trailing" id="0iL-e2-nRI"/>
                 <constraint firstItem="v81-St-9PF" firstAttribute="leading" secondItem="mbY-Yv-lAw" secondAttribute="trailing" constant="8" id="2al-4z-RYI"/>
                 <constraint firstItem="mbY-Yv-lAw" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="8" id="9z8-iV-I18"/>
+                <constraint firstAttribute="trailing" secondItem="P85-4z-Sd1" secondAttribute="trailing" constant="40" id="BUz-4v-t9t"/>
                 <constraint firstItem="aSC-j1-AeR" firstAttribute="centerY" secondItem="mbY-Yv-lAw" secondAttribute="centerY" id="ORW-DR-FfJ"/>
+                <constraint firstItem="P85-4z-Sd1" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="7.5" id="R3Y-q7-q2s"/>
+                <constraint firstItem="P85-4z-Sd1" firstAttribute="leading" secondItem="mbY-Yv-lAw" secondAttribute="trailing" constant="12" id="RyS-YC-o3K"/>
                 <constraint firstItem="v81-St-9PF" firstAttribute="centerY" secondItem="aSC-j1-AeR" secondAttribute="centerY" id="YpZ-7e-WPK"/>
                 <constraint firstItem="mbY-Yv-lAw" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="3" id="axL-lG-x9z"/>
-                <constraint firstItem="xos-xd-7EN" firstAttribute="centerY" secondItem="mbY-Yv-lAw" secondAttribute="centerY" id="fb4-yw-EDD"/>
-                <constraint firstItem="xos-xd-7EN" firstAttribute="leading" secondItem="mbY-Yv-lAw" secondAttribute="trailing" constant="8" id="gkX-tx-wer"/>
                 <constraint firstItem="aSC-j1-AeR" firstAttribute="leading" secondItem="v81-St-9PF" secondAttribute="trailing" constant="8" id="lUP-QD-4D8"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="4uj-kJ-gAW" secondAttribute="trailing" id="o1L-kl-rfz"/>
                 <constraint firstItem="4uj-kJ-gAW" firstAttribute="centerY" secondItem="mbY-Yv-lAw" secondAttribute="centerY" id="pJ5-HX-Thd"/>
@@ -115,10 +92,36 @@
                 <outlet property="otherBtn" destination="qE4-yT-nZh" id="anB-58-XZj"/>
                 <outlet property="rightButton" destination="4uj-kJ-gAW" id="chn-yh-fQB"/>
                 <outlet property="textInputToolBar" destination="xos-xd-7EN" id="bEb-15-xhx"/>
-                <outlet property="textInputToolBar_Y" destination="fb4-yw-EDD" id="VWN-hJ-8Wu"/>
+                <outlet property="textViewHeight" destination="Qky-Ep-thV" id="xxY-KP-o5f"/>
                 <outlet property="textViewInputToolBar" destination="P85-4z-Sd1" id="cFv-5l-vNa"/>
             </connections>
+            <point key="canvasLocation" x="33.5" y="104.5"/>
         </view>
+        <stackView opaque="NO" contentMode="scaleToFill" id="xos-xd-7EN">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BTR-Lr-j8S">
+                    <rect key="frame" x="0.0" y="0.0" width="0.0" height="0.5"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="BTR-Lr-j8S" secondAttribute="height" multiplier="1:1" id="A8o-7R-3Ln"/>
+                    </constraints>
+                    <state key="normal" image="表情"/>
+                </button>
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qE4-yT-nZh">
+                    <rect key="frame" x="0.0" y="0.0" width="0.0" height="0.5"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="qE4-yT-nZh" secondAttribute="height" multiplier="1:1" id="qWz-UC-kyw"/>
+                    </constraints>
+                    <state key="normal" image="其它"/>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="1" green="0.1176470588" blue="0.1960784314" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="BTR-Lr-j8S" firstAttribute="width" secondItem="BTR-Lr-j8S" secondAttribute="height" multiplier="1:1" id="1j0-uY-eEW"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="DMX-m7-wRf"/>
+        </stackView>
     </objects>
     <resources>
         <image name="其它" width="25" height="25"/>

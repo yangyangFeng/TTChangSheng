@@ -51,27 +51,27 @@
      
 #ifdef CS_SWITCH_RESEND_MESSAGE
 //        [msgRequestModel.msgStatus clearPromiseState];
-        if (msgRequestModel.sendNumber == 1)
-        {
-            
-            return [[CSIMSendMessageManager shareInstance] sendMessage:message];
-            
-        }
-        
-        else if (msgRequestModel.sendNumber < CS_IM_MAX_RESEND_NUMBER ) {
-            if (msgRequestModel.sendNumber == 2) {
-                if (fail) {
-                    fail(error);
-                }
-            }
-            [[CSIMMessageQueueManager shareInstance] cacheMessage:msgRequestModel];
-        }
-        else
-        {
-            if (fail) {
-                fail(error);
-            }
-        }
+//        if (msgRequestModel.sendNumber == 1)
+//        {
+//
+//            return [[CSIMSendMessageManager shareInstance] sendMessage:message];
+//
+//        }
+//
+//        else if (msgRequestModel.sendNumber < CS_IM_MAX_RESEND_NUMBER ) {
+//            if (msgRequestModel.sendNumber == 2) {
+//                if (fail) {
+//                    fail(error);
+//                }
+//            }
+//            [[CSIMMessageQueueManager shareInstance] cacheMessage:msgRequestModel];
+//        }
+//        else
+//        {
+//            if (fail) {
+//                fail(error);
+//            }
+//        }
         
         
 #else

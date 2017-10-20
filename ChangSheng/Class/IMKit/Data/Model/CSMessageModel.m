@@ -231,21 +231,40 @@ NSMutableDictionary * tmpImageDict;
 
 - (void)cs_checkParams
 {
-    self.isSelf = NO;
-    _messageStatus = kCSMessageStatusSuccessed;
-    _messageDownloadStatus = kCSMessageDownloadStatusWaiting;
-    _thumbnailDownloadStatus = kCSMessageDownloadStatusWaiting;
     
-    if ([self.body.content hasSuffix:@".gif"]) {
-//        [self syncMessageBodyType:CSMessageBodyTypeGif];
-        self.msgType = CSMessageBodyTypeGif;
-        self.body.msgType = CSMessageBodyTypeGif;
+    _messageStatus = kCSMessageStatusSuccessed;
+    switch (self.body.msgType) {
+        case CSMessageBodyTypeText:
+            _messageDownloadStatus = kCSMessageDownloadStatusSuccessed;
+            _thumbnailDownloadStatus = kCSMessageDownloadStatusSuccessed;
+            break;
+        case CSMessageBodyTypeImage:
+            _messageDownloadStatus = kCSMessageDownloadStatusWaiting;
+            _thumbnailDownloadStatus = kCSMessageDownloadStatusWaiting;
+            if ([self.body.content hasSuffix:@".gif"]) {
+                self.msgType = CSMessageBodyTypeGif;
+                self.body.msgType = CSMessageBodyTypeGif;
+            }
+            break;
+        case CSMessageBodyTypeVoice:
+            _messageDownloadStatus = kCSMessageDownloadStatusSuccessed;
+            _thumbnailDownloadStatus = kCSMessageDownloadStatusSuccessed;
+            break;
+        case CSMessageBodyTypeLink:
+            _messageDownloadStatus = kCSMessageDownloadStatusWaiting;
+            _thumbnailDownloadStatus = kCSMessageDownloadStatusWaiting;
+            break;
+        default:
+            break;
     }
+    
+
     if (self.body.msgType == CSMessageBodyTypeImage |
         self.body.msgType == CSMessageBodyTypeGif |
         self.body.msgType == CSMessageBodyTypeLink) {
         self.thumbnailImageSize = [LLMessageImageCell thumbnailSize:CGSizeMake(self.body.img_width, self.body.img_height)];
     }
+    self.isSelf = NO;
     [self syncMessageBodyType:CS_changeMessageType(self.body.msgType)];
     [self processModelForCell];
 }
@@ -352,14 +371,14 @@ NSMutableDictionary * tmpImageDict;
         
         _isSelf = isSelf;
         
+
+        _error = nil;
+        [self formaterMessage];
+
         if (isSelf) {
             self.body.nickname = [CSUserInfo shareInstance].info.nickname;
             self.body.avatar = [CSUserInfo shareInstance].info.avatar;
         }
-
-        _error = nil;
-        [self formaterMessage];
-//        [self processModelForCell];
         
     }
     return self;
@@ -463,7 +482,7 @@ NSMutableDictionary * tmpImageDict;
             msgBody = [CSMessageModel newVoiceMessageChatType:chatType chatId:chatId msgId:msgRecordModel.msg_id msgType:CSMessageBodyTypeVoice action:1 content:msgRecordModel.content localPath:nil duration:msgRecordModel.voice_length uploadProgress:nil uploadStatus:nil isSelf:msgRecordModel.is_self.intValue];
             break;
             case CSMessageBodyTypeLink:
-            msgBody = [CSMessageModel newLinkImageMessageWithImageSize:CGSizeMake(msgRecordModel.img_width, msgRecordModel.img_height) chatId:chatId chatType:chatType msgId:msgRecordModel.msg_id msgType:(CSMessageBodyTypeImage) action:1 content:msgRecordModel.content
+            msgBody = [CSMessageModel newLinkImageMessageWithImageSize:CGSizeMake(msgRecordModel.img_width, msgRecordModel.img_height) chatId:chatId chatType:chatType msgId:msgRecordModel.msg_id msgType:(CSMessageBodyTypeLink) action:1 content:msgRecordModel.content
                                                            linkUrl:msgRecordModel.linkUrl isSelf:msgRecordModel.is_self.intValue];
             break;
         default:
@@ -988,7 +1007,10 @@ NSMutableDictionary * tmpImageDict;
     return @{@"unreadList" : [CSUnreadListModel class]};
 }
 
-
++ (NSArray *)mj_ignoredPropertyNames
+{
+    return @[@"thumbnailImage"];
+}
 //+ (NSArray *)mj_allowedPropertyNames
 //{
 //    return @[@"chatId", @"chatType", @"msgType", @"content", @"msgId", @"action", @"playType", @"score", @"receiptId", @"unreadList", @"body", @"linkUrl", @"surplusScore" ,@"cancelStatus", @"msg", @"code"];

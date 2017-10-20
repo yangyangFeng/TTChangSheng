@@ -10,6 +10,8 @@
 @class CSPublicBetInputToolBarModel;
 #import "CSBetInputView.h"
 #import "CSMessageModel.h"
+#import "CSBetInputToolBarView.h"
+#import "CSNumberKeyboardView.h"
 
 @protocol CSPublicBetInputToolBarViewDelegate <CSBetInputViewDelegate>
 
@@ -20,6 +22,11 @@
 
 @end
 @interface CSPublicBetInputToolBarView : UIView
+
+@property (nonatomic,assign) CS_CurrentInputType currentInputType;
+
+@property(nonatomic,assign)CGFloat textViewHeight;
+
 @property (nonatomic,weak) id<CSPublicBetInputToolBarViewDelegate> delegate;
 - (void)cs_resignFirstResponder;
 @property (nonatomic, strong)UIView * maskView;
