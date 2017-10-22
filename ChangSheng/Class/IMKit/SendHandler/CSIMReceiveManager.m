@@ -151,7 +151,7 @@ static CSIMReceiveManager * _manager = nil;
         case 4:
         {
             CS_HUD(@"socket已连接");
-//            [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICE_KEY_SOCKET_OPEN object:nil];
+            [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICE_KEY_SOCKET_OPEN object:nil];
             for (CSIMUnReadListModel * tempModel in message.result.unreadList) {
                 [self insertChatWithChatType:tempModel.chatType chatId:[NSString stringWithFormat:@"%d",tempModel.chatId] unReadCount:[NSString stringWithFormat:@"%d",tempModel.count]];
             }
@@ -241,12 +241,12 @@ static CSIMReceiveManager * _manager = nil;
     switch (chatType) {
         case CSChatTypeChat:
         {
-            key = @"single";
+            key = CS_MESSAGE_KEY_SINGLE;
         }
             break;
         case CSChatTypeGroupChat:
         {
-            key = @"group";
+            key = CS_MESSAGE_KEY_GROUP;
         }
             break;
         default:
@@ -263,6 +263,32 @@ static CSIMReceiveManager * _manager = nil;
         return number.intValue;
     }
     return 0;
+}
+
+- (int)getAllUnReadMessageNumberChatType:(CSChatType)chatType
+{
+    NSString * key;
+    switch (chatType) {
+        case CSChatTypeChat:
+        {
+            key = CS_MESSAGE_KEY_SINGLE;
+        }
+            break;
+        case CSChatTypeGroupChat:
+        {
+            key = CS_MESSAGE_KEY_GROUP;
+        }
+            break;
+        default:
+            break;
+    }
+    int count = 0;
+    for (NSString * dic_key in self.unReadMessageList.allKeys) {
+        if ([dic_key hasPrefix:key]) {
+            count += [self.unReadMessageList[dic_key] intValue];
+        }
+    }
+    return count;
 }
 
 - (void)inChatWithChatType:(CSChatType)chatType chatId:(NSString *)chatId

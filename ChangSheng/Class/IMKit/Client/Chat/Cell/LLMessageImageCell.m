@@ -43,7 +43,8 @@ static UIImage *photoDownloadImage;
         [self.contentView addSubview:self.thumbnailImageView];
         
         self.chatImageView = [[UIImageView alloc] init];
-        self.chatImageView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.4];
+        self.chatImageView.backgroundColor = [UIColor clearColor];
+        //[UIColor colorWithWhite:0 alpha:0.4];
         self.chatImageView.contentMode = UIViewContentModeScaleAspectFill;
         [self.contentView addSubview:self.chatImageView];
         
@@ -62,6 +63,7 @@ static UIImage *photoDownloadImage;
         [self.contentView addSubview:_label];
         _label.text = @"0%";
         _label.hidden = YES;
+
 
     }
     
@@ -98,9 +100,13 @@ static UIImage *photoDownloadImage;
 {
     [super setMessageModel:messageModel];
     if (!self.chatImageView.image) {
-        
+    
         if (self.messageModel.thumbnailImage) {
             self.chatImageView.image = self.messageModel.thumbnailImage;
+        }
+        else if(self.messageModel.tempImageData)
+        {
+            self.messageModel.thumbnailImage = self.chatImageView.image = [UIImage imageWithData:self.messageModel.tempImageData];
         }
         else
         {
@@ -243,9 +249,9 @@ static UIImage *photoDownloadImage;
     self.label.text = [NSString stringWithFormat:@"%ld%%", (long)uploadProgress];
     if (uploadProgress >= 100) {
         WEAK_SELF;
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [weakSelf uploadResult:YES];
-        });
+//        });
     }
 }
 
@@ -272,7 +278,7 @@ static UIImage *photoDownloadImage;
             self.label.hidden = NO;
             self.maskView.hidden = NO;
             self.chatImageView.alpha = 0.6;
-            NSLog(@"%ld",self.messageModel.fileUploadProgress);
+//            NSLog(@"model----->%ld",self.messageModel.fileUploadProgress);
             [self setUploadProgress:self.messageModel.fileUploadProgress];
             break;
             

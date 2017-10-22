@@ -11,6 +11,9 @@
 
 #import "CSMessageModel.h"
 
+#define CS_MESSAGE_KEY_SINGLE @"single"
+#define CS_MESSAGE_KEY_GROUP @"group"
+
 #define NOTIFICE_KEY_SOCKET_OPEN @"NOTIFICE_KEY_SOCKET_OPEN"
 #define NOTIFICE_KEY_SOCKET_CLOSE @"NOTIFICE_KEY_SOCKET_CLOSE"
 #define NOTIFICE_KEY_SOCKET_UNREAD_NUMBER @"NOTIFICE_KEY_SOCKET_UNREAD_NUMBER"
@@ -37,6 +40,7 @@
 
 
 - (int)getUnReadMessageNumberChatType:(CSChatType)chatType chatId:(NSString *)chatId;
+- (int)getAllUnReadMessageNumberChatType:(CSChatType)chatType;
 - (NSString *)keyWithChatType:(CSChatType)chatType chatId:(NSString *)chatId;
 - (void)inChatWithChatType:(CSChatType)chatType chatId:(NSString *)chatId;
 - (void)outChatWithChatType:(CSChatType)chatType chatId:(NSString *)chatId;

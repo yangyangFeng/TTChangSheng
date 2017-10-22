@@ -159,7 +159,6 @@ CSPublicBetInputToolBarViewDelegate
     }];
 }
 //#FIXME:    ***************************************inputView
-//#FIXME:    ***************************************inputView
 - (void)updateFrame:(NSNotification *)notice
 {
     NSNumber * height = notice.object;
@@ -178,6 +177,7 @@ CSPublicBetInputToolBarViewDelegate
         self.tableView.contentInset = UIEdgeInsetsMake(0, 0, _keyboardHeight + textHeight , 0);
         //UIEdgeInsetsMake(0, 0, HEIGHT - self.inputToolBarView.height - 64 + textHeight , 0);
         self.tableView.scrollIndicatorInsets = self.tableView.contentInset;
+        [self.tableView scrollToBottomAnimated:YES];
     }];
 }
 - (void)cs_keyboardHide
@@ -195,7 +195,7 @@ CSPublicBetInputToolBarViewDelegate
             textHeight = self.textViewChangeHeight;
         }
         self.inputToolBarView.y = HEIGHT - 50 - textHeight;
-        self.tableView.contentInset = UIEdgeInsetsMake(0, textHeight, 0, 0);
+        self.tableView.contentInset = UIEdgeInsetsMake(0, 0, textHeight, 0);
         self.tableView.scrollIndicatorInsets = self.tableView.contentInset;
         [self.tableView layoutIfNeeded];
     } completion:nil];
@@ -227,15 +227,11 @@ CSPublicBetInputToolBarViewDelegate
     
 }
 
-
-
-
-
 - (void)cellImageDidTapped:(LLMessageImageCell *)cell {
     if (cell.messageModel.thumbnailImage) {
         [self showAssetFromCell:cell];
     }else if (!cell.messageModel.isFetchingThumbnail){
-        [[LLChatManager sharedManager] asyncDownloadMessageThumbnail:cell.messageModel completion:nil];
+//        [cell willDisplayCell];
     }
 }
 #pragma mark - 视频、图片弹出、弹入动画 -
@@ -253,8 +249,8 @@ CSPublicBetInputToolBarViewDelegate
         }
     
     LLChatAssetDisplayController *vc = [[LLChatAssetDisplayController alloc] initWithNibName:nil bundle:nil];
-    vc.allAssets = array;
-  //@[cell.messageModel];
+    vc.allAssets = //array;
+  @[cell.messageModel];
     vc.curShowMessageModel = cell.messageModel;
     vc.originalWindowFrame = [cell contentFrameInWindow];
     vc.delegate = self;
@@ -277,6 +273,7 @@ CSPublicBetInputToolBarViewDelegate
 - (void)viewDidLoad {
     [super viewDidLoad];
      [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateFrame:) name:@"updateInputTextViewFrame" object:nil];
+    
     [CSIMReceiveManager shareInstance].delegate = self;
     [[CSIMReceiveManager shareInstance] inChatWithChatType:(CSChatTypeGroupChat) chatId:self.conversationModel.chatId];
     
@@ -286,6 +283,37 @@ CSPublicBetInputToolBarViewDelegate
     //记录进入该聊天室
     
     [self addRefreshTool];
+}
+
+- (void)reConnectionSocket
+{
+        CSMessageModel * msgData = [self.dataSource firstObject];
+        CSMsgHistoryRequestModel * param = [CSMsgHistoryRequestModel new];
+        param.chat_type = CSChatTypeGroupChat;//1为群聊
+        param.ID = self.conversationModel.chatId.intValue;
+        [CSHttpRequestManager request_chatRecord_paramters:param.mj_keyValues success:^(id responseObject) {
+            CSMsgRecordModel * obj = [CSMsgRecordModel mj_objectWithKeyValues:responseObject];
+            
+            NSMutableArray * messagesArray = [NSMutableArray array];
+//            NSMutableArray * messagesRequestArray = [NSMutableArray array];
+            for (CSMsgRecordModel * msgData in obj.result.data) {
+                CSMessageModel * msgModel = [CSMessageModel conversionWithRecordModel:msgData chatType:param.chat_type chatId:[NSString stringWithFormat:@"%d",self.conversationModel.chatId]];
+                
+                CSIMSendMessageRequestModel * sendMsgModel = [CSIMSendMessageRequestModel new];
+                sendMsgModel.body = msgModel;
+                [messagesArray addObject:msgModel];
+
+            }
+  
+            self.conversationModel.allMessageModels = messagesArray;
+             
+            self.dataSource = [self processData:self.conversationModel];
+            [self.tableView reloadData];
+            
+        } failure:^(NSError *error) {
+            
+        } showHUD:NO];
+    
 }
 
 - (void)addRefreshTool
@@ -307,11 +335,13 @@ CSPublicBetInputToolBarViewDelegate
                 CSIMSendMessageRequestModel * sendMsgModel = [CSIMSendMessageRequestModel new];
                 sendMsgModel.body = msgModel;
                 [messagesArray addObject:msgModel];
-                [messagesRequestArray addObject:sendMsgModel];
+//                [messagesRequestArray addObject:sendMsgModel];
+                [messagesRequestArray addObject:msgModel];
             }
-            [self.dataSource insertObjects:messagesArray atIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, messagesArray.count)]];
+//            [self.dataSource insertObjects:messagesArray atIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, messagesArray.count)]];
+//            [self.conversationModel.allMessageModels insertObjects:messagesRequestArray atIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, messagesRequestArray.count)]];
             [self.conversationModel.allMessageModels insertObjects:messagesRequestArray atIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, messagesRequestArray.count)]];
-            
+            self.dataSource = [self processData:self.conversationModel];
             [self.tableView reloadData];
             [self.tableView.mj_header endRefreshing];
         } failure:^(NSError *error) {
@@ -432,11 +462,30 @@ CSPublicBetInputToolBarViewDelegate
 
 - (void)loadMessageData
 {
-    for (CSIMSendMessageRequestModel * sendMsgModel in self.conversationModel.allMessageModels) {
-        [self.dataSource addObject:sendMsgModel.body];
-    }
+//    for (CSIMSendMessageRequestModel * sendMsgModel in self.conversationModel.allMessageModels) {
+//        [self.dataSource addObject:sendMsgModel.body];
+//    }
+    self.dataSource = [self processData:self.conversationModel];
     [self.tableView reloadData];
 }
+
+- (NSMutableArray<CSMessageModel *> *)processData:(CSIMConversationModel *)conversationModel {
+    NSMutableArray<CSMessageModel *> *messageList = [NSMutableArray array];
+    NSArray<CSMessageModel *> *models = conversationModel.allMessageModels;
+    for (NSInteger i = 0; i < models.count; i++) {
+        
+        if (i == 0 || (models[i].body.timestamp.integerValue - models[i-1].body.timestamp.integerValue > CHAT_CELL_TIME_INTERVEL)) {
+            CSMessageModel *model = [[CSMessageModel alloc] initWithType:kCSMessageBodyTypeDateTime];
+            model.body.timestamp = models[i].timestamp;
+            model.msgId = models[i].msgId;
+            [messageList addObject:model];
+        }
+        [messageList addObject:models[i]];
+    }
+    
+    return messageList;
+}
+
 
 - (void)updateViewConstraints {
     self.tableViewHeightConstraint.constant = SCREEN_HEIGHT - 64 - MAIN_BOTTOM_TABBAR_HEIGHT;
@@ -574,6 +623,7 @@ CSPublicBetInputToolBarViewDelegate
 {
     CSIMSendMessageRequestModel * model = [CSIMSendMessageRequestModel new];
     CSMessageModel * msgModel = [CSMessageModel sendBetMessageChatType:CSChatTypeGroupChat chatId:self.conversationModel.chatId msgId:nil msgType:(CSMessageBodyTypeText) betType:messageModel.playType betNumber:messageModel.score action:messageModel.action content:messageModel.content isSelf:YES];
+//     CSMessageModel * msgModel = [CSMessageModel sendBetMessageChatType:CSChatTypeGroupChat chatId:@"10" msgId:nil msgType:(CSMessageBodyTypeText) betType:messageModel.playType betNumber:messageModel.score action:messageModel.action content:messageModel.content isSelf:YES];
     
     model.body = msgModel;
     
@@ -583,10 +633,42 @@ CSPublicBetInputToolBarViewDelegate
     } failed:^(NSError *error) {
         [MBProgressHUD tt_ShowInView:self.view WithTitle:error.domain after:1];
         [self failMessageRefreshSendStatusWithModel:msgModel];
+        if (error.code == 100) { //交易超时
+            
+        }
+        else
+        {
+            [self deleteCellWithModel:msgModel];
+        }
     }];
     [[CSIMSendMessageManager shareInstance] sendMessage:model];
     
     [self addModelToDataSourceAndScrollToBottom:model animated:YES];
+}
+
+- (void)deleteCellWithModel:(CSMessageModel *)model
+{
+    NSInteger index = [self.dataSource indexOfObject:model];
+    NSMutableArray<NSIndexPath *> *deleteIndexPaths = [NSMutableArray array];
+    
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
+    [self.conversationModel.allMessageModels removeObject:model];
+    [self.dataSource removeObjectAtIndex:index];
+    [deleteIndexPaths addObject:indexPath];
+    
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//        [self.tableView beginUpdates];
+        [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:(UITableViewRowAnimationFade)];
+//        [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationFade];
+//        [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+//        [self.tableView endUpdates];
+//    });
+    
+    
+//    WEAK_SELF;
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//        [weakSelf loadMoreMessagesAfterDeletionIfNeeded];
+//    });
 }
 
 #pragma mark - 撤销下注
@@ -625,12 +707,22 @@ CSPublicBetInputToolBarViewDelegate
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    [UIView setAnimationsEnabled:NO];
+//    [UIView setAnimationsEnabled:NO];
     CSMessageModel *messageModel = self.dataSource[indexPath.row];
-    NSString *reuseId = [[LLMessageCellManager sharedManager] reuseIdentifierForMessegeModel:messageModel];
     UITableViewCell *_cell;
+//    if (indexPath.row >= self.dataSource.count) {
+//        _cell = [[UITableViewCell alloc]initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:@"123"];
+//        return _cell;
+//    }
+//    else
+//    {
+//     messageModel  = self.dataSource[indexPath.row];
+//    }
+        
+    NSString *reuseId = [[LLMessageCellManager sharedManager] reuseIdentifierForMessegeModel:messageModel];
     
-    switch (CS_changeMessageType(messageModel.body.msgType)) {
+//    switch (CS_changeMessageType(messageModel.body.msgType)) {
+    switch ((messageModel.body.msgType)) {
         case kCSMessageBodyTypeText:
         case kCSMessageBodyTypeVideo:
         case kCSMessageBodyTypeVoice:
@@ -690,6 +782,7 @@ CSPublicBetInputToolBarViewDelegate
     
     if ([_cell isKindOfClass:[LLMessageBaseCell class]]) {
         LLMessageBaseCell *baseCell = (LLMessageBaseCell *)_cell;
+        [baseCell enableLongGesture:NO];//屏蔽长按手势
         [baseCell setCellEditingAnimated:NO];
         if (baseCell.isCellSelected != messageModel.isSelected) {
             baseCell.isCellSelected = messageModel.isSelected;
@@ -719,7 +812,8 @@ CSPublicBetInputToolBarViewDelegate
         }
     }
     
-    [UIView setAnimationsEnabled:YES];
+//    [UIView setAnimationsEnabled:YES];
+    
     return _cell;
     
 }
@@ -772,7 +866,8 @@ CSPublicBetInputToolBarViewDelegate
             break;
         case kCSMessageBodyTypeLink:
             //            [self cellVideoDidTapped:(LLMessageVideoCell *)cell];
-            [self loadWebLinkWithUrl:cell.messageModel.body.linkUrl title:@""];
+            
+            [self loadWebLinkWithUrl:[NSString stringWithFormat:@"%@?group_id=%@&token=%@",cell.messageModel.body.linkUrl,self.conversationModel.chatId,[CSUserInfo shareInstance].info.token] title:@""];
             break;
         case kCSMessageBodyTypeVoice:
             //            [self cellVoiceDidTapped:(LLMessageVoiceCell *)cell];
@@ -946,12 +1041,15 @@ CSPublicBetInputToolBarViewDelegate
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardFrameWillChange:) name:UIKeyboardWillShowNotification object:nil];
     //NOTIFICE_KEY_SOCKET_CURRENT_SCORE
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(upDateUserScoreText:) name:NOTIFICE_KEY_SOCKET_CURRENT_SCORE object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reConnectionSocket) name:NOTIFICE_KEY_SOCKET_OPEN object:nil];
 }
 
 - (void)removeKeyboardObserver
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:NOTIFICE_KEY_SOCKET_CURRENT_SCORE object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:NOTIFICE_KEY_SOCKET_OPEN object:nil];
 }
 
 - (LLMessageBaseCell *)visibleCellForMessageModel:(CSMessageModel *)model {

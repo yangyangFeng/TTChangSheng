@@ -159,6 +159,7 @@ typedef NS_ENUM(NSInteger, CSMessageStatus) {
 
 @interface CSMessageModel : NSObject
 
+@property (nonatomic,weak) NSData *tempImageData;
 - (BOOL)queryMessageWithChatType:(CSChatType)chatType chatId:(NSString *)chatId;
 /**
  socket action = 9,用户剩余分数
@@ -231,7 +232,7 @@ typedef NS_ENUM(NSInteger, CSMessageStatus) {
 
 #pragma mark - 图片消息
 
-@property (nonatomic, weak) UIImage *thumbnailImage;
+@property (nonatomic, strong) UIImage *thumbnailImage;
 
 @property (nonatomic) CGSize thumbnailImageSize;
 
@@ -298,6 +299,11 @@ typedef NS_ENUM(NSInteger, CSMessageStatus) {
  缓存消息Key
  */
 @property(nonatomic,copy)NSString * msgCacheKey;
+
+/**
+ 生成 MessageId工外部调用
+ */
++ (NSString *)create_kMessageId;
 //该方法供外部代码调用
 //+ (LLMessageModel *)messageModelFromPool:(EMMessage *)message;
 
@@ -307,11 +313,13 @@ typedef NS_ENUM(NSInteger, CSMessageStatus) {
                                         imageSize:(CGSize)imageSize
                                            chatId:(NSString *)chatId
                                          chatType:(CSChatType)chatType
+                                            msgId:(NSString *)msgId
                                           msgType:(CSMessageBodyType)msgBodyType
                                            action:(int)action
                                           content:(NSString *)content
                                    uploadProgress:(CS_MESSAGE_UPLOAD_PROGRESS)cs_uploadProgress
                                      uploadStatus:(CS_MESSAGE_UPLOAD_STATUS)cs_uploadStatus                                           isSelf:(BOOL)isSelf;
+@property (nonatomic,copy) CS_MESSAGE_UPLOAD_PROGRESS file_upload_progress_BLOCK;
 
 - (CSMessageModel *)sendVoiceMessageWithLocalPath:(NSString *)localPath
                                          duration:(NSInteger)duration

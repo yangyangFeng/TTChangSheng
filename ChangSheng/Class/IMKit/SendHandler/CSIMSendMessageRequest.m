@@ -43,7 +43,7 @@
         if (success) {
             success(obj);
         }
-        [LLUtils playSendMessageSound];
+//        [LLUtils playSendMessageSound];
     } failed:^(NSError *error) {
         //发送失败后,将此条消息移除缓存
         [[CSIMMessageQueueManager shareInstance] removeMessages:message];

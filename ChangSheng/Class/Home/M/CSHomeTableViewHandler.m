@@ -69,6 +69,11 @@ NSString* Home_GetBgImageNameWithIndex(NSInteger index) {
         int count = [[CSIMReceiveManager shareInstance] getUnReadMessageNumberChatType:(CSChatTypeGroupChat) chatId:[NSString stringWithFormat:@"%d",model.id]];
         cell.unReadNumber.text = [NSString stringWithFormat:@"%d",count];
     }
+    {
+        CSHomeTableViewCell * cell = (CSHomeTableViewCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:0]];
+        int count = [[CSIMReceiveManager shareInstance] getAllUnReadMessageNumberChatType:(CSChatTypeChat)];
+        cell.unReadNumber.text = [NSString stringWithFormat:@"%d",count];
+    }
 }
 
 - (void)setBetGroupArray:(NSArray *)betGroupArray

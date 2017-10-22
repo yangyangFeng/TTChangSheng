@@ -120,11 +120,11 @@
 {
     _isUpScore = isUpScore;
     if (isUpScore) {
-        _uploadLabel.text = @"上传银行卡照片";
+        _uploadLabel.text = @"上传汇款凭证";
     }
     else
     {
-        _uploadLabel.text = @"上传汇款凭证";
+        _uploadLabel.text = @"上传银行卡照片";
     }
 }
 - (IBAction)commitBtnDidAction:(id)sender {

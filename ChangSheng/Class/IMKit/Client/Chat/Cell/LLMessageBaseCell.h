@@ -101,6 +101,9 @@ extern UIImage *SenderImageNodeMask;
 
 - (void)didEndScrolling;
 
+- (void)willReloadCell;
+
+- (void)enableLongGesture:(BOOL)isEnable;
 #pragma mark - 布局
 
 - (void)updateMessageUploadStatus;

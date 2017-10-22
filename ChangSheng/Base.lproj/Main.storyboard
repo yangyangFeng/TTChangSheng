@@ -442,7 +442,7 @@
                                         </connections>
                                     </button>
                                     <button clipsSubviews="YES" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uv0-Dm-ele">
-                                        <rect key="frame" x="44" y="7" width="79" height="36"/>
+                                        <rect key="frame" x="44" y="7" width="283" height="36"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="36" id="m4L-Vp-fr0"/>
                                         </constraints>
@@ -466,6 +466,8 @@
                                     <constraint firstItem="yd0-Ha-Idf" firstAttribute="leading" secondItem="y5N-9k-orZ" secondAttribute="trailing" constant="5" id="AVq-y1-d77"/>
                                     <constraint firstItem="uv0-Dm-ele" firstAttribute="top" secondItem="YKl-dy-EHS" secondAttribute="top" constant="7" id="Anw-nq-cfq"/>
                                     <constraint firstAttribute="bottom" secondItem="yd0-Ha-Idf" secondAttribute="bottom" constant="7" id="HmC-hk-7d3"/>
+                                    <constraint firstItem="uv0-Dm-ele" firstAttribute="width" secondItem="yd0-Ha-Idf" secondAttribute="width" id="Ug5-q0-XBB"/>
+                                    <constraint firstItem="kCR-hl-9Vg" firstAttribute="leading" secondItem="yd0-Ha-Idf" secondAttribute="trailing" constant="10" id="ZSC-jp-lKB"/>
                                     <constraint firstItem="uv0-Dm-ele" firstAttribute="leading" secondItem="y5N-9k-orZ" secondAttribute="trailing" constant="5" id="by1-5U-nGW"/>
                                     <constraint firstAttribute="bottom" secondItem="kCR-hl-9Vg" secondAttribute="bottom" constant="7" id="cnz-f5-DrE"/>
                                     <constraint firstItem="yd0-Ha-Idf" firstAttribute="top" secondItem="YKl-dy-EHS" secondAttribute="top" constant="7" id="ngC-k2-zpZ"/>

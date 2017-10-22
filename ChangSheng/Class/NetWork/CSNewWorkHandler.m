@@ -287,30 +287,30 @@
 
 + (void)startMonitoring
 {
-    // 1.获得网络监控的管理者
-    AFNetworkReachabilityManager* mgr = [AFNetworkReachabilityManager sharedManager];
-    // 2.设置网络状态改变后的处理
-    [mgr setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
-        // 当网络状态改变了, 就会调用这个block
-        switch (status) {
-        case AFNetworkReachabilityStatusUnknown: // 未知网络
-            DLog(@"未知网络");
-            [CSNewWorkHandler sharedInstance].networkError = NO;
-            break;
-        case AFNetworkReachabilityStatusNotReachable: // 没有网络(断网)
-            [CSNewWorkHandler sharedInstance].networkError = YES;
-            break;
-        case AFNetworkReachabilityStatusReachableViaWWAN: // 手机自带网络
-            DLog(@"手机自带网络");
-            [CSNewWorkHandler sharedInstance].networkError = NO;
-            break;
-        case AFNetworkReachabilityStatusReachableViaWiFi: // WIFI
-            DLog(@"WIFI");
-            [CSNewWorkHandler sharedInstance].networkError = NO;
-            break;
-        }
-    }];
-    [mgr startMonitoring];
+//    // 1.获得网络监控的管理者
+//    AFNetworkReachabilityManager* mgr = [AFNetworkReachabilityManager sharedManager];
+//    // 2.设置网络状态改变后的处理
+//    [mgr setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
+//        // 当网络状态改变了, 就会调用这个block
+//        switch (status) {
+//        case AFNetworkReachabilityStatusUnknown: // 未知网络
+//            DLog(@"未知网络");
+//            [CSNewWorkHandler sharedInstance].networkError = NO;
+//            break;
+//        case AFNetworkReachabilityStatusNotReachable: // 没有网络(断网)
+//            [CSNewWorkHandler sharedInstance].networkError = YES;
+//            break;
+//        case AFNetworkReachabilityStatusReachableViaWWAN: // 手机自带网络
+//            DLog(@"手机自带网络");
+//            [CSNewWorkHandler sharedInstance].networkError = NO;
+//            break;
+//        case AFNetworkReachabilityStatusReachableViaWiFi: // WIFI
+//            DLog(@"WIFI");
+//            [CSNewWorkHandler sharedInstance].networkError = NO;
+//            break;
+//        }
+//    }];
+//    [mgr startMonitoring];
 }
 
 /**

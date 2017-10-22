@@ -12,7 +12,7 @@
 -(instancetype)init
 {
     if (self = [super init]) {
-        _msgStatus = (Deferred*)[[Deferred alloc] timeout:CSIM_SENDMESSAGE_TIME_OUT];
+//        _msgStatus = (Deferred*)[[Deferred alloc] timeout:CSIM_SENDMESSAGE_TIME_OUT];
         _sendNumber = 0;
         _sendStatus = IM_Send_No;
     }
@@ -69,6 +69,14 @@
 - (NSString *)msgCacheKey
 {
     return _body.msgCacheKey;
+}
+
+-(Deferred *)msgStatus
+{
+    if (!_msgStatus) {
+        _msgStatus = (Deferred*)[[Deferred alloc] timeout:CSIM_SENDMESSAGE_TIME_OUT];
+    }
+    return _msgStatus;
 }
 @end
 

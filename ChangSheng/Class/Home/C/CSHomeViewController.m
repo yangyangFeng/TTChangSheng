@@ -94,18 +94,7 @@
 
 - (void)loadData
 {
-//    NSMapTable * tab = [NSMapTable weakToWeakObjectsMapTable];
-//    for (int i = 0; i<10; i++) {
-//        NSString * str = [NSString stringWithFormat:@"%d",i];
-//        [tab setObject:str forKey:str];
-//    }
-//    NSLog(@"%@",tab.objectEnumerator.allObjects);
-//    id delegate = nil;
-//    delegate = [tab.objectEnumerator nextObject];
-//                while (delegate) {
-//                    NSLog(@"obj-->%@",delegate);
-//                    delegate = [tab.objectEnumerator nextObject];
-//                }
+
     
     [CSHttpRequestManager request_groupList_paramters:nil success:^(id responseObject) {
         CSHttpGroupResModel * obj = [CSHttpGroupResModel mj_objectWithKeyValues:responseObject];
@@ -208,9 +197,9 @@
         for (CSMsgRecordModel * msgData in obj.result.data) {
             CSMessageModel * msgModel = [CSMessageModel conversionWithRecordModel:msgData chatType:param.chat_type chatId:[NSString stringWithFormat:@"%d",model.chatId]];
             
-            CSIMSendMessageRequestModel * sendMsgModel = [CSIMSendMessageRequestModel new];
-            sendMsgModel.body = msgModel;
-            [model.allMessageModels addObject:sendMsgModel];
+//            CSIMSendMessageRequestModel * sendMsgModel = [CSIMSendMessageRequestModel new];
+//            sendMsgModel.body = msgModel;
+            [model.allMessageModels addObject:msgModel];
         }
         
         

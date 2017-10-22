@@ -185,6 +185,20 @@ BOOL LLMessageCell_isEditing = NO;
                      }];
 }
 
+- (void)enableLongGesture:(BOOL)isEnable
+{
+    if (isEnable) {
+        
+    }else
+    {
+        [self->longPressGR removeTarget:self action:@selector(contentLongPressed:)];
+    }
+}
+
+- (void)willReloadCell{
+    
+}
+
 - (void)willDisplayCell {
     
 }

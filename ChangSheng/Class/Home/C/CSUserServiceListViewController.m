@@ -28,9 +28,16 @@ static CSUserServiceListViewController * controller = nil;
 
 @implementation CSUserServiceListViewController
 
+
+//+ (void)load
+//{
+//    [super load];
+//    [CSUserServiceListViewController new];
+//}
 - (void)loadView
 {
     [super loadView];
+    
 }
 
 + (id)shareInstance
@@ -50,6 +57,9 @@ static CSUserServiceListViewController * controller = nil;
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    if (!self.dataSource.count) {
+        [self loadData];
+    }
 }
 
 - (void)viewDidLoad {
@@ -171,9 +181,9 @@ static CSUserServiceListViewController * controller = nil;
         for (CSMsgRecordModel * msgData in obj.result.data) {
             CSMessageModel * msgModel = [CSMessageModel conversionWithRecordModel:msgData chatType:param.chat_type chatId:userServiceModel.id];
             
-            CSIMSendMessageRequestModel * sendMsgModel = [CSIMSendMessageRequestModel new];
-            sendMsgModel.body = msgModel;
-            [model.allMessageModels addObject:sendMsgModel];
+//            CSIMSendMessageRequestModel * sendMsgModel = [CSIMSendMessageRequestModel new];
+//            sendMsgModel.body = msgModel;
+            [model.allMessageModels addObject:msgModel];
         }
         
         

@@ -9,5 +9,5 @@
 #import "LLMessageBaseCell.h"
 
 @interface LLMessageGifCell : LLMessageBaseCell
-
++ (CGSize)thumbnailSize:(CGSize)size;
 @end

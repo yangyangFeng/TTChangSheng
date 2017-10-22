@@ -136,7 +136,7 @@
         
     }else if ([keyPath isEqualToString:@"title"]) {
         if (object == self.webView) {
-            self.title = self.webView.title; 
+            [self tt_Title:self.webView.title];
         }
         else{
             [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];

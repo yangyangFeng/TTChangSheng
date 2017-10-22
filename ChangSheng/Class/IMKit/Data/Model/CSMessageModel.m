@@ -56,7 +56,7 @@ typedef NS_OPTIONS(NSInteger, CSMessageCellUpdateType) {
 @property(nonatomic,copy)CS_MESSAGE_UPLOAD_STATUS cs_upload_status;
 @property(nonatomic,copy)CS_MESSAGE_UPLOAD_PROGRESS cs_upload_progress;
 
-@property(nonatomic,strong)NSData * tempImageData;
+
 @end
 
 NSMutableDictionary * tmpImageDict;
@@ -110,6 +110,7 @@ NSMutableDictionary * tmpImageDict;
                                         imageSize:(CGSize)imageSize
                                            chatId:(NSString *)chatId
                                          chatType:(CSChatType)chatType
+                                            msgId:(NSString *)msgId
                                           msgType:(CSMessageBodyType)msgBodyType
                                            action:(int)action
                                           content:(NSString *)content
@@ -117,15 +118,15 @@ NSMutableDictionary * tmpImageDict;
                                      uploadStatus:(CS_MESSAGE_UPLOAD_STATUS)cs_uploadStatus
                                            isSelf:(BOOL)isSelf
 {
-    CSMessageModel * model = [[CSMessageModel alloc]initNewMessageChatType:chatType chatId:chatId msgId:nil msgType:msgBodyType action:action content:content isSelf:isSelf];
+    CSMessageModel * model = [[CSMessageModel alloc]initNewMessageChatType:chatType chatId:chatId msgId:msgId msgType:msgBodyType action:action content:content isSelf:isSelf];
     model.tempImageData = imageData;
     model.thumbnailImage = [UIImage imageWithData:imageData];
-    model.thumbnailImageSize = imageSize;
+    model.thumbnailImageSize = [LLMessageImageCell thumbnailSize:imageSize];
     
     [model formaterMessage];
     model.body.img_width = imageSize.width;
     model.body.img_height =  imageSize.height;
-    
+    model.file_upload_progress_BLOCK = cs_uploadProgress;
     [model cs_uploadImageUploadProgress:cs_uploadProgress uploadStatus:cs_uploadStatus];
     [model processModelForCell];
     return model;
@@ -154,7 +155,11 @@ NSMutableDictionary * tmpImageDict;
         if (cs_uploadProgress) {
             cs_uploadProgress(uploadProgress);
         }
-        
+        if (self.file_upload_progress_BLOCK)
+        {
+            self.file_upload_progress_BLOCK(uploadProgress);
+        }
+            
     } showHUD:NO];
 }
 
@@ -173,8 +178,13 @@ NSMutableDictionary * tmpImageDict;
         [model syncMessageBodyType:CSMessageBodyTypeGif];
         model.msgType = CSMessageBodyTypeGif;
         model.body.msgType = CSMessageBodyTypeGif;
+        model.thumbnailImageSize = [LLMessageGifCell thumbnailSize:imageSize];
     }
-    model.thumbnailImageSize = [LLMessageImageCell thumbnailSize:imageSize];
+    else
+    {
+        model.thumbnailImageSize = [LLMessageImageCell thumbnailSize:imageSize];
+    }
+    
     [model formaterMessage];
     model.body.img_width = imageSize.width;
     model.body.img_height =  imageSize.height;
@@ -260,10 +270,14 @@ NSMutableDictionary * tmpImageDict;
     
 
     if (self.body.msgType == CSMessageBodyTypeImage |
-        self.body.msgType == CSMessageBodyTypeGif |
         self.body.msgType == CSMessageBodyTypeLink) {
         self.thumbnailImageSize = [LLMessageImageCell thumbnailSize:CGSizeMake(self.body.img_width, self.body.img_height)];
     }
+    else if (self.body.msgType == CSMessageBodyTypeGif)
+    {
+        self.thumbnailImageSize = [LLMessageGifCell thumbnailSize:CGSizeMake(self.body.img_width, self.body.img_height)];
+    }
+        
     self.isSelf = NO;
     [self syncMessageBodyType:CS_changeMessageType(self.body.msgType)];
     [self processModelForCell];
@@ -318,16 +332,17 @@ NSMutableDictionary * tmpImageDict;
         _messageBodyType = msgType;
         
         _messageStatus = kCSMessageStatusWaiting;
+//        _messageStatus = kCSMessageStatusSuccessed;
         _messageDownloadStatus = kCSMessageDownloadStatusSuccessed;
-        _thumbnailDownloadStatus = kCSMessageDownloadStatusWaiting;
+        _thumbnailDownloadStatus = kCSMessageDownloadStatusSuccessed;
         switch (msgType) {
             case kCSMessageBodyTypeText:
+                _messageStatus = kCSMessageStatusSuccessed;
                 if ([self.ext[MESSAGE_EXT_TYPE_KEY] isEqualToString:MESSAGE_EXT_GIF_KEY]) {
                     
                     self.text = [NSString stringWithFormat:@"[%@]", content];
                     _messageBodyType = kCSMessageBodyTypeGif;
                     self.cellHeight = [LLMessageGifCell heightForModel:self];
-                    
                 }else {
                     
                     self.text = self.body.content;
@@ -358,10 +373,11 @@ NSMutableDictionary * tmpImageDict;
         }
         else
         {
-            self.msgId = [NSDate date].timestamp;
-            self.timestamp = self.msgId;
-            self.msgCacheKey = self.msgId;
+            
+            self.msgId = [CSMessageModel create_kMessageId];
         }
+        self.timestamp = [NSDate date].timestamp;
+        self.msgCacheKey = self.msgId;
         self.msgType = msgType;
         self.action = action;//普通消息
         self.msgType = msgType;
@@ -382,6 +398,21 @@ NSMutableDictionary * tmpImageDict;
         
     }
     return self;
+}
+
++ (NSString *)create_kMessageId
+{
+    int num = (arc4random() % 10000);
+    return [NSString stringWithFormat:@"%ld",[NSDate date].timestamp.intValue + num];
+}
+
+- (BOOL)isEqual:(id)object
+{
+    CSMessageModel * obj = object;
+    if ([obj.msgId isEqualToString:self.msgId]) {
+        return YES;
+    }
+    return NO;
 }
 
 - (instancetype)initWithImageModel:(CSMessageModel *)messageModel {
@@ -459,6 +490,7 @@ NSMutableDictionary * tmpImageDict;
             default:
                 break;
         }
+        self.body.msgType = type;
     }
     
     return self;
@@ -483,7 +515,7 @@ NSMutableDictionary * tmpImageDict;
             break;
             case CSMessageBodyTypeLink:
             msgBody = [CSMessageModel newLinkImageMessageWithImageSize:CGSizeMake(msgRecordModel.img_width, msgRecordModel.img_height) chatId:chatId chatType:chatType msgId:msgRecordModel.msg_id msgType:(CSMessageBodyTypeLink) action:1 content:msgRecordModel.content
-                                                           linkUrl:msgRecordModel.linkUrl isSelf:msgRecordModel.is_self.intValue];
+                                                               linkUrl:msgRecordModel.link_url isSelf:msgRecordModel.is_self.intValue];
             break;
         default:
             break;
@@ -492,7 +524,8 @@ NSMutableDictionary * tmpImageDict;
     
     msgBody.body.avatar = msgRecordModel.avatar;
     msgBody.body.nickname = msgRecordModel.nickname;
-    
+    msgBody.body.timestamp = msgRecordModel.timestamp;
+    msgBody.timestamp = msgRecordModel.timestamp;
     return msgBody;
 }
 
@@ -613,12 +646,14 @@ NSMutableDictionary * tmpImageDict;
     return self.thumbnailImage;
 }
 
-//- (UIImage *)thumbnailImage {
-//
-//    return _thumbnailImage;
-//}
+- (void)setThumbnailImage:(UIImage *)thumbnailImage
+{
+    _thumbnailImage = thumbnailImage;
+}
 
 
+
+/*
 - (UIImage *)thumbnailImage {
     
     
@@ -685,22 +720,23 @@ NSMutableDictionary * tmpImageDict;
 //    _thumbnailImage = [UIImage new];
     return _thumbnailImage;
 }
+*/
 
 //注释掉的代码是通常方法，但由于所有MessageModel都缓存起来了，一个MessageId唯一对应一个MessageModel
 //所以MessageModel的比较只需要进行对象指针比较即可
-- (BOOL)isEqual:(id)object {
-    //    if (self == object)
-    //        return YES;
-    //
-    //    if (!object || ![object isKindOfClass:[LLMessageModel class]]) {
-    //        return NO;
-    //    }
-    //
-    //    LLMessageModel *model = (LLMessageModel *)object;
-    //    return [self.messageId isEqualToString:model.messageId];
-    
-    return self == object;
-}
+//- (BOOL)isEqual:(id)object {
+//    //    if (self == object)
+//    //        return YES;
+//    //
+//    //    if (!object || ![object isKindOfClass:[LLMessageModel class]]) {
+//    //        return NO;
+//    //    }
+//    //
+//    //    LLMessageModel *model = (LLMessageModel *)object;
+//    //    return [self.messageId isEqualToString:model.messageId];
+//    
+//    return self == object;
+//}
 
 #pragma mark - 消息状态
 
@@ -1017,6 +1053,15 @@ NSMutableDictionary * tmpImageDict;
 //
 //
 //}
+
+
+-(CSMessageBodyModel *)body
+{
+    if (!_body) {
+        _body = [CSMessageBodyModel new];
+    }
+    return _body;
+}
 @end
 
 @implementation CSMessageBodyModel

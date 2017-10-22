@@ -49,8 +49,10 @@
     if (_messageModel != messageModel) {
         _messageModel = messageModel;
 
-        NSDate *date = [NSDate dateWithTimeIntervalSince1970:messageModel.msgCacheKey.integerValue];
+//        NSDate *date = [NSDate dateWithTimeIntervalSince1970:messageModel.msgCacheKey.integerValue];
+        NSDate *date = [NSDate dateWithTimeIntervalSince1970:messageModel.body.timestamp.integerValue];
         self.dateLabel.text = [date timeIntervalBeforeNowLongDescription];
+        
 
         [self layoutContentView];
     }
