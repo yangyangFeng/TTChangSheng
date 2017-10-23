@@ -100,6 +100,34 @@ static UIImage *photoDownloadImage;
 {
     [super setMessageModel:messageModel];
 //    if (!self.chatImageView.image) {
+    if (self.messageModel.thumbnailImage) {
+        self.chatImageView.image = self.messageModel.thumbnailImage;
+    }
+    else if(self.messageModel.tempImageData)
+    {
+        self.messageModel.thumbnailImage = self.chatImageView.image = [UIImage imageWithData:self.messageModel.tempImageData];
+        self.messageModel.tempImageData = nil;
+    }
+    else
+    {
+        [self.chatImageView yy_setImageWithURL:[NSURL URLWithString:self.messageModel.body.content] placeholder:nil options:YYWebImageOptionProgressive completion:^(UIImage * _Nullable image, NSURL * _Nonnull url, YYWebImageFromType from, YYWebImageStage stage, NSError * _Nullable error) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                self.messageModel.thumbnailImage = image;
+                self.thumbnailImageView.image = nil;
+                [self.messageModel internal_setMessageDownloadStatus:kCSMessageDownloadStatusSuccessed];
+                [self.messageModel internal_setThumbnailDownloadStatus:kCSMessageDownloadStatusSuccessed];
+                
+                
+                [self updateMessageThumbnail];
+                
+            });
+        }];
+    }
+    
+    [self layoutMessageContentViews:self.messageModel.isSelf];
+    return;
+    
+        self.chatImageView.image = nil;
     
         if (self.messageModel.thumbnailImage) {
             self.chatImageView.image = self.messageModel.thumbnailImage;
@@ -114,7 +142,7 @@ static UIImage *photoDownloadImage;
             WEAKSELF;
             [self.chatImageView yy_setImageWithURL:[NSURL URLWithString:self.messageModel.body.content] placeholder:nil options:YYWebImageOptionProgressive completion:^(UIImage * _Nullable image, NSURL * _Nonnull url, YYWebImageFromType from, YYWebImageStage stage, NSError * _Nullable error) {
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    weakSelf.messageModel.thumbnailImage = image;
+//                    weakSelf.messageModel.thumbnailImage = image;
 
                     [weakSelf.messageModel internal_setMessageDownloadStatus:(kCSMessageDownloadStatusSuccessed)];
 
@@ -385,33 +413,59 @@ static UIImage *photoDownloadImage;
 
 #pragma mark - 内存 -
 
-- (void)willDisplayCell {
-    if (!self.chatImageView.image) {
+- (void)willDisplayCell1 {
+//    if (!self.chatImageView.image) {
     
-        if (self.messageModel.thumbnailImage) {
-            self.chatImageView.image = self.messageModel.thumbnailImage;
-        }
-        else
-        {
-//            [self.chatImageView yy_setImageWithURL:[NSURL URLWithString:self.messageModel.body.content] options:YYWebImageOptionProgressive ];
-            WEAKSELF;
-            [self.chatImageView yy_setImageWithURL:[NSURL URLWithString:self.messageModel.body.content] placeholder:nil options:YYWebImageOptionShowNetworkActivity completion:^(UIImage * _Nullable image, NSURL * _Nonnull url, YYWebImageFromType from, YYWebImageStage stage, NSError * _Nullable error) {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    weakSelf.messageModel.thumbnailImage = image;
-//                    weakSelf.messageModel.thumbnailImageSize = [LLMessageImageCell thumbnailSize:image.size];
-//                    weakSelf.thumbnailImageView.image = image;
-                    [weakSelf.messageModel internal_setMessageDownloadStatus:kCSMessageDownloadStatusSuccessed];
-                    [weakSelf.messageModel internal_setThumbnailDownloadStatus:kCSMessageDownloadStatusSuccessed];
-                    [weakSelf updateMessageThumbnail];
-                });
-            }];
-        }
-        
+//        if (self.messageModel.thumbnailImage) {
+//            self.chatImageView.image = self.messageModel.thumbnailImage;
+//        }
+//        else
+//        {
+////            [self.chatImageView yy_setImageWithURL:[NSURL URLWithString:self.messageModel.body.content] options:YYWebImageOptionProgressive ];
+//            WEAKSELF;
+//            [self.chatImageView yy_setImageWithURL:[NSURL URLWithString:self.messageModel.body.content] placeholder:nil options:YYWebImageOptionShowNetworkActivity completion:^(UIImage * _Nullable image, NSURL * _Nonnull url, YYWebImageFromType from, YYWebImageStage stage, NSError * _Nullable error) {
+//                dispatch_async(dispatch_get_main_queue(), ^{
+//                    weakSelf.messageModel.thumbnailImage = image;
+////                    weakSelf.messageModel.thumbnailImageSize = [LLMessageImageCell thumbnailSize:image.size];
+////                    weakSelf.thumbnailImageView.image = image;
+//                    [weakSelf.messageModel internal_setMessageDownloadStatus:kCSMessageDownloadStatusSuccessed];
+//                    [weakSelf.messageModel internal_setThumbnailDownloadStatus:kCSMessageDownloadStatusSuccessed];
+//                    [weakSelf updateMessageThumbnail];
+//                });
+//            }];
+//        }
+    
+//    }
+}
+
+- (void)willDisplayCell {
+    //    if (!self.chatImageView.image) {
+    /*
+    if (self.messageModel.thumbnailImage) {
+        self.chatImageView.image = self.messageModel.thumbnailImage;
     }
+    else
+    {
+        //            [self.chatImageView yy_setImageWithURL:[NSURL URLWithString:self.messageModel.body.content] options:YYWebImageOptionProgressive ];
+        WEAKSELF;
+        [self.chatImageView yy_setImageWithURL:[NSURL URLWithString:self.messageModel.body.content] placeholder:nil options:YYWebImageOptionShowNetworkActivity completion:^(UIImage * _Nullable image, NSURL * _Nonnull url, YYWebImageFromType from, YYWebImageStage stage, NSError * _Nullable error) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                weakSelf.messageModel.thumbnailImage = image;
+                //                    weakSelf.messageModel.thumbnailImageSize = [LLMessageImageCell thumbnailSize:image.size];
+                //                    weakSelf.thumbnailImageView.image = image;
+                [weakSelf.messageModel internal_setMessageDownloadStatus:kCSMessageDownloadStatusSuccessed];
+                [weakSelf.messageModel internal_setThumbnailDownloadStatus:kCSMessageDownloadStatusSuccessed];
+                [weakSelf updateMessageThumbnail];
+            });
+        }];
+    }
+    */
+    //    }
 }
 
 - (void)didEndDisplayingCell {
     self.chatImageView.image = nil;
+    self.messageModel.thumbnailImage = nil;
 }
 
 @end
