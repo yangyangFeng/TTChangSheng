@@ -22,17 +22,27 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-    
+#ifdef DEBUG
+    [iConsole sharedConsole].delegate = self;
+    // 日志提交邮箱
+    [iConsole sharedConsole].logSubmissionEmail = @"bingty@cnepay.com";
+    // 摇晃手机显示日志
+    [iConsole sharedConsole].deviceShakeToShow = YES;
+#else
     UIWindow * window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
     
     self.window = window;
     
+#endif
     UIViewController * rootC = [StoryBoardController viewControllerID:@"CSLoginViewController" SBName:@"CSLoginSB"];
     TTNavigationController * nav = [[TTNavigationController alloc]initWithRootViewController:rootC];
     self.window.rootViewController = nav;
     [self.window makeKeyAndVisible];
     
+   
+
     
+ 
     IQKeyboardManager * IQKManager = [IQKeyboardManager sharedManager];
     
     [IQKeyboardManager sharedManager].shouldToolbarUsesTextFieldTintColor = NO;
@@ -76,5 +86,15 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
+#pragma mark - getting
 
+- (UIWindow *)window {
+    if (_window == nil) {
+        _window = [[iConsoleWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+
+        [_window setBackgroundColor:[UIColor whiteColor]];
+        [_window makeKeyAndVisible];
+    }
+    return _window;
+}
 @end

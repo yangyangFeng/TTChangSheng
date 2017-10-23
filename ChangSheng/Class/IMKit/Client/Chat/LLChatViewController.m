@@ -712,8 +712,9 @@ CSIMReceiveManagerDelegate
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     [UIView setAnimationsEnabled:NO];
     CSMessageModel *messageModel = self.dataSource[indexPath.row];
-    NSString *reuseId = @"123";
-//    [[LLMessageCellManager sharedManager] reuseIdentifierForMessegeModel:messageModel];
+    NSString *reuseId =
+//    @"123";
+    [[LLMessageCellManager sharedManager] reuseIdentifierForMessegeModel:messageModel];
     UITableViewCell *_cell;
 
 //    switch (messageModel.messageBodyType) {

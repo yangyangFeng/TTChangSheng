@@ -99,7 +99,7 @@ static UIImage *photoDownloadImage;
 - (void)setMessageModel:(CSMessageModel *)messageModel
 {
     [super setMessageModel:messageModel];
-    if (!self.chatImageView.image) {
+//    if (!self.chatImageView.image) {
     
         if (self.messageModel.thumbnailImage) {
             self.chatImageView.image = self.messageModel.thumbnailImage;
@@ -107,6 +107,7 @@ static UIImage *photoDownloadImage;
         else if(self.messageModel.tempImageData)
         {
             self.messageModel.thumbnailImage = self.chatImageView.image = [UIImage imageWithData:self.messageModel.tempImageData];
+            self.messageModel.tempImageData = nil;
         }
         else
         {
@@ -122,7 +123,7 @@ static UIImage *photoDownloadImage;
                 });
             }];
         }
-    }
+//    }
      [self layoutMessageContentViews:self.messageModel.isSelf];
 }
 
@@ -359,7 +360,8 @@ static UIImage *photoDownloadImage;
 }
 
 - (void)saveAction:(id)sender {
-    [LLUtils saveImageToPhotoAlbum:self.chatImageView.image];
+    [self.chatImageView.image savedPhotosAlbum:nil failBlock:nil];
+//    [LLUtils saveImageToPhotoAlbum:self.chatImageView.image];
 }
 #pragma mark - 弹入弹出动画
 
@@ -384,7 +386,7 @@ static UIImage *photoDownloadImage;
 #pragma mark - 内存 -
 
 - (void)willDisplayCell {
-//    if (!self.chatImageView.image) {
+    if (!self.chatImageView.image) {
     
         if (self.messageModel.thumbnailImage) {
             self.chatImageView.image = self.messageModel.thumbnailImage;
@@ -405,7 +407,7 @@ static UIImage *photoDownloadImage;
             }];
         }
         
-//    }
+    }
 }
 
 - (void)didEndDisplayingCell {

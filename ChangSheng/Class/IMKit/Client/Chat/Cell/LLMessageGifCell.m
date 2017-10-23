@@ -164,7 +164,7 @@
     }
     else
     {
-//        self.gifImageView.image = self.messageModel.thumbnailImage;
+        self.gifImageView.image = self.messageModel.thumbnailImage;
 //        self.gifImageView.currentAnimatedImageIndex = self.messageModel.gifShowIndex;
     }
   
