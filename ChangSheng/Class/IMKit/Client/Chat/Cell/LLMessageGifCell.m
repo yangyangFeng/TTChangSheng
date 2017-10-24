@@ -33,7 +33,13 @@
 //        self.gifImageView.contentMode = UIViewContentModeScaleAspectFit;
         [self.contentView addSubview:self.gifImageView];
 //        [self.KVOController observe:self.gifImageView keyPath:@"currentAnimatedImageIndex" options:NSKeyValueObservingOptionOld|NSKeyValueObservingOptionNew block:^(id  _Nullable observer, id  _Nonnull object, NSDictionary<NSString *,id> * _Nonnull change) {
-//            NSLog(@"%@",change);
+//            YYAnimatedImageView * image = (YYAnimatedImageView*)object;
+////            DLog(@"------->%@",change);
+////            if (image.maxBufferSize == change[@"new"]) {
+//            if (([change[@"new"] intValue] == 0) && ([change[@"old"] intValue] != 0)) {
+////                [image setCurrentAnimatedImageIndex:[change[@"old"] integerValue]];
+//                [image stopAnimating];
+//            }
 //        }];
     }
     
@@ -43,6 +49,7 @@
     if (!_gifImageView) {
         _gifImageView =[[YYAnimatedImageView alloc]initWithFrame:CGRectMake(0, CONTENT_SUPER_TOP, GIF_IMAGE_SIZE, GIF_IMAGE_SIZE)];
         _gifImageView.contentMode = UIViewContentModeScaleAspectFit;
+        _gifImageView.animationRepeatCount = 1;
         _gifImageView.clipsToBounds = YES;
         _gifImageView.backgroundColor = [UIColor clearColor];
         

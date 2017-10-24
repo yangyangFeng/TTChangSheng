@@ -111,8 +111,8 @@ static UIImage *photoDownloadImage;
     else
     {
         [self.chatImageView yy_setImageWithURL:[NSURL URLWithString:self.messageModel.body.content] placeholder:nil options:YYWebImageOptionProgressive completion:^(UIImage * _Nullable image, NSURL * _Nonnull url, YYWebImageFromType from, YYWebImageStage stage, NSError * _Nullable error) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                self.messageModel.thumbnailImage = image;
+//            dispatch_async(dispatch_get_main_queue(), ^{
+//                self.messageModel.thumbnailImage = image;
                 self.thumbnailImageView.image = nil;
                 [self.messageModel internal_setMessageDownloadStatus:kCSMessageDownloadStatusSuccessed];
                 [self.messageModel internal_setThumbnailDownloadStatus:kCSMessageDownloadStatusSuccessed];
@@ -120,7 +120,7 @@ static UIImage *photoDownloadImage;
                 
                 [self updateMessageThumbnail];
                 
-            });
+//            });
         }];
     }
     
@@ -464,8 +464,8 @@ static UIImage *photoDownloadImage;
 }
 
 - (void)didEndDisplayingCell {
-    self.chatImageView.image = nil;
-    self.messageModel.thumbnailImage = nil;
+//    self.chatImageView.image = nil;
+//    self.messageModel.thumbnailImage = nil;
 }
 
 @end

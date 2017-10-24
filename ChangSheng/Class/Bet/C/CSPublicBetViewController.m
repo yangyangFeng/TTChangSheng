@@ -404,6 +404,8 @@ CSPublicBetInputToolBarViewDelegate
     
     TTNavigationController * nav = (TTNavigationController *)self.navigationController;
     [nav navigationCanDragBack:NO];
+    
+    [self scrollToBottom:YES];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -458,6 +460,7 @@ CSPublicBetInputToolBarViewDelegate
     }];
     
     [self.tableView reloadData];
+
 }
 
 - (void)loadMessageData

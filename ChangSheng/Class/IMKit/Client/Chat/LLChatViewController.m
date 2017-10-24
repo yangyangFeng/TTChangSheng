@@ -165,11 +165,13 @@ CSIMReceiveManagerDelegate
     isPulling = NO;
     isLoading = NO;
     
-    [self.view layoutIfNeeded];
+    
     
     [self loadMessageData];
     
     [self addRefreshTool];
+    
+    [self.view layoutIfNeeded];
 }
 
 - (void)reConnectionSocket
@@ -240,6 +242,9 @@ CSIMReceiveManagerDelegate
 //    }
     self.dataSource = [self processData:self.conversationModel];
     [self.tableView reloadData];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self scrollToBottom:NO];
+    });
 }
 
 - (void)updateViewConstraints {
