@@ -261,7 +261,9 @@
     }
     else
     {
-        [self cs_keyboardShow];
+        if (self.currentInputType == CS_CurrentInputType_Bet) {
+            [self cs_keyboardShow];
+        }
     }
 }
 
