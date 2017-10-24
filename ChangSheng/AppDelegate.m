@@ -37,10 +37,12 @@
     
 #endif
     if ([CSUserInfo shareInstance].isOnline) {
-        [CSLoginHandler openSocket];
         CSHomeViewController * home = [CSHomeViewController new];
-        TTNavigationController * nav = [[TTNavigationController alloc]initWithRootViewController:home];
+         TTNavigationController * nav = [[TTNavigationController alloc]initWithRootViewController:home];
         self.window.rootViewController = nav;
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [CSLoginHandler openSocket];
+        });
     }
     else
     {
