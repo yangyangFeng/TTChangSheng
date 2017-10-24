@@ -45,12 +45,14 @@
 }
 
 
-- (void)setMessageModel:(LLMessageModel *)messageModel {
+- (void)setMessageModel:(CSMessageModel *)messageModel {
     if (_messageModel != messageModel) {
         _messageModel = messageModel;
 
-        NSDate *date = [NSDate dateWithTimeIntervalSince1970:_messageModel.timestamp];
+//        NSDate *date = [NSDate dateWithTimeIntervalSince1970:messageModel.msgCacheKey.integerValue];
+        NSDate *date = [NSDate dateWithTimeIntervalSince1970:messageModel.body.timestamp.integerValue];
         self.dateLabel.text = [date timeIntervalBeforeNowLongDescription];
+        
 
         [self layoutContentView];
     }
@@ -69,7 +71,7 @@
 
 }
 
-+ (CGFloat)heightForModel:(LLMessageModel *)model {
++ (CGFloat)heightForModel:(CSMessageModel *)model {
     return 40;
 }
 

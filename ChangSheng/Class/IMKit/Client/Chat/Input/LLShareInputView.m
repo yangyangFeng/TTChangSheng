@@ -19,20 +19,25 @@
 #define CELL_ID @"ID"
 
 
-#define CELL_DATA \
-    @[ \
-        @"sharemore_pic", @"照片", @(TAG_Photo),  \
-        @"sharemore_video", @"拍摄", @(TAG_Camera), \
-        @"sharemore_sight", @"小视频", @(TAG_Sight),\
-        @"sharemore_videovoip", @"视频聊天", @(TAG_VideoCall),\
-        @"sharemore_wallet", @"红包", @(TAG_Redpackage), \
-        @"sharemorePay", @"转账", @(TAG_MoneyTransfer), \
-        @"sharemore_location", @"位置", @(TAG_Location), \
-        @"sharemore_myfav", @"收藏", @(TAG_Favorites), \
-        @"sharemore_friendcard", @"个人名片", @(TAG_Card), \
-        @"sharemore_wallet", @"卡券", @(TAG_Wallet),\
-     ]
+//#define CELL_DATA \
+//    @[ \
+//        @"sharemore_pic", @"照片", @(TAG_Photo),  \
+//        @"sharemore_video", @"拍摄", @(TAG_Camera), \
+//        @"sharemore_sight", @"小视频", @(TAG_Sight),\
+//        @"sharemore_videovoip", @"视频聊天", @(TAG_VideoCall),\
+//        @"sharemore_wallet", @"红包", @(TAG_Redpackage), \
+//        @"sharemorePay", @"转账", @(TAG_MoneyTransfer), \
+//        @"sharemore_location", @"位置", @(TAG_Location), \
+//        @"sharemore_myfav", @"收藏", @(TAG_Favorites), \
+//        @"sharemore_friendcard", @"个人名片", @(TAG_Card), \
+//        @"sharemore_wallet", @"卡券", @(TAG_Wallet),\
+//     ]
 
+#define CELL_DATA \
+@[ \
+@"sharemore_pic", @"照片", @(TAG_Photo),  \
+@"sharemore_video", @"拍摄", @(TAG_Camera), \
+]
 @interface LLCellData : NSObject
 
 @property (nonatomic) NSString *imageName;

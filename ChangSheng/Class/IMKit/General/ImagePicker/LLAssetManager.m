@@ -567,7 +567,8 @@ static long long  MAX_ACCEPT_BITMAP_SIZE = 52428800;
         UIImage *image = [UIImage imageWithCGImage:imageRef
                                              scale:assetRepresentation.scale
                                        orientation:(UIImageOrientation)assetRepresentation.orientation];
-        data = UIImageJPEGRepresentation(image, 1);
+        data =UIImageJPEGRepresentation([UIImage tt_compressImageQuality:image toByte:450*1000],0.5);
+//        UIImageJPEGRepresentation(image, 0.01);
         
     }else if (model.asset_PH) {
         PHImageRequestOptions *options = [[PHImageRequestOptions alloc] init];
@@ -581,13 +582,58 @@ static long long  MAX_ACCEPT_BITMAP_SIZE = 52428800;
            NSString *dataUTI,
            UIImageOrientation orientation,
            NSDictionary *info) {
-             data = imageData;
+             NSLog(@"leng-->%gkb",imageData.length/1024.0);
+             UIImage * image = [UIImage imageWithData:imageData];
+//             [image tt_compressToDataLength:450*1000 withBlock:^(NSData *ttData) {
+//                 data = ttData;
+             data = [image tt_compressToDataLength:450*1000];
+                 NSLog(@"leng-->%gkb",data.length/1024.0);
+//             }];
+//             data =UIImageJPEGRepresentation([UIImage tt_compressImageQuality:[UIImage imageWithData:imageData] toByte:450*1000],0.01);
+             
          }];
     }
     
     return data;
 }
 
+- (UIImage *)fetchImageFromAssetModel:(LLAssetModel *)model {
+    __block UIImage * tempImage;
+    if (model.asset_AL) {
+        ALAssetRepresentation* assetRepresentation = [model.asset_AL defaultRepresentation];
+        CGImageRef imageRef = assetRepresentation.fullResolutionImage;
+        tempImage = [UIImage imageWithCGImage:imageRef
+                                             scale:assetRepresentation.scale
+                                       orientation:(UIImageOrientation)assetRepresentation.orientation];
+//        data =UIImageJPEGRepresentation([UIImage tt_compressImageQuality:image toByte:450*1000],0.5);
+        //        UIImageJPEGRepresentation(image, 0.01);
+        
+    }else if (model.asset_PH) {
+        PHImageRequestOptions *options = [[PHImageRequestOptions alloc] init];
+        options.version = PHImageRequestOptionsVersionCurrent;
+        options.deliveryMode = PHImageRequestOptionsDeliveryModeHighQualityFormat;
+        options.synchronous = YES;
+        [[PHImageManager defaultManager] requestImageDataForAsset:model.asset_PH
+                                                          options:options
+                                                    resultHandler:
+         ^(NSData *imageData,
+           NSString *dataUTI,
+           UIImageOrientation orientation,
+           NSDictionary *info) {
+//             NSLog(@"leng-->%gkb",imageData.length/1024.0);
+             tempImage = [UIImage imageWithData:imageData];
+             //             [image tt_compressToDataLength:450*1000 withBlock:^(NSData *ttData) {
+             //                 data = ttData;
+//             data = [image tt_compressToDataLength:450*1000];
+//             NSLog(@"leng-->%gkb",data.length/1024.0);
+             //             }];
+             //             data =UIImageJPEGRepresentation([UIImage tt_compressImageQuality:[UIImage imageWithData:imageData] toByte:450*1000],0.01);
+             
+         }];
+    }
+    
+    return tempImage;
+}
 
 - (LLAssetModel *)fetchAssetModelWithURL:(NSURL *)url {
     PHFetchResult<PHAsset *> *result =  [PHAsset fetchAssetsWithALAssetURLs:@[url] options:nil];

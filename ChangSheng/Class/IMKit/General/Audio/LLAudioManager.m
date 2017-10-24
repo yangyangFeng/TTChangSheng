@@ -19,6 +19,8 @@
 //wav临时目录
 #define WAV_AUDIO_TMP_FOLDER @"wavAudioTmp"
 
+#import "Mp3Recorder.h"
+#import "lame.h"
 static LLAudioManager *instance;
 
 @interface LLAudioManager () <AVAudioRecorderDelegate, AVAudioPlayerDelegate>
@@ -41,6 +43,7 @@ static LLAudioManager *instance;
 @property (nonatomic) BOOL isCancelRecording;
 @property (nonatomic) BOOL isFinishRecording;
 
+@property (nonatomic, strong)Mp3Recorder * cs_recorder;
 @end
 
 
@@ -84,7 +87,7 @@ static LLAudioManager *instance;
                           //线性采样位数  8、16、24、32
                           [NSNumber numberWithInt:16],AVLinearPCMBitDepthKey,
                           //录音通道数  1 或 2
-                          [NSNumber numberWithInt: 1], AVNumberOfChannelsKey,
+                          [NSNumber numberWithInt: 2], AVNumberOfChannelsKey,
                           nil];
     }
     
@@ -428,12 +431,16 @@ static LLAudioManager *instance;
 
     }else if (self.isFinishRecording) {
         //录音格式转换，从wav转为amr
-        NSString *amrFilePath = [[recordPath stringByDeletingPathExtension]
-                                 stringByAppendingPathExtension:@"amr"];
-        BOOL convertResult = [self convertWAV:recordPath toAMR:amrFilePath];
+//        NSString *amrFilePath = [[recordPath stringByDeletingPathExtension]
+//                                 stringByAppendingPathExtension:@"amr"];
+//        [self convertWAV:recordPath toAMR:amrFilePath];
+        //录音格式转换，从wav转为amr
+        NSString *mp3FilePath = [[recordPath stringByDeletingPathExtension]
+                                 stringByAppendingPathExtension:@"mp3"];
+        BOOL convertResult = [self convertWAV:recordPath toMP3:mp3FilePath];
         if (convertResult) {
             if ([self.recordDelegate respondsToSelector:@selector(audioRecordDidFinishSuccessed:duration:)]) {
-                [self.recordDelegate audioRecordDidFinishSuccessed:amrFilePath duration:endDuration];
+                [self.recordDelegate audioRecordDidFinishSuccessed:mp3FilePath duration:endDuration];
             }
         }else {
             if ([self.recordDelegate respondsToSelector:@selector(audioRecordDidFailed)]) {
@@ -510,24 +517,24 @@ static LLAudioManager *instance;
 
         
     //保证WAV格式录音文件存在
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    NSString *wavFilePath = [[amrFileName stringByDeletingPathExtension] stringByAppendingPathExtension:@"wav"];
-    if (![fileManager fileExistsAtPath:wavFilePath]) {
-        BOOL covertRet = [self convertAMR:amrFileName toWAV:wavFilePath];
-        if (!covertRet) {
-            NSError *error1 = [NSError errorWithDomain:ERROR_AUDIO_DOMAIN
-                                                  code:kLLErrorPlayTypeFileNotExist
-                                              userInfo:nil];
-            
-            callback(error1);
-            return ;
-        }
-    }
+//    NSFileManager *fileManager = [NSFileManager defaultManager];
+//    NSString *wavFilePath = [[amrFileName stringByDeletingPathExtension] stringByAppendingPathExtension:@"wav"];
+//    if (![fileManager fileExistsAtPath:wavFilePath]) {
+//        BOOL covertRet = [self convertAMR:amrFileName toWAV:wavFilePath];
+//        if (!covertRet) {
+//            NSError *error1 = [NSError errorWithDomain:ERROR_AUDIO_DOMAIN
+//                                                  code:kLLErrorPlayTypeFileNotExist
+//                                              userInfo:nil];
+//            
+//            callback(error1);
+//            return ;
+//        }
+//    }
     
     //创建AVAudioPlayer
-    error = nil;
-    NSURL *wavURL = [NSURL URLWithString:wavFilePath];
-    _audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:wavURL error:&error];
+//    error = nil;
+    NSURL *wavURL = [NSURL fileURLWithPath:amrFileName];
+    _audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:wavURL fileTypeHint:AVFileTypeMPEGLayer3 error:&error];
     if(!_audioPlayer || error) {
         _audioPlayer = nil;
         NSError *error1 = [NSError errorWithDomain:ERROR_AUDIO_DOMAIN
@@ -750,5 +757,62 @@ static LLAudioManager *instance;
     return ret;
 }
 
+- (BOOL)convertWAV:(NSString *)wavFilePath
+             toMP3:(NSString *)mp3FilePath
+{
+    BOOL ret = NO;
+    BOOL isFileExists = [[NSFileManager defaultManager] fileExistsAtPath:wavFilePath];
+    
+//    if (_delegate && [_delegate respondsToSelector:@selector(beginConvert)]) {
+//        [_delegate beginConvert];
+//    }
+    @try {
+        int read, write;
+        
+        FILE *pcm = fopen([wavFilePath cStringUsingEncoding:1], "rb");  //source 被转换的音频文件位置
+        fseek(pcm, 4*1024, SEEK_CUR);                                   //skip file header
+        FILE *mp3 = fopen([mp3FilePath cStringUsingEncoding:1], "wb+");  //output 输出生成的Mp3文件位置
+        
+        const int PCM_SIZE = 8192;
+        const int MP3_SIZE = 8192;
+        short int pcm_buffer[PCM_SIZE*2];
+        unsigned char mp3_buffer[MP3_SIZE];
+        
+        lame_t lame = lame_init();
+        lame_set_num_channels(lame,1);//设置1为单通道，默认为2双通道
+        lame_set_in_samplerate(lame, 8000);
+        lame_set_VBR(lame, vbr_default);
+        lame_init_params(lame);
+        
+        do {
+            
+            read = (int)fread(pcm_buffer, 2*sizeof(short int), PCM_SIZE, pcm);
+            if (read == 0) {
+                write = lame_encode_flush(lame, mp3_buffer, MP3_SIZE);
+                
+            } else {
+                write = lame_encode_buffer_interleaved(lame, pcm_buffer, read, mp3_buffer, MP3_SIZE);
+            }
+            
+            fwrite(mp3_buffer, write, 1, mp3);
+            
+        } while (read != 0);
+        
+        lame_mp3_tags_fid(lame, mp3);
+        
+        lame_close(lame);
+        fclose(mp3);
+        fclose(pcm);
+    }
+    @catch (NSException *exception) {
+        DLog(@"%@",[exception description]);
+        return NO;
+    }
+    @finally {
+        [[AVAudioSession sharedInstance] setCategory: AVAudioSessionCategorySoloAmbient error: nil];
+        return YES;
+    }
+    return YES;
+}
 
 @end

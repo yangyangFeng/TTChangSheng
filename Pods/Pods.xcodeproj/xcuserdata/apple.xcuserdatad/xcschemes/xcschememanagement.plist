@@ -24,6 +24,16 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>FSMediaPicker-FSMediaPicker.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>FSMediaPicker.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>FTPopOverMenu.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -35,6 +45,11 @@
 			<false/>
 		</dict>
 		<key>IQKeyboardManager.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>KVOController.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -117,12 +132,12 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>04CF549EBEEE7BC87AEAE35397184D94</key>
+		<key>03B7A6BDB963F5DFE44065F120074706</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>0547755D241DA41B2DD966C28E156AED</key>
+		<key>04CF549EBEEE7BC87AEAE35397184D94</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -137,22 +152,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>1849D99893BF8A894FCBFE4EE668130F</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>23E3FF788B747B20DE41155F5E817A3C</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>4F8D7E065C00650F79BFF12531A3229B</key>
+		<key>287469EBDE07E2ACC17637EA0568318B</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>518E3CC61681D4AE49EFC422E78C6ECD</key>
+		<key>2BDD74D55E40FB341E5D2A547A8DCD54</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -162,7 +172,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>68800C1B67396E2B08DD97B64B0219CE</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>837E3459DB75A8599F938E2815CDD109</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>8889D126BA04BD7B03AEB9CD94DF543D</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -182,7 +202,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>978E988867758D45D729378133D4B551</key>
+		<key>9C2D3327264C1DB785EADD89D3242323</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -202,17 +222,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>BB6F9A3BF8BACBEECDBE4EE4BC8D3E51</key>
+		<key>B781E2ECB9E14D72B1D23B264F1AFC37</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>CB2A666B62EE59BB73E93CED0C01DBFD</key>
+		<key>CBA6B763FC1A2DF5EE5F288BC336DF4F</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>CBC8BF9EEA3CB6501BB5FE5D2685C6A2</key>
+		<key>CBF360F2CE2E256034F6FE88AD6144A8</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -222,7 +242,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>D5A7C5CCC83A39A3021B28E5F2FFAD88</key>
+		<key>D83859693270C763556F8D08144E28D9</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>DD451A60EA610274C3FBE6AD49DE6976</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F81FEB80067741FB5FF3FF70A9A3ACA5</key>
 		<dict>
 			<key>primary</key>
 			<true/>

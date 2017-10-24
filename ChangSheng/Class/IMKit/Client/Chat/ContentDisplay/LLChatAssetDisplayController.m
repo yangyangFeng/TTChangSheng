@@ -27,7 +27,7 @@
 #define BOTTOM_BAR_HEIGHT 55
 
 #define BOTTOM_BAR_STYLE_Video 4
-
+#import "TTNavigationController.h"
 typedef UIView<LLAssetDisplayView> LLAssetView;
 
 typedef NS_ENUM(NSInteger, LLAssetBottomBarStyle) {
@@ -85,7 +85,7 @@ typedef NS_ENUM(NSInteger, LLAssetBottomBarStyle) {
     length = _allAssets.count >= 3 ? 3: _allAssets.count;
     
     self.view.backgroundColor = [UIColor blackColor];
-    self.navigationController.navigationBarHidden = YES;
+//    self.navigationController.navigationBarHidden = YES;
     
     self.allAssetViews = [NSMutableArray arrayWithCapacity:2 * length];
     
@@ -93,8 +93,8 @@ typedef NS_ENUM(NSInteger, LLAssetBottomBarStyle) {
     downloadFailedMessageIds = [NSMutableSet set];
     if (_curShowMessageModel.isVideoPlayable) {
         needAutoPlayVideo = YES;
-    }else if ((_curShowMessageModel.messageBodyType == kLLMessageBodyTypeVideo) &&
-              ((_curShowMessageModel.messageDownloadStatus == kLLMessageDownloadStatusPending) || (_curShowMessageModel.messageDownloadStatus == kLLMessageDownloadStatusFailed))){
+    }else if ((_curShowMessageModel.messageBodyType == kCSMessageBodyTypeVideo) &&
+              ((_curShowMessageModel.messageDownloadStatus == kCSMessageDownloadStatusPending) || (_curShowMessageModel.messageDownloadStatus == kCSMessageDownloadStatusFailed))){
         [self downloadAttachmentForMessageModel:_curShowMessageModel];
     }
     
@@ -208,8 +208,9 @@ typedef NS_ENUM(NSInteger, LLAssetBottomBarStyle) {
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self.navigationController setNavigationBarHidden:YES animated:NO];
-    
+//    [self.navigationController setNavigationBarHidden:YES animated:NO];
+    TTNavigationController * nav = (TTNavigationController *)self.navigationController;
+    [nav navigationCanDragBack:NO];
     if ([_curAssetView isKindOfClass:[LLChatImageScrollView class]]) {
         LLChatImageScrollView *imageScrollView = (LLChatImageScrollView *)_curAssetView;
 
@@ -224,7 +225,7 @@ typedef NS_ENUM(NSInteger, LLAssetBottomBarStyle) {
                                 imageScrollView.imageView.frame = frame;
                             }
                          completion:^(BOOL finished) {
-                             [self showBottomBar];
+//                             [self showBottomBar];
                              [self checkDownloadStatus];
                              [LLUtils currentWindow].userInteractionEnabled = YES;
                          }];
@@ -265,7 +266,7 @@ typedef NS_ENUM(NSInteger, LLAssetBottomBarStyle) {
     for (UIView<LLAssetDisplayView> *view in self.scrollView.subviews) {
         if (view.assetIndex >= 0) {
             view.frame = CGRectMake(view.assetIndex * scroll_width, 0, size.width, size.height);
-            if (view.messageBodyType == kLLMessageBodyTypeImage) {
+            if (view.messageBodyType == kCSMessageBodyTypeImage) {
                 LLChatImageScrollView *imageScrollView = (LLChatImageScrollView *)view;
                 if (imageScrollView.zoomScale >= 1 + FLT_EPSILON) {
                     imageScrollView.scrollEnabled = NO;
@@ -304,6 +305,7 @@ typedef NS_ENUM(NSInteger, LLAssetBottomBarStyle) {
             shouldExitAfterRotation = NO;
             
             [self.navigationController popViewControllerAnimated:NO];
+            
         }
     }];
 }
@@ -352,14 +354,14 @@ typedef NS_ENUM(NSInteger, LLAssetBottomBarStyle) {
 }
 
 - (void)changeAssetViewToInitialState:(UIView<LLAssetDisplayView> *)view {
-    if (view.messageBodyType == kLLMessageBodyTypeImage) {
+    if (view.messageBodyType == kCSMessageBodyTypeImage) {
         LLChatImageScrollView *curImageScrollView = (LLChatImageScrollView *)self.curAssetView;
         if (curImageScrollView.zoomScale >= 1 + FLT_EPSILON) {
             curImageScrollView.scrollEnabled = NO;
             [curImageScrollView setZoomScale:1.0 animated:NO];
             curImageScrollView.scrollEnabled = YES;
         }
-    }else if (view.messageBodyType == kLLMessageBodyTypeVideo) {
+    }else if (view.messageBodyType == kCSMessageBodyTypeVideo) {
         LLVideoDisplayView *videoDisplayView = (LLVideoDisplayView *)view;
         videoDisplayView.videoPlaybackStatus = kLLVideoPlaybackStatusPicture;
         if (self.videoPlaybackController.isPlaying) {
@@ -380,7 +382,7 @@ typedef NS_ENUM(NSInteger, LLAssetBottomBarStyle) {
     return nil;
 }
 
-- (LLAssetView *)assetViewWithMessageModel:(LLMessageModel *)messageModel {
+- (LLAssetView *)assetViewWithMessageModel:(CSMessageModel *)messageModel {
     for (UIView<LLAssetDisplayView> *view in _allAssetViews) {
         if ([view.messageModel.messageId isEqualToString:messageModel.messageId]) {
             return view;
@@ -405,7 +407,7 @@ typedef NS_ENUM(NSInteger, LLAssetBottomBarStyle) {
 
     for (LLAssetView *view in _allAssetViews) {
         if (view.assetIndex == assetIndex) {
-            if (view.messageBodyType == kLLMessageBodyTypeVideo) {
+            if (view.messageBodyType == kCSMessageBodyTypeVideo) {
                 ((LLVideoDisplayView *)view).needAnimation = YES;
                 [self checkVideoDownloadStatus:(LLVideoDisplayView *)view];
             }
@@ -414,7 +416,7 @@ typedef NS_ENUM(NSInteger, LLAssetBottomBarStyle) {
         }
     }
    
-    LLMessageModel *model = _allAssets[assetIndex];
+    CSMessageModel *model = _allAssets[assetIndex];
     LLAssetView *assetView;
     for (LLAssetView *view in _allAssetViews) {
         if (view.hidden && view.messageBodyType == model.messageBodyType) {
@@ -427,14 +429,14 @@ typedef NS_ENUM(NSInteger, LLAssetBottomBarStyle) {
     assetView.assetIndex = assetIndex;
     assetView.frame = CGRectMake(assetIndex * scroll_width, 0, self.view.bounds.size.width, self.view.bounds.size.height);
 
-    if (model.messageBodyType == kLLMessageBodyTypeImage) {
+    if (model.messageBodyType == kCSMessageBodyTypeImage) {
         LLChatImageScrollView *imageScrollView = (LLChatImageScrollView *)assetView;
         if ([downloadFailedMessageIds containsObject:model.messageId]) {
             [imageScrollView setDownloadFailImage];
         }else {
             imageScrollView.messageModel = model;
         }
-    }else if (model.messageBodyType == kLLMessageBodyTypeVideo) {
+    }else if (model.messageBodyType == kCSMessageBodyTypeVideo) {
         LLVideoDisplayView *videoDisplayView = (LLVideoDisplayView *)assetView;
         videoDisplayView.messageModel = model;
         videoDisplayView.videoPlaybackStatus = kLLVideoPlaybackStatusPicture;
@@ -502,6 +504,7 @@ typedef NS_ENUM(NSInteger, LLAssetBottomBarStyle) {
         _imageBottomBar.frame = CGRectMake(0, self.view.bounds.size.height - BOTTOM_BAR_HEIGHT, self.view.bounds.size.width, BOTTOM_BAR_HEIGHT);
         [self.view addSubview:_imageBottomBar];
         _imageBottomBar.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
+        _imageBottomBar.hidden = YES;
     }
     
     return _imageBottomBar;
@@ -549,7 +552,7 @@ typedef NS_ENUM(NSInteger, LLAssetBottomBarStyle) {
     _imageBottomBar.hidden = YES;
     
     if ([_curAssetView isKindOfClass:[LLChatImageScrollView class]]) {
-        self.imageBottomBar.hidden = NO;
+//        self.imageBottomBar.hidden = NO;
         
     }else if([_curAssetView isKindOfClass:[LLVideoDisplayView class]]){
         self.videoBottomBar.hidden = NO;
@@ -603,10 +606,10 @@ typedef NS_ENUM(NSInteger, LLAssetBottomBarStyle) {
         [self.videoPlaybackController stop];
     }
     
-    if (_curAssetView.messageBodyType == kLLMessageBodyTypeImage) {
+    if (_curAssetView.messageBodyType == kCSMessageBodyTypeImage) {
         switch (_curShowMessageModel.messageDownloadStatus) {
-            case kLLMessageDownloadStatusWaiting:
-            case kLLMessageDownloadStatusDownloading: {
+            case kCSMessageDownloadStatusWaiting:
+            case kCSMessageDownloadStatusDownloading: {
                 //用户点击了查看原图
                 if ([downloadingMessageIds containsObject:_curShowMessageModel.messageId]) {
                     bottomBarStyle = kLLAssetBottomBarStyleImageHide;
@@ -619,7 +622,7 @@ typedef NS_ENUM(NSInteger, LLAssetBottomBarStyle) {
                 
             }
                 break;
-            case kLLMessageDownloadStatusFailed:
+            case kCSMessageDownloadStatusFailed:
                 if ([downloadFailedMessageIds containsObject:_curShowMessageModel.messageId]) {
 
                     bottomBarStyle = kLLAssetBottomBarStyleImageHide;
@@ -631,11 +634,11 @@ typedef NS_ENUM(NSInteger, LLAssetBottomBarStyle) {
                     [self.imageBottomBar setDownloadFullImageSize:[LLUtils sizeStringWithStyle:nil size:[_curShowMessageModel fileAttachmentSize]]];
             }
                 break;
-            case kLLMessageDownloadStatusPending:
+            case kCSMessageDownloadStatusPending:
                 [[LLChatManager sharedManager] asynDownloadMessageAttachments:_curShowMessageModel progress:nil completion:nil];
                 needShowAnimationView = YES;
                 break;
-            case kLLMessageDownloadStatusSuccessed: {
+            case kCSMessageDownloadStatusSuccessed: {
                 bottomBarStyle = kLLAssetBottomBarStyleImageShow;
                 [self.imageBottomBar setBottomBarStyle:kLLImageBottomBarStyleMore animated:YES];
                 [timer invalidate];
@@ -646,7 +649,7 @@ typedef NS_ENUM(NSInteger, LLAssetBottomBarStyle) {
                 break;
         }
         
-    }else if (_curAssetView.messageBodyType == kLLMessageBodyTypeVideo) {
+    }else if (_curAssetView.messageBodyType == kCSMessageBodyTypeVideo) {
         needShowAnimationView = NO;
         bottomBarStyle = kLLAssetBottomBarStyleVideo;
         
@@ -677,10 +680,10 @@ typedef NS_ENUM(NSInteger, LLAssetBottomBarStyle) {
             
             LLVideoDisplayView *videoDisplayView = (LLVideoDisplayView *)_curAssetView;
             switch (_curShowMessageModel.messageDownloadStatus) {
-                case kLLMessageDownloadStatusWaiting:
+                case kCSMessageDownloadStatusWaiting:
                     [videoDisplayView setVideoDownloadStyle:kLLVideoDownloadStyleWaiting];
                     break;
-                case kLLMessageDownloadStatusDownloading:
+                case kCSMessageDownloadStatusDownloading:
                     [videoDisplayView setVideoDownloadStyle:kLLVideoDownloadStyleDownloading];
                     [videoDisplayView setDownloadProgress:_curShowMessageModel.fileDownloadProgress];
                     break;
@@ -711,13 +714,13 @@ typedef NS_ENUM(NSInteger, LLAssetBottomBarStyle) {
 
 - (void)checkVideoDownloadStatus:(LLVideoDisplayView *)videoDisplayView {
     switch (videoDisplayView.messageModel.messageDownloadStatus) {
-        case kLLMessageDownloadStatusPending:
+        case kCSMessageDownloadStatusPending:
             [videoDisplayView setVideoDownloadStyle:kLLVideoDownloadStylePending];
             break;
-        case kLLMessageDownloadStatusSuccessed:
+        case kCSMessageDownloadStatusSuccessed:
             [videoDisplayView setVideoDownloadStyle:kLLVideoDownloadStyleDownloadSuccess];
             break;
-        case kLLMessageDownloadStatusFailed: {
+        case kCSMessageDownloadStatusFailed: {
             if ([downloadFailedMessageIds containsObject:videoDisplayView.messageModel.messageId]) {
                 [videoDisplayView setVideoDownloadStyle:kLLVideoDownloadStyleFailed];
             }else {
@@ -780,21 +783,21 @@ typedef NS_ENUM(NSInteger, LLAssetBottomBarStyle) {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(messageDownloadHandler:) name:LLMessageDownloadStatusChangedNotification object:nil];
 }
 
-- (void)downloadAttachmentForMessageModel:(LLMessageModel *)messageModel {
+- (void)downloadAttachmentForMessageModel:(CSMessageModel *)messageModel {
     [[LLChatManager sharedManager] asynDownloadMessageAttachments:messageModel progress:nil completion:nil];
     
     [downloadingMessageIds addObject:messageModel.messageId];
 }
 
-- (void)imageDownloadNotification:(LLMessageModel *)messageModel {
+- (void)imageDownloadNotification:(CSMessageModel *)messageModel {
     WEAK_SELF;
     dispatch_async(dispatch_get_main_queue(), ^{
         STRONG_SELF;
-        if (messageModel.messageDownloadStatus == kLLMessageDownloadStatusSuccessed) {
+        if (messageModel.messageDownloadStatus == kCSMessageDownloadStatusSuccessed) {
             [strongSelf->downloadingMessageIds removeObject:messageModel.messageId];
             LLAssetView *imageView = [weakSelf assetViewWithMessageModel:messageModel];
             [imageView setMessageModel:messageModel];
-        }else if (messageModel.messageDownloadStatus == kLLMessageDownloadStatusFailed) {
+        }else if (messageModel.messageDownloadStatus == kCSMessageDownloadStatusFailed) {
             [strongSelf->downloadingMessageIds removeObject:messageModel.messageId];
             [strongSelf->downloadFailedMessageIds addObject:messageModel.messageId];
             LLAssetView *imageView = [weakSelf assetViewWithMessageModel:messageModel];
@@ -805,16 +808,16 @@ typedef NS_ENUM(NSInteger, LLAssetBottomBarStyle) {
             return;
         
         switch (messageModel.messageDownloadStatus) {
-            case kLLMessageDownloadStatusDownloading:
-            case kLLMessageDownloadStatusWaiting:
+            case kCSMessageDownloadStatusDownloading:
+            case kCSMessageDownloadStatusWaiting:
                 [weakSelf.imageBottomBar setDownloadProgress:messageModel.fileDownloadProgress];
                 break;
                 
-            case kLLMessageDownloadStatusSuccessed:
+            case kCSMessageDownloadStatusSuccessed:
                 [weakSelf.imageBottomBar setDownloadProgress:100];
                 [weakSelf checkDownloadStatus];
                 break;
-            case kLLMessageDownloadStatusFailed:
+            case kCSMessageDownloadStatusFailed:
                 [weakSelf checkDownloadStatus];
                 break;
             default:
@@ -823,16 +826,16 @@ typedef NS_ENUM(NSInteger, LLAssetBottomBarStyle) {
     });
 }
 
-- (void)videoDownloadNotification:(LLMessageModel *)messageModel {
+- (void)videoDownloadNotification:(CSMessageModel *)messageModel {
     WEAK_SELF;
     dispatch_async(dispatch_get_main_queue(), ^{
         STRONG_SELF;
         LLVideoDisplayView *videoDisplayView = (LLVideoDisplayView *)[weakSelf assetViewWithMessageModel:messageModel];
         
-        if (messageModel.messageDownloadStatus == kLLMessageDownloadStatusSuccessed) {
+        if (messageModel.messageDownloadStatus == kCSMessageDownloadStatusSuccessed) {
             [strongSelf->downloadingMessageIds removeObject:messageModel.messageId];
             [weakSelf checkVideoDownloadStatus:videoDisplayView];
-        }else if (messageModel.messageDownloadStatus == kLLMessageDownloadStatusFailed) {
+        }else if (messageModel.messageDownloadStatus == kCSMessageDownloadStatusFailed) {
             [strongSelf->downloadingMessageIds removeObject:messageModel.messageId];
             [strongSelf->downloadFailedMessageIds addObject:messageModel.messageId];
             [weakSelf checkVideoDownloadStatus:videoDisplayView];
@@ -842,14 +845,14 @@ typedef NS_ENUM(NSInteger, LLAssetBottomBarStyle) {
             return;
     
         switch (messageModel.messageDownloadStatus) {
-            case kLLMessageDownloadStatusWaiting:
+            case kCSMessageDownloadStatusWaiting:
                 [videoDisplayView setVideoDownloadStyle:kLLVideoDownloadStyleWaiting];
                 break;
-            case kLLMessageDownloadStatusDownloading:
+            case kCSMessageDownloadStatusDownloading:
                 [videoDisplayView setVideoDownloadStyle:kLLVideoDownloadStyleDownloading];
                 [videoDisplayView setDownloadProgress:messageModel.fileDownloadProgress];
                 break;
-            case kLLMessageDownloadStatusSuccessed:
+            case kCSMessageDownloadStatusSuccessed:
                 strongSelf->needAutoPlayVideo = YES;
                 [weakSelf showBottomBar];
                 [weakSelf checkDownloadStatus];
@@ -860,13 +863,13 @@ typedef NS_ENUM(NSInteger, LLAssetBottomBarStyle) {
 }
 
 - (void)messageDownloadHandler:(NSNotification *)notification {
-    LLMessageModel *messageModel = notification.userInfo[LLChatManagerMessageModelKey];
+    CSMessageModel *messageModel = notification.userInfo[LLChatManagerMessageModelKey];
     if (!messageModel)
         return;
     
-    if (messageModel.messageBodyType == kLLMessageBodyTypeVideo) {
+    if (messageModel.messageBodyType == kCSMessageBodyTypeVideo) {
         [self videoDownloadNotification:messageModel];
-    }else if (messageModel.messageBodyType == kLLMessageBodyTypeImage) {
+    }else if (messageModel.messageBodyType == kCSMessageBodyTypeImage) {
         [self imageDownloadNotification:messageModel];
     }
    
@@ -895,8 +898,8 @@ typedef NS_ENUM(NSInteger, LLAssetBottomBarStyle) {
 }
 
 - (void)HUDDidTapped:(LLVideoDownloadStatusHUD *)HUD {
-    if ((_curShowMessageModel.messageBodyType == kLLMessageBodyTypeVideo) &&
-        ((_curShowMessageModel.messageDownloadStatus == kLLMessageDownloadStatusPending) || (_curShowMessageModel.messageDownloadStatus == kLLMessageDownloadStatusFailed))) {
+    if ((_curShowMessageModel.messageBodyType == kCSMessageBodyTypeVideo) &&
+        ((_curShowMessageModel.messageDownloadStatus == kCSMessageDownloadStatusPending) || (_curShowMessageModel.messageDownloadStatus == kCSMessageDownloadStatusFailed))) {
         [self videodownload];
     }
 }
@@ -905,15 +908,15 @@ typedef NS_ENUM(NSInteger, LLAssetBottomBarStyle) {
 #pragma mark - 处理照片、视频动作菜单 -
 - (void)handleAction:(UILongPressGestureRecognizer *)gesture {
     if (gesture.state == UIGestureRecognizerStateBegan) {
-        if (_curShowMessageModel.messageBodyType == kLLMessageBodyTypeImage) {
+        if (_curShowMessageModel.messageBodyType == kCSMessageBodyTypeImage) {
             [self showImageActionSheet:_curShowMessageModel];
-        }else if (_curShowMessageModel.messageBodyType == kLLMessageBodyTypeVideo) {
+        }else if (_curShowMessageModel.messageBodyType == kCSMessageBodyTypeVideo) {
             [self showVideoActionSheet:_curShowMessageModel];
         }
     }
 }
 
-- (void)showImageActionSheet:(LLMessageModel *)model {
+- (void)showImageActionSheet:(CSMessageModel *)model {
     LLActionSheet *aActionSheet = [[LLActionSheet alloc] initWithTitle:nil];
     actionSheet = aActionSheet;
     
@@ -942,18 +945,28 @@ typedef NS_ENUM(NSInteger, LLAssetBottomBarStyle) {
                                  [self exit];
                                }] ;
     
-    if (model.isFullImageAvailable) {
-        [actionSheet addActions:@[action1, action2, action3, action4]];
-    }else {
-        [actionSheet addAction:action4];
-    }
-    
+//    if (model.isFullImageAvailable) {
+//        [actionSheet addActions:@[action1, action2, action3, action4]];
+//    }else {
+//        [actionSheet addAction:action4];
+//    }
+    [actionSheet addAction:action3];
     [actionSheet showInWindow:self.view.window];
 }
 
-- (void)showVideoActionSheet:(LLMessageModel *)model {
+- (void)showVideoActionSheet:(CSMessageModel *)model {
     LLActionSheet *aActionSheet = [[LLActionSheet alloc] initWithTitle:nil];
     actionSheet = aActionSheet;
+    
+    LLActionSheetAction *action0 = [LLActionSheetAction
+                                    actionWithTitle:@"保存照片"
+                                    handler:^(LLActionSheetAction *action) {
+                                        [model.fullImage savedPhotosAlbum:^{
+                                            
+                                        } failBlock:^{
+                                            
+                                        }];
+                                    }];
     
     LLActionSheetAction *action1 = [LLActionSheetAction
                         actionWithTitle:@"发送给朋友"
@@ -980,12 +993,12 @@ typedef NS_ENUM(NSInteger, LLAssetBottomBarStyle) {
                             [self exit];
                         }] ;
     
-    if (model.isVideoPlayable) {
-        [actionSheet addActions:@[action1, action2, action3, action4]];
-    }else {
-        [actionSheet addAction:action4];
-    }
-    
+//    if (model.isVideoPlayable) {
+//        [actionSheet addActions:@[action1, action2, action3, action4]];
+//    }else {
+//        [actionSheet addAction:action4];
+//    }
+    [actionSheet addAction:action0];
     [actionSheet showInWindow:self.view.window];
 }
 
@@ -1000,10 +1013,11 @@ typedef NS_ENUM(NSInteger, LLAssetBottomBarStyle) {
         //参考stackOverflow:http://stackoverflow.com/questions/20987249/how-do-i-programmatically-set-device-orientation-in-ios7
         NSNumber *value = [NSNumber numberWithInt:UIInterfaceOrientationPortrait];
         [[UIDevice currentDevice] setValue:value forKey:@"orientation"];
-        
+
         shouldExitAfterRotation = YES;
     }else {
        [self.navigationController popViewControllerAnimated:NO];
+//        [self dismissViewControllerAnimated:YES completion:nil];
     }
     
 }
@@ -1015,17 +1029,19 @@ typedef NS_ENUM(NSInteger, LLAssetBottomBarStyle) {
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
+//    [self.navigationController setNavigationBarHidden:YES animated:YES];
+    TTNavigationController * nav = (TTNavigationController *)self.navigationController;
+    [nav navigationCanDragBack:YES];
     _imageBottomBar.hidden = YES;
     _videoBottomBar.hidden = YES;
-//    if (_curAssetView.messageBodyType == kLLMessageBodyTypeVideo) {
+//    if (_curAssetView.messageBodyType == kCSMessageBodyTypeVideo) {
 //        LLVideoDisplayView *videoDisplayView = (LLVideoDisplayView *)_curAssetView;
 //        videoDisplayView.videoPlaybackView.player = nil;
 //    }
     
-    [self.delegate didFinishWithMessageModel:_curShowMessageModel
-                                      targetView:_curAssetView
-                                     scrollToTop:scrollToTop];
+//    [self.delegate didFinishWithMessageModel:_curShowMessageModel
+//                                      targetView:_curAssetView
+//                                     scrollToTop:scrollToTop];
 
 }
 

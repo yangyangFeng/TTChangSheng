@@ -10,8 +10,8 @@
 
 #import "TTBaseNavigationBar.h"
 #import "TTNavigationBar.h"
-#import "CSBaseViewController.h"
-@interface TTNav_RootViewController : CSBaseViewController
+
+@interface TTNav_RootViewController : UIViewController
 @property (nonatomic,strong)TTNavigationBar * myNavigationBar;
 /**
  *  设置Controller Title
@@ -59,4 +59,8 @@
  *  基类方法
  */
 - (UIViewController *)addChildTableViewController:(UIViewController *)childController;
+
+- (void)whiteStatusBar;
+
+- (void)blackStatusBar;
 @end

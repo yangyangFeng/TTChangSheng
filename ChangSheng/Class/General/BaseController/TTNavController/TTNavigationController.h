@@ -11,7 +11,7 @@
 //@protocol TTDrawerChild;
 
 @interface TTNavigationController : UINavigationController 
-
+@property(nonatomic,assign,readonly)UIStatusBarStyle ststusBarStyle;
 // 是否可右滑返回
 - (void)navigationCanDragBack:(BOOL)dragBack;
 

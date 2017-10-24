@@ -11,6 +11,7 @@
 typedef enum : NSUInteger {
     CS_UPLOAD_FILE_IMAGE = UpLoad_Image,
     CS_UPLOAD_FILE_VOICE = UpLoad_Voice,
+    CS_UPLOAD_FILE_CUSTOME = 1<<5,
 } CS_UPLOAD_FILE;
 @interface CSHttpRequestManager : NSObject
 + (void)getRequstWithURL:(NSString*)url
@@ -32,6 +33,29 @@ typedef enum : NSUInteger {
                    failure:(TTFailureBlock)failureBlock
             uploadprogress:(TTUploadProgressBlock)progressBlock
                    showHUD:(BOOL)showHUD;
+
+/**
+ 上传IM语音和图片
+ @param filePath 文件路径
+ @param fileType 文件类型
+ */
++ (void)upLoadFileRequestParamters:(NSDictionary*)params
+                        filePath:(NSString*)filePath
+                        fileType:(CS_UPLOAD_FILE)fileType
+                         success:(TTSuccessBlock)successBlock
+                         failure:(TTFailureBlock)failureBlock
+                  uploadprogress:(TTUploadProgressBlock)progressBlock
+                         showHUD:(BOOL)showHUD;
+
+
++ (void)upLoadFileRequestParamters:(NSDictionary*)params
+                        fileData:(NSData*)fileData
+                        fileType:(CS_UPLOAD_FILE)fileType
+                         success:(TTSuccessBlock)successBlock
+                         failure:(TTFailureBlock)failureBlock
+                  uploadprogress:(TTUploadProgressBlock)progressBlock
+                         showHUD:(BOOL)showHUD;
+
 #pragma mark - 1.获取验证码
 /**
  *  1.获取验证码
@@ -65,4 +89,70 @@ typedef enum : NSUInteger {
  *  6.获取客服列表
  */
 + (void)request_helperList_paramters:(NSDictionary *)params success:(TTSuccessBlock)success failure:(TTFailureBlock)failure showHUD:(BOOL)showHUD;
+
+#pragma mark -  7.加入群组
+/**
+ *  7.加入群组
+ */
++ (void)request_joinGroup_paramters:(NSDictionary *)params success:(TTSuccessBlock)success failure:(TTFailureBlock)failure showHUD:(BOOL)showHUD;
+
+#pragma mark -  8.加入群组
+/**
+ *  8.加入群组
+ */
++ (void)request_quitGroup_paramters:(NSDictionary *)params success:(TTSuccessBlock)success failure:(TTFailureBlock)failure showHUD:(BOOL)showHUD;
+#pragma mark -  9.上下分
+/**
+ *  9.上下分
+ */
++ (void)request_updownFen_paramters:(NSDictionary*)params
+                          fileData:(NSData*)fileData
+                          fileType:(CS_UPLOAD_FILE)fileType
+                           success:(TTSuccessBlock)successBlock
+                           failure:(TTFailureBlock)failureBlock
+                    uploadprogress:(TTUploadProgressBlock)progressBlock
+                           showHUD:(BOOL)showHUD;
+
+#pragma mark -  10.转分
+/**
+ *  10.转分
+ */
++ (void)request_zhuanFen_paramters:(NSDictionary *)params success:(TTSuccessBlock)success failure:(TTFailureBlock)failure showHUD:(BOOL)showHUD;
+
+#pragma mark -  11.分数操作记录
+/**
+ *  11.分数操作记录
+ */
++ (void)request_fenCaoZuoJiLu_paramters:(NSDictionary *)params success:(TTSuccessBlock)success failure:(TTFailureBlock)failure showHUD:(BOOL)showHUD;
+
+#pragma mark -  12.修改密码
+/**
+ *  12.修改密码
+ */
++ (void)request_changePW_paramters:(NSDictionary *)params success:(TTSuccessBlock)success failure:(TTFailureBlock)failure showHUD:(BOOL)showHUD;
+
+#pragma mark -  13.修改头像
+/**
+ *  13.修改头像
+ */
++ (void)request_changeHeaderImage_paramters:(NSDictionary*)params
+                                   fileData:(NSData*)fileData
+                                   fileType:(CS_UPLOAD_FILE)fileType
+                                    success:(TTSuccessBlock)successBlock
+                                    failure:(TTFailureBlock)failureBlock
+                             uploadprogress:(TTUploadProgressBlock)progressBlock
+                                    showHUD:(BOOL)showHUD;
+
+#pragma mark -  14.修改昵称
+/**
+ *  14.修改昵称
+ */
++ (void)request_changeNickName_paramters:(NSDictionary *)params success:(TTSuccessBlock)success failure:(TTFailureBlock)failure showHUD:(BOOL)showHUD;
+
+#pragma mark -  15 退出群聊
+/**
+ *  15.退出群聊
+ */
++ (void)request_outChatGroup_paramters:(NSDictionary *)params success:(TTSuccessBlock)success failure:(TTFailureBlock)failure showHUD:(BOOL)showHUD;
+
 @end

@@ -217,7 +217,7 @@
         [self.contentView addSubview:_indicatorView];
         _indicatorView.hidden = YES;
         
-        [self layoutMessageStatusViews:self.messageModel.isFromMe];
+        [self layoutMessageStatusViews:self.messageModel.isSelf];
     }
     
     return _indicatorView;

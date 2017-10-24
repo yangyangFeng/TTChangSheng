@@ -104,6 +104,15 @@
                       filePath:(NSString *)filePath
                     showHUD:(BOOL)showHUD;
 
+- (id)uploadFileHttpRequestType:(TTREQUEST_TYPE)networkType
+                            url:(NSString*)url
+                      paramters:(NSDictionary*)params
+                        success:(TTSuccessBlock)successBlock
+                        failure:(TTFailureBlock)failureBlock
+                 uploadprogress:(TTUploadProgressBlock)progressBlock
+                       fileData:(NSData *)fileData
+                        showHUD:(BOOL)showHUD;
+
 /**
  *   监听网络状态的变化
  */

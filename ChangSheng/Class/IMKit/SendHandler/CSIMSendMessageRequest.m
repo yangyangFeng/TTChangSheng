@@ -12,6 +12,7 @@
 #import "CSIMMessageQueueManager.h"
 #import "CSIMSendMessageManager.h"
 #import "TTSocketChannelManager.h"
+#import "LLUtils+Audio.h"
 @implementation CSIMSendMessageRequest
 + (void)sendMessage:(id)message
      successBlock:(sendSuccess)success
@@ -42,35 +43,45 @@
         if (success) {
             success(obj);
         }
-        
+//        [LLUtils playSendMessageSound];
     } failed:^(NSError *error) {
         //发送失败后,将此条消息移除缓存
         [[CSIMMessageQueueManager shareInstance] removeMessages:message];
         NSLog(@"发送失败   count%d",msgRequestModel.sendNumber              );
-        
         msgRequestModel.sendStatus = IM_SendFailed;
+     
+#ifdef CS_SWITCH_RESEND_MESSAGE
 //        [msgRequestModel.msgStatus clearPromiseState];
-        if (msgRequestModel.sendNumber == 1)
-        {
-            
-            return [[CSIMSendMessageManager shareInstance] sendMessage:message];
-            
-        }
+//        if (msgRequestModel.sendNumber == 1)
+//        {
+//
+//            return [[CSIMSendMessageManager shareInstance] sendMessage:message];
+//
+//        }
+//
+//        else if (msgRequestModel.sendNumber < CS_IM_MAX_RESEND_NUMBER ) {
+//            if (msgRequestModel.sendNumber == 2) {
+//                if (fail) {
+//                    fail(error);
+//                }
+//            }
+//            [[CSIMMessageQueueManager shareInstance] cacheMessage:msgRequestModel];
+//        }
+//        else
+//        {
+//            if (fail) {
+//                fail(error);
+//            }
+//        }
         
-        else if (msgRequestModel.sendNumber < CS_IM_MAX_RESEND_NUMBER ) {
-            if (msgRequestModel.sendNumber == 2) {
-                if (fail) {
-                    fail(error);
-                }
-            }
-            [[CSIMMessageQueueManager shareInstance] cacheMessage:msgRequestModel];
+        
+#else
+        [[CSIMMessageQueueManager shareInstance] cacheMessage:msgRequestModel];
+        if (fail) {
+            fail(error);
         }
-        else
-        {
-            if (fail) {
-                fail(error);
-            }
-        }
+#endif
+       
     }];
 
     

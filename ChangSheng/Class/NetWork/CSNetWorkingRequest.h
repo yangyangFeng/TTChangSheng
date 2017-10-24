@@ -13,7 +13,7 @@
                 paramters:(NSDictionary*)params
                   success:(TTSuccessBlock)successBlock
                   failure:(TTFailureBlock)failureBlock
-       uploadFileProgress:(void(^)(NSProgress *uploadProgress))uploadFileProgress
+       uploadFileProgress:(void(^)(CGFloat uploadProgress))uploadFileProgress
                     image:(NSData *)image
                   showHUD:(BOOL)showHUD;
 
@@ -37,8 +37,16 @@
                 paramters:(NSDictionary*)params
                   success:(TTSuccessBlock)successBlock
                   failure:(TTFailureBlock)failureBlock
-       uploadFileProgress:(void(^)(NSProgress *uploadProgress))uploadFileProgress
+       uploadFileProgress:(void(^)(CGFloat uploadProgress))uploadFileProgress
                     filePath:(NSString *)filePath
                   showHUD:(BOOL)showHUD;
 
+- (id)initWithRequestType:(TTREQUEST_TYPE)networkType
+                      url:(NSString*)url
+                paramters:(NSDictionary*)params
+                  success:(TTSuccessBlock)successBlock
+                  failure:(TTFailureBlock)failureBlock
+       uploadFileProgress:(void(^)(CGFloat uploadProgress))uploadFileProgress
+                 fileData:(NSData *)fileData
+                  showHUD:(BOOL)showHUD;
 @end

@@ -102,12 +102,12 @@ static CSIMSendMessageManager * msgManager = nil;
     
     // 设置回调
     dispatch_source_set_event_handler(self.timer, ^{
-        NSLog(@"计时器当前线程------------%@\ntimer---->%@", [NSThread currentThread],self.timer);
         
+#ifdef CS_SWITCH_RESEND_MESSAGE
         //发送失败的消息从发
-        NSArray * messages = [[CSIMMessageQueueManager shareInstance] resendCacheMessage];
-        [self sendMessages:messages];
-        
+//        NSArray * messages = [[CSIMMessageQueueManager shareInstance] resendCacheMessage];
+//        [self sendMessages:messages];
+#endif
         //心跳设置
         [self postPingRequest];
     });

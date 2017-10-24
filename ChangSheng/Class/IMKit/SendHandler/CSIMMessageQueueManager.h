@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @class CSIMSendMessageRequestModel;
-
+@class CSMessageModel;
 @interface CSIMMessageQueueManager : NSObject
 + (CSIMMessageQueueManager *)shareInstance;
 
@@ -55,4 +55,10 @@
 - (CSIMSendMessageRequestModel *)checkMessageContains:(CSIMSendMessageRequestModel *)message;
 
 
+/**
+ 异步下载语音文件
+ */
+- (void)asynsDownLoaderVoiceWithModel:(CSMessageModel *)messageModel
+                              success:(TTSuccessBlock)success
+                                 fail:(TTFailureBlock)fail;
 @end

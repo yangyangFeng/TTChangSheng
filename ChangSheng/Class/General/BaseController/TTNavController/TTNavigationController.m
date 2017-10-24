@@ -9,7 +9,7 @@
 #import "TTNavigationController.h"
 #import "UINavigationController+JZExtension.h"
 @interface TTNavigationController ()
-@property(nonatomic,assign)UIStatusBarStyle ststusBarStyle;
+@property(nonatomic,assign,readwrite)UIStatusBarStyle ststusBarStyle;
 @end
 
 @implementation TTNavigationController
@@ -76,5 +76,10 @@
 -(UIStatusBarStyle)preferredStatusBarStyle
 {
     return self.ststusBarStyle;
+}
+
+- (UIStatusBarAnimation)preferredStatusBarUpdateAnimation
+{
+    return UIStatusBarAnimationFade;
 }
 @end

@@ -16,6 +16,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self tt_SetNaviBarHide:NO withAnimation:NO];
+    
+    self.tt_navigationBar.contentView.backgroundColor = [UIColor whiteColor];
+    self.tt_navigationBar.titleLabel.textColor = [UIColor colorWithHexColorString:@"333333"];
     // Do any additional setup after loading the view.
 }
 

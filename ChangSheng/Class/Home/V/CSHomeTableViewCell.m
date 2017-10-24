@@ -19,7 +19,7 @@
     if(cell==nil){
         
         cell= [CSHomeTableViewCell viewFromXIB];
-        cell.layer.masksToBounds = YES;
+        cell.layer.masksToBounds = NO;
         cell.layer.cornerRadius = 8.0;
     }
     
@@ -35,7 +35,7 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    // Initialization code
+    // Initialization cod
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

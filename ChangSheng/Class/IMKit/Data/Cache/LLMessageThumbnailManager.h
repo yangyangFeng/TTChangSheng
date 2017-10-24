@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@class LLMessageModel;
+@class CSMessageModel;
 @class LLConversationModel;
 
 NS_ASSUME_NONNULL_BEGIN
@@ -17,13 +17,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (instancetype)sharedManager;
 
-- (nullable UIImage *)thumbnailForMessageModel:(LLMessageModel *)messageModel;
+- (nullable UIImage *)thumbnailForMessageModel:(CSMessageModel *)messageModel;
 
-- (void)removeThumbnailForMessageModel:(LLMessageModel *)messageModel removeFromDisk:(BOOL)removeFromDisk;
+- (void)removeThumbnailForMessageModel:(CSMessageModel *)messageModel removeFromDisk:(BOOL)removeFromDisk;
 
-- (void)removeThumbnailForMessageModelsInArray:(NSArray<LLMessageModel *> *)messageModels removeFromDisk:(BOOL)removeFromDisk;
+- (void)removeThumbnailForMessageModelsInArray:(NSArray<CSMessageModel *> *)messageModels removeFromDisk:(BOOL)removeFromDisk;
 
-- (void)addThumbnailForMessageModel:(LLMessageModel *)messageModel thumbnail:(UIImage *)thumbnail toDisk:(BOOL)toDisk;
+- (void)addThumbnailForMessageModel:(CSMessageModel *)messageModel thumbnail:(UIImage *)thumbnail toDisk:(BOOL)toDisk;
 
 - (void)cleanCacheWhenConversationExit:(NSString *)conversationId;
 

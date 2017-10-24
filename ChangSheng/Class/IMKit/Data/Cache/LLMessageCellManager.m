@@ -68,10 +68,12 @@ CREATE_SHARED_MANAGER(LLMessageCellManager)
             return model.isSelf ? @"messageTypeTextMe" : @"messageTypeText";
         case kCSMessageBodyTypeImage:
             return model.isSelf ? @"messageTypeImageMe" : @"messageTypeImage";
-        case kCSMessageBodyTypeDateTime:
-            return @"messageTypeDateTime";
         case kCSMessageBodyTypeVoice:
             return model.isSelf ? @"messageTypeVoiceMe" : @"messageTypeVoice";
+        case kCSMessageBodyTypeLink:
+            return model.isSelf ? @"messageTypeImageMe" : @"messageTypeImage";
+        case kCSMessageBodyTypeDateTime:
+            return @"messageTypeDateTime";
         case kCSMessageBodyTypeGif:
             return model.isSelf ? @"messageTypeGifMe" : @"messageTypeGif";
         case kCSMessageBodyTypeLocation:
@@ -91,6 +93,8 @@ CREATE_SHARED_MANAGER(LLMessageCellManager)
         case kCSMessageBodyTypeText:
             return [LLMessageTextCell class];
         case kCSMessageBodyTypeImage:
+            return [LLMessageImageCell class];
+        case kCSMessageBodyTypeLink:
             return [LLMessageImageCell class];
         case kCSMessageBodyTypeDateTime:
             return [LLMessageDateCell class];

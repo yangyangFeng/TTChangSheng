@@ -36,6 +36,7 @@ typedef enum {
 
 
 
+@class CSIMUnReadListModel;
 
 @interface CSIMSendMessageRequestModel : NSObject<CSIMSendMessageRequestModelDelegate,NSMutableCopying>
 
@@ -58,6 +59,11 @@ typedef enum {
 @property(nonatomic,copy)NSString * msg;
 //发送状态 1000 成功
 @property(nonatomic,assign)int code;
+
+
+/*-------------------------------解析未读消息-------------------------------*/
+@property(nonatomic,strong)NSArray<CSIMUnReadListModel*> * unreadList;
+
 /*-------------------------------消息结构体-------------------------------*/
 
 @property(nonatomic,strong)CSMessageModel * body;
@@ -69,4 +75,17 @@ typedef enum {
  将成功发送的消息,msgid 同步.替换客户端临时生成的 msgid.更换成服务端返回的msgid.
  */
 - (void)syncMsgID:(CSIMSendMessageRequestModel *)message;
+
+- (void)successed;
+
+- (void)failed;
 @end
+
+
+@interface CSIMUnReadListModel : NSObject
+@property (nonatomic, assign)int chatType;
+@property (nonatomic, assign)int chatId;
+@property (nonatomic, assign)int count;
+@end
+
+

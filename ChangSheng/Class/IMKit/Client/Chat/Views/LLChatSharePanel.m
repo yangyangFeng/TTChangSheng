@@ -41,9 +41,13 @@
     self.flowLayout.minimumLineSpacing = 8;
     self.flowLayout.sectionInset = UIEdgeInsetsMake(0, 15, 0, 15);
     
+//    self.dataArray = @[@[@"Action_Email",@"邮件"],
+//                       @[@"WizAppIcon60x60",@"为知笔记"],
+//                       @[@"YoudaoAppIcon60x60",@"有道云笔记"]
+//                       ];
     self.dataArray = @[@[@"Action_Email",@"邮件"],
-                       @[@"WizAppIcon60x60",@"为知笔记"],
-                       @[@"YoudaoAppIcon60x60",@"有道云笔记"]
+//                       @[@"WizAppIcon60x60",@"为知笔记"],
+//                       @[@"YoudaoAppIcon60x60",@"有道云笔记"]
                        ];
 }
 

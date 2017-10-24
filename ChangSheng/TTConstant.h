@@ -35,6 +35,7 @@
  */
 #define DISMISSTIME 1
 
+#define CS_IMAGE_DATA_SIZE 450*1000
 // 默认 占位符 颜色
 #define TEXTFIELD_PLACE_COLOR [UIColor colorWithHexColorString:@"999999"]
 //TODO: 默认 cell高度
@@ -113,11 +114,11 @@
 #define TT_Footer_Refresh(block) [MJRefreshAutoNormalFooter TTfooterWithRefreshingBlock:block]
 
 #ifdef DEBUG
-#define DLog(fmt, ...)           \
-    NSLog((@"[文件名:%s]\n"   \
-            "[函数名:%s]\n"   \
-            "[行号:%d] \n" fmt), \
-        __FILE__, __FUNCTION__, __LINE__, ##__VA_ARGS__)
+#define DLog(fmt, ...)\
+[iConsole log:(@"[文件名:%s]\n"   \
+"[函数名:%s]\n"   \
+"[行号:%d] \n" fmt), \
+__FILE__, __FUNCTION__, __LINE__, ##__VA_ARGS__]
 #else
 #define DLog(fmt, ...) ((void)0);
 #endif

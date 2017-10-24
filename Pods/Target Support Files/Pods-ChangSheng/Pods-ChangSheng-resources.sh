@@ -84,6 +84,7 @@ EOM
   esac
 }
 if [[ "$CONFIGURATION" == "Debug" ]]; then
+  install_resource "$PODS_CONFIGURATION_BUILD_DIR/FSMediaPicker/FSMediaPicker.bundle"
   install_resource "${PODS_ROOT}/IQKeyboardManager/IQKeyboardManager/Resources/IQKeyboardManager.bundle"
   install_resource "${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle"
   install_resource "${PODS_ROOT}/RedPacketAlipay/AlipaySDK.bundle"
@@ -97,6 +98,7 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_resource "${PODS_ROOT}/TWMessageBarManager/Classes/Icons/icon-success@2x.png"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
+  install_resource "$PODS_CONFIGURATION_BUILD_DIR/FSMediaPicker/FSMediaPicker.bundle"
   install_resource "${PODS_ROOT}/IQKeyboardManager/IQKeyboardManager/Resources/IQKeyboardManager.bundle"
   install_resource "${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle"
   install_resource "${PODS_ROOT}/RedPacketAlipay/AlipaySDK.bundle"

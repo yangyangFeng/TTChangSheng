@@ -11,6 +11,9 @@
 #import "CSIMReceiveManager.h"
 #import "CSIMSendMessageRequestModel.h"
 #import "CSIMSendMessageManager.h"
+#import "AFNetworkReachabilityManager.h"
+
+#import "CSNewWorkHandler.h"
 static TTSocketChannelManager * _manager = nil;
 
 @interface TTSocketChannelManager ()<TTWebSocketChannelDelegate>
@@ -18,6 +21,13 @@ static TTSocketChannelManager * _manager = nil;
 @property(nonatomic,assign)CS_IM_Connection_Ststus connectionStatus;
 @end
 @implementation TTSocketChannelManager
+
++(void)load
+{
+    [super load];
+    [self startMonitoring];
+}
+
 + (TTSocketChannelManager *)shareInstance
 {
     static dispatch_once_t onceToken;
@@ -35,6 +45,7 @@ static TTSocketChannelManager * _manager = nil;
 }
 - (void)openConnection
 {
+    
     [self.socketChannel openConnection];
     self.connectionStatus = CS_IM_Connection_Ststus_Connectioning;
 }
@@ -88,13 +99,26 @@ static TTSocketChannelManager * _manager = nil;
         });
     }
 }
+
+/**
+ 检测当Socket连接 如果短线自动发起一次从连
+ */
+- (void)checkSocketStatus
+{    
+    if ( self.webSocket.readyState != SR_OPEN && self.connectionStatus != CS_IM_Connection_Ststus_Connectioning) {
+        [self openConnection];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            CS_HUD(@"socket正在重连");
+        });
+    }
+}
 #pragma mark - SRWebSocketDelegate
 
 // message will either be an NSString if the server is using text
 // or NSData if the server is using binary.
 - (void)webSocket:(SRWebSocket *)webSocket didReceiveMessage:(id)message
 {
-    NSLog(@"收到消息\n-------------------------------------------\n%@\n---------------------------------------",[self dictionaryWithJsonString:message]);
+    DLog(@"收到消息\n-------------------------------------------\n%@\n---------------------------------------",[self dictionaryWithJsonString:message]);
 //     NSLog(@"收到消息\n-------------------------------------------\n%@\n---------------------------------------",message);
     [[CSIMReceiveManager shareInstance] receiveMessage:[CSIMSendMessageRequestModel mj_objectWithKeyValues:message]];
     if (_delegate && [_delegate respondsToSelector:@selector(webSocket:didReceiveMessage:)]) {
@@ -166,4 +190,45 @@ static TTSocketChannelManager * _manager = nil;
     }
     return dic;
 }
+
+#pragma makr - 开始监听网络连接
+
++ (void)startMonitoring
+{
+    // 1.获得网络监控的管理者
+    AFNetworkReachabilityManager* mgr = [AFNetworkReachabilityManager sharedManager];
+    // 2.设置网络状态改变后的处理
+    [mgr setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
+        // 当网络状态改变了, 就会调用这个block
+        switch (status) {
+            case AFNetworkReachabilityStatusUnknown: // 未知网络
+                DLog(@"-----😴😴😴😴-------->未知网络");
+                [CSNewWorkHandler sharedInstance].networkError = NO;
+                break;
+            case AFNetworkReachabilityStatusNotReachable: // 没有网络(断网)
+                [CSNewWorkHandler sharedInstance].networkError = YES;
+                DLog(@"-------😴😴😴😴------>断网");
+                if ([CSUserInfo shareInstance].isOnline) {
+                    [[self shareInstance] closeConnection];
+                }
+                break;
+            case AFNetworkReachabilityStatusReachableViaWWAN: // 手机自带网络
+                DLog(@"-------😴😴😴😴------>手机自带网络");
+                if ([CSUserInfo shareInstance].isOnline) {
+                    [[self shareInstance] checkSocketStatus];
+                }
+                [CSNewWorkHandler sharedInstance].networkError = NO;
+                break;
+            case AFNetworkReachabilityStatusReachableViaWiFi: // WIFI
+                DLog(@"------😴😴😴😴------->WIFI");
+                if ([CSUserInfo shareInstance].isOnline) {
+                    [[self shareInstance] checkSocketStatus];
+                }
+                [CSNewWorkHandler sharedInstance].networkError = NO;
+                break;
+        }
+    }];
+    [mgr startMonitoring];
+}
+
 @end

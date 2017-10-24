@@ -64,8 +64,8 @@
 - (void)initCustomeBarButtonItem
 {
     UIButton * gobackButton = [self backBarButtonItem];
-    gobackButton = [UIButton buttonWithNormalImage:@"back" andHilightImage:@"back"];
-    [gobackButton setImage:IMAGE(@"back") forState:(UIControlStateNormal)];
+    [gobackButton setImage:IMAGE(@"goBackN") forState:(UIControlStateNormal)];
+    [gobackButton setImage:IMAGE(@"goBackH") forState:(UIControlStateHighlighted)];
     [gobackButton setTitle:@"" forState:(UIControlStateNormal)];
 }
 

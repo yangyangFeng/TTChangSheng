@@ -25,7 +25,7 @@
 static NSString* baseUrl = @"http://mapi.qushuawang.com/api9/Home";
 #else
 //线下测试地址
-static NSString* baseUrl = @"http://47.95.238.249:8501";
+static NSString* baseUrl = @"http://api.jcjh.cn";
 #endif
 /**
  *  与后台约定,正确成功状态值
@@ -33,16 +33,17 @@ static NSString* baseUrl = @"http://47.95.238.249:8501";
 static int successCode = 1000;
 static NSInteger HTTP_TIME_OUT = 15;
 typedef NS_ENUM(NSInteger, TTREQUEST_TYPE) {
-    GET_TTREQUEST_TYPE,
-    POST_TTREQUEST_TYPE,
-    UpLoad_Image,
-    UpLoad_Voice,
-    UpLoad_Video,
+    GET_TTREQUEST_TYPE = 1,
+    POST_TTREQUEST_TYPE = 1 << 1,
+    UpLoad_Image = 1 <<2,
+    UpLoad_Voice = 1 <<3,
+    UpLoad_Video = 1 <<4,
+    UpLoad_Custome = 1 <<5,
 };
 
 typedef void (^TTSuccessBlock)(id responseObject);
 typedef void (^TTFailureBlock)(NSError* error);
-typedef void (^TTUploadProgressBlock)(NSProgress* uploadProgress);
+typedef void (^TTUploadProgressBlock)(CGFloat uploadProgress);
 
 #import "CSHttpRequestManager.h"
 #endif /* CSNewWorking_h */

@@ -14,20 +14,12 @@
 
 #import "TTNav_RootViewController.h"
 
-
-
-
-
-
-
-
-
-
 @interface TTNav_RootViewController ()
 @property (nonatomic, strong) TTNavigationBar * my_navigationBar;
 @property (nonatomic, strong) TTBaseNavigationBar * my_base_navigationBar;
 @property (nonatomic, weak) TTNavigationBar * output_navigationBar;
 @property (nonatomic, strong) NSLayoutConstraint * my_navigationBarTopConstraint;
+@property(nonatomic,assign)UIStatusBarStyle ststusBarStyle;
 @end
 
 @implementation TTNav_RootViewController
@@ -40,7 +32,11 @@
     return self;
 }
 
-
+- (void)setTitle:(NSString *)title
+{
+    [super setTitle:title];
+//    [self tt_Title:title];
+}
 
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -313,9 +309,28 @@
     
     
     
-    [(UITableViewController*)childController tableView].backgroundColor = NEW_BG_COLOR;
+    [(UITableViewController*)childController tableView].backgroundColor = [UIColor groupTableViewBackgroundColor];
     [(UITableViewController*)childController tableView].separatorStyle = 0;
     [self addChildViewController:childController];
     return childController;
 }
+
+- (void)whiteStatusBar
+{
+    self.ststusBarStyle = UIStatusBarStyleLightContent;
+//    [self setNeedsStatusBarAppearanceUpdate];
+    [self.navigationController performSelector:@selector(whiteStatusBar)];
+}
+- (void)blackStatusBar
+{
+    self.ststusBarStyle = UIStatusBarStyleDefault;
+//    [self setNeedsStatusBarAppearanceUpdate];
+    [self.navigationController performSelector:@selector(blackStatusBar)];
+}
+
+- (void)dealloc
+{
+    DLog(@"Class->%@.   已释放",[self class]);
+}
+
 @end

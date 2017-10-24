@@ -72,31 +72,33 @@
         [self stopVoicePlaying];
     }
     
-    self.isMediaPlayedIndicator.hidden = messageModel.fromMe || messageModel.isMediaPlayed;
+    self.isMediaPlayedIndicator.hidden = messageModel.isSelf || messageModel.isMediaPlayed;
     self.durationLabel.text = [NSString stringWithFormat:@"%.0f''", round(messageModel.mediaDuration)];
     [self.durationLabel sizeToFit];
     
-    if (self.messageModel.isFromMe) {
-        if ([messageModel checkNeedsUpdateUploadStatus]){
-            [self updateMessageUploadStatus];
-        }
-    }else {
-        if ([messageModel checkNeedsUpdateDownloadStatus]) {
-            [self updateMessageDownloadStatus];
-        }
-    }
     
-    if ([messageModel checkNeedsUpdateForReuse]) {
-        if (messageModel.needAnimateVoiceCell) {
-            messageModel.needAnimateVoiceCell = NO;
-            [self layoutSubviewsWithAnimation:YES];
-        }else {
-            [self layoutMessageContentViews:self.messageModel.isFromMe];
-            [self layoutMessageStatusViews:self.messageModel.isFromMe];
-        }
-    }
-    
-    [messageModel clearNeedsUpdateForReuse];
+    [super setMessageModel:messageModel];
+//    if (self.messageModel.isSelf) {
+//        if ([messageModel checkNeedsUpdateUploadStatus]){
+//            [self updateMessageUploadStatus];
+//        }
+//    }else {
+//        if ([messageModel checkNeedsUpdateDownloadStatus]) {
+//            [self updateMessageDownloadStatus];
+//        }
+//    }
+//    
+//    if ([messageModel checkNeedsUpdateForReuse]) {
+//        if (messageModel.needAnimateVoiceCell) {
+//            messageModel.needAnimateVoiceCell = NO;
+//            [self layoutSubviewsWithAnimation:YES];
+//        }else {
+//            [self layoutMessageContentViews:self.messageModel.isSelf];
+//            [self layoutMessageStatusViews:self.messageModel.isSelf];
+//        }
+//    }
+//    
+//    [messageModel clearNeedsUpdateForReuse];
 
 }
 
@@ -105,7 +107,7 @@
 }
 
 - (void)stopVoicePlaying {
-    self.voiceImageView.image = self.messageModel.isFromMe ?
+    self.voiceImageView.image = self.messageModel.isSelf ?
     [UIImage imageNamed:@"SenderVoiceNodePlaying"] :
     [UIImage imageNamed:@"ReceiverVoiceNodePlaying"];
     [self.voiceImageView stopAnimating];
@@ -114,7 +116,7 @@
 }
 
 - (void)startVoicePlaying {
-    self.voiceImageView.animationImages = self.messageModel.isFromMe ?
+    self.voiceImageView.animationImages = self.messageModel.isSelf ?
     @[[UIImage imageNamed:@"SenderVoiceNodePlaying001"],
       [UIImage imageNamed:@"SenderVoiceNodePlaying002"],
       [UIImage imageNamed:@"SenderVoiceNodePlaying003"]] :
@@ -236,12 +238,12 @@
 
 - (void)updateMessageUploadStatus {
     switch (self.messageModel.messageStatus) {
-        case kLLMessageStatusPending:
-        case kLLMessageStatusFailed:
+        case kCSMessageStatusPending:
+        case kCSMessageStatusFailed:
             goto LABEL_MessageStatusFailed;
             
-        case kLLMessageStatusDelivering:
-        case kLLMessageStatusWaiting:
+        case kCSMessageStatusDelivering:
+        case kCSMessageStatusWaiting:
             //如果录音文件时长小于20秒，就不出现ActivityIndicator了，按发送成功处理
             if (self.messageModel.mediaDuration > 20) {
                 goto LABEL_MessageStatusDelivering;
@@ -249,7 +251,7 @@
                 goto LABEL_MessageStatusSuccessed;
             }
             
-        case kLLMessageStatusSuccessed:
+        case kCSMessageStatusSuccessed:
             goto LABEL_MessageStatusSuccessed;
         default:
             break;
@@ -282,6 +284,7 @@ END:
 }
 
 
+
 - (void)updateMessageDownloadStatus {
     switch (self.messageModel.messageDownloadStatus) {
         case kLLMessageDownloadStatusWaiting:
@@ -307,7 +310,8 @@ END:
 }
 
 + (CGFloat)heightForModel:(CSMessageModel *)model {
-    return AVATAR_HEIGHT + CONTENT_SUPER_BOTTOM + OFFSET_Y;
+//    return AVATAR_HEIGHT + CONTENT_SUPER_BOTTOM + OFFSET_Y;
+    return AVATAR_HEIGHT + CONTENT_SUPER_BOTTOM;
 }
 
 
@@ -351,8 +355,10 @@ END:
 #pragma mark - 菜单
 
 - (NSArray<NSString *> *)menuItemNames {
-    return @[@"听筒播放", @"收藏", @"转文字", @"删除", @"更多..."];
+//    return @[@"播放", @"收藏", @"转文字", @"删除", @"更多..."];
+    return @[@"播放"];
 }
+
 
 - (NSArray<NSString *> *)menuItemActionNames {
     return @[@"playAction:", @"favoriteAction:", @"translateToWordsAction:",@"deleteAction:", @"moreAction:"];
@@ -366,6 +372,9 @@ END:
     
 }
 
-
+- (void)willDisplayCell
+{
+    [super willDisplayCell];
+}
 
 @end

@@ -14,6 +14,7 @@
 #import <AFNetworking.h>
 @interface CSNetWorkingRequest ()
 @property (nonatomic, strong) AFHTTPSessionManager* manager;
+@property (nonatomic, strong) AFHTTPRequestOperationManager * uploadManager;
 @end
 @implementation CSNetWorkingRequest
 + (AFSecurityPolicy*)customSecurityPolicy
@@ -416,7 +417,7 @@
                 paramters:(NSDictionary*)params
                   success:(TTSuccessBlock)successBlock
                   failure:(TTFailureBlock)failureBlock
-       uploadFileProgress:(void (^)(NSProgress* uploadProgress))uploadFileProgress
+       uploadFileProgress:(void (^)(CGFloat uploadProgress))uploadFileProgress
                     image:(NSData*)image
                   showHUD:(BOOL)showHUD
 
@@ -706,7 +707,7 @@
                 paramters:(NSDictionary*)params
                   success:(TTSuccessBlock)successBlock
                   failure:(TTFailureBlock)failureBlock
-       uploadFileProgress:(void(^)(NSProgress *uploadProgress))uploadFileProgress
+       uploadFileProgress:(void(^)(CGFloat uploadProgress))uploadFileProgress
                  filePath:(NSString *)filePath
                   showHUD:(BOOL)showHUD
 {
@@ -734,26 +735,41 @@
             formatter.dateFormat = @"yyyyMMddHHmmss";
             NSString *str = [formatter stringFromDate:[NSDate date]];
             NSString *fileName;
-            NSString * mimeType = [self mimeTypeForFileAtPath:filePath];
-            switch (networkType) {
-                case UpLoad_Image:
-                {
-                    fileName = [NSString stringWithFormat:@"%@.png", str];
-                    mimeType = @"image/png";
-                }
-                    break;
-                case UpLoad_Voice:
-                {
-                    fileName = [NSString stringWithFormat:@"%@.mp3", str];
-//                    mimeType = @"video/mpeg4";
-                }
-                    break;
-                default:
-                    break;
+            NSString * mimeType;
+            NSString * file = @"file";
+            if (networkType & UpLoad_Image) {
+                fileName = [NSString stringWithFormat:@"%@.png", str];
+                mimeType = @"image/png";
             }
-            [formData appendPartWithFileURL:[NSURL fileURLWithPath:filePath] name:@"file" fileName:fileName mimeType:mimeType error:nil];
+            else{
+                fileName = [NSString stringWithFormat:@"%@.mp3", str];
+                mimeType = @"audio/mpeg";
+            }
+            if (networkType & UpLoad_Custome)
+            {
+                file = params[@"file"];
+            }
+//            switch (networkType) {
+//                case UpLoad_Image:
+//                {
+//                    fileName = [NSString stringWithFormat:@"%@.png", str];
+//                    mimeType = @"image/png";
+//                }
+//                    break;
+//                case UpLoad_Voice:
+//                {
+//                    fileName = [NSString stringWithFormat:@"%@.mp3", str];
+//                    mimeType = @"audio/mpeg";
+//                }
+//                    break;
+//                default:
+//                    break;
+//            }
+            [formData appendPartWithFileURL:[NSURL fileURLWithPath:filePath] name:file fileName:fileName mimeType:mimeType error:nil];
 //            [formData appendPartWithFileData:image name:[params objectForKey:@"fileKey"] fileName:fileName mimeType:mimeType];
-        } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject) {
+        }
+         
+               success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject) {
 #if SWITCH_OPEN_LOG
             DLog(@"--------------------------------------------------------------------------------------\n🍎🍎🍎POST.url--->👇👇👇\n%@\n--------------------------------------------------------------------------------------\n%@\n======================================================================================",
                  task.response.URL, [responseObject mj_JSONString]);
@@ -812,6 +828,146 @@
                 DLog(@"%@", error);
                 failureBlock(error);
             }
+        }];
+    }
+    return self;
+}
+
+- (id)initWithRequestType:(TTREQUEST_TYPE)networkType
+                      url:(NSString*)url
+                paramters:(NSDictionary*)params
+                  success:(TTSuccessBlock)successBlock
+                  failure:(TTFailureBlock)failureBlock
+       uploadFileProgress:(void(^)(CGFloat uploadProgress))uploadFileProgress
+                 fileData:(NSData *)fileData
+                  showHUD:(BOOL)showHUD
+{
+    if (self = [super init]) {
+        _uploadManager = [AFHTTPRequestOperationManager manager];
+//        _manager = [AFHTTPSessionManager manager];
+        //        manager.responseSerializer.acceptableContentTypes =  [NSSet setWithObject:@"text/html"];
+        _uploadManager.requestSerializer = [AFJSONRequestSerializer serializer]; //申明请求的数据是json类型
+        //        _manager.responseSerializer = [AFJSONResponseSerializer serializer];//申明返回的结果是json类型
+        _uploadManager.responseSerializer = [AFHTTPResponseSerializer serializer];
+        _uploadManager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/html", nil];
+        _uploadManager.requestSerializer.timeoutInterval = 30;
+        _uploadManager.requestSerializer.stringEncoding = NSUTF8StringEncoding;
+        
+        //        _manager.securityPolicy = [CSNetWorkingRequest customSecurityPolicy];
+#pragma mark - 登陆后已token作为用户标示.
+        if ([CSUserInfo shareInstance].isOnline) {
+            [_uploadManager.requestSerializer setValue:[CSUserInfo shareInstance].info.token forHTTPHeaderField:@"token"];
+        }
+        
+         AFHTTPRequestOperation* uploadOperation = [_uploadManager POST:url parameters:params constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
+            NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+            // 设置时间格式
+            formatter.dateFormat = @"yyyyMMddHHmmss";
+            NSString *str = [formatter stringFromDate:[NSDate date]];
+            NSString *fileName;
+            NSString * mimeType;
+             NSString * file = @"file";
+             if (networkType & UpLoad_Image) {
+                 fileName = [NSString stringWithFormat:@"%@.png", str];
+                 mimeType = @"image/png";
+             }
+             else{
+                 fileName = [NSString stringWithFormat:@"%@.mp3", str];
+                 mimeType = @"audio/mpeg";
+             }
+             if (networkType & UpLoad_Custome)
+             {
+                 file = params[@"file"];
+             }
+//            switch (networkType) {
+//                case UpLoad_Image:
+//                {
+//                    fileName = [NSString stringWithFormat:@"%@.png", str];
+//                    mimeType = @"image/png";
+//                }
+//                    break;
+//                case UpLoad_Voice:
+//                {
+//                    fileName = [NSString stringWithFormat:@"%@.mp3", str];
+//                    mimeType = @"audio/mpeg";
+//                }
+//                    break;
+//                default:
+//                    break;
+//            }
+            [formData appendPartWithFileData:fileData name:file fileName:fileName mimeType:mimeType];
+//            [formData appendPartWithFileURL:[NSURL fileURLWithPath:filePath] name:@"file" fileName:fileName mimeType:mimeType error:nil];
+//                        [formData appendPartWithFileData:image name:[params objectForKey:@"fileKey"] fileName:fileName mimeType:mimeType];
+        } success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+#if SWITCH_OPEN_LOG
+            DLog(@"--------------------------------------------------------------------------------------\n🍎🍎🍎POST.url--->👇👇👇\n%@\n--------------------------------------------------------------------------------------\n%@\n======================================================================================",
+                 operation.response.URL, [responseObject mj_JSONString]);
+#endif
+            CSHttpsResModel* back = [CSHttpsResModel mj_objectWithKeyValues:responseObject];
+            if (back.code == successCode) {
+                if (successBlock) {
+                    successBlock(responseObject);
+                }
+            }
+            else {
+                
+                if (showHUD) {
+                    if (back.msg) {
+                        [MBProgressHUD tt_ErrorTitle:back.msg];
+                    }
+                    else {
+                        [MBProgressHUD tt_ErrorTitle:@"程序猿哥哥正在紧急修复!"];
+                    }
+                }
+                
+                NSError* error = [NSError errorWithDomain:back.msg.length ? back.msg : @"程序猿哥哥正在紧急修复" code:201 userInfo:nil];
+                if (failureBlock) {
+                    DLog(@"%@", error);
+                    failureBlock(error);
+                }
+            }
+            DLog(@"---> %@", back.mj_keyValues);
+            
+        } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+            if (error.code == -1009) {
+                [MBProgressHUD tt_ErrorTitle:@"网络已断开"];
+            }
+            else if (error.code == -1005) {
+                [MBProgressHUD tt_ErrorTitle:@"网络连接已中断"];
+            }
+            else if (error.code == -1001) {
+                [MBProgressHUD tt_ErrorTitle:@"请求超时"];
+            }
+            else if (error.code == -1003) {
+                [MBProgressHUD tt_ErrorTitle:@"未能找到使用指定主机名的服务器"];
+            }
+            else {
+                [MBProgressHUD tt_ErrorTitle:[NSString stringWithFormat:@"code:%ld %@", error.code, error.localizedDescription]];
+            }
+            if (showHUD) {
+                [MBProgressHUD tt_ErrorTitle:@"连接失败"];
+            }
+            else {
+                //                        [MBProgressHUD tt_Hide];
+            }
+            if (failureBlock) {
+                if (error.code == -1009) {
+                    error = [NSError errorWithDomain:@"连接失败" code:201 userInfo:nil];
+                }
+                DLog(@"%@", error);
+                failureBlock(error);
+            }
+        }];
+        
+        [uploadOperation setUploadProgressBlock:^(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
+            if(uploadFileProgress)
+            {
+                CGFloat progress = ((float)totalBytesWritten) / totalBytesExpectedToWrite;
+//                NSLog(@"上传进度--->%g",progress);
+                uploadFileProgress(progress);
+                 
+             }
+            
         }];
     }
     return self;

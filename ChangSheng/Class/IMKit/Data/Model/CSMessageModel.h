@@ -16,11 +16,14 @@
 #import "LLSDKError.h"
 #import "LLSDKType.h"
 #import <MapKit/MapKit.h>
+#import "CSMsgRecordModel.h"
 
-
+@class CSMessageModel;
 @class CSMessageBodyModel;
 @class CSUnreadListModel;
 
+typedef void(^CS_MESSAGE_UPLOAD_PROGRESS)(CGFloat progress);
+typedef void(^CS_MESSAGE_UPLOAD_STATUS)(CSMessageModel *model, NSError *error) ;
 /*!
  *  \~chinese
  *  聊天类型
@@ -45,6 +48,7 @@ typedef enum{
     CSMessageBodyTypeImage,         /*! \~chinese 图片类型 \~english Image */
     CSMessageBodyTypeVoice,         /*! \~chinese 语音类型 \~english Voice */
     CSMessageBodyTypeLink,          /*! \~chinese 外部链接类型 \~english Video */
+    CSMessageBodyTypeGif,
     CSMessageBodyTypeVideo,         /*! \~chinese 视频类型 \~english Video */
     CSMessageBodyTypeLocation,      /*! \~chinese 位置类型 \~english Location */
     CSMessageBodyTypeFile,          /*! \~chinese 文件类型 \~english File */
@@ -70,14 +74,14 @@ typedef enum{
 typedef NS_ENUM(NSInteger, kCSMessageBodyType) {
     kCSMessageBodyTypeText = CSMessageBodyTypeText,
     kCSMessageBodyTypeImage = CSMessageBodyTypeImage,
-    kCSMessageBodyTypeVideo = CSMessageBodyTypeVideo,
-    kCSMessageBodyTypeLink = CSMessageBodyTypeLink,
     kCSMessageBodyTypeVoice = CSMessageBodyTypeVoice,
+    kCSMessageBodyTypeLink = CSMessageBodyTypeLink,
+    kCSMessageBodyTypeGif = CSMessageBodyTypeGif,
+    kCSMessageBodyTypeVideo = CSMessageBodyTypeVideo,
     kCSMessageBodyTypeEMLocation = CSMessageBodyTypeLocation,
     kCSMessageBodyTypeFile = CSMessageBodyTypeFile,
-    kCSMessageBodyTypeDateTime,
-    kCSMessageBodyTypeGif,
     kCSMessageBodyTypeLocation,
+    kCSMessageBodyTypeDateTime,
     kCSMessageBodyTypeRecording, //表示正在录音的Cell
     
     
@@ -98,6 +102,9 @@ static inline kCSMessageBodyType CS_changeMessageType (CSMessageBodyType type){
         case CSMessageBodyTypeLink:
             newType = kCSMessageBodyTypeLink;
             break;
+        case CSMessageBodyTypeGif:
+            newType = kCSMessageBodyTypeGif;
+            break;
         default:
             break;
     }
@@ -105,11 +112,11 @@ static inline kCSMessageBodyType CS_changeMessageType (CSMessageBodyType type){
 }
 
 typedef NS_ENUM(NSInteger, CSMessageDownloadStatus) {
-    kCSMessageDownloadStatusDownloading = EMDownloadStatusDownloading,
-    kCSMessageDownloadStatusSuccessed = EMDownloadStatusSuccessed,
-    kCSMessageDownloadStatusFailed = EMDownloadStatusFailed,
-    kCSMessageDownloadStatusPending = EMDownloadStatusPending,
-    kCSMessageDownloadStatusWaiting = 10086,
+    kCSMessageDownloadStatusDownloading ,
+    kCSMessageDownloadStatusSuccessed ,
+    kCSMessageDownloadStatusFailed ,
+    kCSMessageDownloadStatusPending ,
+    kCSMessageDownloadStatusWaiting ,
     kCSMessageDownloadStatusNone
 };
 
@@ -152,6 +159,16 @@ typedef NS_ENUM(NSInteger, CSMessageStatus) {
 
 @interface CSMessageModel : NSObject
 
+@property (nonatomic,weak) NSData *tempImageData;
+- (BOOL)queryMessageWithChatType:(CSChatType)chatType chatId:(NSString *)chatId;
+/**
+ socket action = 9,用户剩余分数
+ */
+@property(nonatomic,copy)NSString * surplusScore;
+/**
+ socket action = 8,撤销回复,  1失败,2成功
+ */
+@property(nonatomic,strong)NSString * cancelStatus;
 /**
  *  将消息转换成约定格式发送给服务端
  */
@@ -162,6 +179,25 @@ typedef NS_ENUM(NSInteger, CSMessageStatus) {
  */
 - (void)processModelForCell;
 
+/**
+ 同步 message body type
+
+ @param type <#type description#>
+ */
+- (void)syncMessageBodyType:(kCSMessageBodyType)type;
+
+- (void)syncMessageSendStatus:(CSMessageStatus)status;
+
+- (void)internal_setMessageStatus:(CSMessageStatus)messageStatus;
+
+- (void)internal_setMessageDownloadStatus:(CSMessageDownloadStatus)messageDownloadStatus;
+
+- (void)internal_setThumbnailDownloadStatus:(CSMessageDownloadStatus)thumbnailDownloadStatus;
+
+- (void)internal_setIsFetchingAttachment:(BOOL)isFetchingAttachment;
+
+- (void)internal_setIsFetchingThumbnail:(BOOL)isFetchingThumbnail;
+
 @property (nonatomic,assign) BOOL isSelf;
 //展示消息的CellHeight，计算一次，然后缓存
 @property (nonatomic) CGFloat cellHeight;
@@ -170,11 +206,11 @@ typedef NS_ENUM(NSInteger, CSMessageStatus) {
 //@property (nonatomic, copy, readonly) NSString *chatid;
 
 //消息发送方
-@property (nonatomic, copy) NSString *from;
+//@property (nonatomic, copy) NSString *from;
 //消息接收方
-@property (nonatomic, copy) NSString *to;
+//@property (nonatomic, copy) NSString *to;
 
-@property (nonatomic, getter=isFromMe) BOOL fromMe;
+//@property (nonatomic, getter=isFromMe) BOOL fromMe;
 
 @property (nonatomic, readonly) kCSMessageBodyType messageBodyType;
 
@@ -196,7 +232,7 @@ typedef NS_ENUM(NSInteger, CSMessageStatus) {
 
 #pragma mark - 图片消息
 
-@property (nonatomic, weak) UIImage *thumbnailImage;
+@property (nonatomic, strong) UIImage *thumbnailImage;
 
 @property (nonatomic) CGSize thumbnailImageSize;
 
@@ -263,26 +299,128 @@ typedef NS_ENUM(NSInteger, CSMessageStatus) {
  缓存消息Key
  */
 @property(nonatomic,copy)NSString * msgCacheKey;
+
+/**
+ 生成 MessageId工外部调用
+ */
++ (NSString *)create_kMessageId;
 //该方法供外部代码调用
 //+ (LLMessageModel *)messageModelFromPool:(EMMessage *)message;
 
 - (instancetype)initWithType:(CSMessageBodyType)type;
+
++ (CSMessageModel *)sendImageMessageWithImageData:(NSData *)imageData
+                                        imageSize:(CGSize)imageSize
+                                           chatId:(NSString *)chatId
+                                         chatType:(CSChatType)chatType
+                                            msgId:(NSString *)msgId
+                                          msgType:(CSMessageBodyType)msgBodyType
+                                           action:(int)action
+                                          content:(NSString *)content
+                                   uploadProgress:(CS_MESSAGE_UPLOAD_PROGRESS)cs_uploadProgress
+                                     uploadStatus:(CS_MESSAGE_UPLOAD_STATUS)cs_uploadStatus                                           isSelf:(BOOL)isSelf;
+@property (nonatomic,copy) CS_MESSAGE_UPLOAD_PROGRESS file_upload_progress_BLOCK;
+
+- (CSMessageModel *)sendVoiceMessageWithLocalPath:(NSString *)localPath
+                                         duration:(NSInteger)duration
+                                               to:(NSString *)to
+                                      messageType:(CSChatType)messageType
+                                          msgType:(CSMessageBodyType)msgBodyType
+                                   uploadProgress:(CS_MESSAGE_UPLOAD_PROGRESS)cs_uploadProgress
+                                     uploadStatus:(CS_MESSAGE_UPLOAD_STATUS)cs_uploadStatus
+                                           isSelf:(BOOL)isSelf;
+//                                       messageExt:(nullable NSDictionary *)messageExt
+//                                       completion:(void (^ __nullable)(CSMessageModel *model, NSError *error))completion
+- (void)cs_uploadImageUploadProgress:(CS_MESSAGE_UPLOAD_PROGRESS)cs_uploadProgress
+                        uploadStatus:(CS_MESSAGE_UPLOAD_STATUS)cs_uploadStatus;
+
++ (CSMessageModel*)sendBetMessageChatType:(CSChatType)chatType
+                               chatId:(NSString *)chatId
+                                msgId:(NSString *)msgId
+                              msgType:(CSMessageBodyType)msgType
+                              betType:(int)betType
+                            betNumber:(int)betNumber
+                               action:(int)action
+                              content:(NSString *)content
+                                   isSelf:(BOOL)isSelf;
 
 + (CSMessageModel*)newMessageChatType:(CSChatType)chatType
                   chatId:(NSString *)chatId
                    msgId:(NSString *)msgId
                  msgType:(CSMessageBodyType)msgType
                   action:(int)action
-                 content:(NSString *)content;
+                 content:(NSString *)content
+                  isSelf:(BOOL)isSelf;
 
++ (CSMessageModel *)newImageMessageWithImageSize:(CGSize)imageSize
+                                          chatId:(NSString *)chatId
+                                        chatType:(CSChatType)chatType
+                                         msgType:(CSMessageBodyType)msgBodyType
+                                          action:(int)action
+                                         content:(NSString *)content
+                                          isSelf:(BOOL)isSelf;
++ (CSMessageModel *)newLinkImageMessageWithImageSize:(CGSize)imageSize
+                                          chatId:(NSString *)chatId
+                                        chatType:(CSChatType)chatType
+                                           msgId:(NSString *)msgId
+                                         msgType:(CSMessageBodyType)msgBodyType
+                                          action:(int)action
+                                         content:(NSString *)content
+                                         linkUrl:(NSString*)linkUrl
+                                          isSelf:(BOOL)isSelf;
 - (id)initNewMessageChatType:(CSChatType)chatType
                   chatId:(NSString *)chatId
                    msgId:(NSString *)msgId
                  msgType:(CSMessageBodyType)msgType
                   action:(int)action
-                 content:(NSString *)content;
-//- (void)updateMessage:(CSMessageModel *)aMessage updateReason:(LLMessageModelUpdateReason)updateReason;
+                 content:(NSString *)content
+                  isSelf:(BOOL)isSelf;
 
++ (CSMessageModel *)newVoiceMessageChatType:(CSChatType)chatType
+                                     chatId:(NSString *)chatId
+                                      msgId:(NSString *)msgId
+                                    msgType:(CSMessageBodyType)msgType
+                                     action:(int)action
+                                    content:(NSString *)content
+                                  localPath:(NSString *)localPath
+                                   duration:(NSInteger)duration
+                             uploadProgress:(CS_MESSAGE_UPLOAD_PROGRESS)cs_uploadProgress
+                               uploadStatus:(CS_MESSAGE_UPLOAD_STATUS)cs_uploadStatus
+                                     isSelf:(BOOL)isSelf;
+
+//+ (CSMessageModel *)conversionWithRecordModel1:(CSMsgRecordModel*)msgRecordModel
+//                                         chatType:(CSChatType)chatType
+//                                       chatId:(NSString*)chatId;
+
+
+
++ (CSMessageModel *)conversionWithRecordModel:(CSMsgRecordModel*)msgRecordModel chatType:(CSChatType)chatType chatId:(NSString *)chatId;
+
+//socket接受消息必须重新过滤一下参数
+/**
+ *  ******************格式化参数******************
+ */
+- (void)cs_checkParams;
+
+/**
+ *  ******************进入聊天参数******************
+ */
++ (CSMessageModel *)inChatWithChatType:(CSChatType )chatType chatId:(NSString *)chatId;
+/**
+ *  ******************退出当前聊天参数******************
+ */
++ (CSMessageModel *)outChatWithChatType:(CSChatType )chatType chatId:(NSString *)chatId;
+/**
+ *  ******************撤销下注消息******************
+ */
++ (CSMessageModel*)newCancleBetMessageChatType:(CSChatType)chatType
+                               chatId:(NSString *)chatId
+                                msgId:(NSString *)msgId
+                              msgType:(CSMessageBodyType)msgType
+                               action:(int)action
+                              content:(NSString *)content
+                               isSelf:(BOOL)isSelf;
+//FIXME:项目完成后删除
 + (NSString *)messageTypeTitle:(EMMessage *)message;
 
 - (long long)fileAttachmentSize;
@@ -331,14 +469,15 @@ typedef NS_ENUM(NSInteger, CSMessageStatus) {
 
 /*-----------------------------------------以下为消息体-------------------------------------*/
 //:1|2, //1,群聊 2,单聊
-@property(nonatomic,assign)CSChatType chartType;
-//: 1|2 //消息接收方用户类型 1 代表 普通用户 2 代表 系统客户（主持人） //chartType == 2 && action ==4 需要
+@property(nonatomic,assign)CSChatType chatType;
+//: 1|2 //消息接收方用户类型 1 代表 普通用户 2 代表 系统客户（主持人） //chatType == 2 && action ==4 需要
 @property(nonatomic,assign)int receiveUserType;
-//如果chartType=1 代表群组id 如果chartType=2 代表用户id
+//如果chatType=1 代表群组id 如果chatType=2 代表用户id
 @property(nonatomic,copy)NSString* chatId;
 //消息id （如果action=1 不需要， =2 || ==5 代表服务器返回的消息自增id, ==3 || ==4 代表客户端生成的唯一id  *
 @property(nonatomic,copy)NSString * msgId;
-// 1、普通消息 2、消息回执 3、路单图片 4、连接成功回执 5、用户上线 6 、用户下线
+//服务端发给客户端: 1、普通消息 2、消息回执 3、路单图片 4、连接成功回执 5、用户上线 6 、用户下线
+//客户端发给服务端: 1、进群  2、出群 3、下注  4、普通消息  5、撤销 6、加群  7、退群 99、web前端心跳    ps: 1 暂时不用
 @property(nonatomic,assign)int action;
 //:1|2|3|4, 1,文字 2,图片 3,语音, 4点击跳转外部连接 // action=4 需要
 @property(nonatomic,assign)CSMessageBodyType msgType;
@@ -379,14 +518,27 @@ typedef NS_ENUM(NSInteger, CSMessageStatus) {
 @property(nonatomic,copy)NSString * date;
 //时间戳
 @property (nonatomic,copy) NSString *timestamp;
+
+/**
+ 语音长度
+ */
+@property (nonatomic,assign) NSInteger voice_length;
+/**
+ 图片宽
+ */
+@property(nonatomic,assign) NSInteger img_width;
+/**
+ 图片高
+ */
+@property(nonatomic,assign) NSInteger img_height;
 @end
 
 @interface CSUnreadListModel : NSObject
-// chartType:1|2 //1,群聊 2,单聊
-@property(nonatomic,assign)int chartType;
+// chatType:1|2 //1,群聊 2,单聊
+@property(nonatomic,assign)int chatType;
 //:10 //未读数量
 @property(nonatomic,assign)int count;
-//如果chartType=1 代表群组id 如果chartType=2 代表用户id
+//如果chatType=1 代表群组id 如果chatType=2 代表用户id
 @property(nonatomic,assign)int chatId;
 
 @end

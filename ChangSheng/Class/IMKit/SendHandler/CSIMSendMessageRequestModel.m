@@ -12,7 +12,7 @@
 -(instancetype)init
 {
     if (self = [super init]) {
-        _msgStatus = (Deferred*)[[Deferred alloc] timeout:CSIM_SENDMESSAGE_TIME_OUT];
+//        _msgStatus = (Deferred*)[[Deferred alloc] timeout:CSIM_SENDMESSAGE_TIME_OUT];
         _sendNumber = 0;
         _sendStatus = IM_Send_No;
     }
@@ -23,6 +23,12 @@
 {
     return @{@"body":@"result"};
 }
+
++ (NSDictionary *)mj_objectClassInArray
+{
+    return @{@"unreadList" : [CSIMUnReadListModel class]};
+}
+
 - (id)mutableCopyWithZone:(NSZone * )zone
 {
     CSIMSendMessageRequestModel * model = [CSIMSendMessageRequestModel new];
@@ -42,6 +48,16 @@
     self.body.msgId = message.body.msgId;
 }
 
+- (void)successed
+{
+    [self.body internal_setMessageStatus:kCSMessageStatusSuccessed];
+}
+
+- (void)failed
+{
+    [self.body internal_setMessageStatus:kCSMessageStatusFailed];
+}
+
 - (NSString *)msgId
 {
     return _body.msgId;
@@ -54,4 +70,16 @@
 {
     return _body.msgCacheKey;
 }
+
+-(Deferred *)msgStatus
+{
+    if (!_msgStatus) {
+        _msgStatus = (Deferred*)[[Deferred alloc] timeout:CSIM_SENDMESSAGE_TIME_OUT];
+    }
+    return _msgStatus;
+}
 @end
+
+@implementation CSIMUnReadListModel
+
+@end;

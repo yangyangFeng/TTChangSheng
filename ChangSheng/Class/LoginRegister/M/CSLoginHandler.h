@@ -25,4 +25,6 @@ typedef void(^errorBlock)(NSError *error);
 + (void)registerWithParams:(NSDictionary *)params
               successBlock:(successBlock)success
                  failBlock:(errorBlock)fail;
+
++ (void)openSocket;
 @end

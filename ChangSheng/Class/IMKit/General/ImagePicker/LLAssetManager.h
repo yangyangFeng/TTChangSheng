@@ -78,6 +78,8 @@ typedef void (^LLCheckAuthorizationCompletionBlock)(LLAuthorizationType type);
 
 - (NSData *)fetchImageDataFromAssetModel:(LLAssetModel *)model;
 
+- (UIImage *)fetchImageFromAssetModel:(LLAssetModel *)model;
+
 - (LLAssetModel *)fetchAssetModelWithURL:(NSURL *)url;
 
 -(void)fetchFullScreenImageWithURL:(NSURL *)url asyncBlock:(nullable LLFetchImageAsyncCallbackBlock)asyncCallback syncBlock:(nullable LLFetchImageSyncCallbackBlock)syncCallback;

@@ -11,7 +11,7 @@
 #import "CSIMSendMessageRequestModel.h"
 
 
-
+#import "MCDownloader.h"
 static CSIMMessageQueueManager * queueManager = nil;
 @interface CSIMMessageQueueManager ()
 @property(nonatomic,strong)NSMutableDictionary * messages;
@@ -88,6 +88,27 @@ static CSIMMessageQueueManager * queueManager = nil;
         return msg;
     }
     return msg;
+}
+
+- (void)asynsDownLoaderVoiceWithModel:(CSMessageModel *)messageModel
+                            success:(TTSuccessBlock)success
+                                 fail:(TTFailureBlock)fail
+{
+    MCDownloadReceipt * downloader = [[MCDownloader sharedDownloader] downloadDataWithURL:[NSURL URLWithString:messageModel.body.content] progress:^(NSInteger receivedSize, NSInteger expectedSize, NSInteger speed, NSURL * _Nullable targetURL) {
+        
+    } completed:^(MCDownloadReceipt * _Nullable receipt, NSError * _Nullable error, BOOL finished) {
+        if (error && fail) {
+            fail(error);
+        }
+        else
+        {
+            if (success) {
+                messageModel.fileLocalPath = receipt.filePath;
+                success(messageModel);
+            }
+        }
+    }];
+    
 }
 
 - (void)clean

@@ -66,7 +66,14 @@ BOOL LLMessageCell_isEditing = NO;
         
         self.avatarImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, AVATAR_WIDTH, AVATAR_HEIGHT)];
         self.avatarImage.contentMode = UIViewContentModeScaleAspectFill;
+        self.avatarImage.clipsToBounds = YES;
         [self.contentView addSubview:self.avatarImage];
+        
+        self.nikeName = [[UILabel alloc]initWithFrame:CGRectMake((self.avatarImage.x + self.avatarImage.width + BUBBLE_LEFT_BLANK), 0, 100, 25)];
+        self.nikeName.font = [UIFont systemFontOfSize:12];
+        self.nikeName.textColor = [UIColor colorWithHexRGB:@"#999999"];
+        self.nikeName.textAlignment = NSTextAlignmentLeft;
+        [self.contentView addSubview:self.nikeName];
         
         self.bubbleImage = [[UIImageView alloc] init];
         self.bubbleImage.contentMode = UIViewContentModeScaleToFill;
@@ -85,7 +92,7 @@ BOOL LLMessageCell_isEditing = NO;
         [self.contentView addSubview:_indicatorView];
         _indicatorView.hidden = YES;
         
-        [self layoutMessageStatusViews:self.messageModel.isFromMe];
+        [self layoutMessageStatusViews:self.messageModel.isSelf];
     }
 
     return _indicatorView;
@@ -100,16 +107,16 @@ BOOL LLMessageCell_isEditing = NO;
         [self.contentView addSubview:_statusButton];
         _statusButton.hidden = YES;
         
-        [self layoutMessageStatusViews:self.messageModel.isFromMe];
+        [self layoutMessageStatusViews:self.messageModel.isSelf];
     }
 
     return _statusButton;
 }
 
 - (void)prepareForUse:(BOOL)isFromMe {
-    NSString *iconName = @"聊天自定义头像.png";
-    //isFromMe ? @"icon_avatar" : @"user";
-    self.avatarImage.image = [UIImage imageNamed:iconName];
+//    NSString *iconName = @"聊天自定义头像.png";
+//    //isFromMe ? @"icon_avatar" : @"user";
+//    self.avatarImage.image = [UIImage imageNamed:iconName];
 
     self.bubbleImage.image = isFromMe ? SenderTextNodeBkg : ReceiverTextNodeBkg;
     self.bubbleImage.highlightedImage = isFromMe ? SenderTextNodeBkgHL : ReceiverTextNodeBkgHL;
@@ -123,10 +130,14 @@ BOOL LLMessageCell_isEditing = NO;
         self.avatarImage.frame = CGRectMake(SCREEN_WIDTH - CGRectGetWidth(self.avatarImage.frame) - AVATAR_SUPER_LEFT,
                 AVATAR_SUPER_TOP,
                 AVATAR_WIDTH, AVATAR_HEIGHT);
-
+        self.nikeName.frame = CGRectMake(self.avatarImage.x -BUBBLE_LEFT_BLANK - 100, 0, 100, 25);
+        self.nikeName.textAlignment = NSTextAlignmentRight;
+        
     }else {
         CGFloat _x = _isCellEditing ? CGRectGetMaxX(self.selectControl.frame) + 3 : AVATAR_SUPER_LEFT;
         self.avatarImage.frame = CGRectMake(_x, AVATAR_SUPER_TOP, AVATAR_WIDTH, AVATAR_HEIGHT);
+        self.nikeName.textAlignment = NSTextAlignmentLeft;
+        self.nikeName.frame = CGRectMake((self.avatarImage.x + self.avatarImage.width + BUBBLE_LEFT_BLANK), 0, 100, 25);
     }
 }
 
@@ -157,7 +168,7 @@ BOOL LLMessageCell_isEditing = NO;
     if (_isCellEditing) {
         self.selectControl.frame = CGRectMake(3, (AVATAR_HEIGHT - EDIT_CONTROL_SIZE)/2, EDIT_CONTROL_SIZE, EDIT_CONTROL_SIZE);
                                  
-        if (!self.messageModel.isFromMe) {
+        if (!self.messageModel.isSelf) {
             self.avatarImage.frame = CGRectMake(CGRectGetMaxX(self.selectControl.frame) + 3,AVATAR_SUPER_TOP, AVATAR_WIDTH, AVATAR_HEIGHT);
             [self layoutMessageContentViews:NO];
             [self layoutMessageStatusViews:NO];
@@ -165,13 +176,27 @@ BOOL LLMessageCell_isEditing = NO;
      }else {
          _selectControl.frame = CGRectMake(-EDIT_CONTROL_SIZE, (AVATAR_HEIGHT - EDIT_CONTROL_SIZE)/2, EDIT_CONTROL_SIZE, EDIT_CONTROL_SIZE);
          
-         if (!self.messageModel.isFromMe) {
+         if (!self.messageModel.isSelf) {
              self.avatarImage.frame = CGRectMake(AVATAR_SUPER_LEFT,AVATAR_SUPER_TOP, AVATAR_WIDTH, AVATAR_HEIGHT);
              [self layoutMessageContentViews:NO];
              [self layoutMessageStatusViews:NO];
          }
      }
                      }];
+}
+
+- (void)enableLongGesture:(BOOL)isEnable
+{
+    if (isEnable) {
+        
+    }else
+    {
+        [self->longPressGR removeTarget:self action:@selector(contentLongPressed:)];
+    }
+}
+
+- (void)willReloadCell{
+    
 }
 
 - (void)willDisplayCell {
@@ -193,17 +218,32 @@ BOOL LLMessageCell_isEditing = NO;
 - (void)setMessageModel:(CSMessageModel *)messageModel {
     _messageModel = messageModel;
     self.isCellSelected = messageModel.isSelected;
+    if (messageModel.chatType == CSChatTypeChat) {//如果是单聊没有用户名
+        self.nikeName.hidden = YES;
+    }
+    else{
+        self.nikeName.hidden = NO;
+        self.nikeName.text = messageModel.body.nickname;
+    }
     
+ 
+    NSString *iconName = @"聊天自定义头像.png";
+    
+//    self.avatarImage.image = [UIImage imageNamed:iconName];
+
+    WEAKSELF;
+    [self.avatarImage yy_setImageWithURL:[NSURL URLWithString:messageModel.body.avatar] placeholder:[UIImage imageNamed:iconName] options:YYWebImageOptionShowNetworkActivity completion:^(UIImage * _Nullable image, NSURL * _Nonnull url, YYWebImageFromType from, YYWebImageStage stage, NSError * _Nullable error) {
+    }];
     if ([messageModel checkNeedsUpdateForReuse]) {
-        [self layoutMessageContentViews:messageModel.isFromMe];
-        [self layoutMessageStatusViews:messageModel.isFromMe];
+        [self layoutMessageContentViews:messageModel.isSelf];
+        [self layoutMessageStatusViews:messageModel.isSelf];
     }
 
     if ([messageModel checkNeedsUpdateThumbnail]) {
         [self updateMessageThumbnail];
     }
     
-    if (self.messageModel.isFromMe) {
+    if (self.messageModel.isSelf) {
         if ([messageModel checkNeedsUpdateUploadStatus]){
             [self updateMessageUploadStatus];
         }
@@ -224,17 +264,17 @@ BOOL LLMessageCell_isEditing = NO;
 
 - (void)updateMessageUploadStatus {
     switch (self.messageModel.messageStatus) {
-        case kLLMessageStatusDelivering:
-        case kLLMessageStatusWaiting:
+        case kCSMessageStatusDelivering:
+        case kCSMessageStatusWaiting:
             HIDE_STATUS_BUTTON;
             SHOW_INDICATOR_VIEW;
             break;
-        case kLLMessageStatusSuccessed:
+        case kCSMessageStatusSuccessed:
             HIDE_STATUS_BUTTON;
             HIDE_INDICATOR_VIEW;
             break;
-        case kLLMessageStatusFailed:
-        case kLLMessageStatusPending:
+        case kCSMessageStatusFailed:
+        case kCSMessageStatusPending:
             SHOW_STATUS_BUTTON;
             HIDE_INDICATOR_VIEW;
             break;
@@ -268,7 +308,7 @@ BOOL LLMessageCell_isEditing = NO;
 
 
 + (UIImage *)bubbleImageForModel:(CSMessageModel *)model {
-    return model.isFromMe ? SenderTextNodeBkg : ReceiverTextNodeBkg;
+    return model.isSelf ? SenderTextNodeBkg : ReceiverTextNodeBkg;
 }
 
 + (CGFloat)heightForModel:(CSMessageModel *)model {
@@ -390,7 +430,7 @@ BOOL LLMessageCell_isEditing = NO;
 }
 
 - (void)statusButtonDidTapped {
-    if (self.messageModel.fromMe) {
+    if (self.messageModel.isSelf) {
         SAFE_SEND_MESSAGE(self.delegate, resendMessage:) {
             [LLUtils showConfirmAlertWithTitle:nil
                                    message:@"重发该消息？"
@@ -425,7 +465,9 @@ BOOL LLMessageCell_isEditing = NO;
 }
 
 - (void)contentEventTappedInView:(UIView *)view {
-    [self.delegate cellDidTapped:self];
+    if ([self.delegate respondsToSelector:@selector(cellDidTapped:)]) {
+        [self.delegate cellDidTapped:self];
+    }
 }
 
 - (void)contentLongPressed:(UILongPressGestureRecognizer *)longPress {

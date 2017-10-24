@@ -122,7 +122,7 @@ static UIImage *thunbmailDownloadImage;
         _statusButton.hidden = YES;
         [self.contentView addSubview:_statusButton];
         
-        [self layoutMessageStatusViews:self.messageModel.isFromMe];
+        [self layoutMessageStatusViews:self.messageModel.isSelf];
     }
     
     return _statusButton;
@@ -369,8 +369,8 @@ static UIImage *thunbmailDownloadImage;
     return [self.videoImageView convertRect:self.videoImageView.bounds toView:self.videoImageView.window];
 }
 
-+ (UIImage *)bubbleImageForModel:(LLMessageModel *)model {
-    return model.isFromMe ? SenderImageNodeMask : ReceiverImageNodeMask;
++ (UIImage *)bubbleImageForModel:(CSMessageModel *)model {
+    return model.isSelf ? SenderImageNodeMask : ReceiverImageNodeMask;
 }
 
 - (void)willExitFullScreenShow {
@@ -406,7 +406,7 @@ static UIImage *thunbmailDownloadImage;
 }
 
 - (void)statusButtonDidTapped {
-    if (self.messageModel.isFromMe) {
+    if (self.messageModel.isSelf) {
         if (_statusButton.tag == ACTION_TAG_CANCEL){
             NSLog(@"暂不支持取消上传");
         }else {

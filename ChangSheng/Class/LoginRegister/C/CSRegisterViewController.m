@@ -7,11 +7,15 @@
 //
 
 #import "CSRegisterViewController.h"
+#import "LLWebViewController.h"
+#import "TTNavigationController.h"
 
+#import "AppDelegate.h"
 #import "CSUserInfo.h"
 #import "GPLoginInfoModel.h"
 #import "CSRegisterParam.h"
 #import "CSHttpRequestManager.h"
+#import "CSHomeViewController.h"
 @interface CSRegisterViewController ()
 @property (weak, nonatomic) IBOutlet UITextField *accountField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordField;
@@ -85,10 +89,18 @@
     [CSHttpRequestManager request_register_paramters:param.mj_keyValues success:^(id responseObject) {
         NSLog(@"成功%@",responseObject);
         GPLoginInfoModel *obj = [GPLoginInfoModel mj_objectWithKeyValues:responseObject];
-        CSUserInfo * info = [CSUserInfo shareInstance];
-        info.info = obj.result;
-        [[CSUserInfo shareInstance] login];
+//        CSUserInfo * info = [CSUserInfo shareInstance];
+//        info.info = obj.result;
+//        [[CSUserInfo shareInstance] login];
         CS_HUD(obj.msg);
+        CSUserInfoModel * info = [CSUserInfoModel mj_objectWithKeyValues:[[obj mj_JSONObject] objectForKey:@"result"]];
+        [CSUserInfo shareInstance].info = info;
+        [[CSUserInfo shareInstance] login];
+        
+        CSHomeViewController * home = [CSHomeViewController new];
+        AppDelegate * appDelegate =  (AppDelegate *)[UIApplication sharedApplication].delegate;
+        TTNavigationController * nav = [[TTNavigationController alloc]initWithRootViewController:home];
+        appDelegate.window.rootViewController = nav;
     } failure:^(NSError *error) {
         
     } showHUD:YES];
@@ -96,6 +108,11 @@
     
 - (IBAction)readUserInfoAction:(id)sender {
     self.readBtn.selected = !self.readBtn.selected;
+}
+- (IBAction)openWebViewAction:(id)sender {
+    LLWebViewController * webC = [LLWebViewController new];
+    webC.url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/html/reg_pact.html",baseUrl]];
+    [self.navigationController pushViewController:webC animated:YES];
 }
 
 - (void)didReceiveMemoryWarning {

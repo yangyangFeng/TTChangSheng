@@ -14,6 +14,7 @@
 #import "UIKit+LLExt.h"
 #import "LLEmotionModel.h"
 #import "LLAudioManager.h"
+#import "Mp3Recorder.h"
 
 #define SET_KEYBOARD_TYPE(_keyboardType) \
     keyboardShowHideInfo.toKeyboardType = _keyboardType; \
@@ -31,7 +32,7 @@
 //暂不支持自由设置，
 //#define Compact_EdgeInset UIEdgeInsetsMake(4, 6, 4, 6)
 
-@interface LLChatInputView () <UITextViewDelegate, ILLEmotionInputDelegate, LLChatShareDelegate, UIScrollViewDelegate>
+@interface LLChatInputView () <UITextViewDelegate, ILLEmotionInputDelegate, LLChatShareDelegate, UIScrollViewDelegate, Mp3RecorderDelegate>
 
 @property (weak, nonatomic) IBOutlet UIButton *chatVoiceBtn;
 
@@ -47,6 +48,7 @@
 
 @property (nonatomic) BOOL recordPermissionGranted;
 
+@property (nonatomic, strong)Mp3Recorder * recorder;
 @end
 
 
@@ -115,6 +117,7 @@
     [LLEmotionInputView sharedInstance].delegate = self;
     
     _chatRecordBtn.backgroundColor = [UIColor clearColor];
+    
     [self recordActionEnd];
     _chatRecordBtn.layer.borderColor = UIColorHexRGB(@"#C2C3C7").CGColor;
     _chatRecordBtn.layer.borderWidth = 0.5;
@@ -947,10 +950,23 @@
     
     return NO;
 }
-
+- (void)failRecord
+{
+    DLog(@"录制失败");
+}
+- (void)beginConvert
+{
+    DLog(@"录制开始");
+}
+- (void)endConvertWithData:(NSData *)voiceData
+{
+    DLog(@"录制成功length-->%g.k",voiceData.length / 1000);
+}
 - (IBAction)recordButtonTouchDown:(id)sender {
     WEAK_SELF;
-    
+//    Mp3Recorder * recorder = [[Mp3Recorder alloc]initWithDelegate:self];
+//    self.recorder = recorder;
+//    [self.recorder startRecord];//开始录制
     self.recordPermissionGranted = NO;
     __block BOOL firstUseMicrophone = NO;
     [[LLAudioManager sharedManager] requestRecordPermission:^(AVAudioSessionRecordPermission recordPermission) {
@@ -977,7 +993,7 @@
             }
         }
     }];
-    
+//
 }
 
 - (IBAction)recordButtonTouchUpinside:(id)sender {
@@ -990,7 +1006,7 @@
         if (!dispatch_block_testcancel(block))
             dispatch_block_cancel(block);
         block = nil;
-        
+        DLog(@"录制时间过短");
         if ([self.delegate respondsToSelector:@selector(voiceRecordingTooShort)]) {
             [self.delegate voiceRecordingTooShort];
         }
@@ -998,9 +1014,13 @@
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(MIN_RECORD_TIME_REQUIRED * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             self.chatRecordBtn.enabled = YES;
             [self recordActionEnd];
+            DLog(@"录制时间过短,->结束");
+            [self.recorder cancelRecord];
         });
         
     }else {
+        DLog(@"录制完成");
+        [self.recorder stopRecord];
         [self recordActionEnd];
         if ([self.delegate respondsToSelector:@selector(voicRecordingShouldFinish)]) {
             [self.delegate voicRecordingShouldFinish];
@@ -1022,7 +1042,7 @@
     if ([self.delegate respondsToSelector:@selector(voiceRecordingShouldCancel)]) {
         [self.delegate voiceRecordingShouldCancel];
     }
-
+    [self.recorder cancelRecord];
 }
 
 - (IBAction)recordButtonTouchCancelled:(id)sender {
@@ -1030,11 +1050,13 @@
         return;
     
     [self recordButtonTouchUpinside:sender];
+    [self.recorder cancelRecord];
 }
 
 - (void)cancelRecordButtonTouchEvent {
     [self.chatRecordBtn cancelTrackingWithEvent:nil];
     [self recordActionEnd];
+    [self.recorder cancelRecord];
 }
 
 - (IBAction)recordButtonDragEnter:(id)sender {

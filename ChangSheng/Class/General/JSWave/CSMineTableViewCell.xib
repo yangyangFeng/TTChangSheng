@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" restorationIdentifier="CSMineTableViewCell" selectionStyle="default" indentationWidth="10" reuseIdentifier="CSMineTableViewCell" id="KGk-i7-Jjw" customClass="CSMineTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="iyD-nb-dHv">
+                        <rect key="frame" x="25" y="10.5" width="22" height="22"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="22" id="Epw-vc-zr9"/>
+                            <constraint firstAttribute="height" constant="22" id="GzX-4a-iVz"/>
+                        </constraints>
+                    </imageView>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="右箭头" translatesAutoresizingMaskIntoConstraints="NO" id="E7c-6Z-FCX">
+                        <rect key="frame" x="285" y="12" width="20" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="20" id="FoO-g4-q3D"/>
+                            <constraint firstAttribute="height" constant="20" id="cwl-eY-Xkm"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="上下分分" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F0n-D4-4QW">
+                        <rect key="frame" x="57" y="13" width="70" height="18"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="70" id="PJF-B4-bR2"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IG8-RC-WUw">
+                        <rect key="frame" x="132" y="21.5" width="148" height="0.0"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="IG8-RC-WUw" firstAttribute="leading" secondItem="F0n-D4-4QW" secondAttribute="trailing" constant="5" id="0c7-5o-AsB"/>
+                    <constraint firstAttribute="trailing" secondItem="E7c-6Z-FCX" secondAttribute="trailing" constant="15" id="BDv-UW-T7O"/>
+                    <constraint firstItem="iyD-nb-dHv" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="25" id="Gul-vs-ebG"/>
+                    <constraint firstItem="IG8-RC-WUw" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="Qdk-9U-fe5"/>
+                    <constraint firstItem="F0n-D4-4QW" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="ivn-Gm-Fho"/>
+                    <constraint firstItem="E7c-6Z-FCX" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="r6r-Cf-0YR"/>
+                    <constraint firstItem="iyD-nb-dHv" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="vtJ-KV-fMw"/>
+                    <constraint firstItem="E7c-6Z-FCX" firstAttribute="leading" secondItem="IG8-RC-WUw" secondAttribute="trailing" constant="5" id="xA2-9e-EAu"/>
+                    <constraint firstItem="F0n-D4-4QW" firstAttribute="leading" secondItem="iyD-nb-dHv" secondAttribute="trailing" constant="10" id="xcE-x2-yPJ"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="cs_icon" destination="iyD-nb-dHv" id="dgR-zz-UrQ"/>
+                <outlet property="cs_subTitle" destination="IG8-RC-WUw" id="9sa-TF-nGJ"/>
+                <outlet property="cs_title" destination="F0n-D4-4QW" id="qaM-fc-yS6"/>
+            </connections>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="右箭头" width="15" height="15"/>
+    </resources>
+</document>

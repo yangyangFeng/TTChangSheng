@@ -14,6 +14,7 @@
     if (self = [super init]) {
         tableView.delegate = self;
         tableView.dataSource = self;
+        self.tableView = tableView;
     }
     return self;
 }

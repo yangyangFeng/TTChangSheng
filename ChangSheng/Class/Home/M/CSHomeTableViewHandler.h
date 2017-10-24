@@ -9,5 +9,9 @@
 #import "TTBaseTableViewHandler.h"
 
 @interface CSHomeTableViewHandler : TTBaseTableViewHandler
-
+@property (nonatomic,strong) NSArray *betGroupArray;
+/**
+ 刷新未读消息
+ */
+- (void)updateUnreadMessageUI;
 @end

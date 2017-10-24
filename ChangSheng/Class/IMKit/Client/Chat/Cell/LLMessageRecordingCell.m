@@ -117,7 +117,13 @@
 
 - (void)setMessageModel:(CSMessageModel *)messageModel {
     _messageModel = messageModel;
+    NSString *iconName = @"聊天自定义头像.png";
     
+    //    self.avatarImage.image = [UIImage imageNamed:iconName];
+    
+    WEAKSELF;
+    [self.avatarImage yy_setImageWithURL:[NSURL URLWithString:[CSUserInfo shareInstance].info.avatar] placeholder:[UIImage imageNamed:iconName] options:YYWebImageOptionShowNetworkActivity completion:^(UIImage * _Nullable image, NSURL * _Nonnull url, YYWebImageFromType from, YYWebImageStage stage, NSError * _Nullable error) {
+    }];
     [messageModel clearNeedsUpdateForReuse];
 }
 

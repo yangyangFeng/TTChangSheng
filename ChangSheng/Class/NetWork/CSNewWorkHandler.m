@@ -223,7 +223,7 @@
 #endif
     /// 如果有一些公共处理，可以写在这里
     //    NSUInteger hashValue = [delegate hash];
-    self.netWorkItem = [[CSNetWorkingRequest alloc] initWithRequestType:networkType url:url paramters:RSA_params success:successBlock failure:failureBlock uploadFileProgress:progressBlock filePath:filePath showHUD:showHUD];
+    self.netWorkItem = [[CSNetWorkingRequest alloc] initWithRequestType:networkType url:all_url paramters:RSA_params success:successBlock failure:failureBlock uploadFileProgress:progressBlock filePath:filePath showHUD:showHUD];
 //                        initWithRequestType:networkType
 //                                                                    url:all_url
 //                                                              paramters:RSA_params
@@ -237,35 +237,80 @@
     return self.netWorkItem;
 }
 
+/**
+ *  图片,语音上传
+ *
+ */
+- (id)uploadFileHttpRequestType:(TTREQUEST_TYPE)networkType
+                            url:(NSString*)url
+                      paramters:(NSDictionary*)params
+                        success:(TTSuccessBlock)successBlock
+                        failure:(TTFailureBlock)failureBlock
+                 uploadprogress:(TTUploadProgressBlock)progressBlock
+                       fileData:(NSData *)fileData
+                        showHUD:(BOOL)showHUD
+{
+    [CSNewWorkHandler startMonitoring];
+    if (self.networkError == YES) {
+        //        SHOW_ALERT(@"网络连接断开,请检查网络!");
+        NSError * error = [NSError errorWithDomain:@"连接失败!" code:201 userInfo:nil];
+        if (failureBlock) {
+            failureBlock(error);
+        }
+        
+        return nil;
+    }
+    NSDictionary * RSA_params = [self RSADIC:params];
+    
+    NSString * all_url = [NSString stringWithFormat:@"%@/%@",baseUrl,url];
+#if SWITCH_OPEN_LOG
+    NSLog(@"url = %@ \n %@",all_url,RSA_params);
+#endif
+    /// 如果有一些公共处理，可以写在这里
+    //    NSUInteger hashValue = [delegate hash];
+    self.netWorkItem = [[CSNetWorkingRequest alloc] initWithRequestType:networkType url:all_url paramters:RSA_params success:successBlock failure:failureBlock uploadFileProgress:progressBlock fileData:fileData showHUD:showHUD];
+    //                        initWithRequestType:networkType
+    //                                                                    url:all_url
+    //                                                              paramters:RSA_params
+    //                                                                success:successBlock
+    //                                                                failure:failureBlock
+    //                                                     uploadFileProgress:progressBlock
+    //                                                                  image:image
+    //                                                                showHUD:showHUD];
+    
+    [self.items addObject:self.netWorkItem];
+    return self.netWorkItem;
+}
+
 
 #pragma makr - 开始监听网络连接
 
 + (void)startMonitoring
 {
-    // 1.获得网络监控的管理者
-    AFNetworkReachabilityManager* mgr = [AFNetworkReachabilityManager sharedManager];
-    // 2.设置网络状态改变后的处理
-    [mgr setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
-        // 当网络状态改变了, 就会调用这个block
-        switch (status) {
-        case AFNetworkReachabilityStatusUnknown: // 未知网络
-            DLog(@"未知网络");
-            [CSNewWorkHandler sharedInstance].networkError = NO;
-            break;
-        case AFNetworkReachabilityStatusNotReachable: // 没有网络(断网)
-            [CSNewWorkHandler sharedInstance].networkError = YES;
-            break;
-        case AFNetworkReachabilityStatusReachableViaWWAN: // 手机自带网络
-            DLog(@"手机自带网络");
-            [CSNewWorkHandler sharedInstance].networkError = NO;
-            break;
-        case AFNetworkReachabilityStatusReachableViaWiFi: // WIFI
-            DLog(@"WIFI");
-            [CSNewWorkHandler sharedInstance].networkError = NO;
-            break;
-        }
-    }];
-    [mgr startMonitoring];
+//    // 1.获得网络监控的管理者
+//    AFNetworkReachabilityManager* mgr = [AFNetworkReachabilityManager sharedManager];
+//    // 2.设置网络状态改变后的处理
+//    [mgr setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
+//        // 当网络状态改变了, 就会调用这个block
+//        switch (status) {
+//        case AFNetworkReachabilityStatusUnknown: // 未知网络
+//            DLog(@"未知网络");
+//            [CSNewWorkHandler sharedInstance].networkError = NO;
+//            break;
+//        case AFNetworkReachabilityStatusNotReachable: // 没有网络(断网)
+//            [CSNewWorkHandler sharedInstance].networkError = YES;
+//            break;
+//        case AFNetworkReachabilityStatusReachableViaWWAN: // 手机自带网络
+//            DLog(@"手机自带网络");
+//            [CSNewWorkHandler sharedInstance].networkError = NO;
+//            break;
+//        case AFNetworkReachabilityStatusReachableViaWiFi: // WIFI
+//            DLog(@"WIFI");
+//            [CSNewWorkHandler sharedInstance].networkError = NO;
+//            break;
+//        }
+//    }];
+//    [mgr startMonitoring];
 }
 
 /**
