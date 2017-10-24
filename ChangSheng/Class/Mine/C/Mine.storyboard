@@ -295,7 +295,7 @@
         <scene sceneID="Ok3-3J-Q0e">
             <objects>
                 <tableViewController restorationIdentifier="CSUserInfoViewController" storyboardIdentifier="CSUserInfoViewController" title="个人资料" id="bQT-F2-7UW" customClass="CSUserInfoViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="Pbb-Ab-Vz1">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="Pbb-Ab-Vz1">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
@@ -369,11 +369,11 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" id="G8a-Li-4lg">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="G8a-Li-4lg">
                                         <rect key="frame" x="0.0" y="123" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="G8a-Li-4lg" id="5R8-dj-weF">
-                                            <rect key="frame" x="0.0" y="0.0" width="342" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="长生ID" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xmb-h6-mjt">
@@ -386,7 +386,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eUU-c8-dtJ">
-                                                    <rect key="frame" x="112" y="0.0" width="230" height="43.5"/>
+                                                    <rect key="frame" x="112" y="0.0" width="223" height="43.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -398,8 +398,8 @@
                                                 <constraint firstAttribute="bottom" secondItem="Xmb-h6-mjt" secondAttribute="bottom" id="OOU-fk-kKc"/>
                                                 <constraint firstItem="Xmb-h6-mjt" firstAttribute="leading" secondItem="5R8-dj-weF" secondAttribute="leading" constant="12" id="eXt-t5-QcM"/>
                                                 <constraint firstItem="eUU-c8-dtJ" firstAttribute="top" secondItem="5R8-dj-weF" secondAttribute="top" id="oVV-c6-Tew"/>
+                                                <constraint firstAttribute="trailing" secondItem="eUU-c8-dtJ" secondAttribute="trailing" constant="40" id="zFG-JA-UC8"/>
                                                 <constraint firstItem="eUU-c8-dtJ" firstAttribute="leading" secondItem="Xmb-h6-mjt" secondAttribute="trailing" id="zax-F6-5MR"/>
-                                                <constraint firstAttribute="trailing" secondItem="eUU-c8-dtJ" secondAttribute="trailing" id="zre-SI-ZW7"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>

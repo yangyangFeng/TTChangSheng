@@ -23,7 +23,7 @@
                             <rect key="frame" x="284" y="0.0" width="75" height="120"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a70-Pp-zkR">
-                                    <rect key="frame" x="0.0" y="14" width="75" height="33"/>
+                                    <rect key="frame" x="0.0" y="10.5" width="75" height="33"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="33" id="7eV-r1-S1p"/>
                                     </constraints>
@@ -33,9 +33,8 @@
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BHg-q4-pLW">
-                                    <rect key="frame" x="0.0" y="58" width="75" height="33"/>
+                                    <rect key="frame" x="0.0" y="61.5" width="75" height="33"/>
                                     <constraints>
-                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="33" id="Kg4-GJ-6lq"/>
                                         <constraint firstAttribute="height" constant="33" id="meg-UY-8Rc"/>
                                     </constraints>
                                     <state key="normal" image="分数表"/>
@@ -46,12 +45,10 @@
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <constraints>
-                                <constraint firstAttribute="bottom" secondItem="BHg-q4-pLW" secondAttribute="bottom" constant="29" id="3CE-3d-DoT"/>
                                 <constraint firstItem="BHg-q4-pLW" firstAttribute="leading" secondItem="vSt-qY-M06" secondAttribute="leading" id="HG3-LI-2bl"/>
                                 <constraint firstAttribute="trailing" secondItem="a70-Pp-zkR" secondAttribute="trailing" id="KtE-ul-I79"/>
                                 <constraint firstAttribute="width" constant="75" id="UnF-wf-fkl"/>
                                 <constraint firstItem="a70-Pp-zkR" firstAttribute="leading" secondItem="vSt-qY-M06" secondAttribute="leading" id="fgF-Kp-9sL"/>
-                                <constraint firstItem="a70-Pp-zkR" firstAttribute="top" secondItem="vSt-qY-M06" secondAttribute="top" constant="14" id="hJA-1d-xY7"/>
                                 <constraint firstAttribute="trailing" secondItem="BHg-q4-pLW" secondAttribute="trailing" id="o4d-QI-u2h"/>
                             </constraints>
                         </view>
@@ -184,7 +181,9 @@
                     <constraints>
                         <constraint firstItem="Mb9-sc-QpZ" firstAttribute="leading" secondItem="7Vl-Ib-djD" secondAttribute="leading" id="2wf-my-qtt"/>
                         <constraint firstAttribute="height" constant="120" id="Mex-4Q-BB9"/>
+                        <constraint firstItem="a70-Pp-zkR" firstAttribute="centerY" secondItem="RBS-t6-oJI" secondAttribute="centerY" id="Oio-3B-LQt"/>
                         <constraint firstAttribute="bottom" secondItem="vSt-qY-M06" secondAttribute="bottom" id="Qqe-qx-kpG"/>
+                        <constraint firstItem="BHg-q4-pLW" firstAttribute="centerY" secondItem="PvU-EP-Qsj" secondAttribute="centerY" id="Yl8-nD-UTm"/>
                         <constraint firstItem="vSt-qY-M06" firstAttribute="top" secondItem="7Vl-Ib-djD" secondAttribute="top" id="ejV-Kl-ZNS"/>
                         <constraint firstItem="vSt-qY-M06" firstAttribute="leading" secondItem="Mb9-sc-QpZ" secondAttribute="trailing" id="hgf-7c-uB1"/>
                         <constraint firstAttribute="bottom" secondItem="Mb9-sc-QpZ" secondAttribute="bottom" id="mz3-OW-l1J"/>

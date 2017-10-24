@@ -22,7 +22,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.tableView.separatorStyle =0;
+//    self.tableView.separatorStyle =0;
 
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
@@ -176,7 +176,7 @@
     
     [userInfoC.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.bottom.mas_equalTo(0);
-        make.top.mas_equalTo(64);
+        make.top.mas_equalTo(44);
     }];
 }
 

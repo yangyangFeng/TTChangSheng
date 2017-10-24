@@ -26,7 +26,7 @@
     
     [tableC.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.bottom.mas_equalTo(0);
-        make.top.mas_equalTo(64);
+        make.top.mas_equalTo(44);
     }];
 }
 

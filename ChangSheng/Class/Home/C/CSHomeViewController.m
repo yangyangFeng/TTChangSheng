@@ -90,6 +90,7 @@
     [userCenterBtn setHidden:NO];
     [userCenterBtn setImage:[UIImage imageNamed:@"个人中心"] forState:(UIControlStateNormal)];
     [userCenterBtn setImageEdgeInsets:UIEdgeInsetsMake(0, -20, 0, 0)];
+    [userCenterBtn sizeToFit];
 }
 
 - (void)loadData

@@ -26,7 +26,7 @@
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="客服" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V4G-oG-g2e">
-                        <rect key="frame" x="63" y="2" width="31" height="18"/>
+                        <rect key="frame" x="63" y="13" width="31" height="18"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
@@ -44,9 +44,9 @@
                     </label>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="V4G-oG-g2e" firstAttribute="centerY" secondItem="Y1C-1L-fDd" secondAttribute="centerY" id="89G-R3-9zE"/>
                     <constraint firstAttribute="trailing" secondItem="V0V-yP-rpl" secondAttribute="trailing" constant="-10" id="A7g-QU-GQR"/>
                     <constraint firstItem="V0V-yP-rpl" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="-10" id="DZe-MH-EFz"/>
-                    <constraint firstItem="V4G-oG-g2e" firstAttribute="top" secondItem="Y1C-1L-fDd" secondAttribute="top" id="KfA-Eu-zap"/>
                     <constraint firstItem="Y1C-1L-fDd" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="Vyu-lZ-IR7"/>
                     <constraint firstItem="Y1C-1L-fDd" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="b2Q-9O-loD"/>
                     <constraint firstItem="V4G-oG-g2e" firstAttribute="leading" secondItem="Y1C-1L-fDd" secondAttribute="trailing" constant="15" id="ddd-rb-HRR"/>
