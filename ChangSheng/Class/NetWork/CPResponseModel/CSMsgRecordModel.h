@@ -13,6 +13,10 @@
 @property(nonatomic,strong)CSMsgRecordModel * result;
 
 /**
+ 公告
+ */
+@property (nonatomic,copy) NSString *group_tips;
+/**
  消息数据
  */
 @property(nonatomic,strong)NSArray * data;

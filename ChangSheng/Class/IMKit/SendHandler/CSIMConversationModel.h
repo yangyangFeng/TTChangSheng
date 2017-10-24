@@ -15,7 +15,7 @@
 //该Conversation已经获取到的消息数组，按照时间从过去到现在排序，最近的消息在数组最后面
 @property (nonatomic, strong)NSMutableArray <CSIMSendMessageRequestModel*>*allMessageModels;
 
-
+@property (nonatomic,copy) NSString *group_tips;
 //以下三个属性SDK不存储,需要由服务器提供,此处采用假数据
 @property (nonatomic) NSString *avatarImageURL;
 @property (nonatomic) UIImage *avatarImage;

@@ -53,7 +53,9 @@
 #define VIEW_BACKGROUND_COLOR kLLBackgroundColor_lightGray
 
 #define TABLEVIEW_BACKGROUND_COLOR kLLBackgroundColor_lightGray
-
+#import "CSGongGaoView.h"
+#import "LBPhotoBrowserManager.h"
+#import "LB3DTouchVC.h"
 #import "CSUploadFileModel.h"
 #import "IQKeyboardManager.h"
 #import "CSIMReceiveManager.h"
@@ -64,6 +66,7 @@
 #import "CSUserServiceListViewController.h"
 //#import "KVOController.h"
 #import "LLWebViewController.h"
+#import "NSString+TTLengthExtend.h"
 
 #import "CSPublicBetViewController.h"
 #import "CSPublicBetInputToolBarView.h"
@@ -111,6 +114,8 @@ CSPublicBetInputToolBarViewDelegate
 @property(nonatomic,assign)CGFloat keyboardHeight;
 
 @property(nonatomic,assign)CGFloat textViewChangeHeight;
+
+@property (nonatomic,strong) CSGongGaoView * gongGaoView;
 @end
 
 @implementation CSPublicBetViewController{
@@ -130,6 +135,14 @@ CSPublicBetInputToolBarViewDelegate
     BOOL firstViewDidAppear;
 }
 
+-(CSGongGaoView *)gongGaoView
+{
+    if (!_gongGaoView) {
+        _gongGaoView = [CSGongGaoView viewFromXIB];
+        
+    }
+    return _gongGaoView;
+}
 
 #pragma mark - UI/LifeCycle 相关 -
 //#FIXME:    ***************************************inputView
@@ -228,11 +241,14 @@ CSPublicBetInputToolBarViewDelegate
 }
 
 - (void)cellImageDidTapped:(LLMessageImageCell *)cell {
-    if (cell.messageModel.thumbnailImage) {
-        [self showAssetFromCell:cell];
-    }else if (!cell.messageModel.isFetchingThumbnail){
-//        [cell willDisplayCell];
-    }
+    
+    [[LBPhotoBrowserManager defaultManager] showImageWithURLArray:@[cell.messageModel.body.content] fromImageViews:@[cell.chatImageView] selectedIndex:0 imageViewSuperView:cell.chatImageView.superview];
+    
+//    if (cell.chatImageView.image) {
+//        [self showAssetFromCell:cell];
+//    }else if (!cell.messageModel.isFetchingThumbnail){
+////        [cell willDisplayCell];
+//    }
 }
 #pragma mark - 视频、图片弹出、弹入动画 -
 
@@ -393,7 +409,13 @@ CSPublicBetInputToolBarViewDelegate
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
- 
+
+    [self.gongGaoView mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(self.view.top).offset(64);
+    }];
+    [UIView animateWithDuration:0.25 animations:^{
+        [self.gongGaoView layoutIfNeeded];
+    }];
     
     [self blackStatusBar];
     [self addKeyboardObserver];
@@ -461,6 +483,23 @@ CSPublicBetInputToolBarViewDelegate
     
     [self.tableView reloadData];
 
+    [self.view addSubview:self.gongGaoView];
+    self.gongGaoView.contentView.text = self.conversationModel.group_tips;
+    CGRect frame = [self.conversationModel.group_tips boundsWithFontSize:13 textWidth:WIDTH - 40 -35];
+    CGFloat height = frame.size.height + 30;
+    [self.gongGaoView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(self.view.top).offset(64 - height);
+        make.left.right.mas_equalTo(0);
+        make.height.mas_equalTo(height);
+    }];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self.gongGaoView mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.top.mas_equalTo(self.view.top).offset(64 - height);
+        }];
+        [UIView animateWithDuration:0.25 animations:^{
+            [self.gongGaoView layoutIfNeeded];
+        }];
+    });
 }
 
 - (void)loadMessageData

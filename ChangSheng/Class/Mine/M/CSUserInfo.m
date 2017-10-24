@@ -7,7 +7,7 @@
 //
 
 #import "CSUserInfo.h"
-
+#define USER_CACHE_KEY @"cs_user_login_info"
 static CSUserInfo * info = nil;
 @implementation CSUserInfo
 
@@ -19,7 +19,15 @@ static CSUserInfo * info = nil;
 {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        info = [CSUserInfo new];
+        NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
+        NSDictionary * userInfo;
+        if ((userInfo = [userDefaults objectForKey:USER_CACHE_KEY])) {
+            info = [CSUserInfo mj_objectWithKeyValues:userInfo];
+        }
+        else
+        {
+            info = [CSUserInfo new];
+        }
     });
     return info;
 }
@@ -27,11 +35,15 @@ static CSUserInfo * info = nil;
 -(void)login
 {
     self->isOnline = YES;
+    NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setObject:self.mj_keyValues forKey:USER_CACHE_KEY];
 }
 
 -(void)logout
 {
     self->isOnline = NO;
+    NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults removeObjectForKey:USER_CACHE_KEY];
 }
 
 -(BOOL)isOnline

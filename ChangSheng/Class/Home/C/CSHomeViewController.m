@@ -9,6 +9,7 @@
 #import "CSHomeViewController.h"
 #import "CSPublicBetViewController.h"
 
+#import "CSLoginHandler.h"
 #import "CSHomeTableViewHandler.h"
 #import "LLChatViewController.h"
 #import "StoryBoardController.h"
@@ -64,6 +65,10 @@
 //        make.bottom.mas_equalTo(keyboardView.mas_top).offset(0);
 //        make.height.mas_equalTo(35+44*2);
 //    }];
+    
+    if ([CSUserInfo shareInstance].isOnline) {
+        [CSLoginHandler openSocket];
+    }
     [self loadData];
 }
 
@@ -191,6 +196,8 @@
         //        LLChatViewController * chatC = (LLChatViewController*)[StoryBoardController storyBoardName:@"Main" ViewControllerIdentifiter:@"LLChatViewController"];
         CSPublicBetViewController * chatC = [CSPublicBetViewController new];
         CSIMConversationModel * model = [CSIMConversationModel new];
+        model.group_tips = obj.result.group_tips;
+        
         model.chatId = [NSString stringWithFormat:@"%d",param.ID];
         model.nickName = index ? @"大众厅" : @"VIP厅";
         model.allMessageModels = [NSMutableArray array];

@@ -52,7 +52,8 @@
 #define VIEW_BACKGROUND_COLOR kLLBackgroundColor_lightGray
 
 #define TABLEVIEW_BACKGROUND_COLOR kLLBackgroundColor_lightGray
-
+#import "LBPhotoBrowserManager.h"
+#import "LB3DTouchVC.h"
 #import "CSUploadFileModel.h"
 #import "IQKeyboardManager.h"
 #import "CSIMReceiveManager.h"
@@ -1451,12 +1452,40 @@ CSIMReceiveManagerDelegate
 }
 
 - (void)cellImageDidTapped:(LLMessageImageCell *)cell {
-    if (cell.messageModel.thumbnailImage) {
-        [self showAssetFromCell:cell];
-    }else if (!cell.messageModel.isFetchingThumbnail){
-//        [[LLChatManager sharedManager] asyncDownloadMessageThumbnail:cell.messageModel completion:nil];
-        [cell willDisplayCell];
-    }
+    NSMutableArray *arrayUrl = [NSMutableArray array];
+    NSMutableArray *arrayImageView = [NSMutableArray array];
+    int index = 0;
+        for (int i = [self.dataSource indexOfObject:cell.messageModel]; i< self.dataSource.count; i++) {
+            CSMessageModel *model = self.dataSource[i];
+            if (model.messageBodyType == kCSMessageBodyTypeImage ||
+                model.messageBodyType == kCSMessageBodyTypeVideo) {
+                [arrayUrl addObject:model.body.content];
+                [arrayImageView addObject:cell.chatImageView];
+                if (model == cell.messageModel) {
+                    index = arrayUrl.count - 1;
+                }
+            }
+        }
+    
+     [[LBPhotoBrowserManager defaultManager] showImageWithURLArray:arrayUrl fromImageViews:arrayImageView selectedIndex:index imageViewSuperView:cell.chatImageView.superview];
+    
+    // 添加图片浏览器长按手势的效果
+    [[[LBPhotoBrowserManager defaultManager] addLongPressShowTitles:@[@"保存照片",@"取消"]] addTitleClickCallbackBlock:^(UIImage *image, NSIndexPath *indexPath, NSString *title) {
+        LBPhotoBrowserLog(@"%@ %@ %@",image,indexPath,title);
+        if ([title isEqualToString:@"保存照片"]) {
+            [image savedPhotosAlbum:^{
+                CS_HUD(@"保存成功");
+            } failBlock:^{
+                
+            }];
+        }
+    }].style = LBMaximalImageViewOnDragDismmissStyleOne; // 默认的就
+//    if (cell.messageModel.thumbnailImage) {
+//        [self showAssetFromCell:cell];
+//    }else if (!cell.messageModel.isFetchingThumbnail){
+////        [[LLChatManager sharedManager] asyncDownloadMessageThumbnail:cell.messageModel completion:nil];
+//        [cell willDisplayCell];
+//    }
     
 }
 #pragma mark - 打开自定义相册

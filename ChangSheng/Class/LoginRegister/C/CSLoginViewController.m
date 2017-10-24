@@ -64,6 +64,8 @@
         [CSUserInfo shareInstance].info = info;
         [[CSUserInfo shareInstance] login];
         
+     
+        
         CSHomeViewController * home = [CSHomeViewController new];
         AppDelegate * appDelegate =  (AppDelegate *)[UIApplication sharedApplication].delegate;
         TTNavigationController * nav = [[TTNavigationController alloc]initWithRootViewController:home];

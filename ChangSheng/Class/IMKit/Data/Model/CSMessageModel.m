@@ -380,7 +380,7 @@ NSMutableDictionary * tmpImageDict;
         self.msgCacheKey = self.msgId;
         self.msgType = msgType;
         self.action = action;//普通消息
-        self.msgType = msgType;
+//        self.msgType = msgType;
         self.content = content;
 
 

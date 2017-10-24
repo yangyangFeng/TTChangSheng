@@ -232,7 +232,6 @@
 		1829A0431F8A4A2D00EAA1AB /* NSDate+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 1829A03C1F8A4A2D00EAA1AB /* NSDate+Utilities.m */; };
 		1829A0441F8A4A2D00EAA1AB /* NSFileManager+LCCKExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 1829A03E1F8A4A2D00EAA1AB /* NSFileManager+LCCKExtension.m */; };
 		1829A0451F8A4A2D00EAA1AB /* NSFileManager+Paths.m in Sources */ = {isa = PBXBuildFile; fileRef = 1829A0401F8A4A2D00EAA1AB /* NSFileManager+Paths.m */; };
-		1829A0481F8A4B8D00EAA1AB /* VoiceRecordHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 1829A0471F8A4B8D00EAA1AB /* VoiceRecordHelper.m */; };
 		184B5CFC1F77CC03007A1C22 /* CSBaseRequestModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 184B5CFB1F77CC03007A1C22 /* CSBaseRequestModel.m */; };
 		184B5CFF1F77CC65007A1C22 /* CSRegisterParam.m in Sources */ = {isa = PBXBuildFile; fileRef = 184B5CFE1F77CC65007A1C22 /* CSRegisterParam.m */; };
 		184B5D031F77D6ED007A1C22 /* TTLineLayoutConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = 184B5D021F77D6ED007A1C22 /* TTLineLayoutConstraint.m */; };
@@ -264,6 +263,20 @@
 		18B6C60C1F8A550A007B1669 /* Mp3Recorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B6C60A1F8A550A007B1669 /* Mp3Recorder.m */; };
 		18B6C60F1F8BBF16007B1669 /* CSUploadFileParam.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B6C60E1F8BBF16007B1669 /* CSUploadFileParam.m */; };
 		18B6C6121F8BBF61007B1669 /* CSUploadFileModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B6C6111F8BBF61007B1669 /* CSUploadFileModel.m */; };
+		18BDAB3D1F9F76DB002800BC /* LBOptionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18BDAB271F9F76DB002800BC /* LBOptionView.m */; };
+		18BDAB3E1F9F76DB002800BC /* LB3DTouchVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 18BDAB281F9F76DB002800BC /* LB3DTouchVC.m */; };
+		18BDAB3F1F9F76DB002800BC /* LBPhotoBrowserConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 18BDAB291F9F76DB002800BC /* LBPhotoBrowserConst.m */; };
+		18BDAB401F9F76DB002800BC /* LBLoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18BDAB2A1F9F76DB002800BC /* LBLoadingView.m */; };
+		18BDAB411F9F76DB002800BC /* LBPhotoBrowserView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18BDAB2C1F9F76DB002800BC /* LBPhotoBrowserView.m */; };
+		18BDAB421F9F76DB002800BC /* LBPhotoBrowserManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 18BDAB2D1F9F76DB002800BC /* LBPhotoBrowserManager.m */; };
+		18BDAB431F9F76DB002800BC /* UIView+Frame.m in Sources */ = {isa = PBXBuildFile; fileRef = 18BDAB2E1F9F76DB002800BC /* UIView+Frame.m */; };
+		18BDAB441F9F76DB002800BC /* LBLoadError.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 18BDAB2F1F9F76DB002800BC /* LBLoadError.jpg */; };
+		18BDAB451F9F76DB002800BC /* UIImage+LBDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 18BDAB301F9F76DB002800BC /* UIImage+LBDecoder.m */; };
+		18BDAB461F9F76DB002800BC /* LBZoomScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18BDAB351F9F76DB002800BC /* LBZoomScrollView.m */; };
+		18BDAB471F9F76DB002800BC /* LBLoading.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BDAB381F9F76DB002800BC /* LBLoading.png */; };
+		18BDAB481F9F76DB002800BC /* LBTapDetectingImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18BDAB3B1F9F76DB002800BC /* LBTapDetectingImageView.m */; };
+		18BDAB4A1F9F7DC2002800BC /* CSGongGaoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18BDAB491F9F7DC2002800BC /* CSGongGaoView.xib */; };
+		18BDAB4D1F9F7DDA002800BC /* CSGongGaoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18BDAB4C1F9F7DDA002800BC /* CSGongGaoView.m */; };
 		18C81F421F74B8E00012150B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C81F411F74B8E00012150B /* main.m */; };
 		18C81F451F74B8E00012150B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C81F441F74B8E00012150B /* AppDelegate.m */; };
 		18C81F501F74B8E00012150B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18C81F4E1F74B8E00012150B /* LaunchScreen.storyboard */; };
@@ -838,8 +851,6 @@
 		1829A03E1F8A4A2D00EAA1AB /* NSFileManager+LCCKExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSFileManager+LCCKExtension.m"; sourceTree = "<group>"; };
 		1829A03F1F8A4A2D00EAA1AB /* NSFileManager+Paths.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSFileManager+Paths.h"; sourceTree = "<group>"; };
 		1829A0401F8A4A2D00EAA1AB /* NSFileManager+Paths.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSFileManager+Paths.m"; sourceTree = "<group>"; };
-		1829A0461F8A4B8D00EAA1AB /* VoiceRecordHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VoiceRecordHelper.h; sourceTree = "<group>"; };
-		1829A0471F8A4B8D00EAA1AB /* VoiceRecordHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VoiceRecordHelper.m; sourceTree = "<group>"; };
 		184B5CFA1F77CC03007A1C22 /* CSBaseRequestModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSBaseRequestModel.h; sourceTree = "<group>"; };
 		184B5CFB1F77CC03007A1C22 /* CSBaseRequestModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSBaseRequestModel.m; sourceTree = "<group>"; };
 		184B5CFD1F77CC65007A1C22 /* CSRegisterParam.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSRegisterParam.h; sourceTree = "<group>"; };
@@ -900,6 +911,31 @@
 		18B6C60E1F8BBF16007B1669 /* CSUploadFileParam.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSUploadFileParam.m; sourceTree = "<group>"; };
 		18B6C6101F8BBF61007B1669 /* CSUploadFileModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSUploadFileModel.h; sourceTree = "<group>"; };
 		18B6C6111F8BBF61007B1669 /* CSUploadFileModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSUploadFileModel.m; sourceTree = "<group>"; };
+		18BDAB271F9F76DB002800BC /* LBOptionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LBOptionView.m; sourceTree = "<group>"; };
+		18BDAB281F9F76DB002800BC /* LB3DTouchVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LB3DTouchVC.m; sourceTree = "<group>"; };
+		18BDAB291F9F76DB002800BC /* LBPhotoBrowserConst.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LBPhotoBrowserConst.m; sourceTree = "<group>"; };
+		18BDAB2A1F9F76DB002800BC /* LBLoadingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LBLoadingView.m; sourceTree = "<group>"; };
+		18BDAB2B1F9F76DB002800BC /* LBZoomScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LBZoomScrollView.h; sourceTree = "<group>"; };
+		18BDAB2C1F9F76DB002800BC /* LBPhotoBrowserView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LBPhotoBrowserView.m; sourceTree = "<group>"; };
+		18BDAB2D1F9F76DB002800BC /* LBPhotoBrowserManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LBPhotoBrowserManager.m; sourceTree = "<group>"; };
+		18BDAB2E1F9F76DB002800BC /* UIView+Frame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Frame.m"; sourceTree = "<group>"; };
+		18BDAB2F1F9F76DB002800BC /* LBLoadError.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = LBLoadError.jpg; sourceTree = "<group>"; };
+		18BDAB301F9F76DB002800BC /* UIImage+LBDecoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+LBDecoder.m"; sourceTree = "<group>"; };
+		18BDAB311F9F76DB002800BC /* LBTapDetectingImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LBTapDetectingImageView.h; sourceTree = "<group>"; };
+		18BDAB321F9F76DB002800BC /* LB3DTouchVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LB3DTouchVC.h; sourceTree = "<group>"; };
+		18BDAB331F9F76DB002800BC /* LBOptionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LBOptionView.h; sourceTree = "<group>"; };
+		18BDAB341F9F76DB002800BC /* LBPhotoBrowserManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LBPhotoBrowserManager.h; sourceTree = "<group>"; };
+		18BDAB351F9F76DB002800BC /* LBZoomScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LBZoomScrollView.m; sourceTree = "<group>"; };
+		18BDAB361F9F76DB002800BC /* LBPhotoBrowserView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LBPhotoBrowserView.h; sourceTree = "<group>"; };
+		18BDAB371F9F76DB002800BC /* LBLoadingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LBLoadingView.h; sourceTree = "<group>"; };
+		18BDAB381F9F76DB002800BC /* LBLoading.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LBLoading.png; sourceTree = "<group>"; };
+		18BDAB391F9F76DB002800BC /* LBPhotoBrowserConst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LBPhotoBrowserConst.h; sourceTree = "<group>"; };
+		18BDAB3A1F9F76DB002800BC /* UIView+Frame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Frame.h"; sourceTree = "<group>"; };
+		18BDAB3B1F9F76DB002800BC /* LBTapDetectingImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LBTapDetectingImageView.m; sourceTree = "<group>"; };
+		18BDAB3C1F9F76DB002800BC /* UIImage+LBDecoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+LBDecoder.h"; sourceTree = "<group>"; };
+		18BDAB491F9F7DC2002800BC /* CSGongGaoView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CSGongGaoView.xib; sourceTree = "<group>"; };
+		18BDAB4B1F9F7DDA002800BC /* CSGongGaoView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSGongGaoView.h; sourceTree = "<group>"; };
+		18BDAB4C1F9F7DDA002800BC /* CSGongGaoView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSGongGaoView.m; sourceTree = "<group>"; };
 		18C81F3D1F74B8E00012150B /* ChangSheng.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChangSheng.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		18C81F411F74B8E00012150B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		18C81F431F74B8E00012150B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -1821,8 +1857,6 @@
 		1804AC531F7BDC6100508C1C /* MessageHandler */ = {
 			isa = PBXGroup;
 			children = (
-				1829A0461F8A4B8D00EAA1AB /* VoiceRecordHelper.h */,
-				1829A0471F8A4B8D00EAA1AB /* VoiceRecordHelper.m */,
 				1804AC541F7BDC6100508C1C /* CSIMMessageQueueManager.h */,
 				1804AC551F7BDC6100508C1C /* CSIMMessageQueueManager.m */,
 				1804AC561F7BDC6100508C1C /* CSIMReceiveManager.h */,
@@ -2105,6 +2139,35 @@
 			path = TTVoiceLib;
 			sourceTree = "<group>";
 		};
+		18BDAB261F9F76DB002800BC /* LBPhotoBrowser */ = {
+			isa = PBXGroup;
+			children = (
+				18BDAB271F9F76DB002800BC /* LBOptionView.m */,
+				18BDAB281F9F76DB002800BC /* LB3DTouchVC.m */,
+				18BDAB291F9F76DB002800BC /* LBPhotoBrowserConst.m */,
+				18BDAB2A1F9F76DB002800BC /* LBLoadingView.m */,
+				18BDAB2B1F9F76DB002800BC /* LBZoomScrollView.h */,
+				18BDAB2C1F9F76DB002800BC /* LBPhotoBrowserView.m */,
+				18BDAB2D1F9F76DB002800BC /* LBPhotoBrowserManager.m */,
+				18BDAB2E1F9F76DB002800BC /* UIView+Frame.m */,
+				18BDAB2F1F9F76DB002800BC /* LBLoadError.jpg */,
+				18BDAB301F9F76DB002800BC /* UIImage+LBDecoder.m */,
+				18BDAB311F9F76DB002800BC /* LBTapDetectingImageView.h */,
+				18BDAB321F9F76DB002800BC /* LB3DTouchVC.h */,
+				18BDAB331F9F76DB002800BC /* LBOptionView.h */,
+				18BDAB341F9F76DB002800BC /* LBPhotoBrowserManager.h */,
+				18BDAB351F9F76DB002800BC /* LBZoomScrollView.m */,
+				18BDAB361F9F76DB002800BC /* LBPhotoBrowserView.h */,
+				18BDAB371F9F76DB002800BC /* LBLoadingView.h */,
+				18BDAB381F9F76DB002800BC /* LBLoading.png */,
+				18BDAB391F9F76DB002800BC /* LBPhotoBrowserConst.h */,
+				18BDAB3A1F9F76DB002800BC /* UIView+Frame.h */,
+				18BDAB3B1F9F76DB002800BC /* LBTapDetectingImageView.m */,
+				18BDAB3C1F9F76DB002800BC /* UIImage+LBDecoder.h */,
+			);
+			path = LBPhotoBrowser;
+			sourceTree = "<group>";
+		};
 		18C81F341F74B8E00012150B = {
 			isa = PBXGroup;
 			children = (
@@ -2365,6 +2428,7 @@
 		18C81F661F76570D0012150B /* General */ = {
 			isa = PBXGroup;
 			children = (
+				18BDAB261F9F76DB002800BC /* LBPhotoBrowser */,
 				185787221F96F99900BAD542 /* GeneralView */,
 				74C852DB1F8B764F00944C50 /* JSWave */,
 				184B5D001F77D6ED007A1C22 /* GPCustomNSLayoutConstraint */,
@@ -2655,6 +2719,9 @@
 				181C060E1F92139900F4A15E /* CSBetInputToolBarView.xib */,
 				181C06101F92167B00F4A15E /* CSPublicBetInputToolBarView.h */,
 				181C06111F92167B00F4A15E /* CSPublicBetInputToolBarView.m */,
+				18BDAB491F9F7DC2002800BC /* CSGongGaoView.xib */,
+				18BDAB4B1F9F7DDA002800BC /* CSGongGaoView.h */,
+				18BDAB4C1F9F7DDA002800BC /* CSGongGaoView.m */,
 			);
 			path = V;
 			sourceTree = "<group>";
@@ -2779,6 +2846,7 @@
 				1804ACE51F7BDC6100508C1C /* FriendsSendsPicturesQuitBigIcon.png in Resources */,
 				1804ACB01F7BDC6100508C1C /* LLConversationListCell.xib in Resources */,
 				74C852E81F8B800700944C50 /* CSMineItem.plist in Resources */,
+				18BDAB4A1F9F7DC2002800BC /* CSGongGaoView.xib in Resources */,
 				1804AC8F1F7BDC6100508C1C /* LLVideoPlaybackController.xib in Resources */,
 				1804ACEA1F7BDC6100508C1C /* FriendsSendsPicturesSelectBigYIcon@2x.png in Resources */,
 				181C060F1F92139900F4A15E /* CSBetInputToolBarView.xib in Resources */,
@@ -2808,11 +2876,13 @@
 				1804ACED1F7BDC6100508C1C /* FriendsSendsPicturesSelectYIcon.png in Resources */,
 				187773C81F7D1C6100A98B7C /* Main.storyboard in Resources */,
 				1804AD291F7BDC6100508C1C /* Monaco.ttf in Resources */,
+				18BDAB471F9F76DB002800BC /* LBLoading.png in Resources */,
 				1804ACA81F7BDC6100508C1C /* LLVoiceIndicatorView.xib in Resources */,
 				1804ACEE1F7BDC6100508C1C /* FriendsSendsPicturesSelectYIcon@2x.png in Resources */,
 				74C8530C1F8E336600944C50 /* CSUserTableViewCell.xib in Resources */,
 				1804AC881F7BDC6100508C1C /* LLImageBottomBar.xib in Resources */,
 				1804ACE91F7BDC6100508C1C /* FriendsSendsPicturesSelectBigYIcon.png in Resources */,
+				18BDAB441F9F76DB002800BC /* LBLoadError.jpg in Resources */,
 				18C820301F776E950012150B /* CSLoginSB.storyboard in Resources */,
 				1804AC891F7BDC6100508C1C /* LLImageDownloadFailView.xib in Resources */,
 				1804ACF11F7BDC6100508C1C /* MMVideoPreviewPlayHL@2x.png in Resources */,
@@ -2963,6 +3033,7 @@
 				1804AD071F7BDC6100508C1C /* LLSimpleTextLabel.m in Sources */,
 				18C820181F76585F0012150B /* UIView+Line.m in Sources */,
 				1804AD381F7BDC6100508C1C /* LLSDKError.m in Sources */,
+				18BDAB411F9F76DB002800BC /* LBPhotoBrowserView.m in Sources */,
 				1804ACD21F7BDC6100508C1C /* LLPushOptions.m in Sources */,
 				1804AC7E1F7BDC6100508C1C /* LLMessageImageCell.m in Sources */,
 				1804ACC41F7BDC6100508C1C /* LLConversationModelManager.m in Sources */,
@@ -2988,6 +3059,7 @@
 				185787211F94EF4800BAD542 /* CSUploadFenRequestModel.m in Sources */,
 				185787281F97949900BAD542 /* CSTransferScoreModel.m in Sources */,
 				1804AD161F7BDC6100508C1C /* UITextView+LLDebugOnly.m in Sources */,
+				18BDAB451F9F76DB002800BC /* UIImage+LBDecoder.m in Sources */,
 				1804ACB21F7BDC6100508C1C /* LLDiscoveryController.m in Sources */,
 				74C852E11F8B769100944C50 /* CSMineViewController.m in Sources */,
 				181C06151F92180900F4A15E /* CSPublicBetViewController.m in Sources */,
@@ -2998,6 +3070,7 @@
 				184B5CFC1F77CC03007A1C22 /* CSBaseRequestModel.m in Sources */,
 				1804ACB71F7BDC6100508C1C /* LLGeneralSettingController.m in Sources */,
 				74073A221F9A57C80098783F /* UIButton+TTExtend.m in Sources */,
+				18BDAB461F9F76DB002800BC /* LBZoomScrollView.m in Sources */,
 				18C81F801F7657900012150B /* TTBaseNavigationBar.m in Sources */,
 				1804AC961F7BDC6100508C1C /* LLChatViewController.m in Sources */,
 				1804ACDE1F7BDC6100508C1C /* LLAssetsGroupModel.m in Sources */,
@@ -3037,6 +3110,7 @@
 				18C820161F76585F0012150B /* UITextField+LimitLength.m in Sources */,
 				74C852CF1F8B520B00944C50 /* CSCustomBetButton.m in Sources */,
 				1804ACA71F7BDC6100508C1C /* LLVoiceIndicatorView.m in Sources */,
+				18BDAB3D1F9F76DB002800BC /* LBOptionView.m in Sources */,
 				1804AD1C1F7BDC6100508C1C /* LLUtils+File.m in Sources */,
 				1804AD211F7BDC6100508C1C /* LLUtils+Video.m in Sources */,
 				1804AC921F7BDC6100508C1C /* LLCollectionEmotionCell.m in Sources */,
@@ -3075,13 +3149,14 @@
 				1804AC981F7BDC6100508C1C /* LLLocationManager.m in Sources */,
 				1804AC7F1F7BDC6100508C1C /* LLMessageLocationCell.m in Sources */,
 				18C820391F777A1F0012150B /* CSRegisterViewController.m in Sources */,
-				1829A0481F8A4B8D00EAA1AB /* VoiceRecordHelper.m in Sources */,
 				1804ACBF1F7BDC6100508C1C /* LLMessageSearchResultCell.m in Sources */,
 				74C852DE1F8B764F00944C50 /* JSWave.m in Sources */,
 				1804ACFC1F7BDC6100508C1C /* LLAuthorizationDeniedController.m in Sources */,
 				181343E11F7961B400CD1312 /* CSHomeTableViewCell.m in Sources */,
+				18BDAB421F9F76DB002800BC /* LBPhotoBrowserManager.m in Sources */,
 				1804AC9B1F7BDC6100508C1C /* LLLocationTableViewCell.m in Sources */,
 				18C81F7F1F7657900012150B /* GPSBBaseTableViewController.m in Sources */,
+				18BDAB3F1F9F76DB002800BC /* LBPhotoBrowserConst.m in Sources */,
 				1804AD151F7BDC6100508C1C /* UITableView+LLExt.m in Sources */,
 				1804AC8E1F7BDC6100508C1C /* LLVideoPlaybackController.m in Sources */,
 				181346861F7AA93200CD1312 /* NSAttributedString+MLLabel.m in Sources */,
@@ -3100,6 +3175,7 @@
 				187773CE1F7D1D5600A98B7C /* CSMsgHistoryRequestModel.m in Sources */,
 				74C852D41F8B57E100944C50 /* CSCustomNumberButton.m in Sources */,
 				1804ACB31F7BDC6100508C1C /* LLMainViewController.m in Sources */,
+				18BDAB431F9F76DB002800BC /* UIView+Frame.m in Sources */,
 				181346911F7AA93200CD1312 /* README.md in Sources */,
 				1829A0451F8A4A2D00EAA1AB /* NSFileManager+Paths.m in Sources */,
 				1804ACF81F7BDC6100508C1C /* LLImageSelectIndicator.m in Sources */,
@@ -3136,6 +3212,7 @@
 				1813468E1F7AA93200CD1312 /* MLLabel.m in Sources */,
 				1804AC931F7BDC6100508C1C /* LLCollectionEmotionTip.m in Sources */,
 				74073A141F9A57C80098783F /* CALayer+Anim.m in Sources */,
+				18BDAB3E1F9F76DB002800BC /* LB3DTouchVC.m in Sources */,
 				184B5D231F794C0F007A1C22 /* Promise.m in Sources */,
 				1804ACBD1F7BDC6100508C1C /* LLChatSearchController.m in Sources */,
 				1804AD081F7BDC6100508C1C /* LLTableViewCell.m in Sources */,
@@ -3155,8 +3232,10 @@
 				187773D11F7D1D6900A98B7C /* CSHttpGroupResModel.m in Sources */,
 				181346891F7AA93200CD1312 /* MLExpressionManager.m in Sources */,
 				74073A261F9A57C80098783F /* UIImage+Color.m in Sources */,
+				18BDAB481F9F76DB002800BC /* LBTapDetectingImageView.m in Sources */,
 				1804ACAF1F7BDC6100508C1C /* LLConversationListCell.m in Sources */,
 				18C81F451F74B8E00012150B /* AppDelegate.m in Sources */,
+				18BDAB401F9F76DB002800BC /* LBLoadingView.m in Sources */,
 				1804AC8D1F7BDC6100508C1C /* LLVideoDownloadStatusHUD.m in Sources */,
 				1804ACF61F7BDC6100508C1C /* LLImageNumberView.m in Sources */,
 				1804ACCF1F7BDC6100508C1C /* LLMessageModel.m in Sources */,
@@ -3195,6 +3274,7 @@
 				1804ACFA1F7BDC6100508C1C /* LLAlbumListController.m in Sources */,
 				1804AC991F7BDC6100508C1C /* LLLocationSearchResultController.m in Sources */,
 				74C853121F8F763200944C50 /* CSMsgRecordModel.m in Sources */,
+				18BDAB4D1F9F7DDA002800BC /* CSGongGaoView.m in Sources */,
 				1804AD2E1F7BDC6100508C1C /* CSIMSendMessageRequest.m in Sources */,
 				1804AD1E1F7BDC6100508C1C /* LLUtils+Notification.m in Sources */,
 				747D5C251F7DF73C00F40A41 /* TTSingleChatViewController.m in Sources */,

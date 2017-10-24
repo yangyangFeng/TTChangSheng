@@ -13,6 +13,8 @@
 #import "TTNavigationController.h"
 #import "IQKeyboardManager.h"
 #import "CSMessageModel.h"
+#import "CSHomeViewController.h"
+#import "CSLoginHandler.h"
 @interface AppDelegate ()
 
 @end
@@ -34,10 +36,22 @@
     self.window = window;
     
 #endif
-    UIViewController * rootC = [StoryBoardController viewControllerID:@"CSLoginViewController" SBName:@"CSLoginSB"];
-    TTNavigationController * nav = [[TTNavigationController alloc]initWithRootViewController:rootC];
-    self.window.rootViewController = nav;
+    if ([CSUserInfo shareInstance].isOnline) {
+        CSHomeViewController * home = [CSHomeViewController new];
+         TTNavigationController * nav = [[TTNavigationController alloc]initWithRootViewController:home];
+        self.window.rootViewController = nav;
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [CSLoginHandler openSocket];
+        });
+    }
+    else
+    {
+        UIViewController * rootC = [StoryBoardController viewControllerID:@"CSLoginViewController" SBName:@"CSLoginSB"];
+        TTNavigationController * nav = [[TTNavigationController alloc]initWithRootViewController:rootC];
+        self.window.rootViewController = nav;
+    }
     [self.window makeKeyAndVisible];
+    
     
    
 

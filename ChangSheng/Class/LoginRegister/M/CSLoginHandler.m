@@ -19,7 +19,7 @@
                                               if (success) {
                                                   success(responseObject);
                                               }
-                                              [self openSocket];
+//                                              [self openSocket];
                                           } failure:^(NSError *error) {
                                               if (fail) {
                                                   fail(error);
@@ -36,7 +36,7 @@
                                               if (success) {
                                                   success(responseObject);
                                               }
-                                              [self openSocket];
+//                                              [self openSocket];
                                           } failure:^(NSError *error) {
                                               if (fail) {
                                                   fail(error);
