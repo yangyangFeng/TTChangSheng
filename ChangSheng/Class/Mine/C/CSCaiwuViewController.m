@@ -13,6 +13,7 @@
 #import "FSMediaPicker.h"
 #import "CSUploadFenRequestModel.h"
 #import "CSIMReceiveManager.h"
+#import "LLUtils+Popover.h"
 @interface CSCaiwuViewController ()<UITableViewDelegate,UITableViewDataSource,FSMediaPickerDelegate>
 @property (weak, nonatomic) IBOutlet UIButton *commitBtn;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -149,7 +150,8 @@
         CS_HUD(@"下分数不能高于身上分");
         return;
     }
-    [MBProgressHUD tt_Show];
+//    [MBProgressHUD tt_Show];
+    [LLUtils showCustomIndicatiorHUDWithTitle:@"" inView:self.view];
     dispatch_async(dispatch_get_main_queue(), ^{
         NSData * imageData = [self.uploadImageView.image tt_compressToDataLength:CS_IMAGE_DATA_SIZE];
         params.score = self.inputField_fen.text.intValue;
@@ -167,7 +169,8 @@
         
         [CSHttpRequestManager request_updownFen_paramters:paramsDic fileData:imageData fileType:CS_UPLOAD_FILE_IMAGE | CS_UPLOAD_FILE_CUSTOME success:^(id responseObject) {
             CSUploadFenRequestModel * obj = [CSUploadFenRequestModel mj_objectWithKeyValues:responseObject];
-            [MBProgressHUD tt_SuccessTitle:obj.msg];
+//            [MBProgressHUD tt_SuccessTitle:obj.msg];
+            [LLUtils showTextHUD:obj.msg inView:self.view];
             [CSUserInfo shareInstance].info.surplus_score = obj.result.surplus_score.intValue;
             self.my_fenLabel.text = obj.result.surplus_score;
             NSArray * array = [self.navigationController viewControllers];

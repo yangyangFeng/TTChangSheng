@@ -20,9 +20,11 @@
 #import "CSBetInputView.h"
 #import "CSHttpGroupResModel.h"
 #import "CSUserServiceListViewController.h"
+#import "LLUtils+Popover.h"
 @interface CSHomeViewController ()<TTBaseTableViewHandlerDelegate>
 @property (nonatomic,strong) CSHomeTableViewHandler *tableHandler;
 @property (nonatomic,strong) NSArray *betGroupArray;
+@property(nonatomic,strong)MBProgressHUD * hud;
 @end
 
 @implementation CSHomeViewController
@@ -45,7 +47,7 @@
     [self tt_Title:@"长圣"];
 //    [self tt_SetNaviBarHide:YES withAnimation:NO];
     self.edgesForExtendedLayout = UIRectEdgeNone;
-
+    
 
     self.tt_navigationBar.contentView.backgroundColor = [UIColor blackColor];
     [self createSubviews];
@@ -70,6 +72,8 @@
         [CSLoginHandler openSocket];
     }
     [self loadData];
+    
+//    _hud = [LLUtils showCustomIndicatiorHUDWithTitle:@"loding" inView:self.view];
 }
 
 - (void)createSubviews
@@ -188,11 +192,13 @@
     CSMsgHistoryRequestModel * param = [CSMsgHistoryRequestModel new];
     param.chat_type = 1;//1为群聊
     param.ID = chatId;
-    [MBProgressHUD tt_ShowInViewDefaultTitle:self.tableHandler.tableView];
+//    [MBProgressHUD tt_ShowInViewDefaultTitle:self.tableHandler.tableView];
+    MBProgressHUD *hud = [LLUtils showCustomIndicatiorHUDWithTitle:@"" inView:self.tableHandler.tableView];
     [CSHttpRequestManager request_chatRecord_paramters:param.mj_keyValues success:^(id responseObject) {
         CSMsgRecordModel * obj = [CSMsgRecordModel mj_objectWithKeyValues:responseObject];
         
-        [MBProgressHUD tt_HideFromeView:self.tableHandler.tableView];
+        [hud hideAnimated:YES];
+//        [MBProgressHUD tt_HideFromeView:self.tableHandler.tableView];
         //        LLChatViewController * chatC = (LLChatViewController*)[StoryBoardController storyBoardName:@"Main" ViewControllerIdentifiter:@"LLChatViewController"];
         CSPublicBetViewController * chatC = [CSPublicBetViewController new];
         CSIMConversationModel * model = [CSIMConversationModel new];
@@ -214,7 +220,7 @@
         chatC.conversationModel = model;
         [self.navigationController pushViewController:chatC animated:YES];
     } failure:^(NSError *error) {
-        [MBProgressHUD tt_HideFromeView:self.tableHandler.tableView];
+        [hud hideAnimated:YES];
     } showHUD:YES];
 }
 @end

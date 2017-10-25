@@ -7,6 +7,7 @@
 //
 
 #import "CSUserInfo.h"
+#import "CSUserServiceListViewController.h"
 #define USER_CACHE_KEY @"cs_user_login_info"
 static CSUserInfo * info = nil;
 @implementation CSUserInfo
@@ -44,6 +45,8 @@ static CSUserInfo * info = nil;
     self->isOnline = NO;
     NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
     [userDefaults removeObjectForKey:USER_CACHE_KEY];
+    
+    [CSUserServiceListViewController clear];
 }
 
 -(BOOL)isOnline

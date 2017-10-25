@@ -10,4 +10,5 @@
 
 @interface CSUserServiceListViewController : TTNav_RootViewController
 + (id)shareInstance;
++ (void)clear;
 @end

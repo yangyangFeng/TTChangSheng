@@ -7,7 +7,7 @@
 //
 
 #import "CSNewWorkHandler.h"
-
+#import "LLUtils+Popover.h"
 @implementation CSNewWorkHandler
 + (CSNewWorkHandler*)sharedInstance
 {
@@ -39,8 +39,9 @@
     if (self.networkError == YES) {
 //        SHOW_ALERT(@"网络连接断开,请检查网络!");
          NSError * error = [NSError errorWithDomain:@"连接失败!" code:201 userInfo:nil];
-        [MBProgressHUD tt_Hide];
-        [MBProgressHUD tt_ErrorTitle:@"网络连接断开,请检查网络!"];
+//        [MBProgressHUD tt_Hide];
+//        [MBProgressHUD tt_ErrorTitle:@"网络连接断开,请检查网络!"];
+        CS_HUD(@"网络连接断开,请检查网络!");
         if (failureBlock) {
             failureBlock(error);
         }
@@ -81,7 +82,7 @@
     if (self.networkError == YES) {
 //        SHOW_ALERT(@"网络连接断开,请检查网络!");
         NSError * error = [NSError errorWithDomain:@"连接失败!" code:201 userInfo:nil];
-        [MBProgressHUD tt_Hide];
+//        [MBProgressHUD tt_Hide];
         if (failureBlock) {
             failureBlock(error);
         }
@@ -162,7 +163,7 @@
     if (self.networkError == YES) {
         //        SHOW_ALERT(@"网络连接断开,请检查网络!");
         NSError * error = [NSError errorWithDomain:@"连接失败!" code:201 userInfo:nil];
-        [MBProgressHUD tt_Hide];
+//        [MBProgressHUD tt_Hide];
         if (failureBlock) {
             failureBlock(error);
         }

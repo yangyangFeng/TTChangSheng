@@ -50,6 +50,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (MBProgressHUD *)showActivityIndicatiorHUDWithTitle:(nullable NSString *)title;
 
++ (MBProgressHUD *)showCustomIndicatiorHUDWithTitle:(nullable NSString *)title inView:(nullable UIView *)view;
+
 + (void)hideHUD:(MBProgressHUD *)HUD animated:(BOOL)animated;
 
 //阻止屏幕上某个区域响应用户手势

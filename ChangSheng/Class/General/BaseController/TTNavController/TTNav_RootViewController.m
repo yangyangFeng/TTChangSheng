@@ -310,7 +310,7 @@
     
     
     [(UITableViewController*)childController tableView].backgroundColor = [UIColor groupTableViewBackgroundColor];
-    [(UITableViewController*)childController tableView].separatorStyle = 0;
+//    [(UITableViewController*)childController tableView].separatorStyle = 0;
     [self addChildViewController:childController];
     return childController;
 }

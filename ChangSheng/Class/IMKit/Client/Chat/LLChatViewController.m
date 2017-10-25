@@ -135,15 +135,6 @@ CSIMReceiveManagerDelegate
     [self tt_Title:self.conversationModel.nickName];
     self.view.backgroundColor = VIEW_BACKGROUND_COLOR;
     
-//    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:@"Debug1" style:UIBarButtonItemStylePlain target:self action:@selector(debug1:)];
-//    
-//    UIBarButtonItem *item2 = [[UIBarButtonItem alloc] initWithTitle:@"Debug2" style:UIBarButtonItemStylePlain target:self action:@selector(debug2:)];
-//    rightBarButtonItems = @[item, item2];
-//    self.navigationItem.rightBarButtonItems = rightBarButtonItems;
-//    
-//    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:nil action:nil];
-//    self.navigationItem.backBarButtonItem = backItem;
-    
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.tableView.backgroundColor = TABLEVIEW_BACKGROUND_COLOR;
     self.tableView.contentInset = UIEdgeInsetsZero;
@@ -172,7 +163,7 @@ CSIMReceiveManagerDelegate
     
     [self addRefreshTool];
     
-    [self.view layoutIfNeeded];
+//    [self.view layoutIfNeeded];
 }
 
 - (void)reConnectionSocket
@@ -246,6 +237,8 @@ CSIMReceiveManagerDelegate
 //    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
 //        [self scrollToBottom:NO];
 //    });
+    
+    [self.tableView scrollToBottomAnimated:YES];
 }
 
 - (void)updateViewConstraints {
@@ -272,7 +265,6 @@ CSIMReceiveManagerDelegate
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    [self scrollToBottom:NO];
     
     [self blackStatusBar];
     
@@ -394,19 +386,19 @@ CSIMReceiveManagerDelegate
     }
     
 }
-
-- (void)cleanMessageModelWhenExit {
-    NSArray<CSMessageModel *> *models = self.conversationModel.allMessageModels;
-    for (CSMessageModel *model in models) {
-        [model cleanWhenConversationSessionEnded];
-    }
-    /*
-    NSArray<LLMessageModel *> *models = self.conversationModel.allMessageModels;
-    for (LLMessageModel *model in models) {
-        [model cleanWhenConversationSessionEnded];
-    }
-     */
-}
+//
+//- (void)cleanMessageModelWhenExit {
+//    NSArray<CSMessageModel *> *models = self.conversationModel.allMessageModels;
+//    for (CSMessageModel *model in models) {
+//        [model cleanWhenConversationSessionEnded];
+//    }
+//    /*
+//    NSArray<LLMessageModel *> *models = self.conversationModel.allMessageModels;
+//    for (LLMessageModel *model in models) {
+//        [model cleanWhenConversationSessionEnded];
+//    }
+//     */
+//}
 
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
@@ -460,47 +452,47 @@ CSIMReceiveManagerDelegate
 
 }
 
-- (void)messageUploadHandler:(NSNotification *)notification {
-    CSMessageModel *messageModel = notification.userInfo[LLChatManagerMessageModelKey];
-    if (!messageModel)
-        return;
-    
-    WEAK_SELF;
-    dispatch_async(dispatch_get_main_queue(), ^{
-        LLMessageBaseCell *baseCell = [weakSelf visibleCellForMessageModel:messageModel];
-        if (!baseCell) {
-            [messageModel setNeedsUpdateUploadStatus];
-            return;
-        }
-        
-        [baseCell updateMessageUploadStatus];
-        
-    });
+//- (void)messageUploadHandler:(NSNotification *)notification {
+//    CSMessageModel *messageModel = notification.userInfo[LLChatManagerMessageModelKey];
+//    if (!messageModel)
+//        return;
+//
+//    WEAK_SELF;
+//    dispatch_async(dispatch_get_main_queue(), ^{
+//        LLMessageBaseCell *baseCell = [weakSelf visibleCellForMessageModel:messageModel];
+//        if (!baseCell) {
+//            [messageModel setNeedsUpdateUploadStatus];
+//            return;
+//        }
+//
+//        [baseCell updateMessageUploadStatus];
+//
+//    });
+//
+//}
 
-}
-
-- (void)messageDownloadHandler:(NSNotification *)notification {
-    LLMessageModel *messageModel = notification.userInfo[LLChatManagerMessageModelKey];
-    if (!messageModel)
-        return;
-    
-    //派发下载错误提示
-    if (messageModel.messageDownloadStatus == kLLMessageDownloadStatusFailed && messageModel.messageBodyType == kLLMessageBodyTypeVideo && self.navigationController.visibleViewController == self) {
-        [LLUtils showMessageAlertWithTitle:nil message:@"下载失败" actionTitle:@"我知道了"];
-    }
-    
-    WEAK_SELF;
-    dispatch_async(dispatch_get_main_queue(), ^{
-        LLMessageBaseCell *baseCell = [weakSelf visibleCellForMessageModel:messageModel];
-        if (!baseCell) {
-            [messageModel setNeedsUpdateDownloadStatus];
-            return;
-        }
-
-        [baseCell updateMessageDownloadStatus];
-    });
-    
-}
+//- (void)messageDownloadHandler:(NSNotification *)notification {
+//    LLMessageModel *messageModel = notification.userInfo[LLChatManagerMessageModelKey];
+//    if (!messageModel)
+//        return;
+//
+//    //派发下载错误提示
+//    if (messageModel.messageDownloadStatus == kLLMessageDownloadStatusFailed && messageModel.messageBodyType == kLLMessageBodyTypeVideo && self.navigationController.visibleViewController == self) {
+//        [LLUtils showMessageAlertWithTitle:nil message:@"下载失败" actionTitle:@"我知道了"];
+//    }
+//
+//    WEAK_SELF;
+//    dispatch_async(dispatch_get_main_queue(), ^{
+//        LLMessageBaseCell *baseCell = [weakSelf visibleCellForMessageModel:messageModel];
+//        if (!baseCell) {
+//            [messageModel setNeedsUpdateDownloadStatus];
+//            return;
+//        }
+//
+//        [baseCell updateMessageDownloadStatus];
+//    });
+//
+//}
 
 
 #pragma mark - 获取聊天数据
@@ -511,107 +503,107 @@ CSIMReceiveManagerDelegate
 //    [[LLChatManager sharedManager] loadMoreMessagesForConversationModel:self.conversationModel maxCount:MESSAGE_LIMIT_FOR_ONE_FETCH isDirectionUp:YES];
 }
 
-- (void)refreshChatControllerForReuse {
-    self.navigationItem.title = self.conversationModel.nickName;
-    
-    [self registerApplicationNotification];
-    [self registerChatManagerNotification];
-    
-//    if (self.conversationModel.updateType == kLLMessageListUpdateTypeLoadMore) {
+//- (void)refreshChatControllerForReuse {
+//    self.navigationItem.title = self.conversationModel.nickName;
+//
+//    [self registerApplicationNotification];
+//    [self registerChatManagerNotification];
+//
+////    if (self.conversationModel.updateType == kLLMessageListUpdateTypeLoadMore) {
+////        if (!self.tableView.tableHeaderView) {
+////            self.tableView.tableHeaderView = self.refreshView;
+////        }
+////    }else if (self.conversationModel.updateType == kLLMessageListUpdateTypeLoadMoreComplete) {
+////        self.tableView.tableHeaderView = nil;
+////    }
+////
+////    self.chatInputView.draft = self.conversationModel.draft;
+////    self.chatInputView.delegate = self;
+////    [self.chatInputView prepareKeyboardWhenConversationWillBegin];
+////
+////    if (self.conversationModel.draft.length == 0 ) {
+////        self.chatInputViewBottomConstraint.constant = 0;
+////    }
+////
+//    [self.view layoutIfNeeded];
+//
+//    self.tableView.contentInset = UIEdgeInsetsMake(CGRectGetHeight(self.chatInputView.frame) - MAIN_BOTTOM_TABBAR_HEIGHT + self.chatInputViewBottomConstraint.constant, 0, 0, 0);
+//    self.tableView.scrollIndicatorInsets = self.tableView.contentInset;
+//
+//    self.dataSource = [self processData:self.conversationModel];
+//    [self.tableView reloadData];
+//
+//    [self scrollToBottom:NO];
+//
+//}
+
+
+//- (void)loadMoreMessagesDidFinishedWithConversationModel:(LLConversationModel *)aConversationModel {
+////    if ((aConversationModel != self.conversationModel) && ![aConversationModel.conversationId isEqualToString:self.conversationModel.conversationId]) {
+////        return;
+////    }
+//    
+//    LLMessageBaseCell *cell;
+//    LLMessageModel *pullCellModel;
+//    CGFloat pullCellPointY = 0;
+//    for (UITableViewCell *item in self.tableView.visibleCells) {
+//        if ([item isKindOfClass:[LLMessageBaseCell class]]) {
+//            cell = (LLMessageBaseCell *)item;
+//            pullCellModel = cell.messageModel;
+//            pullCellPointY = [cell convertPoint:CGPointZero toView:self.view].y;
+//            break;
+//        }
+//    }
+//    
+//    if (aConversationModel.updateType == kLLMessageListUpdateTypeLoadMore) {
 //        if (!self.tableView.tableHeaderView) {
 //            self.tableView.tableHeaderView = self.refreshView;
 //        }
-//    }else if (self.conversationModel.updateType == kLLMessageListUpdateTypeLoadMoreComplete) {
+//    }else if (aConversationModel.updateType == kLLMessageListUpdateTypeLoadMoreComplete) {
 //        self.tableView.tableHeaderView = nil;
 //    }
+//
+//    self.conversationModel = aConversationModel;
+//    self.dataSource = [self processData:self.conversationModel];
 //    
-//    self.chatInputView.draft = self.conversationModel.draft;
-//    self.chatInputView.delegate = self;
-//    [self.chatInputView prepareKeyboardWhenConversationWillBegin];
-//    
-//    if (self.conversationModel.draft.length == 0 ) {
-//        self.chatInputViewBottomConstraint.constant = 0;
+//    if (self.tableView.visibleCells.count == 0) {
+//        [self.tableView reloadData];
+//        [self.tableView layoutIfNeeded];
+//        
+//        [self scrollToBottom:NO];
+//    }else if (aConversationModel.updateType == kLLMessageListUpdateTypeNewMessage) {
+//        BOOL shouldScroolToBottom = [self shouldScrollToBottomForNewMessage];
+//        
+//        [self.tableView reloadData];
+//        [self.tableView layoutIfNeeded];
+//        
+//        if (shouldScroolToBottom) {
+//            [self scrollToBottom:YES];
+//        }
+//    }else {
+//        [self.tableView reloadData];
+//        
+//        NSInteger index = [self.dataSource indexOfObject:pullCellModel];
+//        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
+//        [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionNone animated:NO];
+//        
+//        LLMessageBaseCell *newCell = [self.tableView cellForRowAtIndexPath:indexPath];
+//        
+//        CGFloat _offsetY = self.tableView.contentOffset.y;
+//        CGFloat _cellYInView = [newCell convertPoint:CGPointZero toView:self.view].y;
+//        CGFloat newoffsetY = _offsetY + (_cellYInView - pullCellPointY);
+//        if (newoffsetY < 0)
+//            newoffsetY = 0;
+//        
+//        [self.tableView setContentOffset:CGPointMake(0, newoffsetY) animated:NO];
+//        
+//        UIActivityIndicatorView *indicator = self.refreshView.subviews[0];
+//        [indicator stopAnimating];
+//        
+//        [self performSelectorOnMainThread:@selector(pullToRefreshFinished) withObject:nil waitUntilDone:NO];
 //    }
-//    
-    [self.view layoutIfNeeded];
-    
-    self.tableView.contentInset = UIEdgeInsetsMake(CGRectGetHeight(self.chatInputView.frame) - MAIN_BOTTOM_TABBAR_HEIGHT + self.chatInputViewBottomConstraint.constant, 0, 0, 0);
-    self.tableView.scrollIndicatorInsets = self.tableView.contentInset;
-
-    self.dataSource = [self processData:self.conversationModel];
-    [self.tableView reloadData];
-
-    [self scrollToBottom:NO];
-   
-}
-
-
-- (void)loadMoreMessagesDidFinishedWithConversationModel:(LLConversationModel *)aConversationModel {
-//    if ((aConversationModel != self.conversationModel) && ![aConversationModel.conversationId isEqualToString:self.conversationModel.conversationId]) {
-//        return;
-//    }
-    
-    LLMessageBaseCell *cell;
-    LLMessageModel *pullCellModel;
-    CGFloat pullCellPointY = 0;
-    for (UITableViewCell *item in self.tableView.visibleCells) {
-        if ([item isKindOfClass:[LLMessageBaseCell class]]) {
-            cell = (LLMessageBaseCell *)item;
-            pullCellModel = cell.messageModel;
-            pullCellPointY = [cell convertPoint:CGPointZero toView:self.view].y;
-            break;
-        }
-    }
-    
-    if (aConversationModel.updateType == kLLMessageListUpdateTypeLoadMore) {
-        if (!self.tableView.tableHeaderView) {
-            self.tableView.tableHeaderView = self.refreshView;
-        }
-    }else if (aConversationModel.updateType == kLLMessageListUpdateTypeLoadMoreComplete) {
-        self.tableView.tableHeaderView = nil;
-    }
-
-    self.conversationModel = aConversationModel;
-    self.dataSource = [self processData:self.conversationModel];
-    
-    if (self.tableView.visibleCells.count == 0) {
-        [self.tableView reloadData];
-        [self.tableView layoutIfNeeded];
-        
-        [self scrollToBottom:NO];
-    }else if (aConversationModel.updateType == kLLMessageListUpdateTypeNewMessage) {
-        BOOL shouldScroolToBottom = [self shouldScrollToBottomForNewMessage];
-        
-        [self.tableView reloadData];
-        [self.tableView layoutIfNeeded];
-        
-        if (shouldScroolToBottom) {
-            [self scrollToBottom:YES];
-        }
-    }else {
-        [self.tableView reloadData];
-        
-        NSInteger index = [self.dataSource indexOfObject:pullCellModel];
-        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
-        [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionNone animated:NO];
-        
-        LLMessageBaseCell *newCell = [self.tableView cellForRowAtIndexPath:indexPath];
-        
-        CGFloat _offsetY = self.tableView.contentOffset.y;
-        CGFloat _cellYInView = [newCell convertPoint:CGPointZero toView:self.view].y;
-        CGFloat newoffsetY = _offsetY + (_cellYInView - pullCellPointY);
-        if (newoffsetY < 0)
-            newoffsetY = 0;
-        
-        [self.tableView setContentOffset:CGPointMake(0, newoffsetY) animated:NO];
-        
-        UIActivityIndicatorView *indicator = self.refreshView.subviews[0];
-        [indicator stopAnimating];
-        
-        [self performSelectorOnMainThread:@selector(pullToRefreshFinished) withObject:nil waitUntilDone:NO];
-    }
-
-}
+//
+//}
 
 
 - (BOOL)shouldScrollToBottomForNewMessage {
@@ -890,7 +882,7 @@ CSIMReceiveManagerDelegate
     [self scrollToBottom:animated];
 }
 
-- (void)deleteTableRowWithModel:(LLMessageModel *)model withRowAnimation:(UITableViewRowAnimation)animation {
+- (void)deleteTableRowWithModel:(CSMessageModel *)model withRowAnimation:(UITableViewRowAnimation)animation {
     NSInteger index = [self.dataSource indexOfObject:model];
     NSMutableArray<NSIndexPath *> *deleteIndexPaths = [NSMutableArray array];
     
@@ -1619,7 +1611,7 @@ CSIMReceiveManagerDelegate
             CSMessageModel *messageModel = [self createImageMessageModel:imageData imageSize:orgImage.size uploadSuccess:^{
                 //上传成功 发送消息
                 DLog(@"图片上传成功");
-                [MBProgressHUD tt_Hide];
+//                [MBProgressHUD tt_Hide];
                 [[CSIMSendMessageManager shareInstance] sendMessage:messageRequest];
             }];
             messageModel.thumbnailImage = orgImage;

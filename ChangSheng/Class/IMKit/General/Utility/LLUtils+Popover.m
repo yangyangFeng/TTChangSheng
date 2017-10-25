@@ -7,8 +7,9 @@
 //
 
 #import "LLUtils+Popover.h"
-#import "UIKit+LLExt.h"
 
+#import "UIKit+LLExt.h"
+#import "YYAnimatedImageView.h"
 @implementation LLUtils (Popover)
 
 + (UIViewController *)mostFrontViewController {
@@ -104,7 +105,7 @@
         containerView = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
         containerView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     }
-    
+//    UIView * view = [UIApplication sharedApplication].keyWindow;
     return containerView;
 }
 
@@ -119,8 +120,12 @@
         hudView.frame = [UIScreen mainScreen].bounds;
         [hudView.superview bringSubviewToFront:hudView];
     }
-    
-    MBProgressHUD *HUD = [[MBProgressHUD alloc] initWithView:hudView];
+    //HUDForView
+//    MBProgressHUD *HUD = [[MBProgressHUD alloc] initWithView:hudView];
+    MBProgressHUD *HUD = [MBProgressHUD HUDForView :hudView];
+    if (!HUD) {
+        HUD = [[MBProgressHUD alloc] initWithView:hudView];
+    }
     [hudView addSubview:HUD];
     HUD.removeFromSuperViewOnHide = YES;
     HUD.delegate = [self sharedUtils];
@@ -146,8 +151,8 @@
     HUD.bezelView.style = MBProgressHUDBackgroundStyleSolidColor;
     HUD.bezelView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.6];
     HUD.label.text = title;
-    HUD.label.font = [UIFont systemFontOfSize:14];
-    HUD.contentColor = [UIColor colorWithWhite:1 alpha:1];
+//    HUD.label.font = [UIFont systemFontOfSize:14];
+//    HUD.contentColor = [UIColor colorWithWhite:1 alpha:1];
     
     [HUD layoutIfNeeded];
     HUD.label.top_LL += 10;
@@ -170,12 +175,12 @@
     HUD.margin = 8;
     HUD.minSize = CGSizeMake(120, 30);
     
-    HUD.bezelView.style = MBProgressHUDBackgroundStyleSolidColor;
-    HUD.bezelView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.6];
-    HUD.contentColor = [UIColor colorWithWhite:1 alpha:1];
+    HUD.bezelView.style = MBProgressHUDBackgroundStyleBlur;
+//    HUD.bezelView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.6];
+//    HUD.contentColor = [UIColor colorWithWhite:1 alpha:1];
     
     HUD.label.text = text;
-    HUD.label.font = [UIFont systemFontOfSize:15];
+    HUD.label.font = [UIFont systemFontOfSize:16];
     
     [HUD layoutIfNeeded];
     HUD.bezelView.bottom_LL = CGRectGetHeight(HUD.superview.bounds) - 60;
@@ -218,6 +223,37 @@
     
     [HUD layoutIfNeeded];
     HUD.label.top_LL += 10;
+    
+    [HUD showAnimated:YES];
+    
+    return HUD;
+}
+
++ (MBProgressHUD *)showCustomIndicatiorHUDWithTitle:(nullable NSString *)title inView:(nullable UIView *)view
+{
+    MBProgressHUD *HUD = [self progressHUDInView:view];
+    
+//    HUD.mode = MBProgressHUDModeCustomView;
+    NSData * imageData = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"k9" ofType:@"gif"]];
+    UIImage *image = [UIImage yy_imageWithSmallGIFData:imageData scale:2];
+    YYAnimatedImageView * imageView = [[YYAnimatedImageView alloc] initWithImage:image];
+    imageView.frame = CGRectMake(0, 0, 40, 40);
+    HUD.customView = imageView;
+    [imageView startAnimating];
+    
+    HUD.mode = MBProgressHUDModeCustomView;
+    HUD.margin = 8;
+    HUD.minSize = CGSizeMake(60, 60);
+    
+    HUD.bezelView.style = MBProgressHUDBackgroundStyleSolidColor;
+    HUD.bezelView.backgroundColor = [UIColor clearColor];
+    //[UIColor colorWithWhite:0 alpha:0.6];
+    HUD.label.text = title;
+    HUD.label.font = [UIFont systemFontOfSize:14];
+    HUD.contentColor = [UIColor colorWithWhite:1 alpha:1];
+    
+    [HUD layoutIfNeeded];
+//    HUD.label.top_LL += 10;
     
     [HUD showAnimated:YES];
     

@@ -12,6 +12,7 @@
 #import "CSHttpsResModel.h"
 #import "CSUserInfo.h"
 #import <AFNetworking.h>
+#import "LLUtils+Popover.h"
 @interface CSNetWorkingRequest ()
 @property (nonatomic, strong) AFHTTPSessionManager* manager;
 @property (nonatomic, strong) AFHTTPRequestOperationManager * uploadManager;
@@ -161,11 +162,13 @@
                         if (showHUD) {
 
                             if (back.msg) {
-                                [MBProgressHUD tt_ErrorTitle:back.msg];
+//                                [MBProgressHUD tt_ErrorTitle:back.msg];
+                                CS_HUD(back.msg);
                                 error = [NSError errorWithDomain:back.msg code:201 userInfo:nil];
                             }
                             else {
-                                [MBProgressHUD tt_ErrorTitle:@"无错误描述"];
+//                                [MBProgressHUD tt_ErrorTitle:@"无错误描述"];
+                                CS_HUD(@"无错误描述");
                             }
                         }
                         else {
@@ -184,7 +187,8 @@
                 }
                 failure:^(NSURLSessionDataTask* _Nullable task, NSError* _Nonnull error) {
                     if (showHUD) {
-                        [MBProgressHUD tt_ErrorTitle:@"连接失败"];
+//                        [MBProgressHUD tt_ErrorTitle:@"连接失败"];
+                        CS_HUD(@"连接失败");
                     }
                     else {
                     }
@@ -223,10 +227,11 @@
 
                         if (showHUD) {
                             if (back.msg) {
-                                [MBProgressHUD tt_ErrorTitle:back.msg];
+                                CS_HUD(back.msg);
+//                                [MBProgressHUD tt_ErrorTitle:back.msg];
                             }
                             else {
-                                [MBProgressHUD tt_ErrorTitle:@"程序猿哥哥正在紧急修复!"];
+//                                [MBProgressHUD tt_ErrorTitle:@"程序猿哥哥正在紧急修复!"];
                             }
                         }
 
@@ -241,7 +246,8 @@
                 }
                 failure:^(NSURLSessionDataTask* _Nullable task, NSError* _Nonnull error) {
                     if (showHUD) {
-                        [MBProgressHUD tt_ErrorTitle:@"连接失败"];
+//                        [MBProgressHUD tt_ErrorTitle:@"连接失败"];
+                        CS_HUD(@"连接失败");
                     }
                     else {
                         //                        [MBProgressHUD tt_Hide];
@@ -316,7 +322,7 @@
                               
                               if (back.msg) {
                                   
-                                  [MBProgressHUD tt_ShowInView:showHUD WithTitle:back.msg after:1];
+//                                  [MBProgressHUD tt_ShowInView:showHUD WithTitle:back.msg after:1];
                                   error = [NSError errorWithDomain:back.msg code:201 userInfo:nil];
                               }
                               else {
@@ -339,7 +345,7 @@
                   }
                   failure:^(NSURLSessionDataTask* _Nullable task, NSError* _Nonnull error) {
                       if (showHUD) {
-                          [MBProgressHUD tt_ShowInView:showHUD WithTitle:@"连接失败" after:1];
+//                          [MBProgressHUD tt_ShowInView:showHUD WithTitle:@"连接失败" after:1];
                       }
                       else {
                       }
@@ -375,7 +381,7 @@
                            if (showHUD) {
                                if (back.msg) {
                                    
-                                   [MBProgressHUD tt_ShowInView:showHUD WithTitle:back.msg after:1];
+//                                   [MBProgressHUD tt_ShowInView:showHUD WithTitle:back.msg after:1];
                                }
                                else {
 //                                   [MBProgressHUD tt_ErrorTitle:@"程序猿哥哥正在紧急修复!"];
@@ -394,7 +400,7 @@
                    failure:^(NSURLSessionDataTask* _Nullable task, NSError* _Nonnull error) {
                        if (showHUD) {
 //                           [MBProgressHUD tt_ErrorTitle:@"连接失败"];
-                           [MBProgressHUD tt_ShowInView:showHUD WithTitle:@"连接失败" after:1];
+//                           [MBProgressHUD tt_ShowInView:showHUD WithTitle:@"连接失败" after:1];
                        }
                        else {
                            //                        [MBProgressHUD tt_Hide];
@@ -480,10 +486,11 @@
                 
                 if (showHUD) {
                     if (back.msg) {
-                        [MBProgressHUD tt_ErrorTitle:back.msg];
+//                        [MBProgressHUD tt_ErrorTitle:back.msg];
+                        CS_HUD(back.msg);
                     }
                     else {
-                        [MBProgressHUD tt_ErrorTitle:@"程序猿哥哥正在紧急修复!"];
+//                        [MBProgressHUD tt_ErrorTitle:@"程序猿哥哥正在紧急修复!"];
                     }
                 }
                 
@@ -496,6 +503,7 @@
             DLog(@"---> %@", back.mj_keyValues);
             
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+            /*
             if (error.code == -1009) {
                 [MBProgressHUD tt_ErrorTitle:@"网络已断开"];
             }
@@ -517,6 +525,7 @@
             else {
                 //                        [MBProgressHUD tt_Hide];
             }
+             */
             if (failureBlock) {
                 if (error.code == -1009) {
                     error = [NSError errorWithDomain:@"连接失败" code:201 userInfo:nil];
@@ -608,11 +617,11 @@
                         if (showHUD) {
 
                             if (back.msg) {
-                                [MBProgressHUD tt_ErrorTitle:back.msg];
+//                                [MBProgressHUD tt_ErrorTitle:back.msg];
                                 error = [NSError errorWithDomain:back.msg code:201 userInfo:nil];
                             }
                             else {
-                                [MBProgressHUD tt_ErrorTitle:@"无错误描述"];
+//                                [MBProgressHUD tt_ErrorTitle:@"无错误描述"];
                             }
                         }
                         else {
@@ -631,7 +640,8 @@
                 }
                 failure:^(NSURLSessionDataTask* _Nullable task, NSError* _Nonnull error) {
                     if (showHUD) {
-                        [MBProgressHUD tt_ErrorTitle:@"连接失败"];
+//                        [MBProgressHUD tt_ErrorTitle:@"连接失败"];
+                        CS_HUD(@"连接失败");
                     }
                     else {
                     }
@@ -666,10 +676,12 @@
 
                         if (showHUD) {
                             if (back.msg) {
-                                [MBProgressHUD tt_ErrorTitle:back.msg];
+                                CS_HUD(back.msg);
+//                                [MBProgressHUD tt_ErrorTitle:back.msg];
                             }
                             else {
-                                [MBProgressHUD tt_ErrorTitle:@"无错误描述"];
+                                
+//                                [MBProgressHUD tt_ErrorTitle:@"无错误描述"];
                             }
                         }
 
@@ -687,7 +699,8 @@
                 }
                 failure:^(NSURLSessionDataTask* _Nullable task, NSError* _Nonnull error) {
                     if (showHUD) {
-                        [MBProgressHUD tt_ErrorTitle:@"连接失败"];
+                        CS_HUD(@"连接失败");
+//                        [MBProgressHUD tt_ErrorTitle:@"连接失败"];
                     }
                     else {
                         //                        [MBProgressHUD tt_Hide];
@@ -784,10 +797,11 @@
                 
                 if (showHUD) {
                     if (back.msg) {
-                        [MBProgressHUD tt_ErrorTitle:back.msg];
+                        CS_HUD(back.msg);
+//                        [MBProgressHUD tt_ErrorTitle:back.msg];
                     }
                     else {
-                        [MBProgressHUD tt_ErrorTitle:@"程序猿哥哥正在紧急修复!"];
+//                        [MBProgressHUD tt_ErrorTitle:@"程序猿哥哥正在紧急修复!"];
                     }
                 }
                 
@@ -800,6 +814,7 @@
             DLog(@"---> %@", back.mj_keyValues);
             
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+            /*
             if (error.code == -1009) {
                 [MBProgressHUD tt_ErrorTitle:@"网络已断开"];
             }
@@ -821,6 +836,7 @@
             else {
                 //                        [MBProgressHUD tt_Hide];
             }
+             */
             if (failureBlock) {
                 if (error.code == -1009) {
                     error = [NSError errorWithDomain:@"连接失败" code:201 userInfo:nil];
@@ -913,10 +929,11 @@
                 
                 if (showHUD) {
                     if (back.msg) {
-                        [MBProgressHUD tt_ErrorTitle:back.msg];
+                        CS_HUD(back.msg);
+//                        [MBProgressHUD tt_ErrorTitle:back.msg];
                     }
                     else {
-                        [MBProgressHUD tt_ErrorTitle:@"程序猿哥哥正在紧急修复!"];
+//                        [MBProgressHUD tt_ErrorTitle:@"程序猿哥哥正在紧急修复!"];
                     }
                 }
                 
@@ -929,6 +946,7 @@
             DLog(@"---> %@", back.mj_keyValues);
             
         } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+            /*
             if (error.code == -1009) {
                 [MBProgressHUD tt_ErrorTitle:@"网络已断开"];
             }
@@ -950,6 +968,7 @@
             else {
                 //                        [MBProgressHUD tt_Hide];
             }
+             */
             if (failureBlock) {
                 if (error.code == -1009) {
                     error = [NSError errorWithDomain:@"连接失败" code:201 userInfo:nil];

@@ -19,6 +19,7 @@
 #import "CSCaiwuViewController.h"
 #import "CSZhuanFenViewController.h"
 #import "CSChangePWViewController.h"
+#import "LLUtils+Popover.h"
 @interface CSMineViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) UITableView *tableView;
 
@@ -117,7 +118,8 @@
 
 - (void)logoutDidAction
 {
-    [MBProgressHUD tt_Show];
+//    [MBProgressHUD tt_Show];
+    [LLUtils showCustomIndicatiorHUDWithTitle:@"" inView:self.view];
     [[CSUserInfo shareInstance] logout];
     [[TTSocketChannelManager shareInstance] closeConnection];
 
@@ -126,7 +128,7 @@
         TTNavigationController * nav = [[TTNavigationController alloc]initWithRootViewController:rootC];
         AppDelegate * appDelegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
         appDelegate.window.rootViewController = nav;
-        [MBProgressHUD tt_SuccessTitle:@"已退出登录"];
+        [LLUtils showTextHUD:@"已退出登录"];
     });
 }
 
@@ -190,7 +192,7 @@
         _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
         _tableView.dataSource = self;
         _tableView.delegate = self;
-        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+//        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell1"];
         _tableView.tableHeaderView = self.headerView;
         

@@ -8,7 +8,7 @@
 
 #import "CSPublicBetInputToolBarView.h"
 
-
+#import "LLUtils+Popover.h"
 
 @interface CSPublicBetInputToolBarView ()<CSNumberKeyboardViewDelegate,CSBetInputToolBarViewDelegate>
 @property (nonatomic,strong) CSPublicBetInputToolBarModel *betModel;
@@ -106,7 +106,7 @@
 - (void)cs_keyboardWithNumber:(NSString *)number
 {
     if (!self.betModel.betType.length) {
-        [MBProgressHUD tt_ErrorTitle:@"请选择下注类型"];
+        CS_HUD(@"请选择下注类型");
         return;
     }
     if (self.betModel.betNumber.intValue + number.intValue) {

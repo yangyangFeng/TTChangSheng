@@ -14,6 +14,7 @@
 #import "CSLoginRequestParam.h"
 #import "CSLoginHandler.h"
 #import "CSUserInfo.h"
+#import "LLUtils+Popover.h"
 @interface CSLoginViewController ()
     @property (weak, nonatomic) IBOutlet UITextField *accountTextField;
     @property (weak, nonatomic) IBOutlet UITextField *passwordTextField;
@@ -56,7 +57,7 @@
     CSLoginRequestParam * param = [CSLoginRequestParam new];
     param.username = _accountTextField.text;
     param.password = _passwordTextField.text;
-    [MBProgressHUD tt_Show];
+    [LLUtils showCustomIndicatiorHUDWithTitle:@"" inView:self.view];
     [CSLoginHandler loginWithParams:param.mj_keyValues successBlock:^(id obj) {
         CS_HUD(@"登陆成功")
         NSLog(@"%@",obj);

@@ -387,6 +387,7 @@
 		74C8531A1F8F8FA400944C50 /* MCDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 74C853151F8F8FA400944C50 /* MCDownloader.m */; };
 		74C8531B1F8F8FA400944C50 /* MCDownloadOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 74C853171F8F8FA400944C50 /* MCDownloadOperation.m */; };
 		74C8531C1F8F8FA400944C50 /* MCDownloadReceipt.m in Sources */ = {isa = PBXBuildFile; fileRef = 74C853191F8F8FA400944C50 /* MCDownloadReceipt.m */; };
+		74CFD2781FA07B2500A3D8E5 /* k9.gif in Resources */ = {isa = PBXBuildFile; fileRef = 74CFD2771FA07B2500A3D8E5 /* k9.gif */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -1149,6 +1150,7 @@
 		74C853171F8F8FA400944C50 /* MCDownloadOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCDownloadOperation.m; sourceTree = "<group>"; };
 		74C853181F8F8FA400944C50 /* MCDownloadReceipt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCDownloadReceipt.h; sourceTree = "<group>"; };
 		74C853191F8F8FA400944C50 /* MCDownloadReceipt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCDownloadReceipt.m; sourceTree = "<group>"; };
+		74CFD2771FA07B2500A3D8E5 /* k9.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = k9.gif; sourceTree = "<group>"; };
 		84C57046CFB3067E7FF70B34 /* libPods-ChangSheng.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ChangSheng.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -2353,6 +2355,7 @@
 		18C81F631F7656A00012150B /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				74CFD2771FA07B2500A3D8E5 /* k9.gif */,
 				74C852E71F8B800700944C50 /* CSMineItem.plist */,
 			);
 			path = Source;
@@ -2809,7 +2812,7 @@
 				TargetAttributes = {
 					18C81F3C1F74B8E00012150B = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = A6L56BC597;
+						DevelopmentTeam = BYXKWL5C3R;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -2853,6 +2856,7 @@
 				749A53A61F98736A0024DC1B /* CSOperationRecordCell.xib in Resources */,
 				185787181F94BC2400BAD542 /* Mine.storyboard in Resources */,
 				1804ACE01F7BDC6100508C1C /* CellBlueSelected@2x.png in Resources */,
+				74CFD2781FA07B2500A3D8E5 /* k9.gif in Resources */,
 				1804AD251F7BDC6100508C1C /* Emotion.bundle in Resources */,
 				1804ACF01F7BDC6100508C1C /* MMVideoPreviewPlay@3x.png in Resources */,
 				1804ACEC1F7BDC6100508C1C /* FriendsSendsPicturesSelectIcon@2x.png in Resources */,
@@ -3402,7 +3406,7 @@
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = A6L56BC597;
+				DEVELOPMENT_TEAM = BYXKWL5C3R;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3437,7 +3441,7 @@
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = A6L56BC597;
+				DEVELOPMENT_TEAM = BYXKWL5C3R;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

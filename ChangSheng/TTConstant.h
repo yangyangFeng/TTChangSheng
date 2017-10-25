@@ -25,7 +25,8 @@
 #define kCITYPATH @"citymessagedatapath"
 
 //错误提示
-#define CS_HUD(msg) [MBProgressHUD tt_ErrorTitle:msg];
+#define CS_HUD(msg) [[LLUtils showTextHUD:msg] hideAnimated:YES afterDelay:1.5];
+//[MBProgressHUD tt_ErrorTitle:msg];
 //密码长度
 #define PASSWORDLENGTH 16
 //TODO: 输入框 默认长度

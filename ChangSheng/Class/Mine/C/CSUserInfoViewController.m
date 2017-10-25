@@ -11,6 +11,7 @@
 #import "StoryBoardController.h"
 #import "FSMediaPicker.h"
 #import "CSChangeAvatarModel.h"
+#import "LLUtils+Popover.h"
 @interface CSUserInfoViewController ()<FSMediaPickerDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *changshengCode;
 @property (weak, nonatomic) IBOutlet UIImageView *userImageView;
@@ -88,11 +89,12 @@
         self.userImageView.image = newimage;
     }
     
-    [MBProgressHUD tt_ShowInView:self.view WithTitle:@"正在处理..."];
+    
+    MBProgressHUD * hud = [LLUtils showCustomIndicatiorHUDWithTitle:@"正在处理..." inView:self.view];
     dispatch_async(dispatch_get_main_queue(), ^{
         NSData * imageData = [self.userImageView.image tt_compressToDataLength:CS_IMAGE_DATA_SIZE];
 
-        [MBProgressHUD tt_HideFromeView:self.view];
+        [hud hideAnimated:YES];
         [CSHttpRequestManager request_changeHeaderImage_paramters:@{@"file":@"avatar"} fileData:imageData fileType:CS_UPLOAD_FILE_IMAGE | CS_UPLOAD_FILE_CUSTOME success:^(id responseObject) {
             CSChangeAvatarModel * obj = [CSChangeAvatarModel mj_objectWithKeyValues:responseObject];
             [CSUserInfo shareInstance].info.avatar = obj.result.avatar;

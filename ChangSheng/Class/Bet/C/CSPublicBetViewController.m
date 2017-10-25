@@ -45,6 +45,7 @@
 #import "LLNavigationController.h"
 #import "MFMailComposeViewController_LL.h"
 #import "LLMessageBaseCell.h"
+#import "LLUtils+Popover.h"
 @import MediaPlayer;
 
 #define BLACK_BAR_VIEW_TAG 1000
@@ -299,6 +300,11 @@ CSPublicBetInputToolBarViewDelegate
     //记录进入该聊天室
     
     [self addRefreshTool];
+    
+    [self loadMessageData];
+    
+    [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.dataSource.count - 1 inSection:0] atScrollPosition:(UITableViewScrollPositionBottom) animated:NO];
+//    [self.tableView scrollsToBottomAnimated:YES];
 }
 
 - (void)reConnectionSocket
@@ -409,14 +415,6 @@ CSPublicBetInputToolBarViewDelegate
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
-
-    [self.gongGaoView mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(self.view.top).offset(64);
-    }];
-    [UIView animateWithDuration:0.25 animations:^{
-        [self.gongGaoView layoutIfNeeded];
-    }];
-    
     [self blackStatusBar];
     [self addKeyboardObserver];
     
@@ -427,7 +425,25 @@ CSPublicBetInputToolBarViewDelegate
     TTNavigationController * nav = (TTNavigationController *)self.navigationController;
     [nav navigationCanDragBack:NO];
     
-    [self scrollToBottom:YES];
+    if (!firstViewDidAppear) {
+        CGRect frame = [self.conversationModel.group_tips boundsWithFontSize:13 textWidth:WIDTH - 40 -35];
+        CGFloat height = frame.size.height + 30;
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self.gongGaoView mas_updateConstraints:^(MASConstraintMaker *make) {
+                make.top.mas_equalTo(self.view.top).offset(64);
+            }];
+            [self.tableView mas_updateConstraints:^(MASConstraintMaker *make) {
+                make.top.mas_equalTo(64 + height);
+            }];
+            [UIView animateWithDuration:0.25 animations:^{
+                [self.view layoutIfNeeded];
+            }];
+            [self.tableView scrollToBottomAnimated:YES];
+        });
+     
+//           [self.tableView setContentOffset:CGPointMake(0, self.contentSize.height - (CGRectGetHeight(self.frame) - self.contentInset.bottom)) animated:animated];
+    }
+    firstViewDidAppear = YES;
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -469,8 +485,6 @@ CSPublicBetInputToolBarViewDelegate
     isPulling = NO;
     isLoading = NO;
   
-    [self loadMessageData];
-    
     [self.view addSubview:self.tableView];
     
     [self.view addSubview:self.inputToolBarView];
@@ -492,14 +506,15 @@ CSPublicBetInputToolBarViewDelegate
         make.left.right.mas_equalTo(0);
         make.height.mas_equalTo(height);
     }];
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self.gongGaoView mas_updateConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(self.view.top).offset(64 - height);
-        }];
-        [UIView animateWithDuration:0.25 animations:^{
-            [self.gongGaoView layoutIfNeeded];
-        }];
-    });
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//        [self.gongGaoView mas_updateConstraints:^(MASConstraintMaker *make) {
+//            make.top.mas_equalTo(self.view.top).offset(64 - height);
+//        }];
+//        [UIView animateWithDuration:0.25 animations:^{
+//            [self.view layoutIfNeeded];
+//        }];
+//    });
+
 }
 
 - (void)loadMessageData
@@ -595,7 +610,8 @@ CSPublicBetInputToolBarViewDelegate
         [self successMessageRefreshSendStatusWithModel:model];
     } failed:^(NSError *error) {
         [self failMessageRefreshSendStatusWithModel:model];
-        [MBProgressHUD tt_ShowInView:self.view WithTitle:error.domain after:1];
+//        [MBProgressHUD tt_ShowInView:self.view WithTitle:error.domain after:1];
+        [[LLUtils showTextHUD:error.domain inView:self.view] hideAnimated:YES afterDelay:1];
     }];
     [[CSIMSendMessageManager shareInstance] sendMessage:modelRequest];
 
@@ -673,7 +689,8 @@ CSPublicBetInputToolBarViewDelegate
         DLog(@"UI层----文本:%@已发送",messageModel.content);
         [self successMessageRefreshSendStatusWithModel:msgModel];
     } failed:^(NSError *error) {
-        [MBProgressHUD tt_ShowInView:self.view WithTitle:error.domain after:1];
+//        [MBProgressHUD tt_ShowInView:self.view WithTitle:error.domain after:1];
+        [[LLUtils showTextHUD:error.domain inView:self.view] hideAnimated:YES afterDelay:1];
         [self failMessageRefreshSendStatusWithModel:msgModel];
         if (error.code == 100) { //交易超时
             
@@ -725,9 +742,11 @@ CSPublicBetInputToolBarViewDelegate
     [model.msgStatus when:^(id obj) {
         DLog(@"UI层----文本:%@已发送",messageModel.content);
 //        [self successMessageRefreshSendStatusWithModel:msgModel];
-        [MBProgressHUD tt_SuccessTitle:@"本局下注已撤销"];
+//        [MBProgressHUD tt_SuccessTitle:@"本局下注已撤销"];
+        [[LLUtils showTextHUD:@"本局下注已撤销" inView:self.view] hideAnimated:YES afterDelay:1];
     } failed:^(NSError *error) {
-        [MBProgressHUD tt_SuccessTitle:error.domain];
+//        [MBProgressHUD tt_SuccessTitle:error.domain];
+        [[LLUtils showTextHUD:error.domain inView:self.view] hideAnimated:YES afterDelay:1];
 //        [self failMessageRefreshSendStatusWithModel:msgModel];
     }];
     

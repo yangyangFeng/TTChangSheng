@@ -36,7 +36,7 @@
 
 #import "UIButton+TTExtend.h"
 
-#import "MBProgressHUD+TTHUD.h"
+//#import "MBProgressHUD+TTHUD.h"
 #import "GTMBase64.h"
 
 #import "MJRefresh.h"

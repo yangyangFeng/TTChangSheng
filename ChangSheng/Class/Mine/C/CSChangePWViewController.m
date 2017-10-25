@@ -9,6 +9,7 @@
 #import "CSChangePWViewController.h"
 #import "StoryBoardController.h"
 #import "CSChangePWModel.h"
+#import "LLUtils+Popover.h"
 @interface CSChangePWViewController ()
 
 @end
@@ -80,10 +81,12 @@
     params.old_pwd = self.inputField0.text;
     params.cs_new_pwd = self.inputField1.text;
     
-    [MBProgressHUD tt_Show];
+
+    [LLUtils showCustomIndicatiorHUDWithTitle:@"" inView:self.view];
     [CSHttpRequestManager request_changePW_paramters:params.mj_keyValues success:^(id responseObject) {
 //        CSTransferScoreModel * obj = [CSTransferScoreModel mj_objectWithKeyValues:responseObject];
-                [MBProgressHUD tt_SuccessTitle:@"修改成功!"];
+
+        CS_HUD(@"修改成功");
 //        [CSUserInfo shareInstance].info.surplus_score = obj.result.surplus_score.intValue;
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [self.navigationController popViewControllerAnimated:YES];

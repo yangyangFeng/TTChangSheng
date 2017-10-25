@@ -19,6 +19,7 @@
 #import "CSIMSendMessageRequestModel.h"
 
 #import "CSIMReceiveManager.h"
+#import "LLUtils+Popover.h"
 static CSUserServiceListViewController * controller = nil;
 
 @interface CSUserServiceListViewController ()<UITableViewDelegate,UITableViewDataSource,CSIMReceiveManagerDelegate>
@@ -47,6 +48,11 @@ static CSUserServiceListViewController * controller = nil;
         controller = [[CSUserServiceListViewController alloc]init];
     });
     return controller;
+}
+
++ (void)clear
+{
+    controller = [[CSUserServiceListViewController alloc]init];
 }
 
 +(instancetype)new
@@ -108,15 +114,17 @@ static CSUserServiceListViewController * controller = nil;
     
     //    TTSingleChatViewController * vc = [TTSingleChatViewController new];
     //    [self.navigationController pushViewController:vc animated:YES];
-    [MBProgressHUD tt_ShowInViewDefaultTitle:self.view];
+//    [MBProgressHUD tt_ShowInViewDefaultTitle:self.view];
+    MBProgressHUD * hud = [LLUtils showCustomIndicatiorHUDWithTitle:@"" inView:self.view];
     [CSHttpRequestManager request_helperList_paramters:nil success:^(id responseObject) {
         CSMsgHistoryModel * obj = [CSMsgHistoryModel mj_objectWithKeyValues:responseObject];
         self.dataSource = [NSMutableArray arrayWithArray:obj.result];
         [self.tableView reloadData];
-        [MBProgressHUD tt_HideFromeView:self.view];
+//        [MBProgressHUD tt_HideFromeView:self.view];
+        [hud hideAnimated:YES afterDelay:1];
         [self updateUnreadMessageRefreshUI];
     } failure:^(NSError *error) {
-        [MBProgressHUD tt_HideFromeView:self.view];
+        [hud hideAnimated:YES afterDelay:1];
     } showHUD:YES];
 }
 
@@ -166,11 +174,13 @@ static CSUserServiceListViewController * controller = nil;
     param.chat_type = 2;//客服为单聊
     param.ID = userServiceModel.id.intValue;
     
-    [MBProgressHUD tt_ShowInViewDefaultTitle:self.tableView];
+//    [MBProgressHUD tt_ShowInViewDefaultTitle:self.tableView];
+    
+    MBProgressHUD *hud = [LLUtils showCustomIndicatiorHUDWithTitle:@"" inView:self.tableView];
     [CSHttpRequestManager request_chatRecord_paramters:param.mj_keyValues success:^(id responseObject) {
         CSMsgRecordModel * obj = [CSMsgRecordModel mj_objectWithKeyValues:responseObject];
         
-        [MBProgressHUD tt_HideFromeView:self.tableView];
+        [hud hideAnimated:YES afterDelay:1];
         LLChatViewController * chatC = (LLChatViewController*)[StoryBoardController storyBoardName:@"Main" ViewControllerIdentifiter:@"LLChatViewController"];
 
         CSIMConversationModel * model = [CSIMConversationModel new];
@@ -190,7 +200,7 @@ static CSUserServiceListViewController * controller = nil;
         chatC.conversationModel = model;
         [self.navigationController pushViewController:chatC animated:YES];
     } failure:^(NSError *error) {
-        [MBProgressHUD tt_HideFromeView:self.tableView];
+        [hud hideAnimated:YES afterDelay:1];
     } showHUD:YES];
 }
 

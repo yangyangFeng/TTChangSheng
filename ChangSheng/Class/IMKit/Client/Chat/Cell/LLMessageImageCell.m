@@ -9,7 +9,7 @@
 #import "LLMessageImageCell.h"
 #import "LLUtils.h"
 #import "UIKit+LLExt.h"
-
+#import "UIImageView+WebCache.h"
 static UIImage *photoDownloadImage;
 
 #define LABEL_HEIGHT 13
@@ -425,18 +425,28 @@ static UIImage *photoDownloadImage;
     }
     else
     {
-        [self.chatImageView yy_setImageWithURL:[NSURL URLWithString:self.messageModel.body.content] placeholder:nil options:YYWebImageOptionProgressive completion:^(UIImage * _Nullable image, NSURL * _Nonnull url, YYWebImageFromType from, YYWebImageStage stage, NSError * _Nullable error) {
-            //            dispatch_async(dispatch_get_main_queue(), ^{
-//                            self.messageModel.thumbnailImage = image;
+        
+        
+        [self.chatImageView sd_setImageWithURL:[NSURL URLWithString:self.messageModel.body.content] placeholderImage:nil completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
             self.thumbnailImageView.image = nil;
             [self.messageModel internal_setMessageDownloadStatus:kCSMessageDownloadStatusSuccessed];
             [self.messageModel internal_setThumbnailDownloadStatus:kCSMessageDownloadStatusSuccessed];
             
             
             [self updateMessageThumbnail];
-            
-            //            });
         }];
+//        [self.chatImageView yy_setImageWithURL:[NSURL URLWithString:self.messageModel.body.content] placeholder:nil options:YYWebImageOptionProgressive completion:^(UIImage * _Nullable image, NSURL * _Nonnull url, YYWebImageFromType from, YYWebImageStage stage, NSError * _Nullable error) {
+//            //            dispatch_async(dispatch_get_main_queue(), ^{
+////                            self.messageModel.thumbnailImage = image;
+//            self.thumbnailImageView.image = nil;
+//            [self.messageModel internal_setMessageDownloadStatus:kCSMessageDownloadStatusSuccessed];
+//            [self.messageModel internal_setThumbnailDownloadStatus:kCSMessageDownloadStatusSuccessed];
+//
+//
+//            [self updateMessageThumbnail];
+//
+//            //            });
+//        }];
     }
     
     [self layoutMessageContentViews:self.messageModel.isSelf];
