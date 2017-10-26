@@ -1457,6 +1457,9 @@ CSIMReceiveManagerDelegate
                     index = arrayUrl.count - 1;
                 }
             }
+            if (arrayUrl.count > 8) {
+                break;
+            }
         }
     
      [[LBPhotoBrowserManager defaultManager] showImageWithURLArray:arrayUrl fromImageViews:arrayImageView selectedIndex:index imageViewSuperView:cell.chatImageView.superview];

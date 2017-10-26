@@ -388,6 +388,10 @@
 		74C8531B1F8F8FA400944C50 /* MCDownloadOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 74C853171F8F8FA400944C50 /* MCDownloadOperation.m */; };
 		74C8531C1F8F8FA400944C50 /* MCDownloadReceipt.m in Sources */ = {isa = PBXBuildFile; fileRef = 74C853191F8F8FA400944C50 /* MCDownloadReceipt.m */; };
 		74CFD2781FA07B2500A3D8E5 /* k9.gif in Resources */ = {isa = PBXBuildFile; fileRef = 74CFD2771FA07B2500A3D8E5 /* k9.gif */; };
+		74CFD27C1FA1848100A3D8E5 /* JhtGuidePages.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 74CFD27A1FA1848100A3D8E5 /* JhtGuidePages.framework */; };
+		74CFD27D1FA1848100A3D8E5 /* skip_button.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 74CFD27B1FA1848100A3D8E5 /* skip_button.bundle */; };
+		74CFD27F1FA1920800A3D8E5 /* CSHomeConnectionStatusView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 74CFD27E1FA1920800A3D8E5 /* CSHomeConnectionStatusView.xib */; };
+		74CFD2821FA1930900A3D8E5 /* CSHomeConnectionStatusView.m in Sources */ = {isa = PBXBuildFile; fileRef = 74CFD2811FA1930900A3D8E5 /* CSHomeConnectionStatusView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -1151,6 +1155,11 @@
 		74C853181F8F8FA400944C50 /* MCDownloadReceipt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCDownloadReceipt.h; sourceTree = "<group>"; };
 		74C853191F8F8FA400944C50 /* MCDownloadReceipt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCDownloadReceipt.m; sourceTree = "<group>"; };
 		74CFD2771FA07B2500A3D8E5 /* k9.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = k9.gif; sourceTree = "<group>"; };
+		74CFD27A1FA1848100A3D8E5 /* JhtGuidePages.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = JhtGuidePages.framework; sourceTree = "<group>"; };
+		74CFD27B1FA1848100A3D8E5 /* skip_button.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = skip_button.bundle; sourceTree = "<group>"; };
+		74CFD27E1FA1920800A3D8E5 /* CSHomeConnectionStatusView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CSHomeConnectionStatusView.xib; sourceTree = "<group>"; };
+		74CFD2801FA1930900A3D8E5 /* CSHomeConnectionStatusView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSHomeConnectionStatusView.h; sourceTree = "<group>"; };
+		74CFD2811FA1930900A3D8E5 /* CSHomeConnectionStatusView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSHomeConnectionStatusView.m; sourceTree = "<group>"; };
 		84C57046CFB3067E7FF70B34 /* libPods-ChangSheng.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ChangSheng.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -1170,6 +1179,7 @@
 				1804AD701F7BDCCE00508C1C /* AMapSearchKit.framework in Frameworks */,
 				1804AD6E1F7BDCCE00508C1C /* AMapFoundationKit.framework in Frameworks */,
 				18B6C60B1F8A550A007B1669 /* libmp3lame.a in Frameworks */,
+				74CFD27C1FA1848100A3D8E5 /* JhtGuidePages.framework in Frameworks */,
 				1804ACDA1F7BDC6100508C1C /* libopencore-amrwb.a in Frameworks */,
 				1804ACD91F7BDC6100508C1C /* libopencore-amrnb.a in Frameworks */,
 			);
@@ -2271,6 +2281,9 @@
 				74C853081F8E336600944C50 /* CSUserTableViewCell.h */,
 				74C853091F8E336600944C50 /* CSUserTableViewCell.m */,
 				74C8530A1F8E336600944C50 /* CSUserTableViewCell.xib */,
+				74CFD27E1FA1920800A3D8E5 /* CSHomeConnectionStatusView.xib */,
+				74CFD2801FA1930900A3D8E5 /* CSHomeConnectionStatusView.h */,
+				74CFD2811FA1930900A3D8E5 /* CSHomeConnectionStatusView.m */,
 			);
 			path = V;
 			sourceTree = "<group>";
@@ -2431,6 +2444,7 @@
 		18C81F661F76570D0012150B /* General */ = {
 			isa = PBXGroup;
 			children = (
+				74CFD2791FA1848100A3D8E5 /* JhtGuidePages_SDK */,
 				18BDAB261F9F76DB002800BC /* LBPhotoBrowser */,
 				185787221F96F99900BAD542 /* GeneralView */,
 				74C852DB1F8B764F00944C50 /* JSWave */,
@@ -2769,6 +2783,15 @@
 			path = CSFileDownLoader;
 			sourceTree = "<group>";
 		};
+		74CFD2791FA1848100A3D8E5 /* JhtGuidePages_SDK */ = {
+			isa = PBXGroup;
+			children = (
+				74CFD27A1FA1848100A3D8E5 /* JhtGuidePages.framework */,
+				74CFD27B1FA1848100A3D8E5 /* skip_button.bundle */,
+			);
+			path = JhtGuidePages_SDK;
+			sourceTree = "<group>";
+		};
 		B34E9B3CE5E6651B4B98E88A /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -2873,6 +2896,7 @@
 				1804ACE61F7BDC6100508C1C /* FriendsSendsPicturesQuitBigIcon@2x.png in Resources */,
 				74C852E61F8B7DCB00944C50 /* CSMineTableViewCell.xib in Resources */,
 				1804ACDF1F7BDC6100508C1C /* CellBlueSelected.png in Resources */,
+				74CFD27F1FA1920800A3D8E5 /* CSHomeConnectionStatusView.xib in Resources */,
 				1804ACEB1F7BDC6100508C1C /* FriendsSendsPicturesSelectIcon.png in Resources */,
 				1804ACF21F7BDC6100508C1C /* MMVideoPreviewPlayHL@3x.png in Resources */,
 				74C852D11F8B579C00944C50 /* CSNumberKeyboardView.xib in Resources */,
@@ -2895,6 +2919,7 @@
 				1804ACE81F7BDC6100508C1C /* FriendsSendsPicturesSelectBigNIcon@2x.png in Resources */,
 				1804ACE31F7BDC6100508C1C /* FriendsSendsPicturesNumberIcon.png in Resources */,
 				181343E21F7961B400CD1312 /* CSHomeTableViewCell.xib in Resources */,
+				74CFD27D1FA1848100A3D8E5 /* skip_button.bundle in Resources */,
 				1804AD261F7BDC6100508C1C /* Emotions.plist in Resources */,
 				1804ACEF1F7BDC6100508C1C /* MMVideoPreviewPlay@2x.png in Resources */,
 				1804AD2A1F7BDC6100508C1C /* user@2x.png in Resources */,
@@ -3056,6 +3081,7 @@
 				1804ACB51F7BDC6100508C1C /* LLMeViewController.m in Sources */,
 				1804AC941F7BDC6100508C1C /* LLEmotionInputView.m in Sources */,
 				749A53AE1F9877B20024DC1B /* CSOperationRecordsHeaderView.m in Sources */,
+				74CFD2821FA1930900A3D8E5 /* CSHomeConnectionStatusView.m in Sources */,
 				1804AD041F7BDC6100508C1C /* LLLeftAlignedCollectionViewFlowLayout.m in Sources */,
 				1804ACC21F7BDC6100508C1C /* LLSNSSearchController.m in Sources */,
 				185787311F9796E200BAD542 /* CSChangeAvatarModel.m in Sources */,
@@ -3413,6 +3439,7 @@
 					"$(PROJECT_DIR)/ChangSheng/Class/IMKit/Class/Tool/Vendor/VoiceLib",
 					"$(PROJECT_DIR)/ChangSheng/Class/Lib/AMap",
 					"$(PROJECT_DIR)/ChangSheng/Class/IMKit/General/Audio/ConvertAudio/Lame",
+					"$(PROJECT_DIR)/ChangSheng/Class/General/JhtGuidePages_SDK",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/ChangSheng/changShengPch.pch";
@@ -3448,6 +3475,7 @@
 					"$(PROJECT_DIR)/ChangSheng/Class/IMKit/Class/Tool/Vendor/VoiceLib",
 					"$(PROJECT_DIR)/ChangSheng/Class/Lib/AMap",
 					"$(PROJECT_DIR)/ChangSheng/Class/IMKit/General/Audio/ConvertAudio/Lame",
+					"$(PROJECT_DIR)/ChangSheng/Class/General/JhtGuidePages_SDK",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/ChangSheng/changShengPch.pch";

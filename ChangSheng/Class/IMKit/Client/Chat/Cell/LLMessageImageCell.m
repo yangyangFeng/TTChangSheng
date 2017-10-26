@@ -136,7 +136,7 @@ static UIImage *photoDownloadImage;
 - (void)updateMessageThumbnail {
 //    self.chatImageView.image = self.messageModel.thumbnailImage;
      self.chatImageView.image = self.chatImageView.image ? self.chatImageView.image :self.messageModel.thumbnailImage;
-    self.thumbnailImageView.hidden = self.messageModel.thumbnailImage != nil;
+    self.thumbnailImageView.hidden = self.chatImageView.image != nil;
     if (!self.thumbnailImageView.hidden) {
         _label.hidden = YES;
         HIDE_INDICATOR_VIEW;
@@ -428,7 +428,7 @@ static UIImage *photoDownloadImage;
         
         
         [self.chatImageView sd_setImageWithURL:[NSURL URLWithString:self.messageModel.body.content] placeholderImage:nil completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
-            self.thumbnailImageView.image = nil;
+//            self.thumbnailImageView.image = nil;
             [self.messageModel internal_setMessageDownloadStatus:kCSMessageDownloadStatusSuccessed];
             [self.messageModel internal_setThumbnailDownloadStatus:kCSMessageDownloadStatusSuccessed];
             

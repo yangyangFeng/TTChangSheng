@@ -15,8 +15,11 @@
 #import "CSMessageModel.h"
 #import "CSHomeViewController.h"
 #import "CSLoginHandler.h"
+#import <JhtGuidePages/JhtGradientGuidePageVC.h>
 @interface AppDelegate ()
-
+/** 引导页VC */
+@property (nonatomic, strong) JhtGradientGuidePageVC *introductionView;
+@property (nonatomic, strong) UIViewController * rootViewController;
 @end
 
 @implementation AppDelegate
@@ -39,21 +42,24 @@
     if ([CSUserInfo shareInstance].isOnline) {
         CSHomeViewController * home = [CSHomeViewController new];
          TTNavigationController * nav = [[TTNavigationController alloc]initWithRootViewController:home];
-        self.window.rootViewController = nav;
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [CSLoginHandler openSocket];
-        });
+//        self.window.rootViewController = nav;
+        self.rootViewController = nav;
+//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//            [CSLoginHandler openSocket];
+//        });
     }
     else
     {
         UIViewController * rootC = [StoryBoardController viewControllerID:@"CSLoginViewController" SBName:@"CSLoginSB"];
         TTNavigationController * nav = [[TTNavigationController alloc]initWithRootViewController:rootC];
-        self.window.rootViewController = nav;
+//        self.window.rootViewController = nav;
+        self.rootViewController = nav;
     }
-    [self.window makeKeyAndVisible];
+//    [self.window makeKeyAndVisible];
+//    self.rootViewController = self.window.rootViewController;
     
-    
-   
+    // 创建引导页
+    [self createGuideVC];
 
     
  
@@ -66,10 +72,49 @@
     IQKManager.toolbarTintColor = [UIColor greenColor];
 //    CSMessageModel * as = [CSMessageModel new];
 //    NSLog(@"%@",as.mj_JSONString);
-    sleep(1);
+//    sleep(1);
     return YES;
 }
 
+/** 创建引导页 */
+- (void)createGuideVC {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSString *firstKey = [NSString stringWithFormat:@"isFirst%@", [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]];
+    NSString *isFirst = [defaults objectForKey:firstKey];
+    NSArray * imageArray = @[@"1引导页1080", @"2引导页1080", @"3引导页1080"];
+    if (!isFirst.length) {
+   
+        UIButton *enterButton = [[UIButton alloc] init];
+        [enterButton setTitle:@"立即进入" forState:UIControlStateNormal];
+        [enterButton setBackgroundColor:rgb(41, 177, 80)];
+        enterButton.layer.cornerRadius = 5.0;
+  
+        
+        self.introductionView = [[JhtGradientGuidePageVC alloc]initWithGuideImageNames:imageArray withLastRootViewController:self.rootViewController];
+
+        self.introductionView.enterButton =  enterButton;
+        // 添加《跳过》按钮
+        self.introductionView.isNeedSkipButton = YES;
+        /******** 更多个性化配置见《JhtGradientGuidePageVC.h》 ********/
+        
+        self.window.rootViewController = self.introductionView;
+        
+        __weak AppDelegate *weakSelf = self;
+        self.introductionView.didClickedEnter = ^() {
+            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+            NSString *firstKey = [NSString stringWithFormat:@"isFirst%@", [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]];
+            NSString *isFirst = [defaults objectForKey:firstKey];
+            if (!isFirst) {
+                [defaults setObject:@"notFirst" forKey:firstKey];
+                [defaults synchronize];
+            }
+
+            weakSelf.introductionView = nil;
+        };
+    } else {
+        self.window.rootViewController = self.rootViewController;
+    }
+}
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
