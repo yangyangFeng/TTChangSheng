@@ -35,6 +35,7 @@
 }
 
 - (IBAction)loginAction:(id)sender {
+    [self.view endEditing:YES];
     if (!_accountTextField.text.length) {
         CS_HUD(@"账号不能为空")
         return;
@@ -59,18 +60,20 @@
     param.password = _passwordTextField.text;
     [LLUtils showCustomIndicatiorHUDWithTitle:@"" inView:self.view];
     [CSLoginHandler loginWithParams:param.mj_keyValues successBlock:^(id obj) {
-        CS_HUD(@"登陆成功")
-        NSLog(@"%@",obj);
-        CSUserInfoModel * info = [CSUserInfoModel mj_objectWithKeyValues:[[obj mj_JSONObject] objectForKey:@"result"]];
-        [CSUserInfo shareInstance].info = info;
-        [[CSUserInfo shareInstance] login];
-        
-     
-        
-        CSHomeViewController * home = [CSHomeViewController new];
-        AppDelegate * appDelegate =  (AppDelegate *)[UIApplication sharedApplication].delegate;
-        TTNavigationController * nav = [[TTNavigationController alloc]initWithRootViewController:home];
-        appDelegate.window.rootViewController = nav;
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            CS_HUD(@"登陆成功")
+            NSLog(@"%@",obj);
+            CSUserInfoModel * info = [CSUserInfoModel mj_objectWithKeyValues:[[obj mj_JSONObject] objectForKey:@"result"]];
+            [CSUserInfo shareInstance].info = info;
+            [[CSUserInfo shareInstance] login];
+            
+            
+            
+            CSHomeViewController * home = [CSHomeViewController new];
+            AppDelegate * appDelegate =  (AppDelegate *)[UIApplication sharedApplication].delegate;
+            TTNavigationController * nav = [[TTNavigationController alloc]initWithRootViewController:home];
+            appDelegate.window.rootViewController = nav;
+        });
     } failBlock:^(NSError *error) {
         
     }];

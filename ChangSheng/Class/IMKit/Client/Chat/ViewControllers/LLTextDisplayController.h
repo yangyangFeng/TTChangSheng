@@ -7,12 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "LLMessageModel.h"
+#import "CSMessageModel.h"
 #import "LLTextActionDelegate.h"
 
 @interface LLTextDisplayController : UIViewController
 
-@property (nonatomic) LLMessageModel *messageModel;
+@property (nonatomic) CSMessageModel *messageModel;
 
 @property (nonatomic, weak) id<LLTextActionDelegate> textActionDelegate;
 

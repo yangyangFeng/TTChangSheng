@@ -12,7 +12,7 @@ target 'ChangSheng' do
     #=========================================================
 
 
-
+pod 'Bugly'
 pod 'MBProgressHUD', '~> 1.0.0'
 pod 'CYLTabBarController', '1.9.0'
 pod 'CYLTableViewRowAction', '1.0.0'

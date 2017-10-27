@@ -46,7 +46,7 @@
 //开启socket链接通道
 + (void)openSocket
 {
-    NSString * url = [NSString stringWithFormat:@"ws://47.95.238.249:8501?token=%@",[CSUserInfo shareInstance].info.token];
+NSString * url = [NSString stringWithFormat:@"%@?token=%@",webSocketUrl,[CSUserInfo shareInstance].info.token];
     [[TTSocketChannelManager shareInstance] configUrlString:url];
     [[TTSocketChannelManager shareInstance] openConnection];
 }

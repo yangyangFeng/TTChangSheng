@@ -234,7 +234,7 @@
     MBProgressHUD *HUD = [self progressHUDInView:view];
     
 //    HUD.mode = MBProgressHUDModeCustomView;
-    NSData * imageData = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"k9" ofType:@"gif"]];
+    NSData * imageData = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"csLoading" ofType:@"gif"]];
     UIImage *image = [UIImage yy_imageWithSmallGIFData:imageData scale:2];
     YYAnimatedImageView * imageView = [[YYAnimatedImageView alloc] initWithImage:image];
     imageView.frame = CGRectMake(0, 0, 40, 40);

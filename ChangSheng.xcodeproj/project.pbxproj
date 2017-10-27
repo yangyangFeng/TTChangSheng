@@ -387,11 +387,11 @@
 		74C8531A1F8F8FA400944C50 /* MCDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 74C853151F8F8FA400944C50 /* MCDownloader.m */; };
 		74C8531B1F8F8FA400944C50 /* MCDownloadOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 74C853171F8F8FA400944C50 /* MCDownloadOperation.m */; };
 		74C8531C1F8F8FA400944C50 /* MCDownloadReceipt.m in Sources */ = {isa = PBXBuildFile; fileRef = 74C853191F8F8FA400944C50 /* MCDownloadReceipt.m */; };
-		74CFD2781FA07B2500A3D8E5 /* k9.gif in Resources */ = {isa = PBXBuildFile; fileRef = 74CFD2771FA07B2500A3D8E5 /* k9.gif */; };
 		74CFD27C1FA1848100A3D8E5 /* JhtGuidePages.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 74CFD27A1FA1848100A3D8E5 /* JhtGuidePages.framework */; };
-		74CFD27D1FA1848100A3D8E5 /* skip_button.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 74CFD27B1FA1848100A3D8E5 /* skip_button.bundle */; };
 		74CFD27F1FA1920800A3D8E5 /* CSHomeConnectionStatusView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 74CFD27E1FA1920800A3D8E5 /* CSHomeConnectionStatusView.xib */; };
 		74CFD2821FA1930900A3D8E5 /* CSHomeConnectionStatusView.m in Sources */ = {isa = PBXBuildFile; fileRef = 74CFD2811FA1930900A3D8E5 /* CSHomeConnectionStatusView.m */; };
+		74CFD2991FA3203400A3D8E5 /* skip_button.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 74CFD2981FA3203400A3D8E5 /* skip_button.bundle */; };
+		74CFD29B1FA323BA00A3D8E5 /* csLoading.gif in Resources */ = {isa = PBXBuildFile; fileRef = 74CFD29A1FA323BA00A3D8E5 /* csLoading.gif */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -1154,12 +1154,14 @@
 		74C853171F8F8FA400944C50 /* MCDownloadOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCDownloadOperation.m; sourceTree = "<group>"; };
 		74C853181F8F8FA400944C50 /* MCDownloadReceipt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCDownloadReceipt.h; sourceTree = "<group>"; };
 		74C853191F8F8FA400944C50 /* MCDownloadReceipt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCDownloadReceipt.m; sourceTree = "<group>"; };
-		74CFD2771FA07B2500A3D8E5 /* k9.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = k9.gif; sourceTree = "<group>"; };
 		74CFD27A1FA1848100A3D8E5 /* JhtGuidePages.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = JhtGuidePages.framework; sourceTree = "<group>"; };
-		74CFD27B1FA1848100A3D8E5 /* skip_button.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = skip_button.bundle; sourceTree = "<group>"; };
 		74CFD27E1FA1920800A3D8E5 /* CSHomeConnectionStatusView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CSHomeConnectionStatusView.xib; sourceTree = "<group>"; };
 		74CFD2801FA1930900A3D8E5 /* CSHomeConnectionStatusView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSHomeConnectionStatusView.h; sourceTree = "<group>"; };
 		74CFD2811FA1930900A3D8E5 /* CSHomeConnectionStatusView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSHomeConnectionStatusView.m; sourceTree = "<group>"; };
+		74CFD2981FA3203400A3D8E5 /* skip_button.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = skip_button.bundle; sourceTree = "<group>"; };
+		74CFD29A1FA323BA00A3D8E5 /* csLoading.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = csLoading.gif; path = ChangSheng/csLoading.gif; sourceTree = SOURCE_ROOT; };
+		74CFD29C1FA3274000A3D8E5 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
+		74CFD29D1FA3274000A3D8E5 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		84C57046CFB3067E7FF70B34 /* libPods-ChangSheng.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ChangSheng.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -2368,7 +2370,7 @@
 		18C81F631F7656A00012150B /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				74CFD2771FA07B2500A3D8E5 /* k9.gif */,
+				74CFD29A1FA323BA00A3D8E5 /* csLoading.gif */,
 				74C852E71F8B800700944C50 /* CSMineItem.plist */,
 			);
 			path = Source;
@@ -2786,8 +2788,8 @@
 		74CFD2791FA1848100A3D8E5 /* JhtGuidePages_SDK */ = {
 			isa = PBXGroup;
 			children = (
+				74CFD2981FA3203400A3D8E5 /* skip_button.bundle */,
 				74CFD27A1FA1848100A3D8E5 /* JhtGuidePages.framework */,
-				74CFD27B1FA1848100A3D8E5 /* skip_button.bundle */,
 			);
 			path = JhtGuidePages_SDK;
 			sourceTree = "<group>";
@@ -2835,7 +2837,7 @@
 				TargetAttributes = {
 					18C81F3C1F74B8E00012150B = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = BYXKWL5C3R;
+						DevelopmentTeam = P2BWAW94QL;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -2845,7 +2847,6 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				en,
 				Base,
 			);
 			mainGroup = 18C81F341F74B8E00012150B;
@@ -2879,7 +2880,6 @@
 				749A53A61F98736A0024DC1B /* CSOperationRecordCell.xib in Resources */,
 				185787181F94BC2400BAD542 /* Mine.storyboard in Resources */,
 				1804ACE01F7BDC6100508C1C /* CellBlueSelected@2x.png in Resources */,
-				74CFD2781FA07B2500A3D8E5 /* k9.gif in Resources */,
 				1804AD251F7BDC6100508C1C /* Emotion.bundle in Resources */,
 				1804ACF01F7BDC6100508C1C /* MMVideoPreviewPlay@3x.png in Resources */,
 				1804ACEC1F7BDC6100508C1C /* FriendsSendsPicturesSelectIcon@2x.png in Resources */,
@@ -2914,12 +2914,13 @@
 				18C820301F776E950012150B /* CSLoginSB.storyboard in Resources */,
 				1804AC891F7BDC6100508C1C /* LLImageDownloadFailView.xib in Resources */,
 				1804ACF11F7BDC6100508C1C /* MMVideoPreviewPlayHL@2x.png in Resources */,
+				74CFD29B1FA323BA00A3D8E5 /* csLoading.gif in Resources */,
 				1804ACF31F7BDC6100508C1C /* VideoSendIcon@2x.png in Resources */,
 				1804AD241F7BDC6100508C1C /* in.caf in Resources */,
 				1804ACE81F7BDC6100508C1C /* FriendsSendsPicturesSelectBigNIcon@2x.png in Resources */,
 				1804ACE31F7BDC6100508C1C /* FriendsSendsPicturesNumberIcon.png in Resources */,
 				181343E21F7961B400CD1312 /* CSHomeTableViewCell.xib in Resources */,
-				74CFD27D1FA1848100A3D8E5 /* skip_button.bundle in Resources */,
+				74CFD2991FA3203400A3D8E5 /* skip_button.bundle in Resources */,
 				1804AD261F7BDC6100508C1C /* Emotions.plist in Resources */,
 				1804ACEF1F7BDC6100508C1C /* MMVideoPreviewPlay@2x.png in Resources */,
 				1804AD2A1F7BDC6100508C1C /* user@2x.png in Resources */,
@@ -2944,7 +2945,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		3397C0F5EF0ED65B5B9961FE /* [CP] Embed Pods Frameworks */ = {
@@ -3319,6 +3320,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				187773C71F7D1C6100A98B7C /* Base */,
+				74CFD29C1FA3274000A3D8E5 /* zh-Hans */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -3327,6 +3329,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				18C81F4F1F74B8E00012150B /* Base */,
+				74CFD29D1FA3274000A3D8E5 /* zh-Hans */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -3338,6 +3341,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -3386,6 +3390,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -3432,7 +3437,7 @@
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = BYXKWL5C3R;
+				DEVELOPMENT_TEAM = P2BWAW94QL;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3453,7 +3458,7 @@
 					"$(PROJECT_DIR)/ChangSheng/Class/Lib/HyphenateSDK/lib",
 					"$(PROJECT_DIR)/ChangSheng/Class/IMKit/General/Audio/TTVoiceLib",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.changsheng.www;
+				PRODUCT_BUNDLE_IDENTIFIER = com.cnepay.IntercommerceV2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -3468,7 +3473,7 @@
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = BYXKWL5C3R;
+				DEVELOPMENT_TEAM = P2BWAW94QL;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3489,7 +3494,7 @@
 					"$(PROJECT_DIR)/ChangSheng/Class/Lib/HyphenateSDK/lib",
 					"$(PROJECT_DIR)/ChangSheng/Class/IMKit/General/Audio/TTVoiceLib",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.changsheng.www;
+				PRODUCT_BUNDLE_IDENTIFIER = com.cnepay.IntercommerceV2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 			};

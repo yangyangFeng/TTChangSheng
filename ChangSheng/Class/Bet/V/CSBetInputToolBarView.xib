@@ -85,48 +85,18 @@
             </constraints>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
-                <outlet property="biaoqingBtn" destination="BTR-Lr-j8S" id="wUW-Sw-XRr"/>
                 <outlet property="inputField" destination="v81-St-9PF" id="DKN-mj-Pmp"/>
                 <outlet property="intputChangeButton" destination="mbY-Yv-lAw" id="pUJ-nO-c7G"/>
                 <outlet property="my_fenLabel" destination="aSC-j1-AeR" id="eAs-Mw-hGH"/>
-                <outlet property="otherBtn" destination="qE4-yT-nZh" id="anB-58-XZj"/>
                 <outlet property="rightButton" destination="4uj-kJ-gAW" id="chn-yh-fQB"/>
-                <outlet property="textInputToolBar" destination="xos-xd-7EN" id="bEb-15-xhx"/>
                 <outlet property="textViewHeight" destination="Qky-Ep-thV" id="xxY-KP-o5f"/>
                 <outlet property="textViewInputToolBar" destination="P85-4z-Sd1" id="cFv-5l-vNa"/>
             </connections>
             <point key="canvasLocation" x="33.5" y="104.5"/>
         </view>
-        <stackView opaque="NO" contentMode="scaleToFill" id="xos-xd-7EN">
-            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <subviews>
-                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BTR-Lr-j8S">
-                    <rect key="frame" x="0.0" y="0.0" width="0.0" height="0.5"/>
-                    <constraints>
-                        <constraint firstAttribute="width" secondItem="BTR-Lr-j8S" secondAttribute="height" multiplier="1:1" id="A8o-7R-3Ln"/>
-                    </constraints>
-                    <state key="normal" image="表情"/>
-                </button>
-                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qE4-yT-nZh">
-                    <rect key="frame" x="0.0" y="0.0" width="0.0" height="0.5"/>
-                    <constraints>
-                        <constraint firstAttribute="width" secondItem="qE4-yT-nZh" secondAttribute="height" multiplier="1:1" id="qWz-UC-kyw"/>
-                    </constraints>
-                    <state key="normal" image="其它"/>
-                </button>
-            </subviews>
-            <color key="backgroundColor" red="1" green="0.1176470588" blue="0.1960784314" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-            <constraints>
-                <constraint firstItem="BTR-Lr-j8S" firstAttribute="width" secondItem="BTR-Lr-j8S" secondAttribute="height" multiplier="1:1" id="1j0-uY-eEW"/>
-            </constraints>
-            <viewLayoutGuide key="safeArea" id="DMX-m7-wRf"/>
-        </stackView>
     </objects>
     <resources>
-        <image name="其它" width="25" height="25"/>
         <image name="聊" width="25" height="25"/>
-        <image name="表情" width="25" height="25"/>
         <image name="路单" width="73" height="34"/>
     </resources>
 </document>

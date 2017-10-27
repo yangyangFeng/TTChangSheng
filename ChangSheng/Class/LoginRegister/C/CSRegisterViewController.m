@@ -44,7 +44,7 @@
 - (IBAction)registerAction:(id)sender {
     
     
-    
+    [self.view endEditing:YES];
  
     
     if (!self.accountField.text.length) {

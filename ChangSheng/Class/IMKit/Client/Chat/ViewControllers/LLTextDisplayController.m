@@ -58,7 +58,7 @@
     self.contentLabel.translatesAutoresizingMaskIntoConstraints = NO;
     self.contentLabel.showsVerticalScrollIndicator = YES;
     self.contentLabel.font = labelFont;
-    NSAttributedString *richText = [LLSimpleTextLabel createAttributedStringWithEmotionString:self.messageModel.text font:labelFont lineSpacing:2];
+    NSAttributedString *richText = [LLSimpleTextLabel createAttributedStringWithEmotionString:self.messageModel.body.content font:labelFont lineSpacing:2];
     self.contentLabel.textContainerInset = [self calLabelTextContainerInset:self.contentLabel attributedString:richText];
     self.contentLabel.attributedText = richText;
     [self.view addSubview:self.contentLabel];

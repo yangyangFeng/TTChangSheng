@@ -33,9 +33,6 @@ typedef enum : NSUInteger {
 @property (weak, nonatomic) IBOutlet UIButton *rightButton;
 @property (weak, nonatomic) IBOutlet CMInputView *textViewInputToolBar;
 
-@property (weak, nonatomic) IBOutlet UIStackView *textInputToolBar;
-@property (weak, nonatomic) IBOutlet UIButton *biaoqingBtn;
-@property (weak, nonatomic) IBOutlet UIButton *otherBtn;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *textInputToolBar_Y;
 

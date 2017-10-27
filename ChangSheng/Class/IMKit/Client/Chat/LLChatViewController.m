@@ -1180,9 +1180,9 @@ CSIMReceiveManagerDelegate
 //            [self cellLocationDidTapped:(LLMessageLocationCell *)cell];
             break;
         case kCSMessageBodyTypeText:
-            if (![LLUserProfile myUserProfile].userOptions.doubleTapToShowTextMessage) {
-                [self displayTextMessage:cell.messageModel];
-            }
+//            if (![LLUserProfile myUserProfile].userOptions.doubleTapToShowTextMessage) {
+//                [self displayTextMessage:cell.messageModel];
+//            }
             break;
             
         default:
@@ -1948,7 +1948,7 @@ CSIMReceiveManagerDelegate
 //2、如何做到presentViewController时保持原来的键盘不回收？
 //这个到现在也没查找如何做
 
-- (void)displayTextMessage:(LLMessageModel *)messageModel {
+- (void)displayTextMessage:(CSMessageModel *)messageModel {
     NSArray *windows = [UIApplication sharedApplication].windows;
     NSInteger maxWindowLevel = 0;
     for (UIWindow *window in windows) {

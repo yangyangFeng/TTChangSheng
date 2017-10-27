@@ -16,6 +16,7 @@
 #import "CSHomeViewController.h"
 #import "CSLoginHandler.h"
 #import <JhtGuidePages/JhtGradientGuidePageVC.h>
+#import <Bugly/Bugly.h>
 @interface AppDelegate ()
 /** 引导页VC */
 @property (nonatomic, strong) JhtGradientGuidePageVC *introductionView;
@@ -27,6 +28,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    [Bugly startWithAppId:@"7392769854"];
 #ifdef DEBUG
     [iConsole sharedConsole].delegate = self;
     // 日志提交邮箱

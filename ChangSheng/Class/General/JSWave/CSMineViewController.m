@@ -119,17 +119,20 @@
 - (void)logoutDidAction
 {
 //    [MBProgressHUD tt_Show];
-    [LLUtils showCustomIndicatiorHUDWithTitle:@"" inView:self.view];
-    [[CSUserInfo shareInstance] logout];
-    [[TTSocketChannelManager shareInstance] closeConnection];
-
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        UIViewController * rootC = [StoryBoardController viewControllerID:@"CSLoginViewController" SBName:@"CSLoginSB"];
-        TTNavigationController * nav = [[TTNavigationController alloc]initWithRootViewController:rootC];
-        AppDelegate * appDelegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
-        appDelegate.window.rootViewController = nav;
-        [LLUtils showTextHUD:@"已退出登录"];
-    });
+    
+    [LLUtils showConfirmAlertWithTitle:@"" message:@"您是否要退出登录?" yesTitle:@"确认" yesAction:^{
+        [LLUtils showCustomIndicatiorHUDWithTitle:@"" inView:self.view];
+        [[CSUserInfo shareInstance] logout];
+        [[TTSocketChannelManager shareInstance] closeConnection];
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            UIViewController * rootC = [StoryBoardController viewControllerID:@"CSLoginViewController" SBName:@"CSLoginSB"];
+            TTNavigationController * nav = [[TTNavigationController alloc]initWithRootViewController:rootC];
+            AppDelegate * appDelegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
+            appDelegate.window.rootViewController = nav;
+            [LLUtils showTextHUD:@"已退出登录"];
+        });
+    }];
 }
 
 #pragma tab del  /  sour
