@@ -29,5 +29,7 @@
  */
 - (void)logout;
 
-
+- (void)syncUserNickName:(NSString *)nickName;
+- (void)syncUserAvatar:(NSString *)avatar;
+- (void)syncUserSurplus_score:(int )surplus_score;
 @end

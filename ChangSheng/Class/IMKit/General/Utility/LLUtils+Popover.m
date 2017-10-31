@@ -125,8 +125,8 @@
     MBProgressHUD *HUD = [MBProgressHUD HUDForView :hudView];
     if (!HUD) {
         HUD = [[MBProgressHUD alloc] initWithView:hudView];
+        [hudView addSubview:HUD];
     }
-    [hudView addSubview:HUD];
     HUD.removeFromSuperViewOnHide = YES;
     HUD.delegate = [self sharedUtils];
        
@@ -178,7 +178,7 @@
     HUD.bezelView.style = MBProgressHUDBackgroundStyleBlur;
 //    HUD.bezelView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.6];
 //    HUD.contentColor = [UIColor colorWithWhite:1 alpha:1];
-    
+    HUD.label.textColor = [UIColor colorWithWhite:0.f alpha:0.7f];
     HUD.label.text = text;
     HUD.label.font = [UIFont systemFontOfSize:16];
     
@@ -249,8 +249,8 @@
     HUD.bezelView.backgroundColor = [UIColor clearColor];
     //[UIColor colorWithWhite:0 alpha:0.6];
     HUD.label.text = title;
-    HUD.label.font = [UIFont systemFontOfSize:14];
-    HUD.contentColor = [UIColor colorWithWhite:1 alpha:1];
+//    HUD.label.font = [UIFont systemFontOfSize:14];
+//    HUD.contentColor = [UIColor colorWithWhite:1 alpha:1];
     
     [HUD layoutIfNeeded];
 //    HUD.label.top_LL += 10;

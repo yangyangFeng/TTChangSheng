@@ -85,7 +85,7 @@
     param.password = self.passwordField.text;
     param.referee_code = self.referrerField.text;
     
-    [LLUtils showCustomIndicatiorHUDWithTitle:@"" inView:self.view];
+    MBProgressHUD * hud = [LLUtils showCustomIndicatiorHUDWithTitle:@"" inView:self.view];
     
     [CSHttpRequestManager request_register_paramters:param.mj_keyValues success:^(id responseObject) {
         NSLog(@"成功%@",responseObject);
@@ -93,7 +93,8 @@
 //        CSUserInfo * info = [CSUserInfo shareInstance];
 //        info.info = obj.result;
 //        [[CSUserInfo shareInstance] login];
-        CS_HUD(obj.msg);
+        [hud hideAnimated:NO];
+        [LLUtils showTextHUD:obj.msg inView:self.view];
         CSUserInfoModel * info = [CSUserInfoModel mj_objectWithKeyValues:[[obj mj_JSONObject] objectForKey:@"result"]];
         [CSUserInfo shareInstance].info = info;
         [[CSUserInfo shareInstance] login];
@@ -103,8 +104,9 @@
         TTNavigationController * nav = [[TTNavigationController alloc]initWithRootViewController:home];
         appDelegate.window.rootViewController = nav;
     } failure:^(NSError *error) {
-        
-    } showHUD:YES];
+        [hud hideAnimated:NO];
+//        [LLUtils showTextHUD:error.domain inView:self.view];
+    } showHUD:NO];
 }
     
 - (IBAction)readUserInfoAction:(id)sender {

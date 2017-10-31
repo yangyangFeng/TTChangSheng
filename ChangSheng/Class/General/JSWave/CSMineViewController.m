@@ -130,7 +130,7 @@
             TTNavigationController * nav = [[TTNavigationController alloc]initWithRootViewController:rootC];
             AppDelegate * appDelegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
             appDelegate.window.rootViewController = nav;
-            [LLUtils showTextHUD:@"已退出登录"];
+            [LLUtils showTextHUD:@"已退出登录" inView:self.view];
         });
     }];
 }

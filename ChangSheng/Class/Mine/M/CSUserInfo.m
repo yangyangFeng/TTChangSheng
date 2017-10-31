@@ -53,4 +53,26 @@ static CSUserInfo * info = nil;
 {
     return self->isOnline;
 }
+
+- (void)syncUserNickName:(NSString *)nickName
+{
+    self.info.nickname = nickName;
+    [self syncSave];
+}
+- (void)syncUserAvatar:(NSString *)avatar
+{
+    self.info.avatar = avatar;
+    [self syncSave];
+}
+- (void)syncUserSurplus_score:(int )surplus_score
+{
+    self.info.surplus_score = surplus_score;
+    [self syncSave];
+}
+
+- (void)syncSave
+{
+    NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setObject:self.mj_keyValues forKey:USER_CACHE_KEY];
+}
 @end
