@@ -366,6 +366,7 @@
 		749A53B61F98821F0024DC1B /* TTCellSelectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 749A53B51F98821F0024DC1B /* TTCellSelectionView.m */; };
 		749A53B91F988D980024DC1B /* TTRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 749A53B81F988D980024DC1B /* TTRefresh.m */; };
 		749A53BC1F98BF3E0024DC1B /* CSMineUserInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 749A53BB1F98BF3E0024DC1B /* CSMineUserInfoView.m */; };
+		74BFF8FE1FB552340061A68D /* CSMessageRecordTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 74BFF8FD1FB552330061A68D /* CSMessageRecordTool.m */; };
 		74C852CC1F8B4F8200944C50 /* CSBetInputView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 74C852CB1F8B4F8200944C50 /* CSBetInputView.xib */; };
 		74C852CF1F8B520B00944C50 /* CSCustomBetButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 74C852CE1F8B520B00944C50 /* CSCustomBetButton.m */; };
 		74C852D11F8B579C00944C50 /* CSNumberKeyboardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 74C852D01F8B579C00944C50 /* CSNumberKeyboardView.xib */; };
@@ -1118,6 +1119,8 @@
 		749A53B81F988D980024DC1B /* TTRefresh.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TTRefresh.m; sourceTree = "<group>"; };
 		749A53BA1F98BF3E0024DC1B /* CSMineUserInfoView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSMineUserInfoView.h; sourceTree = "<group>"; };
 		749A53BB1F98BF3E0024DC1B /* CSMineUserInfoView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSMineUserInfoView.m; sourceTree = "<group>"; };
+		74BFF8FC1FB552330061A68D /* CSMessageRecordTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSMessageRecordTool.h; sourceTree = "<group>"; };
+		74BFF8FD1FB552330061A68D /* CSMessageRecordTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSMessageRecordTool.m; sourceTree = "<group>"; };
 		74C852CB1F8B4F8200944C50 /* CSBetInputView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CSBetInputView.xib; sourceTree = "<group>"; };
 		74C852CD1F8B520B00944C50 /* CSCustomBetButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSCustomBetButton.h; sourceTree = "<group>"; };
 		74C852CE1F8B520B00944C50 /* CSCustomBetButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSCustomBetButton.m; sourceTree = "<group>"; };
@@ -1516,6 +1519,8 @@
 		1804AB801F7BDC6100508C1C /* Cache */ = {
 			isa = PBXGroup;
 			children = (
+				74BFF8FC1FB552330061A68D /* CSMessageRecordTool.h */,
+				74BFF8FD1FB552330061A68D /* CSMessageRecordTool.m */,
 				1804AB811F7BDC6100508C1C /* LLConversationModelManager.h */,
 				1804AB821F7BDC6100508C1C /* LLConversationModelManager.m */,
 				1804AB831F7BDC6100508C1C /* LLMessageCacheManager.h */,
@@ -3151,6 +3156,7 @@
 				1804AD1D1F7BDC6100508C1C /* LLUtils+IPhone.m in Sources */,
 				1804ACA01F7BDC6100508C1C /* UIImagePickerController_L1.m in Sources */,
 				74073A2F1F9A57C80098783F /* UIWindow+Launch.m in Sources */,
+				74BFF8FE1FB552340061A68D /* CSMessageRecordTool.m in Sources */,
 				1804ACBC1F7BDC6100508C1C /* LLBrandContactSearchController.m in Sources */,
 				18C81FED1F76585F0012150B /* MJRefreshGifHeader+TTGifHeader.m in Sources */,
 				1804ACFB1F7BDC6100508C1C /* LLAssetListController.m in Sources */,
@@ -3458,7 +3464,7 @@
 					"$(PROJECT_DIR)/ChangSheng/Class/Lib/HyphenateSDK/lib",
 					"$(PROJECT_DIR)/ChangSheng/Class/IMKit/General/Audio/TTVoiceLib",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.cnepay.Intercommerce;
+				PRODUCT_BUNDLE_IDENTIFIER = com.cnepay.IntercommerceV2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -3494,7 +3500,7 @@
 					"$(PROJECT_DIR)/ChangSheng/Class/Lib/HyphenateSDK/lib",
 					"$(PROJECT_DIR)/ChangSheng/Class/IMKit/General/Audio/TTVoiceLib",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.cnepay.Intercommerce;
+				PRODUCT_BUNDLE_IDENTIFIER = com.cnepay.IntercommerceV2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 			};

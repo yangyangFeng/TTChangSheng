@@ -44,7 +44,7 @@
     
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.bottom.mas_equalTo(0);
-        make.top.mas_equalTo(-20);
+        make.top.mas_equalTo(IPhone4_5_6_6P_X(-20,-20,-20,20,-40));
     }];
    
    

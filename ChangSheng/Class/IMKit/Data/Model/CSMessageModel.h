@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+#import <Realm/Realm.h>
+
 #import "EMTextMessageBody.h"
 #import "EMMessage.h"
 #import "EMImageMessageBody.h"
@@ -17,6 +19,7 @@
 #import "LLSDKType.h"
 #import <MapKit/MapKit.h>
 #import "CSMsgRecordModel.h"
+
 
 @class CSMessageModel;
 @class CSMessageBodyModel;

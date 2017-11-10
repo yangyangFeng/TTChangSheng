@@ -28,21 +28,24 @@ PODS:
   - FSMediaPicker (0.0.2)
   - FTPopOverMenu (1.3.2)
   - FXForms (1.2.14)
-  - IQKeyboardManager (5.0.4)
+  - IQKeyboardManager (5.0.6)
   - KVOController (1.2.0)
   - Masonry (1.1.0)
   - MBProgressHUD (1.0.0)
   - MJExtension (3.0.13)
-  - MJRefresh (3.1.14.1)
+  - MJRefresh (3.1.15)
   - MLPAutoCompleteTextField (1.5)
   - MMPopupView (1.7.2):
     - Masonry
+  - Realm (3.0.1):
+    - Realm/Headers (= 3.0.1)
+  - Realm/Headers (3.0.1)
   - RedPacketAlipay (15.0.2)
   - RedpacketLib (3.4.1):
     - RedPacketAlipay
-  - SDWebImage (4.1.2):
-    - SDWebImage/Core (= 4.1.2)
-  - SDWebImage/Core (4.1.2)
+  - SDWebImage (4.2.2):
+    - SDWebImage/Core (= 4.2.2)
+  - SDWebImage/Core (4.2.2)
   - SocketRocket (0.5.1)
   - SVProgressHUD (2.2.2)
   - TWMessageBarManager (1.8.1)
@@ -72,6 +75,7 @@ DEPENDENCIES:
   - MJRefresh
   - MLPAutoCompleteTextField (= 1.5)
   - MMPopupView
+  - Realm
   - RedpacketLib (= 3.4.1)
   - SDWebImage
   - SocketRocket (~> 0.5.1)
@@ -89,17 +93,18 @@ SPEC CHECKSUMS:
   FSMediaPicker: 89c5fe9894a288db7c87c255bdb7856e33dc4073
   FTPopOverMenu: 4b412a331990fc1169c50104f1aa44b8cd4c5c4a
   FXForms: 724500c0c3f3eb3ba1004b3b83abcee55d3daf18
-  IQKeyboardManager: 1df9c0f147af1681cfb2d9977bc30309d45a7e76
+  IQKeyboardManager: 077b7f691dfa9d69db9cff66f2bed68ebfc02d9b
   KVOController: d72ace34afea42468329623b3379ab3cd1d286b6
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
   MJExtension: 5932755f451458eefa24239358817f8d291240c7
-  MJRefresh: 238e6a37e2dba12160ee3b79f6d2a2b26abcab42
+  MJRefresh: 9af70f5f9327a2cf87f0fb5929f35fcc2fa638ea
   MLPAutoCompleteTextField: ba4d507bbff2bd4f139d4197814fc8dd39caf77e
   MMPopupView: fe1dd010824029dfb632fdf1a531db5dd5386020
+  Realm: ba6144c74f835f7497791f6599d63a7755377b83
   RedPacketAlipay: a5de6db2e2671fc9255d6d396be869e3ba2f0489
   RedpacketLib: e15853d93ac35141a1247b6ad79d6acb731d8704
-  SDWebImage: cb6f9f266a9977741efcbc21e618e8be3734c774
+  SDWebImage: 89a9d32cd520bbb46eb14e541d5109b3564af198
   SocketRocket: d57c7159b83c3c6655745cd15302aa24b6bae531
   SVProgressHUD: 59b2d3dabacbd051576d21d32293ca7228dc18b0
   TWMessageBarManager: fd84e7948ba7968a2b5d9454859135761214ec56
@@ -108,6 +113,6 @@ SPEC CHECKSUMS:
   YYImage: 1e1b62a9997399593e4b9c4ecfbbabbf1d3f3b54
   YYWebImage: 5f7f36aee2ae293f016d418c7d6ba05c4863e928
 
-PODFILE CHECKSUM: 90b11e1b8a95c95eb19794bc934bbdfe510fe274
+PODFILE CHECKSUM: 460ab6483bc8357a63ea27b3f88404e15b91eb3d
 
 COCOAPODS: 1.2.1

@@ -90,7 +90,7 @@ NSString* Home_GetBgImageNameWithIndex(NSInteger index) {
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     CGFloat height =  125;
-    return IPhone4_5_6_6P(height+20, height+20, height+20, height*1.1 + 20);
+    return IPhone4_5_6_6P_X(height+20, height+20, height+20, height*1.1 + 20, height+20);
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
