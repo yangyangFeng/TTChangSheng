@@ -367,6 +367,7 @@
 		749A53B91F988D980024DC1B /* TTRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 749A53B81F988D980024DC1B /* TTRefresh.m */; };
 		749A53BC1F98BF3E0024DC1B /* CSMineUserInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 749A53BB1F98BF3E0024DC1B /* CSMineUserInfoView.m */; };
 		74BFF8FE1FB552340061A68D /* CSMessageRecordTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 74BFF8FD1FB552330061A68D /* CSMessageRecordTool.m */; };
+		74BFF9021FB946690061A68D /* CSMessageDBModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 74BFF9011FB946690061A68D /* CSMessageDBModel.m */; };
 		74C852CC1F8B4F8200944C50 /* CSBetInputView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 74C852CB1F8B4F8200944C50 /* CSBetInputView.xib */; };
 		74C852CF1F8B520B00944C50 /* CSCustomBetButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 74C852CE1F8B520B00944C50 /* CSCustomBetButton.m */; };
 		74C852D11F8B579C00944C50 /* CSNumberKeyboardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 74C852D01F8B579C00944C50 /* CSNumberKeyboardView.xib */; };
@@ -1121,6 +1122,8 @@
 		749A53BB1F98BF3E0024DC1B /* CSMineUserInfoView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSMineUserInfoView.m; sourceTree = "<group>"; };
 		74BFF8FC1FB552330061A68D /* CSMessageRecordTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSMessageRecordTool.h; sourceTree = "<group>"; };
 		74BFF8FD1FB552330061A68D /* CSMessageRecordTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSMessageRecordTool.m; sourceTree = "<group>"; };
+		74BFF9001FB946690061A68D /* CSMessageDBModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSMessageDBModel.h; sourceTree = "<group>"; };
+		74BFF9011FB946690061A68D /* CSMessageDBModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSMessageDBModel.m; sourceTree = "<group>"; };
 		74C852CB1F8B4F8200944C50 /* CSBetInputView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CSBetInputView.xib; sourceTree = "<group>"; };
 		74C852CD1F8B520B00944C50 /* CSCustomBetButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSCustomBetButton.h; sourceTree = "<group>"; };
 		74C852CE1F8B520B00944C50 /* CSCustomBetButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSCustomBetButton.m; sourceTree = "<group>"; };
@@ -1521,6 +1524,8 @@
 			children = (
 				74BFF8FC1FB552330061A68D /* CSMessageRecordTool.h */,
 				74BFF8FD1FB552330061A68D /* CSMessageRecordTool.m */,
+				74BFF9001FB946690061A68D /* CSMessageDBModel.h */,
+				74BFF9011FB946690061A68D /* CSMessageDBModel.m */,
 				1804AB811F7BDC6100508C1C /* LLConversationModelManager.h */,
 				1804AB821F7BDC6100508C1C /* LLConversationModelManager.m */,
 				1804AB831F7BDC6100508C1C /* LLMessageCacheManager.h */,
@@ -3204,6 +3209,7 @@
 				1804AD331F7BDC6100508C1C /* LLMessageUploader.m in Sources */,
 				74073A211F9A57C80098783F /* UIButton+Extension.m in Sources */,
 				1804AC821F7BDC6100508C1C /* LLMessageVideoCell.m in Sources */,
+				74BFF9021FB946690061A68D /* CSMessageDBModel.m in Sources */,
 				18C820111F76585F0012150B /* UILabel+TTExtend.m in Sources */,
 				74073A3C1F9D86FC0098783F /* CPLoggin.m in Sources */,
 				181343DA1F795FCF00CD1312 /* TTBaseTableViewHandler.m in Sources */,

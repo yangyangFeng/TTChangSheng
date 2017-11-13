@@ -19,7 +19,7 @@
 #import "LLSDKType.h"
 #import <MapKit/MapKit.h>
 #import "CSMsgRecordModel.h"
-
+#import "CSMessageDBModel.h"
 
 @class CSMessageModel;
 @class CSMessageBodyModel;
@@ -399,6 +399,7 @@ typedef NS_ENUM(NSInteger, CSMessageStatus) {
 
 + (CSMessageModel *)conversionWithRecordModel:(CSMsgRecordModel*)msgRecordModel chatType:(CSChatType)chatType chatId:(NSString *)chatId;
 
++ (CSMessageModel *)conversionWithLocalRecordModel:(CSMsg_User_Msg*)msgRecordModel chatType:(CSChatType)chatType chatId:(NSString *)chatId;
 //socket接受消息必须重新过滤一下参数
 /**
  *  ******************格式化参数******************

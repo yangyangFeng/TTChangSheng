@@ -27,4 +27,6 @@ typedef void(^errorBlock)(NSError *error);
                  failBlock:(errorBlock)fail;
 
 + (void)openSocket;
+
++ (void)initDB;
 @end

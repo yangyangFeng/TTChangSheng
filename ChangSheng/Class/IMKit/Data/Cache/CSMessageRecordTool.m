@@ -7,9 +7,254 @@
 //
 
 #import "CSMessageRecordTool.h"
+
+
 #import <Realm/Realm.h>
+#import "CSMessageModel.h"
+
+
+static CSMessageRecordTool * tool = nil;
 
 @implementation CSMessageRecordTool
+- (CSMessageRecordTool *)cs_cacheMessage:(CSMessageModel *)model userId:(NSString *)userId addLast:(BOOL)addLast
+{
+    RLMRealm * realm = [RLMRealm defaultRealm];
+    [realm beginWriteTransaction];
+    
+    NSPredicate * pres = [NSPredicate predicateWithFormat:@"userId = %@",userId];//CONTAINS
+    RLMResults * result = [CSMsg_User objectsInRealm:realm withPredicate:pres];
+    
+    CSMsg_User * user = [CSMsg_User new];
+    if (result.count) {
+        user = [result firstObject];
+    }
+    else
+    {
+        user.userId = userId;
+    }
+    
+    CSMsg_User_Msg * msg = [CSMsg_User_Msg new];
+    msg.img_width = model.body.img_width;
+    msg.img_height = model.body.img_height;
+    
+    msg.content = model.body.content;
+    msg.avatar = model.body.avatar;
+    msg.voice_length = model.body.voice_length;
+    msg.type = [NSString stringWithFormat:@"%ld",model.body.msgType];
+    msg.link_url = model.body.linkUrl;
+    msg.timestamp = model.body.timestamp;
+    msg.is_self = [NSString stringWithFormat:@"%ld",model.isSelf];
+    msg.nickname = model.body.nickname;
+    msg.msg_id = [NSString stringWithFormat:@"%@-%@",userId,model.msgId];
+    
+    if (addLast) {
+        [user.msgRecords addObject:msg];
+    }
+    else
+    {
+        [user.msgRecords insertObject:msg atIndex:0];
+    }
+    
+    [realm addOrUpdateObject:user];
+    [realm commitWriteTransaction];
+//    [realm transactionWithBlock:^{
+//        [realm addOrUpdateObject:user];
+//    }];
+    
+    return self;
+}
+
+- (CSMessageRecordTool *)cs_cacheMessages:(NSArray<CSMessageModel*> *)models userId:(NSString *)userId addLast:(BOOL)addLast
+{
+    RLMRealm * realm = [RLMRealm defaultRealm];
+    [realm beginWriteTransaction];
+    
+    NSPredicate * pres = [NSPredicate predicateWithFormat:@"userId = %@",userId];//CONTAINS
+    RLMResults * result = [CSMsg_User objectsInRealm:realm withPredicate:pres];
+    
+    CSMsg_User * user = [CSMsg_User new];
+    if (result.count) {
+        user = [result firstObject];
+    }
+    else
+    {
+        user.userId = userId;
+    }
+    
+   
+
+    if (addLast) {
+        for (CSMessageModel * model in models){
+            
+            CSMsg_User_Msg * msg = [CSMsg_User_Msg new];
+            msg.img_width = model.body.img_width;
+            msg.img_height = model.body.img_height;
+            
+            msg.content = model.body.content;
+            msg.avatar = model.body.avatar;
+            msg.voice_length = model.body.voice_length;
+            msg.type = [NSString stringWithFormat:@"%ld",model.body.msgType];
+            msg.link_url = model.body.linkUrl;
+            msg.timestamp = model.body.timestamp;
+            msg.is_self = [NSString stringWithFormat:@"%ld",model.isSelf];
+            msg.nickname = model.body.nickname;
+            msg.msg_id = [NSString stringWithFormat:@"%@-%@",userId,model.msgId];
+            
+            [user.msgRecords addObject:msg];
+        }
+    }
+    else
+    {
+        for (int i = models.count - 1; i >=0; i--) {
+            CSMessageModel * model = models[i];
+            CSMsg_User_Msg * msg = [CSMsg_User_Msg new];
+            msg.img_width = model.body.img_width;
+            msg.img_height = model.body.img_height;
+            
+            msg.content = model.body.content;
+            msg.avatar = model.body.avatar;
+            msg.voice_length = model.body.voice_length;
+            msg.type = [NSString stringWithFormat:@"%ld",model.body.msgType];
+            msg.link_url = model.body.linkUrl;
+            msg.timestamp = model.body.timestamp;
+            msg.is_self = [NSString stringWithFormat:@"%ld",model.isSelf];
+            msg.nickname = model.body.nickname;
+            msg.msg_id = [NSString stringWithFormat:@"%@-%@",userId,model.msgId];
+            
+            [user.msgRecords insertObject:msg atIndex:0];
+
+        }
+    }
+    [realm addOrUpdateObject:user];
+    [realm commitWriteTransaction];
+    return self;
+}
+
+- (CSMessageRecordTool *)loadCacheMessageWithUserId:(NSString *)userId loadDatas:(loadDatas)loadDatas
+{
+    RLMRealm * realm = [RLMRealm defaultRealm];
+    NSPredicate * pred = [NSPredicate predicateWithFormat:@"userId = %@",userId];
+    RLMResults * result = [CSMsg_User objectsInRealm:realm withPredicate:pred];
+    CSMsg_User * user = [result firstObject];
+    NSMutableArray * datas = [NSMutableArray array];
+    for (CSMsg_User_Msg * msgModel in user.msgRecords) {
+        CSMessageModel * model = [CSMessageModel conversionWithLocalRecordModel:msgModel chatType:(CSChatTypeChat) chatId:userId];
+        [datas addObject:model];
+    }
+    if (loadDatas) {
+        loadDatas(datas);
+    }
+    return self;
+}
+
+- (CSMessageRecordTool *)loadCacheMessageWithUserId:(NSString *)userId loadDatas:(loadDatas)loadDatas LastId:(NSString *)lastId count:(NSInteger)count
+{
+    RLMRealm * realm = [RLMRealm defaultRealm];
+    NSPredicate * pred = [NSPredicate predicateWithFormat:@"userId = %@",userId];
+    RLMResults * result = [CSMsg_User objectsInRealm:realm withPredicate:pred];
+    CSMsg_User * user = [result firstObject];
+    
+    NSInteger currentIndex = [user.msgRecords indexOfObjectWhere:@"msg_id = %@",[NSString stringWithFormat:@"%@-%@",userId,lastId]];
+    
+    NSMutableArray * datas = [NSMutableArray array];
+    
+    if (currentIndex) {
+        for (int i = currentIndex ; i > currentIndex - count; i--) {
+            CSMsg_User_Msg * msgModel = [user.msgRecords objectAtIndex:i];
+            CSMessageModel * model = [CSMessageModel conversionWithLocalRecordModel:msgModel chatType:(CSChatTypeChat) chatId:userId];
+            [datas addObject:model];
+        }
+    }
+    
+    
+
+    if (loadDatas) {
+        loadDatas(datas);
+    }
+    return self;
+}
+// 查询数据
+- (id)realmSelectData:(NSString *)object theCondition:(NSString *)condition{
+    
+    Class cls = NSClassFromString(object);
+    RLMResults *result = [cls objectsInRealm:[RLMRealm defaultRealm] where:condition];
+    return result;
+}
+//
+//// 更新数据
+//- (BOOL)realmsUpdateData:(NSString *)object theCondition:(NSString *)condition property:(NSDictionary *)dict{
+//    
+//    Class cls = NSClassFromString(object);
+//    if (cls == nil) {
+//        return NO;
+//    }
+//    
+//    RLMResults *results = [self realmsselectData:object theCondition:condition];
+//    if (!results.count) {
+//        return YES;
+//    }
+//    
+//    if (dict == nil) {
+//        return NO;
+//    }
+//    
+//    // 检查属性
+//    if (![self CheckPropertys:object propertyDict:dict]) {
+//        return NO;
+//    }
+//    
+//    NSError *error = nil;
+//    [self.rlmRealm beginWriteTransaction];
+//    
+//    //将每条数据的每个 属性设置为对应的值
+//    for (NSString *updateKey in dict.allKeys) {
+//        [results setValue:dict[updateKey] forKeyPath:updateKey];
+//    }
+//    // 如果没有值，就新插入一条数据
+//    //[cls createOrUpdateInRealm:self.rlmRealm withValue:dict];
+//    
+//    return [self.rlmRealm commitWriteTransaction:&error];
+//}
+
+// 检查该类中是否有该属性
+- (BOOL)CheckPropertys:(NSString *)object propertyDict:(NSDictionary *)dict{
+    
+    Class cls = NSClassFromString(object);
+    // 属性字符串数组
+    NSMutableArray *clspropertys = [NSMutableArray array];
+    
+    unsigned pCount;
+    objc_property_t *properties = class_copyPropertyList(cls, &pCount);//属性数组
+    
+    for(int i = 0; i < pCount; i++){
+        objc_property_t property = properties[i];
+        NSString *str =[NSString stringWithFormat:@"%s", property_getName(property)];
+        [clspropertys addObject:str];
+        //NSLog(@"propertyName:%s",property_getName(property));
+        //NSLog(@"propertyAttributes:%s",property_getAttributes(property));
+    }
+    
+    NSArray *keys = dict.allKeys;
+    for (NSString *dictkey in keys) {
+        if ([clspropertys containsObject:dictkey]) {
+            NSLog(@"This class does contain attributes.:%@",dictkey);
+        }else {
+            NSLog(@"This class does not contain attributes.:%@",dictkey);
+            return NO;
+        }
+    }
+    return YES;
+}
+
++ (CSMessageRecordTool *)shareInstance
+{
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        tool = [CSMessageRecordTool new];
+    });
+    return tool;
+}
+
 
 + (void)setDefaultRealmForUser:(NSString *)username {
     RLMRealmConfiguration *config = [RLMRealmConfiguration defaultConfiguration];

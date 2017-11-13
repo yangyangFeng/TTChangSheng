@@ -1,0 +1,40 @@
+//
+//  CSMessageDBModel.m
+//  ChangSheng
+//
+//  Created by cnepayzx on 2017/11/13.
+//  Copyright © 2017年 邴天宇. All rights reserved.
+//
+
+#import "CSMessageDBModel.h"
+
+@implementation CSMessageDBModel
+
+@end
+
+@implementation CSMsg_User
++ (NSString *)primaryKey
+{
+    return @"userId";
+}
++ (NSArray *)indexedProperties {
+    return @[@"userId"];
+}
+@end
+
+
+@implementation CSMsg_User_Msg
++ (NSDictionary *)defaultPropertyValues {
+    return @{@"img_width":@(0),
+             @"img_height":@(0),
+             @"voice_length":@(0)};
+}
++ (NSString *)primaryKey
+{
+    return @"msg_id";
+}
++ (NSArray *)indexedProperties {
+    return @[@"content",@"msg_id"];
+}
+@end
+

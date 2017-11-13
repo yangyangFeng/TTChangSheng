@@ -52,6 +52,7 @@
 #define VIEW_BACKGROUND_COLOR kLLBackgroundColor_lightGray
 
 #define TABLEVIEW_BACKGROUND_COLOR kLLBackgroundColor_lightGray
+#import "CSMessageRecordTool.h"
 #import "LBPhotoBrowserManager.h"
 #import "LB3DTouchVC.h"
 #import "CSUploadFileModel.h"
@@ -199,31 +200,48 @@ CSIMReceiveManagerDelegate
 {
     self.tableView.mj_header = [TTRefresh tt_headeRefresh:^{
         CSMessageModel * msgData = [self.dataSource firstObject];
-        CSMsgHistoryRequestModel * param = [CSMsgHistoryRequestModel new];
-        param.chat_type = CSChatTypeChat;//1为群聊
-        param.ID = self.conversationModel.chatId.intValue;
-        param.last_id = msgData.msgId;
-        [CSHttpRequestManager request_chatRecord_paramters:param.mj_keyValues success:^(id responseObject) {
-            CSMsgRecordModel * obj = [CSMsgRecordModel mj_objectWithKeyValues:responseObject];
-            
-            NSMutableArray * messagesArray = [NSMutableArray array];
-            NSMutableArray * messagesRequestArray = [NSMutableArray array];
-            for (CSMsgRecordModel * msgData in obj.result.data) {
-                CSMessageModel * msgModel = [CSMessageModel conversionWithRecordModel:msgData chatType:param.chat_type chatId:[NSString stringWithFormat:@"%d",self.conversationModel.chatId]];
-                
-//                CSIMSendMessageRequestModel * sendMsgModel = [CSIMSendMessageRequestModel new];
-//                sendMsgModel.body = msgModel;
-                [messagesArray addObject:msgModel];
-                [messagesRequestArray addObject:msgModel];
+        
+        [CSMsgCacheTool loadCacheMessageWithUserId:self.conversationModel.chatId loadDatas:^(NSArray *msgs) {
+            if (!msgs.count || msgs.count < 20) {
+                CSMsgHistoryRequestModel * param = [CSMsgHistoryRequestModel new];
+                param.chat_type = CSChatTypeChat;//1为群聊
+                param.ID = self.conversationModel.chatId.intValue;
+                param.last_id = msgData.msgId;
+                [CSHttpRequestManager request_chatRecord_paramters:param.mj_keyValues success:^(id responseObject) {
+                    CSMsgRecordModel * obj = [CSMsgRecordModel mj_objectWithKeyValues:responseObject];
+                    
+                    NSMutableArray * messagesArray = [NSMutableArray array];
+                    NSMutableArray * messagesRequestArray = [NSMutableArray array];
+                    for (CSMsgRecordModel * msgData in obj.result.data) {
+                        CSMessageModel * msgModel = [CSMessageModel conversionWithRecordModel:msgData chatType:param.chat_type chatId:[NSString stringWithFormat:@"%d",self.conversationModel.chatId]];
+                        
+                        [messagesArray addObject:msgModel];
+                        [messagesRequestArray addObject:msgModel];
+                    }
+                    [CSMsgCacheTool cs_cacheMessages:messagesArray userId:self.conversationModel.chatId addLast:NO];
+                    [self.conversationModel.allMessageModels insertObjects:messagesRequestArray atIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, messagesRequestArray.count)]];
+                    self.dataSource = [self processData:self.conversationModel];
+                    [self.tableView reloadData];
+                    [self.tableView.mj_header endRefreshing];
+                } failure:^(NSError *error) {
+                    [self.tableView.mj_header endRefreshing];
+                } showHUD:NO];
             }
-//            [self.dataSource insertObjects:messagesArray atIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, messagesArray.count)]];
-            [self.conversationModel.allMessageModels insertObjects:messagesRequestArray atIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, messagesRequestArray.count)]];
-            self.dataSource = [self processData:self.conversationModel];
-            [self.tableView reloadData];
-            [self.tableView.mj_header endRefreshing];
-        } failure:^(NSError *error) {
-            [self.tableView.mj_header endRefreshing];
-        } showHUD:NO];
+            else
+            {
+
+                [self.conversationModel.allMessageModels insertObjects:msgs atIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, msgs.count)]];
+                self.dataSource = [self processData:self.conversationModel];
+                [self.tableView reloadData];
+                [self.tableView.mj_header endRefreshing];
+            }
+        } LastId:msgData.msgId count:20];
+        
+        
+        
+        
+        
+   
     }];
 }
 

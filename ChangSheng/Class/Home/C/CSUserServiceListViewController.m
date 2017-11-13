@@ -20,6 +20,8 @@
 
 #import "CSIMReceiveManager.h"
 #import "LLUtils+Popover.h"
+
+#import "CSMessageRecordTool.h"
 static CSUserServiceListViewController * controller = nil;
 
 @interface CSUserServiceListViewController ()<UITableViewDelegate,UITableViewDataSource,CSIMReceiveManagerDelegate>
@@ -174,34 +176,54 @@ static CSUserServiceListViewController * controller = nil;
     param.chat_type = 2;//客服为单聊
     param.ID = userServiceModel.id.intValue;
     
-//    [MBProgressHUD tt_ShowInViewDefaultTitle:self.tableView];
-    
     MBProgressHUD *hud = [LLUtils showCustomIndicatiorHUDWithTitle:@"" inView:self.tableView];
-    [CSHttpRequestManager request_chatRecord_paramters:param.mj_keyValues success:^(id responseObject) {
-        CSMsgRecordModel * obj = [CSMsgRecordModel mj_objectWithKeyValues:responseObject];
-        
-        [hud hideAnimated:YES afterDelay:1];
-        LLChatViewController * chatC = (LLChatViewController*)[StoryBoardController storyBoardName:@"Main" ViewControllerIdentifiter:@"LLChatViewController"];
-
-        CSIMConversationModel * model = [CSIMConversationModel new];
-        model.chatId = [userServiceModel id];
-        model.nickName = userServiceModel.nickname;
-        model.allMessageModels = [NSMutableArray array];
-        
-        for (CSMsgRecordModel * msgData in obj.result.data) {
-            CSMessageModel * msgModel = [CSMessageModel conversionWithRecordModel:msgData chatType:param.chat_type chatId:userServiceModel.id];
+    [CSMsgCacheTool loadCacheMessageWithUserId:userServiceModel.id loadDatas:^(NSArray *msgs) {
+        if (msgs.count) {
+            [hud hideAnimated:YES afterDelay:1];
+            LLChatViewController * chatC = (LLChatViewController*)[StoryBoardController storyBoardName:@"Main" ViewControllerIdentifiter:@"LLChatViewController"];
             
-//            CSIMSendMessageRequestModel * sendMsgModel = [CSIMSendMessageRequestModel new];
-//            sendMsgModel.body = msgModel;
-            [model.allMessageModels addObject:msgModel];
+            CSIMConversationModel * model = [CSIMConversationModel new];
+            model.chatId = [userServiceModel id];
+            model.nickName = userServiceModel.nickname;
+            model.allMessageModels = [NSMutableArray arrayWithArray:msgs];
+            
+            chatC.conversationModel = model;
+            [self.navigationController pushViewController:chatC animated:YES];
         }
-        
-        
-        chatC.conversationModel = model;
-        [self.navigationController pushViewController:chatC animated:YES];
-    } failure:^(NSError *error) {
-        [hud hideAnimated:YES afterDelay:1];
-    } showHUD:YES];
+        else
+        {
+            [CSHttpRequestManager request_chatRecord_paramters:param.mj_keyValues success:^(id responseObject) {
+                CSMsgRecordModel * obj = [CSMsgRecordModel mj_objectWithKeyValues:responseObject];
+                
+                [hud hideAnimated:YES afterDelay:1];
+                LLChatViewController * chatC = (LLChatViewController*)[StoryBoardController storyBoardName:@"Main" ViewControllerIdentifiter:@"LLChatViewController"];
+                
+                CSIMConversationModel * model = [CSIMConversationModel new];
+                model.chatId = [userServiceModel id];
+                model.nickName = userServiceModel.nickname;
+                model.allMessageModels = [NSMutableArray array];
+                
+                for (CSMsgRecordModel * msgData in obj.result.data) {
+                    CSMessageModel * msgModel = [CSMessageModel conversionWithRecordModel:msgData chatType:param.chat_type chatId:userServiceModel.id];
+                    
+                    //            CSIMSendMessageRequestModel * sendMsgModel = [CSIMSendMessageRequestModel new];
+                    //            sendMsgModel.body = msgModel;
+                    [model.allMessageModels addObject:msgModel];
+                }
+                
+                
+                chatC.conversationModel = model;
+                [self.navigationController pushViewController:chatC animated:YES];
+                
+                [CSMsgCacheTool cs_cacheMessages:model.allMessageModels userId:userServiceModel.id addLast:YES];
+            } failure:^(NSError *error) {
+                [hud hideAnimated:YES afterDelay:1];
+            } showHUD:YES];
+        }
+    }];
+    
+    
+    
 }
 
 @end
