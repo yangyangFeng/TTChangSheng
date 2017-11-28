@@ -24,10 +24,14 @@
 @property (weak, nonatomic) IBOutlet UITextField *referrerField;
 @property (weak, nonatomic) IBOutlet UIButton *readBtn;
 
+@property (weak, nonatomic) IBOutlet UIButton *headBtn;
 
 @end
 
 @implementation CSRegisterViewController
+
+- (IBAction)uploadDidAction:(id)sender {
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -39,6 +43,9 @@
     self.tt_navigationBar.contentView.backgroundColor = [UIColor whiteColor];
     
     self.view.backgroundColor = rgb(244, 244, 244);
+    
+    self.headBtn.layer.cornerRadius = self.headBtn.width/2.0;
+    self.headBtn.layer.masksToBounds = YES;
     // Do any additional setup after loading the view.
 }
 - (IBAction)registerAction:(id)sender {

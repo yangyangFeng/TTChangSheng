@@ -18,6 +18,7 @@
 @interface CSLoginViewController ()
     @property (weak, nonatomic) IBOutlet UITextField *accountTextField;
     @property (weak, nonatomic) IBOutlet UITextField *passwordTextField;
+@property (weak, nonatomic) IBOutlet UIImageView *inputBGView;
 
 @end
 
@@ -32,6 +33,21 @@
     //[self navigationC].barAlpha = 0;
     
     // Do any additional setup after loading the view.
+    
+//    self.inputBGView.layer.masksToBounds = YES;
+    self.inputBGView.layer.cornerRadius = 10;
+//    CGPathRef path = CGPathCreateWithRect(self.inputBGView.bounds, nil);
+//    self.inputBGView.layer.shadowPath = path;
+    
+    self.inputBGView.layer.shadowColor = [UIColor colorWithHexColorString:@"9E9E9E"].CGColor;
+    
+    self.inputBGView.layer.shadowOffset = CGSizeMake(1,3);
+    
+    self.inputBGView.layer.shadowOpacity = 0.2;
+    
+//    self.inputBGView.layer.shadowRadius = 1.0;
+    
+    
 }
 
 - (IBAction)loginAction:(id)sender {

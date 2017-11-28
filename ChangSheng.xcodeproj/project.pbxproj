@@ -354,6 +354,7 @@
 		747D5C251F7DF73C00F40A41 /* TTSingleChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 747D5C241F7DF73C00F40A41 /* TTSingleChatViewController.m */; };
 		747D5C281F7DF75000F40A41 /* TTChatInputToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 747D5C271F7DF75000F40A41 /* TTChatInputToolBar.m */; };
 		747D5C2A1F7F6A2A00F40A41 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 747D5C291F7F6A2A00F40A41 /* Assets.xcassets */; };
+		7490097A1FCD0EFD00E1339E /* VHLNavigation.m in Sources */ = {isa = PBXBuildFile; fileRef = 749009791FCD0EF400E1339E /* VHLNavigation.m */; };
 		7499E0761F9A181900CD07E6 /* CMInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7499E0741F9A181800CD07E6 /* CMInputView.m */; };
 		749A539E1F9868420024DC1B /* CSZhuanFenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 749A539D1F9868420024DC1B /* CSZhuanFenViewController.m */; };
 		749A53A11F9868520024DC1B /* CSChangePWViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 749A53A01F9868520024DC1B /* CSChangePWViewController.m */; };
@@ -1098,6 +1099,8 @@
 		747D5C261F7DF75000F40A41 /* TTChatInputToolBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTChatInputToolBar.h; sourceTree = "<group>"; };
 		747D5C271F7DF75000F40A41 /* TTChatInputToolBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTChatInputToolBar.m; sourceTree = "<group>"; };
 		747D5C291F7F6A2A00F40A41 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		749009781FCD0EF400E1339E /* VHLNavigation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHLNavigation.h; sourceTree = "<group>"; };
+		749009791FCD0EF400E1339E /* VHLNavigation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VHLNavigation.m; sourceTree = "<group>"; };
 		7499E0741F9A181800CD07E6 /* CMInputView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMInputView.m; sourceTree = "<group>"; };
 		7499E0751F9A181800CD07E6 /* CMInputView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMInputView.h; sourceTree = "<group>"; };
 		749A539C1F9868420024DC1B /* CSZhuanFenViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSZhuanFenViewController.h; sourceTree = "<group>"; };
@@ -2456,6 +2459,7 @@
 		18C81F661F76570D0012150B /* General */ = {
 			isa = PBXGroup;
 			children = (
+				749009771FCD0EF400E1339E /* VHLNavigation */,
 				74CFD2791FA1848100A3D8E5 /* JhtGuidePages_SDK */,
 				18BDAB261F9F76DB002800BC /* LBPhotoBrowser */,
 				185787221F96F99900BAD542 /* GeneralView */,
@@ -2716,6 +2720,15 @@
 				74073A391F9D86FB0098783F /* GTMStackTrace.m */,
 			);
 			path = GTM;
+			sourceTree = "<group>";
+		};
+		749009771FCD0EF400E1339E /* VHLNavigation */ = {
+			isa = PBXGroup;
+			children = (
+				749009781FCD0EF400E1339E /* VHLNavigation.h */,
+				749009791FCD0EF400E1339E /* VHLNavigation.m */,
+			);
+			path = VHLNavigation;
 			sourceTree = "<group>";
 		};
 		74C852C71F8B4F3A00944C50 /* Bet */ = {
@@ -3259,6 +3272,7 @@
 				184B5D231F794C0F007A1C22 /* Promise.m in Sources */,
 				1804ACBD1F7BDC6100508C1C /* LLChatSearchController.m in Sources */,
 				1804AD081F7BDC6100508C1C /* LLTableViewCell.m in Sources */,
+				7490097A1FCD0EFD00E1339E /* VHLNavigation.m in Sources */,
 				1804AC911F7BDC6100508C1C /* LLChatTextView.m in Sources */,
 				74073A2A1F9A57C80098783F /* UIImage+Water.m in Sources */,
 				74073A271F9A57C80098783F /* UIImage+Cut.m in Sources */,
