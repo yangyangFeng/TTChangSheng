@@ -14,21 +14,21 @@
 NSString* Home_GetBgImageNameWithIndex(NSInteger index) {
     switch (index) {
         case 0:
-            return @"vip";
+            return @"长龙vip";
             break;
         case 1:
-            return @"大众厅";
+            return @"长龙1厅";
             break;
         case 2:
-            return @"客服";
+            return @"长龙2厅";
             break;
         case 3:
-            return @"财务";
+            return @"长龙vip";
             break;
         default:
             break;
     }
-    return @"vip";
+    return @"长龙vip";
 }
 
 @interface CSHomeTableViewCell()<CSIMReceiveManagerDelegate>

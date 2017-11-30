@@ -17,10 +17,15 @@
 #import "CSLoginHandler.h"
 #import <JhtGuidePages/JhtGradientGuidePageVC.h>
 #import <Bugly/Bugly.h>
+
+#import "CSUserServiceListViewController.h"
+#import "CSMineViewController.h"
+#import "CSFriendsListViewController.h"
+#import "TTNavigationController.h"
 @interface AppDelegate ()
 /** 引导页VC */
 @property (nonatomic, strong) JhtGradientGuidePageVC *introductionView;
-@property (nonatomic, strong) UIViewController * rootViewController;
+@property (nonatomic, strong) CYLTabBarController * rootViewController;
 @end
 
 @implementation AppDelegate
@@ -42,10 +47,12 @@
     
 #endif
     if ([CSUserInfo shareInstance].isOnline) {
-        CSHomeViewController * home = [CSHomeViewController new];
-         TTNavigationController * nav = [[TTNavigationController alloc]initWithRootViewController:home];
-//        self.window.rootViewController = nav;
-        self.rootViewController = nav;
+        [self setupViewControllers];
+        
+//        CSHomeViewController * home = [CSHomeViewController new];
+//         TTNavigationController * nav = [[TTNavigationController alloc]initWithRootViewController:home];
+////        self.window.rootViewController = nav;
+//        self.rootViewController = nav;
 //        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
 //            [CSLoginHandler openSocket];
 //        });
@@ -118,6 +125,80 @@
         self.window.rootViewController = self.rootViewController;
     }
 }
+
+- (void)joinHomeController
+{
+    [self setupViewControllers];
+    self.window.rootViewController = self.rootViewController;
+}
+
+- (void)setupViewControllers {
+    
+    CSHomeViewController * home = [CSHomeViewController new];
+    TTNavigationController * nav0 = [[TTNavigationController alloc]initWithRootViewController:home];
+    
+    CSFriendsListViewController * friend = [CSFriendsListViewController new];
+    TTNavigationController * nav1 = [[TTNavigationController alloc]initWithRootViewController:friend];
+    
+    CSUserServiceListViewController * userSer = [CSUserServiceListViewController new];
+    TTNavigationController * nav2 = [[TTNavigationController alloc]initWithRootViewController:userSer];
+    
+    CSMineViewController * minea = [CSMineViewController new];
+    TTNavigationController * nav3 = [[TTNavigationController alloc]initWithRootViewController:minea];
+    
+    CSMineViewController * mine = [CSMineViewController new];
+    TTNavigationController * nav4 = [[TTNavigationController alloc]initWithRootViewController:mine];
+    
+    CYLTabBarController *tabBarController = [[CYLTabBarController alloc] init];
+    [self customizeTabBarForController:tabBarController];
+    
+    [tabBarController setViewControllers:@[
+                                           nav0,
+                                           nav1,
+                                           nav2,
+                                           nav3,
+                                           nav4
+                                           ]];
+    self.rootViewController = tabBarController;
+}
+
+/*
+ *
+ 在`-setViewControllers:`之前设置TabBar的属性，
+ *
+ */
+- (void)customizeTabBarForController:(CYLTabBarController *)tabBarController {
+    
+    NSDictionary *dict0 = @{
+                            CYLTabBarItemTitle : @"娱乐场",
+                            CYLTabBarItemImage : @"娱乐场",
+                            CYLTabBarItemSelectedImage : @"娱乐场点击",
+                            };
+    NSDictionary *dict1 = @{
+                            CYLTabBarItemTitle : @"乐友",
+                            CYLTabBarItemImage : @"乐友",
+                            CYLTabBarItemSelectedImage : @"乐友点击",
+                            };
+    NSDictionary *dict2 = @{
+                            CYLTabBarItemTitle : @"客服",
+                            CYLTabBarItemImage : @"客服",
+                            CYLTabBarItemSelectedImage : @"客服点击",
+                            };
+    NSDictionary *dict3 = @{
+                            CYLTabBarItemTitle : @"账房",
+                            CYLTabBarItemImage : @"账房",
+                            CYLTabBarItemSelectedImage : @"账房点击",
+                            };
+    NSDictionary *dict4 = @{
+                            CYLTabBarItemTitle : @"我的",
+                            CYLTabBarItemImage : @"我的",
+                            CYLTabBarItemSelectedImage : @"我的点击",
+                            };
+    NSArray *tabBarItemsAttributes = @[ dict0, dict1, dict2 ,dict3, dict4];
+    tabBarController.tabBarItemsAttributes = tabBarItemsAttributes;
+    tabBarController.tabBar.tintColor = [UIColor colorWithHexColorString:@"24BC7F"];
+}
+
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

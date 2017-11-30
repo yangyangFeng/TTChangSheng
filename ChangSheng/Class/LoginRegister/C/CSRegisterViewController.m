@@ -106,10 +106,10 @@
         [CSUserInfo shareInstance].info = info;
         [[CSUserInfo shareInstance] login];
         
-        CSHomeViewController * home = [CSHomeViewController new];
         AppDelegate * appDelegate =  (AppDelegate *)[UIApplication sharedApplication].delegate;
-        TTNavigationController * nav = [[TTNavigationController alloc]initWithRootViewController:home];
-        appDelegate.window.rootViewController = nav;
+        [appDelegate joinHomeController];
+        
+        
     } failure:^(NSError *error) {
         [hud hideAnimated:NO];
 //        [LLUtils showTextHUD:error.domain inView:self.view];

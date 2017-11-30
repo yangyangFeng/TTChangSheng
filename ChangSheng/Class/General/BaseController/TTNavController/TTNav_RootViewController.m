@@ -98,6 +98,8 @@
     _my_navigationBar.translatesAutoresizingMaskIntoConstraints = NO;
     [self.view addSubview:_my_navigationBar];
     
+    [self tt_TitleTextColor:[UIColor blackColor]];
+    
     _my_base_navigationBar = _my_navigationBar;
     [self setNavBarAutolayout]; //添加约束布局
     

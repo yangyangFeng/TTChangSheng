@@ -25,6 +25,8 @@
 #import "LLUtils+Popover.h"
 #import "CSHomeConnectionStatusView.h"
 #import "TTSocketChannelManager.h"
+
+
 @interface CSHomeViewController ()<TTBaseTableViewHandlerDelegate>
 @property (nonatomic,strong) CSHomeTableViewHandler *tableHandler;
 @property (nonatomic,strong) NSArray *betGroupArray;
@@ -37,24 +39,26 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self.navigationController performSelector:@selector(whiteStatusBar)];
+//    [self.navigationController performSelector:@selector(whiteStatusBar)];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    [self.navigationController performSelector:@selector(blackStatusBar)];
+//    [self.navigationController performSelector:@selector(blackStatusBar)];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [self blackStatusBar];
     
     [self tt_Title:@"长圣"];
 //    [self tt_SetNaviBarHide:YES withAnimation:NO];
     self.edgesForExtendedLayout = UIRectEdgeNone;
     
 
-    self.tt_navigationBar.contentView.backgroundColor = [UIColor blackColor];
+    
     
     _connectionStatusView = [CSHomeConnectionStatusView viewFromXIB];
     [self.tt_navigationBar.centerView addSubview:_connectionStatusView];

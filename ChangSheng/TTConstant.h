@@ -41,7 +41,8 @@
 #define TEXTFIELD_PLACE_COLOR [UIColor colorWithHexColorString:@"999999"]
 //TODO: 默认 cell高度
 #define GP_CELL_HEIGHT 80
-
+//导航栏颜色
+#define CS_NAV_BAR_COLOR [UIColor whiteColor]
 //TODO: 版本号
 #define APPVERSION [[[NSBundle mainBundle] infoDictionary]  objectForKey:@"CFBundleShortVersionString"]
 
@@ -68,7 +69,7 @@
 #define NavBarHeaght 44
 #define NavStateBar 64
 // 导航栏颜色
-#define NAV_BG_COLOR [UIColor colorWithHexColorString:@"121212" alpha:1.0]
+#define NAV_BG_COLOR [UIColor colorWithHexColorString:@"ffffff" alpha:1.0]
 //主色调
 #define MAIN_COLOR [UIColor colorWithHexColorString:@"1ab6af" alpha:1.0]
 

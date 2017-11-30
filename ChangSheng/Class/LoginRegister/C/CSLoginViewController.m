@@ -86,10 +86,11 @@
             
             
             
-            CSHomeViewController * home = [CSHomeViewController new];
+
             AppDelegate * appDelegate =  (AppDelegate *)[UIApplication sharedApplication].delegate;
-            TTNavigationController * nav = [[TTNavigationController alloc]initWithRootViewController:home];
-            appDelegate.window.rootViewController = nav;
+
+            [appDelegate joinHomeController];
+            
         });
     } failBlock:^(NSError *error) {
         [hud hideAnimated:NO];

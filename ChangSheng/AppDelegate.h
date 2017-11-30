@@ -7,11 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "CYLTabBarController.h"
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 
-
+@property (nonatomic, strong,readonly) CYLTabBarController * rootViewController;
+- (void)joinHomeController;
 @end
 

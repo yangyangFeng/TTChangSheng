@@ -22,18 +22,17 @@
                         <constraint firstAttribute="height" constant="44" id="Cg9-hY-S5B"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="dra-EL-2VX">
-                    <rect key="frame" x="123" y="12" width="20" height="20"/>
+                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="dra-EL-2VX">
+                    <rect key="frame" x="123" y="12.5" width="20" height="20"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="20" id="ZYZ-wv-xNs"/>
                         <constraint firstAttribute="height" constant="20" id="hjl-Bh-Xcm"/>
                     </constraints>
                 </activityIndicatorView>
             </subviews>
-            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="1AO-sz-4Ih" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="AEb-D5-AK5"/>
                 <constraint firstItem="1AO-sz-4Ih" firstAttribute="leading" secondItem="dra-EL-2VX" secondAttribute="trailing" constant="10" id="GlQ-yg-L6N"/>
