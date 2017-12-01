@@ -9,6 +9,7 @@
 #import "CSFriendsListViewController.h"
 
 #import "CSFriendListTableHandler.h"
+#import "CSAddressBookViewController.h"
 @interface CSFriendsListViewController ()<TTBaseTableViewHandlerDelegate>
 @property(nonatomic,strong)CSFriendListTableHandler * tableHandler;
 @end
@@ -60,6 +61,9 @@
 - (void)addressBookAction
 {
     DLog(@"通讯录");
+    CSAddressBookViewController * addressBookC = [CSAddressBookViewController new];
+    
+    [self.navigationController pushViewController:addressBookC animated:YES];
 }
 
 - (void)addAction

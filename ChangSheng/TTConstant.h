@@ -36,6 +36,11 @@
  */
 #define DISMISSTIME 1
 
+/**
+ 主题字体颜色
+ */
+#define CS_TextColor [UIColor colorWithHexColorString:@"24BC7F"]
+
 #define CS_IMAGE_DATA_SIZE 450*1000
 // 默认 占位符 颜色
 #define TEXTFIELD_PLACE_COLOR [UIColor colorWithHexColorString:@"999999"]

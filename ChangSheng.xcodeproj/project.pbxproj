@@ -361,6 +361,9 @@
 		749009D81FCFE38200E1339E /* CSFriendListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 749009D61FCFE38200E1339E /* CSFriendListTableViewCell.xib */; };
 		749009DC1FD02D1300E1339E /* CSFriendMsgTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 749009DA1FD02D1300E1339E /* CSFriendMsgTableViewCell.m */; };
 		749009DD1FD02D1300E1339E /* CSFriendMsgTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 749009DB1FD02D1300E1339E /* CSFriendMsgTableViewCell.xib */; };
+		749009E01FD0E63800E1339E /* CSAddressBookViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 749009DF1FD0E63800E1339E /* CSAddressBookViewController.m */; };
+		749009E41FD0E97A00E1339E /* CSAddressBookTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 749009E21FD0E97A00E1339E /* CSAddressBookTableViewCell.m */; };
+		749009E51FD0E97A00E1339E /* CSAddressBookTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 749009E31FD0E97A00E1339E /* CSAddressBookTableViewCell.xib */; };
 		7499E0761F9A181900CD07E6 /* CMInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7499E0741F9A181800CD07E6 /* CMInputView.m */; };
 		749A539E1F9868420024DC1B /* CSZhuanFenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 749A539D1F9868420024DC1B /* CSZhuanFenViewController.m */; };
 		749A53A11F9868520024DC1B /* CSChangePWViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 749A53A01F9868520024DC1B /* CSChangePWViewController.m */; };
@@ -1117,6 +1120,11 @@
 		749009D91FD02D1300E1339E /* CSFriendMsgTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSFriendMsgTableViewCell.h; sourceTree = "<group>"; };
 		749009DA1FD02D1300E1339E /* CSFriendMsgTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSFriendMsgTableViewCell.m; sourceTree = "<group>"; };
 		749009DB1FD02D1300E1339E /* CSFriendMsgTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CSFriendMsgTableViewCell.xib; sourceTree = "<group>"; };
+		749009DE1FD0E63800E1339E /* CSAddressBookViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSAddressBookViewController.h; sourceTree = "<group>"; };
+		749009DF1FD0E63800E1339E /* CSAddressBookViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSAddressBookViewController.m; sourceTree = "<group>"; };
+		749009E11FD0E97A00E1339E /* CSAddressBookTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSAddressBookTableViewCell.h; sourceTree = "<group>"; };
+		749009E21FD0E97A00E1339E /* CSAddressBookTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSAddressBookTableViewCell.m; sourceTree = "<group>"; };
+		749009E31FD0E97A00E1339E /* CSAddressBookTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CSAddressBookTableViewCell.xib; sourceTree = "<group>"; };
 		7499E0741F9A181800CD07E6 /* CMInputView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMInputView.m; sourceTree = "<group>"; };
 		7499E0751F9A181800CD07E6 /* CMInputView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMInputView.h; sourceTree = "<group>"; };
 		749A539C1F9868420024DC1B /* CSZhuanFenViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSZhuanFenViewController.h; sourceTree = "<group>"; };
@@ -2763,6 +2771,8 @@
 			children = (
 				749009CE1FCFE2F200E1339E /* CSFriendsListViewController.h */,
 				749009CF1FCFE2F200E1339E /* CSFriendsListViewController.m */,
+				749009DE1FD0E63800E1339E /* CSAddressBookViewController.h */,
+				749009DF1FD0E63800E1339E /* CSAddressBookViewController.m */,
 			);
 			path = C;
 			sourceTree = "<group>";
@@ -2785,6 +2795,9 @@
 				749009D91FD02D1300E1339E /* CSFriendMsgTableViewCell.h */,
 				749009DA1FD02D1300E1339E /* CSFriendMsgTableViewCell.m */,
 				749009DB1FD02D1300E1339E /* CSFriendMsgTableViewCell.xib */,
+				749009E11FD0E97A00E1339E /* CSAddressBookTableViewCell.h */,
+				749009E21FD0E97A00E1339E /* CSAddressBookTableViewCell.m */,
+				749009E31FD0E97A00E1339E /* CSAddressBookTableViewCell.xib */,
 			);
 			path = V;
 			sourceTree = "<group>";
@@ -2958,6 +2971,7 @@
 				1804AC8F1F7BDC6100508C1C /* LLVideoPlaybackController.xib in Resources */,
 				1804ACEA1F7BDC6100508C1C /* FriendsSendsPicturesSelectBigYIcon@2x.png in Resources */,
 				181C060F1F92139900F4A15E /* CSBetInputToolBarView.xib in Resources */,
+				749009E51FD0E97A00E1339E /* CSAddressBookTableViewCell.xib in Resources */,
 				749A53A61F98736A0024DC1B /* CSOperationRecordCell.xib in Resources */,
 				185787181F94BC2400BAD542 /* Mine.storyboard in Resources */,
 				1804ACE01F7BDC6100508C1C /* CellBlueSelected@2x.png in Resources */,
@@ -3304,8 +3318,10 @@
 				181C06121F92167B00F4A15E /* CSPublicBetInputToolBarView.m in Sources */,
 				74C8530F1F8E375900944C50 /* CSMsgHistoryModel.m in Sources */,
 				184B5D151F77DC8C007A1C22 /* CSLoginHandler.m in Sources */,
+				749009E01FD0E63800E1339E /* CSAddressBookViewController.m in Sources */,
 				184B5CFF1F77CC65007A1C22 /* CSRegisterParam.m in Sources */,
 				74073A131F9A57C80098783F /* UIImageView+BetterFace.m in Sources */,
+				749009E41FD0E97A00E1339E /* CSAddressBookTableViewCell.m in Sources */,
 				18C81F831F7657900012150B /* TTNavigationBar.m in Sources */,
 				181346871F7AA93200CD1312 /* NSMutableAttributedString+MLLabel.m in Sources */,
 				184B5D031F77D6ED007A1C22 /* TTLineLayoutConstraint.m in Sources */,

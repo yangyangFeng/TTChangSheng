@@ -54,6 +54,7 @@
      self.automaticallyAdjustsScrollViewInsets = NO;
 //    self.edgesForExtendedLayout = UIRectEdgeNone; //不向四周延伸
     
+    
     [self initCustomTTNavBar];
     
     [self setNavBarAlpha];
