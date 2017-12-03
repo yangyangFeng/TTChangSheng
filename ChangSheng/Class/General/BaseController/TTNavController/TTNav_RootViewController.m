@@ -53,7 +53,7 @@
     // 因为是自定义的 NAV 所以不需要系统自动调整 tableview布局
      self.automaticallyAdjustsScrollViewInsets = NO;
 //    self.edgesForExtendedLayout = UIRectEdgeNone; //不向四周延伸
-    
+    self.view.backgroundColor = [UIColor groupTableViewBackgroundColor];
     
     [self initCustomTTNavBar];
     

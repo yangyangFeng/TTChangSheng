@@ -8,8 +8,11 @@
 
 #import "CSFriendsListViewController.h"
 
-#import "CSFriendListTableHandler.h"
 #import "CSAddressBookViewController.h"
+#import "CSSearchFriendManagerViewController.h"
+
+#import "CSFriendListTableHandler.h"
+
 @interface CSFriendsListViewController ()<TTBaseTableViewHandlerDelegate>
 @property(nonatomic,strong)CSFriendListTableHandler * tableHandler;
 @end
@@ -69,6 +72,9 @@
 - (void)addAction
 {
     DLog(@"添加好友");
+    CSSearchFriendManagerViewController * addFriendC = [CSSearchFriendManagerViewController new];
+    
+    [self.navigationController pushViewController:addFriendC animated:YES];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

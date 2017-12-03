@@ -161,8 +161,11 @@
     switch (indexPath.row) {
         case 0:
         {
-            UIViewController * caiwuController = [StoryBoardController viewControllerID:@"CSCaiwuViewController" SBName:@"Mine"];
+            
+            UIViewController * caiwuController = [StoryBoardController viewControllerID:@"CSZFShangXiaFenViewController" SBName:@"ZhangFang"];
             [self.navigationController pushViewController:caiwuController animated:YES];
+//            UIViewController * caiwuController = [StoryBoardController viewControllerID:@"CSCaiwuViewController" SBName:@"Mine"];
+//            [self.navigationController pushViewController:caiwuController animated:YES];
         }
             break;
         case 1:

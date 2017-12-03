@@ -364,6 +364,12 @@
 		749009E01FD0E63800E1339E /* CSAddressBookViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 749009DF1FD0E63800E1339E /* CSAddressBookViewController.m */; };
 		749009E41FD0E97A00E1339E /* CSAddressBookTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 749009E21FD0E97A00E1339E /* CSAddressBookTableViewCell.m */; };
 		749009E51FD0E97A00E1339E /* CSAddressBookTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 749009E31FD0E97A00E1339E /* CSAddressBookTableViewCell.xib */; };
+		749009E91FD3C84300E1339E /* CSSearchFriendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 749009E81FD3C84300E1339E /* CSSearchFriendViewController.m */; };
+		749009EC1FD3C89B00E1339E /* CSSearchFriendView.m in Sources */ = {isa = PBXBuildFile; fileRef = 749009EB1FD3C89B00E1339E /* CSSearchFriendView.m */; };
+		749009EF1FD3D98200E1339E /* CSSearchFriendResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 749009EE1FD3D98200E1339E /* CSSearchFriendResultViewController.m */; };
+		749009F21FD3DA2400E1339E /* CSBaseSearchFriendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 749009F11FD3DA2400E1339E /* CSBaseSearchFriendViewController.m */; };
+		749009F51FD3E30E00E1339E /* CSSearchFriendManagerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 749009F41FD3E30E00E1339E /* CSSearchFriendManagerViewController.m */; };
+		749009F81FD3E45D00E1339E /* CSSearchFriendSendVerifyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 749009F71FD3E45D00E1339E /* CSSearchFriendSendVerifyViewController.m */; };
 		7499E0761F9A181900CD07E6 /* CMInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7499E0741F9A181800CD07E6 /* CMInputView.m */; };
 		749A539E1F9868420024DC1B /* CSZhuanFenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 749A539D1F9868420024DC1B /* CSZhuanFenViewController.m */; };
 		749A53A11F9868520024DC1B /* CSChangePWViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 749A53A01F9868520024DC1B /* CSChangePWViewController.m */; };
@@ -378,6 +384,8 @@
 		749A53BC1F98BF3E0024DC1B /* CSMineUserInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 749A53BB1F98BF3E0024DC1B /* CSMineUserInfoView.m */; };
 		74BFF8FE1FB552340061A68D /* CSMessageRecordTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 74BFF8FD1FB552330061A68D /* CSMessageRecordTool.m */; };
 		74BFF9021FB946690061A68D /* CSMessageDBModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 74BFF9011FB946690061A68D /* CSMessageDBModel.m */; };
+		74C49E1D1FD3FCCE00F0501B /* ZhangFang.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 74C49E1C1FD3FCCE00F0501B /* ZhangFang.storyboard */; };
+		74C49E201FD4011C00F0501B /* CSZFShangXiaFenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 74C49E1F1FD4011C00F0501B /* CSZFShangXiaFenViewController.m */; };
 		74C852CC1F8B4F8200944C50 /* CSBetInputView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 74C852CB1F8B4F8200944C50 /* CSBetInputView.xib */; };
 		74C852CF1F8B520B00944C50 /* CSCustomBetButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 74C852CE1F8B520B00944C50 /* CSCustomBetButton.m */; };
 		74C852D11F8B579C00944C50 /* CSNumberKeyboardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 74C852D01F8B579C00944C50 /* CSNumberKeyboardView.xib */; };
@@ -1125,6 +1133,18 @@
 		749009E11FD0E97A00E1339E /* CSAddressBookTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSAddressBookTableViewCell.h; sourceTree = "<group>"; };
 		749009E21FD0E97A00E1339E /* CSAddressBookTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSAddressBookTableViewCell.m; sourceTree = "<group>"; };
 		749009E31FD0E97A00E1339E /* CSAddressBookTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CSAddressBookTableViewCell.xib; sourceTree = "<group>"; };
+		749009E71FD3C84300E1339E /* CSSearchFriendViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSSearchFriendViewController.h; sourceTree = "<group>"; };
+		749009E81FD3C84300E1339E /* CSSearchFriendViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSSearchFriendViewController.m; sourceTree = "<group>"; };
+		749009EA1FD3C89B00E1339E /* CSSearchFriendView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSSearchFriendView.h; sourceTree = "<group>"; };
+		749009EB1FD3C89B00E1339E /* CSSearchFriendView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSSearchFriendView.m; sourceTree = "<group>"; };
+		749009ED1FD3D98200E1339E /* CSSearchFriendResultViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSSearchFriendResultViewController.h; sourceTree = "<group>"; };
+		749009EE1FD3D98200E1339E /* CSSearchFriendResultViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSSearchFriendResultViewController.m; sourceTree = "<group>"; };
+		749009F01FD3DA2400E1339E /* CSBaseSearchFriendViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSBaseSearchFriendViewController.h; sourceTree = "<group>"; };
+		749009F11FD3DA2400E1339E /* CSBaseSearchFriendViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSBaseSearchFriendViewController.m; sourceTree = "<group>"; };
+		749009F31FD3E30E00E1339E /* CSSearchFriendManagerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSSearchFriendManagerViewController.h; sourceTree = "<group>"; };
+		749009F41FD3E30E00E1339E /* CSSearchFriendManagerViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSSearchFriendManagerViewController.m; sourceTree = "<group>"; };
+		749009F61FD3E45D00E1339E /* CSSearchFriendSendVerifyViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSSearchFriendSendVerifyViewController.h; sourceTree = "<group>"; };
+		749009F71FD3E45D00E1339E /* CSSearchFriendSendVerifyViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSSearchFriendSendVerifyViewController.m; sourceTree = "<group>"; };
 		7499E0741F9A181800CD07E6 /* CMInputView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMInputView.m; sourceTree = "<group>"; };
 		7499E0751F9A181800CD07E6 /* CMInputView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMInputView.h; sourceTree = "<group>"; };
 		749A539C1F9868420024DC1B /* CSZhuanFenViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSZhuanFenViewController.h; sourceTree = "<group>"; };
@@ -1151,6 +1171,9 @@
 		74BFF8FD1FB552330061A68D /* CSMessageRecordTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSMessageRecordTool.m; sourceTree = "<group>"; };
 		74BFF9001FB946690061A68D /* CSMessageDBModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSMessageDBModel.h; sourceTree = "<group>"; };
 		74BFF9011FB946690061A68D /* CSMessageDBModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSMessageDBModel.m; sourceTree = "<group>"; };
+		74C49E1C1FD3FCCE00F0501B /* ZhangFang.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ZhangFang.storyboard; sourceTree = "<group>"; };
+		74C49E1E1FD4011C00F0501B /* CSZFShangXiaFenViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSZFShangXiaFenViewController.h; sourceTree = "<group>"; };
+		74C49E1F1FD4011C00F0501B /* CSZFShangXiaFenViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSZFShangXiaFenViewController.m; sourceTree = "<group>"; };
 		74C852CB1F8B4F8200944C50 /* CSBetInputView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CSBetInputView.xib; sourceTree = "<group>"; };
 		74C852CD1F8B520B00944C50 /* CSCustomBetButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSCustomBetButton.h; sourceTree = "<group>"; };
 		74C852CE1F8B520B00944C50 /* CSCustomBetButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSCustomBetButton.m; sourceTree = "<group>"; };
@@ -2274,6 +2297,7 @@
 				18C81F581F7656A00012150B /* Home */,
 				18C81F5D1F7656A00012150B /* Lib */,
 				18C81F5E1F7656A00012150B /* Mine */,
+				74C49E181FD3FCA700F0501B /* ZhangFang */,
 				18C81F631F7656A00012150B /* Source */,
 				18C81F641F7656A00012150B /* Tools */,
 			);
@@ -2773,6 +2797,16 @@
 				749009CF1FCFE2F200E1339E /* CSFriendsListViewController.m */,
 				749009DE1FD0E63800E1339E /* CSAddressBookViewController.h */,
 				749009DF1FD0E63800E1339E /* CSAddressBookViewController.m */,
+				749009F31FD3E30E00E1339E /* CSSearchFriendManagerViewController.h */,
+				749009F41FD3E30E00E1339E /* CSSearchFriendManagerViewController.m */,
+				749009E71FD3C84300E1339E /* CSSearchFriendViewController.h */,
+				749009E81FD3C84300E1339E /* CSSearchFriendViewController.m */,
+				749009ED1FD3D98200E1339E /* CSSearchFriendResultViewController.h */,
+				749009EE1FD3D98200E1339E /* CSSearchFriendResultViewController.m */,
+				749009F61FD3E45D00E1339E /* CSSearchFriendSendVerifyViewController.h */,
+				749009F71FD3E45D00E1339E /* CSSearchFriendSendVerifyViewController.m */,
+				749009F01FD3DA2400E1339E /* CSBaseSearchFriendViewController.h */,
+				749009F11FD3DA2400E1339E /* CSBaseSearchFriendViewController.m */,
 			);
 			path = C;
 			sourceTree = "<group>";
@@ -2798,6 +2832,42 @@
 				749009E11FD0E97A00E1339E /* CSAddressBookTableViewCell.h */,
 				749009E21FD0E97A00E1339E /* CSAddressBookTableViewCell.m */,
 				749009E31FD0E97A00E1339E /* CSAddressBookTableViewCell.xib */,
+				749009EA1FD3C89B00E1339E /* CSSearchFriendView.h */,
+				749009EB1FD3C89B00E1339E /* CSSearchFriendView.m */,
+			);
+			path = V;
+			sourceTree = "<group>";
+		};
+		74C49E181FD3FCA700F0501B /* ZhangFang */ = {
+			isa = PBXGroup;
+			children = (
+				74C49E191FD3FCA700F0501B /* C */,
+				74C49E1A1FD3FCA700F0501B /* M */,
+				74C49E1B1FD3FCA700F0501B /* V */,
+			);
+			path = ZhangFang;
+			sourceTree = "<group>";
+		};
+		74C49E191FD3FCA700F0501B /* C */ = {
+			isa = PBXGroup;
+			children = (
+				74C49E1C1FD3FCCE00F0501B /* ZhangFang.storyboard */,
+				74C49E1E1FD4011C00F0501B /* CSZFShangXiaFenViewController.h */,
+				74C49E1F1FD4011C00F0501B /* CSZFShangXiaFenViewController.m */,
+			);
+			path = C;
+			sourceTree = "<group>";
+		};
+		74C49E1A1FD3FCA700F0501B /* M */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = M;
+			sourceTree = "<group>";
+		};
+		74C49E1B1FD3FCA700F0501B /* V */ = {
+			isa = PBXGroup;
+			children = (
 			);
 			path = V;
 			sourceTree = "<group>";
@@ -3021,6 +3091,7 @@
 				1804AD261F7BDC6100508C1C /* Emotions.plist in Resources */,
 				1804ACEF1F7BDC6100508C1C /* MMVideoPreviewPlay@2x.png in Resources */,
 				1804AD2A1F7BDC6100508C1C /* user@2x.png in Resources */,
+				74C49E1D1FD3FCCE00F0501B /* ZhangFang.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3199,6 +3270,7 @@
 				74073A241F9A57C80098783F /* UIDevice+Extend.m in Sources */,
 				18C81F811F7657900012150B /* TTNav_RootTableViewController.m in Sources */,
 				184B5CFC1F77CC03007A1C22 /* CSBaseRequestModel.m in Sources */,
+				749009F21FD3DA2400E1339E /* CSBaseSearchFriendViewController.m in Sources */,
 				1804ACB71F7BDC6100508C1C /* LLGeneralSettingController.m in Sources */,
 				74073A221F9A57C80098783F /* UIButton+TTExtend.m in Sources */,
 				18BDAB461F9F76DB002800BC /* LBZoomScrollView.m in Sources */,
@@ -3251,6 +3323,7 @@
 				1804AD1D1F7BDC6100508C1C /* LLUtils+IPhone.m in Sources */,
 				1804ACA01F7BDC6100508C1C /* UIImagePickerController_L1.m in Sources */,
 				74073A2F1F9A57C80098783F /* UIWindow+Launch.m in Sources */,
+				749009F51FD3E30E00E1339E /* CSSearchFriendManagerViewController.m in Sources */,
 				749009D31FCFE31700E1339E /* CSFriendListTableHandler.m in Sources */,
 				74BFF8FE1FB552340061A68D /* CSMessageRecordTool.m in Sources */,
 				1804ACBC1F7BDC6100508C1C /* LLBrandContactSearchController.m in Sources */,
@@ -3285,6 +3358,8 @@
 				1804ACBF1F7BDC6100508C1C /* LLMessageSearchResultCell.m in Sources */,
 				74C852DE1F8B764F00944C50 /* JSWave.m in Sources */,
 				1804ACFC1F7BDC6100508C1C /* LLAuthorizationDeniedController.m in Sources */,
+				749009F81FD3E45D00E1339E /* CSSearchFriendSendVerifyViewController.m in Sources */,
+				749009EF1FD3D98200E1339E /* CSSearchFriendResultViewController.m in Sources */,
 				181343E11F7961B400CD1312 /* CSHomeTableViewCell.m in Sources */,
 				18BDAB421F9F76DB002800BC /* LBPhotoBrowserManager.m in Sources */,
 				1804AC9B1F7BDC6100508C1C /* LLLocationTableViewCell.m in Sources */,
@@ -3308,6 +3383,7 @@
 				1804AD171F7BDC6100508C1C /* UIView+LLExt.m in Sources */,
 				187773CE1F7D1D5600A98B7C /* CSMsgHistoryRequestModel.m in Sources */,
 				74C852D41F8B57E100944C50 /* CSCustomNumberButton.m in Sources */,
+				74C49E201FD4011C00F0501B /* CSZFShangXiaFenViewController.m in Sources */,
 				1804ACB31F7BDC6100508C1C /* LLMainViewController.m in Sources */,
 				18BDAB431F9F76DB002800BC /* UIView+Frame.m in Sources */,
 				181346911F7AA93200CD1312 /* README.md in Sources */,
@@ -3334,6 +3410,7 @@
 				1804ACCB1F7BDC6100508C1C /* LLEmotionModelManager.m in Sources */,
 				1804AC871F7BDC6100508C1C /* LLImageBottomBar.m in Sources */,
 				1804AD321F7BDC6100508C1C /* LLMessageAttachmentDownloader.m in Sources */,
+				749009EC1FD3C89B00E1339E /* CSSearchFriendView.m in Sources */,
 				184B5D111F77DA7A007A1C22 /* CSUserInfoModel.m in Sources */,
 				749A53A91F9876CB0024DC1B /* TTLineView.m in Sources */,
 				1804ACAE1F7BDC6100508C1C /* LLContactWeChatIdSearchController.m in Sources */,
@@ -3344,6 +3421,7 @@
 				18C820101F76585F0012150B /* UIImage+TTSize.m in Sources */,
 				1804AD031F7BDC6100508C1C /* LLGIFImageView.m in Sources */,
 				1804AD201F7BDC6100508C1C /* LLUtils+Text.m in Sources */,
+				749009E91FD3C84300E1339E /* CSSearchFriendViewController.m in Sources */,
 				1804AD0D1F7BDC6100508C1C /* NSDate+LLExt.m in Sources */,
 				1813468E1F7AA93200CD1312 /* MLLabel.m in Sources */,
 				1804AC931F7BDC6100508C1C /* LLCollectionEmotionTip.m in Sources */,
