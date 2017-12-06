@@ -96,7 +96,7 @@ static CSIMReceiveManager * _manager = nil;
             message.body.msgCacheKey = message.body.receiptId;
             NSString * msgId = [sendMsg.msgCode copy];
 //            [sendMsg.msgStatus reject:[NSError errorWithDomain:message.msg code:message.code userInfo:nil]];
-//            [sendMsg.msgStatus reject:[NSError errorWithDomain:message.msg code:message.code userInfo:nil]];
+//            [sendMsg.msgStatus reject:,[NSError errorWithDomain:message.msg code:message.code userInfo:nil]];
             if (message.code == successCode) {
                 [sendMsg syncMsgID:message];
                 [sendMsg.msgStatus resolve:nil];

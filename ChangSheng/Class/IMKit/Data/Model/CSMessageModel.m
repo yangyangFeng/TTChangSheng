@@ -96,7 +96,6 @@ NSMutableDictionary * tmpImageDict;
 {
     self.body = [CSMessageBodyModel mj_objectWithKeyValues:self.mj_keyValues];
 //    self.body.msgType = self.msgType;
-
 }
 
 + (void)initialize {
