@@ -67,8 +67,25 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    switch (self.status) {
+        case Up:
+        {
+         [self tt_Title:@"上分"];
+        self.isUpScore = YES;
+        }
+            break;
+            case Down:
+        {
+         [self tt_Title:@"下分"];
+        self.isUpScore = NO;
+        }
+            break;
+        default:
+            break;
+    }
+    
     [self tt_SetNaviBarHide:NO withAnimation:NO];
-    [self tt_Title:@"财务"];
     self.tt_navigationBar.contentView.backgroundColor = [UIColor whiteColor];
     self.tt_navigationBar.titleLabel.textColor = [UIColor colorWithHexColorString:@"333333"];
     self.isUpScore = YES;
@@ -208,10 +225,10 @@
     }
     else if (indexPath.row == 1)
     {
-        return 195;
+        return 80;
     }
     else{
-        return 175;
+        return 80;
     }
 }
 

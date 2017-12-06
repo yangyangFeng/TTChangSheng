@@ -8,6 +8,8 @@
 
 #import "CSZFShangXiaFenViewController.h"
 
+#import "CSCaiwuViewController.h"
+#import "StoryBoardController.h"
 @interface CSZFShangXiaFenViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *shenshangfen;
 @property (weak, nonatomic) IBOutlet UILabel *daishenhe;
@@ -33,12 +35,26 @@
     // Do any additional setup after loading the view.
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    [self blackStatusBar];
+}
+
 - (IBAction)shangfenDIdAction:(id)sender {
+    
+    CSCaiwuViewController * caiwuController = (CSCaiwuViewController*)[StoryBoardController viewControllerID:@"CSCaiwuViewController" SBName:@"Mine"];
+    caiwuController.status = Up;
+    [self.navigationController pushViewController:caiwuController animated:YES];
     
 }
 
 
 - (IBAction)xiafenDidAction:(id)sender {
+    CSCaiwuViewController * caiwuController = (CSCaiwuViewController*)[StoryBoardController viewControllerID:@"CSCaiwuViewController" SBName:@"Mine"];
+    caiwuController.status = Down;
+    [self.navigationController pushViewController:caiwuController animated:YES];
 }
 
 

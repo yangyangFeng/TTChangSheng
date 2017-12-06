@@ -20,7 +20,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ChangSheng/Class/IMKit/Data/Model/CSMessageModel.m"
-            timestampString = "530374397.497162"
+            timestampString = "534257469.12827"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "479"
@@ -169,8 +169,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "761"
             endingLineNumber = "761"
-            landmarkName = "-numberOfSectionsInTableView:"
-            landmarkType = "7">
+            landmarkName = "CSPublicBetViewController"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -308,12 +308,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ChangSheng/Class/IMKit/Data/Model/CSMessageModel.m"
-            timestampString = "530374397.545814"
+            timestampString = "534257469.15076"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "651"
             endingLineNumber = "651"
-            landmarkName = "-setThumbnailImage:"
+            landmarkName = "-updateMessage:updateReason:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -340,12 +340,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ChangSheng/Class/IMKit/Data/Model/CSMessageModel.m"
-            timestampString = "530374397.548303"
+            timestampString = "534257469.152008"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "782"
             endingLineNumber = "782"
-            landmarkName = "-syncMessageSendStatus:"
+            landmarkName = "-internal_setThumbnailDownloadStatus:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -356,13 +356,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ChangSheng/Class/IMKit/Data/Model/CSMessageModel.m"
-            timestampString = "530374397.5492"
+            timestampString = "534257469.153324"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "767"
             endingLineNumber = "767"
-            landmarkName = "-messageStatus"
-            landmarkType = "7">
+            landmarkName = "CSMessageModel"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy

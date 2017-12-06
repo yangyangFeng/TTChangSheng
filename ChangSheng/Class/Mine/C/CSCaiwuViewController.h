@@ -8,6 +8,13 @@
 
 #import "TTNav_RootViewController.h"
 
+typedef enum : NSUInteger {
+    Up,
+    Down,
+} CSFenStatus;
+
 @interface CSCaiwuViewController : TTNav_RootViewController
+
+@property (nonatomic, assign)CSFenStatus status;
 
 @end
