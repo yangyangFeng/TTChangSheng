@@ -122,7 +122,9 @@
 }
 
 - (void)scrollToBottomAnimated:(BOOL)animated {
-    [self setContentOffset:CGPointMake(0, self.contentSize.height - (CGRectGetHeight(self.frame) - self.contentInset.bottom)) animated:animated];
+    if (self.contentSize.height > (self.frame.size.height - self.contentInset.bottom)) {
+        [self setContentOffset:CGPointMake(0, self.contentSize.height - (CGRectGetHeight(self.frame) - self.contentInset.bottom)) animated:animated];
+    }
 }
 
 - (CGFloat)minHeightRequiredToScroll {

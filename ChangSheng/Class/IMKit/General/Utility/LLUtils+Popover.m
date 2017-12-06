@@ -125,8 +125,8 @@
     MBProgressHUD *HUD = [MBProgressHUD HUDForView :hudView];
     if (!HUD) {
         HUD = [[MBProgressHUD alloc] initWithView:hudView];
+        [hudView addSubview:HUD];
     }
-    [hudView addSubview:HUD];
     HUD.removeFromSuperViewOnHide = YES;
     HUD.delegate = [self sharedUtils];
        
@@ -178,7 +178,7 @@
     HUD.bezelView.style = MBProgressHUDBackgroundStyleBlur;
 //    HUD.bezelView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.6];
 //    HUD.contentColor = [UIColor colorWithWhite:1 alpha:1];
-    
+    HUD.label.textColor = [UIColor colorWithWhite:0.f alpha:0.7f];
     HUD.label.text = text;
     HUD.label.font = [UIFont systemFontOfSize:16];
     
@@ -234,7 +234,7 @@
     MBProgressHUD *HUD = [self progressHUDInView:view];
     
 //    HUD.mode = MBProgressHUDModeCustomView;
-    NSData * imageData = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"k9" ofType:@"gif"]];
+    NSData * imageData = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"csLoading" ofType:@"gif"]];
     UIImage *image = [UIImage yy_imageWithSmallGIFData:imageData scale:2];
     YYAnimatedImageView * imageView = [[YYAnimatedImageView alloc] initWithImage:image];
     imageView.frame = CGRectMake(0, 0, 40, 40);
@@ -249,8 +249,8 @@
     HUD.bezelView.backgroundColor = [UIColor clearColor];
     //[UIColor colorWithWhite:0 alpha:0.6];
     HUD.label.text = title;
-    HUD.label.font = [UIFont systemFontOfSize:14];
-    HUD.contentColor = [UIColor colorWithWhite:1 alpha:1];
+//    HUD.label.font = [UIFont systemFontOfSize:14];
+//    HUD.contentColor = [UIColor colorWithWhite:1 alpha:1];
     
     [HUD layoutIfNeeded];
 //    HUD.label.top_LL += 10;

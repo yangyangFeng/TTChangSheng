@@ -14,21 +14,21 @@
 NSString* Home_GetBgImageNameWithIndex(NSInteger index) {
     switch (index) {
         case 0:
-            return @"vip";
+            return @"长龙vip";
             break;
         case 1:
-            return @"大众厅";
+            return @"长龙1厅";
             break;
         case 2:
-            return @"客服";
+            return @"长龙2厅";
             break;
         case 3:
-            return @"财务";
+            return @"长龙vip";
             break;
         default:
             break;
     }
-    return @"vip";
+    return @"长龙vip";
 }
 
 @interface CSHomeTableViewCell()<CSIMReceiveManagerDelegate>
@@ -90,7 +90,7 @@ NSString* Home_GetBgImageNameWithIndex(NSInteger index) {
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     CGFloat height =  125;
-    return IPhone4_5_6_6P(height+20, height+20, height+20, height*1.1 + 20);
+    return IPhone4_5_6_6P_X(height+20, height+20, height+20, height*1.1 + 20, height+20);
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath

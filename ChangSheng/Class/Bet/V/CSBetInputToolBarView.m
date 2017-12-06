@@ -30,8 +30,8 @@
 //    self.otherBtn.hidden = YES;
     
     self.textViewInputToolBar.alpha = 0;
-    self.biaoqingBtn.alpha = 0;
-    self.otherBtn.alpha = 0;
+//    self.biaoqingBtn.alpha = 0;
+//    self.otherBtn.alpha = 0;
     _my_fenLabel.text = [NSString stringWithFormat:@"身上分:%d",[CSUserInfo shareInstance].info.surplus_score];
     
     self.textViewInputToolBar.layer.masksToBounds = YES;
@@ -73,8 +73,8 @@
                 
                 
                 self.textViewInputToolBar.alpha = 1;
-                self.biaoqingBtn.alpha = 1;
-                self.otherBtn.alpha = 1;
+//                self.biaoqingBtn.alpha = 1;
+//                self.otherBtn.alpha = 1;
             }];
             
             [self.intputChangeButton setImage:[UIImage imageNamed:@"投"] forState:(UIControlStateNormal)];
@@ -112,8 +112,8 @@
                 
                 
                 self.textViewInputToolBar.alpha = 0;
-                self.biaoqingBtn.alpha = 0;
-                self.otherBtn.alpha = 0;
+//                self.biaoqingBtn.alpha = 0;
+//                self.otherBtn.alpha = 0;
             }];
             
             

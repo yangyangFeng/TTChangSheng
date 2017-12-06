@@ -52,4 +52,6 @@ typedef enum : NSUInteger {
  获取socket连接
  */
 + (TTSocketChannelManager *)shareInstance;
+
+@property(nonatomic,assign,readonly)CS_IM_Connection_Ststus connectionStatus;
 @end

@@ -15,8 +15,8 @@
 
 
 
-#define GIF_IMAGE_SIZE 100
-#define GIF_IMAGE_MIN_SIZE 50
+#define GIF_IMAGE_SIZE 155
+#define GIF_IMAGE_MIN_SIZE 55
 
 @interface LLMessageGifCell ()
 //@property (nonatomic) LLGIFImageView *gifImageView;

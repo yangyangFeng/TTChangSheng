@@ -1,0 +1,60 @@
+
+/* Class = "UITextField"; placeholder = "输入密码"; ObjectID = "1gY-yQ-BLa"; */
+"1gY-yQ-BLa.placeholder" = "输入密码";
+
+/* Class = "UILabel"; text = "密码"; ObjectID = "5T5-jO-hDP"; */
+"5T5-jO-hDP.text" = "密码";
+
+/* Class = "UIButton"; normalTitle = "注册"; ObjectID = "Ajo-F6-5vH"; */
+"Ajo-F6-5vH.normalTitle" = "注册";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "D04-7a-hRm"; */
+"D04-7a-hRm.normalTitle" = "Button";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "Dod-7Q-IPy"; */
+"Dod-7Q-IPy.text" = "Label";
+
+/* Class = "UIButton"; normalTitle = "登陆"; ObjectID = "E6R-og-0oO"; */
+"E6R-og-0oO.normalTitle" = "登陆";
+
+/* Class = "UILabel"; text = "文章"; ObjectID = "FWE-wr-2aS"; */
+"FWE-wr-2aS.text" = "文章";
+
+/* Class = "UILabel"; text = "朋友圈"; ObjectID = "Fgq-kW-mrg"; */
+"Fgq-kW-mrg.text" = "朋友圈";
+
+/* Class = "UILabel"; text = "公众号"; ObjectID = "OMe-jO-Ih7"; */
+"OMe-jO-Ih7.text" = "公众号";
+
+/* Class = "UITextField"; placeholder = "只支持英文字母和数字"; ObjectID = "Ozy-hp-PkB"; */
+"Ozy-hp-PkB.placeholder" = "只支持英文字母和数字";
+
+/* Class = "UILabel"; text = "微信Demo"; ObjectID = "ZaO-Eq-gBW"; */
+"ZaO-Eq-gBW.text" = "微信Demo";
+
+/* Class = "UITabBarItem"; title = "Item"; ObjectID = "d3w-Ha-wc5"; */
+"d3w-Ha-wc5.title" = "Item";
+
+/* Class = "UILabel"; text = "账号与安全"; ObjectID = "ebd-aU-7eK"; */
+"ebd-aU-7eK.text" = "账号与安全";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "k95-MY-Pm2"; */
+"k95-MY-Pm2.normalTitle" = "Button";
+
+/* Class = "UILabel"; text = "账号"; ObjectID = "kBN-zG-8HW"; */
+"kBN-zG-8HW.text" = "账号";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "klp-Wu-i8G"; */
+"klp-Wu-i8G.text" = "Label";
+
+/* Class = "UIButton"; normalTitle = "按住 说话"; ObjectID = "uv0-Dm-ele"; */
+"uv0-Dm-ele.normalTitle" = "按住 说话";
+
+/* Class = "UILabel"; text = "已从听筒切换回扬声器播放"; ObjectID = "uvK-Nb-xjw"; */
+"uvK-Nb-xjw.text" = "已从听筒切换回扬声器播放";
+
+/* Class = "UIButton"; normalTitle = "按住 说话"; ObjectID = "w6m-VY-Hzl"; */
+"w6m-VY-Hzl.normalTitle" = "按住 说话";
+
+/* Class = "UILabel"; text = "已从听筒切换回扬声器播放"; ObjectID = "wQx-0y-pbe"; */
+"wQx-0y-pbe.text" = "已从听筒切换回扬声器播放";

@@ -226,7 +226,7 @@ static CSIMReceiveManager * _manager = nil;
                 return;
             }
             
-            [CSUserInfo shareInstance].info.surplus_score = [message.result.surplusScore integerValue];
+            [[CSUserInfo shareInstance] syncUserSurplus_score:[message.result.surplusScore integerValue] ];
             [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICE_KEY_SOCKET_CURRENT_SCORE object:nil];
         }
             break;

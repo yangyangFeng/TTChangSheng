@@ -44,7 +44,7 @@
     
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.bottom.mas_equalTo(0);
-        make.top.mas_equalTo(-20);
+        make.top.mas_equalTo(IPhone4_5_6_6P_X(-20,-20,-20,-20,-40));
     }];
    
    
@@ -119,17 +119,20 @@
 - (void)logoutDidAction
 {
 //    [MBProgressHUD tt_Show];
-    [LLUtils showCustomIndicatiorHUDWithTitle:@"" inView:self.view];
-    [[CSUserInfo shareInstance] logout];
-    [[TTSocketChannelManager shareInstance] closeConnection];
-
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        UIViewController * rootC = [StoryBoardController viewControllerID:@"CSLoginViewController" SBName:@"CSLoginSB"];
-        TTNavigationController * nav = [[TTNavigationController alloc]initWithRootViewController:rootC];
-        AppDelegate * appDelegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
-        appDelegate.window.rootViewController = nav;
-        [LLUtils showTextHUD:@"已退出登录"];
-    });
+    
+    [LLUtils showConfirmAlertWithTitle:@"" message:@"您是否要退出登录?" yesTitle:@"确认" yesAction:^{
+        [LLUtils showCustomIndicatiorHUDWithTitle:@"" inView:self.view];
+        [[CSUserInfo shareInstance] logout];
+        [[TTSocketChannelManager shareInstance] closeConnection];
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            UIViewController * rootC = [StoryBoardController viewControllerID:@"CSLoginViewController" SBName:@"CSLoginSB"];
+            TTNavigationController * nav = [[TTNavigationController alloc]initWithRootViewController:rootC];
+            AppDelegate * appDelegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
+            appDelegate.window.rootViewController = nav;
+            [LLUtils showTextHUD:@"已退出登录" inView:self.view];
+        });
+    }];
 }
 
 #pragma tab del  /  sour
@@ -158,8 +161,11 @@
     switch (indexPath.row) {
         case 0:
         {
-            UIViewController * caiwuController = [StoryBoardController viewControllerID:@"CSCaiwuViewController" SBName:@"Mine"];
+            
+            UIViewController * caiwuController = [StoryBoardController viewControllerID:@"CSZFShangXiaFenViewController" SBName:@"ZhangFang"];
             [self.navigationController pushViewController:caiwuController animated:YES];
+//            UIViewController * caiwuController = [StoryBoardController viewControllerID:@"CSCaiwuViewController" SBName:@"Mine"];
+//            [self.navigationController pushViewController:caiwuController animated:YES];
         }
             break;
         case 1:

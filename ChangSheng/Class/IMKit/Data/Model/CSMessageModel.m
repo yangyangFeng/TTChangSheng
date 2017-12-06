@@ -528,6 +528,36 @@ NSMutableDictionary * tmpImageDict;
     return msgBody;
 }
 
++ (CSMessageModel *)conversionWithLocalRecordModel:(CSMsg_User_Msg*)msgRecordModel chatType:(CSChatType)chatType chatId:(NSString *)chatId
+{
+    CSMessageModel * msgBody;
+    
+    switch ((CSMessageBodyType)msgRecordModel.type.integerValue) {
+        case CSMessageBodyTypeText:
+            msgBody = [CSMessageModel newMessageChatType:chatType chatId:chatId msgId:msgRecordModel.msg_id msgType:CSMessageBodyTypeText action:1 content:msgRecordModel.content isSelf:msgRecordModel.is_self.intValue];
+            break;
+        case CSMessageBodyTypeImage:
+            msgBody = [CSMessageModel newImageMessageWithImageSize:CGSizeMake(msgRecordModel.img_width, msgRecordModel.img_height) chatId:chatId chatType:chatType msgId:msgRecordModel.msg_id msgType:(CSMessageBodyTypeImage) action:1 content:msgRecordModel.content isSelf:msgRecordModel.is_self.intValue];
+            //                       newMessageChatType:chatType chatId:chatId msgId:msgRecordModel.msg_id msgType:CSMessageBodyTypeImage action:1 content:msgRecordModel.content];
+            break;
+        case CSMessageBodyTypeVoice:
+            msgBody = [CSMessageModel newVoiceMessageChatType:chatType chatId:chatId msgId:msgRecordModel.msg_id msgType:CSMessageBodyTypeVoice action:1 content:msgRecordModel.content localPath:nil duration:msgRecordModel.voice_length uploadProgress:nil uploadStatus:nil isSelf:msgRecordModel.is_self.intValue];
+            break;
+        case CSMessageBodyTypeLink:
+            msgBody = [CSMessageModel newLinkImageMessageWithImageSize:CGSizeMake(msgRecordModel.img_width, msgRecordModel.img_height) chatId:chatId chatType:chatType msgId:msgRecordModel.msg_id msgType:(CSMessageBodyTypeLink) action:1 content:msgRecordModel.content
+                                                               linkUrl:msgRecordModel.link_url isSelf:msgRecordModel.is_self.intValue];
+            break;
+        default:
+            break;
+    }
+    [msgBody internal_setMessageStatus:(kCSMessageStatusSuccessed)];
+    
+    msgBody.body.avatar = msgRecordModel.avatar;
+    msgBody.body.nickname = msgRecordModel.nickname;
+    msgBody.body.timestamp = msgRecordModel.timestamp;
+    msgBody.timestamp = msgRecordModel.timestamp;
+    return msgBody;
+}
 
 - (void)commonInit:(EMMessage *)message {
     

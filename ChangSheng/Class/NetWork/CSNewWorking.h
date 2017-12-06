@@ -22,11 +22,14 @@
 //TODO: ***切换服务地址***
 #if SWITCH_ONLINE
 //正事服务器线上地址http://mapi.qushuawang.com/api3/Home/
-static NSString* baseUrl = @"http://mapi.qushuawang.com/api9/Home";
+static NSString* baseUrl = @"https://api.changsheng888.net";
 #else
 //线下测试地址
-static NSString* baseUrl = @"http://api.jcjh.cn";
+static NSString* baseUrl = @"https://api.changsheng888.net";
+//线下测试地址
+//static NSString* baseUrl = @"http://api.jcjh.cn";
 #endif
+static NSString* webSocketUrl = @"wss://api.changsheng888.net:4764";
 /**
  *  与后台约定,正确成功状态值
  */

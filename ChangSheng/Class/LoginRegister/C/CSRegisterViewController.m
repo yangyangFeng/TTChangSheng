@@ -24,10 +24,14 @@
 @property (weak, nonatomic) IBOutlet UITextField *referrerField;
 @property (weak, nonatomic) IBOutlet UIButton *readBtn;
 
+@property (weak, nonatomic) IBOutlet UIButton *headBtn;
 
 @end
 
 @implementation CSRegisterViewController
+
+- (IBAction)uploadDidAction:(id)sender {
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -39,12 +43,15 @@
     self.tt_navigationBar.contentView.backgroundColor = [UIColor whiteColor];
     
     self.view.backgroundColor = rgb(244, 244, 244);
+    
+    self.headBtn.layer.cornerRadius = self.headBtn.width/2.0;
+    self.headBtn.layer.masksToBounds = YES;
     // Do any additional setup after loading the view.
 }
 - (IBAction)registerAction:(id)sender {
     
     
-    
+    [self.view endEditing:YES];
  
     
     if (!self.accountField.text.length) {
@@ -85,7 +92,7 @@
     param.password = self.passwordField.text;
     param.referee_code = self.referrerField.text;
     
-    [LLUtils showCustomIndicatiorHUDWithTitle:@"" inView:self.view];
+    MBProgressHUD * hud = [LLUtils showCustomIndicatiorHUDWithTitle:@"" inView:self.view];
     
     [CSHttpRequestManager request_register_paramters:param.mj_keyValues success:^(id responseObject) {
         NSLog(@"成功%@",responseObject);
@@ -93,18 +100,20 @@
 //        CSUserInfo * info = [CSUserInfo shareInstance];
 //        info.info = obj.result;
 //        [[CSUserInfo shareInstance] login];
-        CS_HUD(obj.msg);
+        [hud hideAnimated:NO];
+        [LLUtils showTextHUD:obj.msg inView:self.view];
         CSUserInfoModel * info = [CSUserInfoModel mj_objectWithKeyValues:[[obj mj_JSONObject] objectForKey:@"result"]];
         [CSUserInfo shareInstance].info = info;
         [[CSUserInfo shareInstance] login];
         
-        CSHomeViewController * home = [CSHomeViewController new];
         AppDelegate * appDelegate =  (AppDelegate *)[UIApplication sharedApplication].delegate;
-        TTNavigationController * nav = [[TTNavigationController alloc]initWithRootViewController:home];
-        appDelegate.window.rootViewController = nav;
-    } failure:^(NSError *error) {
+        [appDelegate joinHomeController];
         
-    } showHUD:YES];
+        
+    } failure:^(NSError *error) {
+        [hud hideAnimated:NO];
+//        [LLUtils showTextHUD:error.domain inView:self.view];
+    } showHUD:NO];
 }
     
 - (IBAction)readUserInfoAction:(id)sender {

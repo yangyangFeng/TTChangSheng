@@ -9,6 +9,7 @@
 #import "CSLoginHandler.h"
 #import "CSHttpRequestManager.h"
 #import "TTSocketChannelManager.h"
+#import "CSMessageRecordTool.h"
 @implementation CSLoginHandler
 + (void)loginWithParams:(NSDictionary *)params
                 successBlock:(successBlock)success
@@ -19,6 +20,7 @@
                                               if (success) {
                                                   success(responseObject);
                                               }
+                                              [self initDB];
 //                                              [self openSocket];
                                           } failure:^(NSError *error) {
                                               if (fail) {
@@ -37,6 +39,7 @@
                                                   success(responseObject);
                                               }
 //                                              [self openSocket];
+                                              [self initDB];
                                           } failure:^(NSError *error) {
                                               if (fail) {
                                                   fail(error);
@@ -46,8 +49,13 @@
 //开启socket链接通道
 + (void)openSocket
 {
-    NSString * url = [NSString stringWithFormat:@"ws://47.95.238.249:8501?token=%@",[CSUserInfo shareInstance].info.token];
+NSString * url = [NSString stringWithFormat:@"%@?token=%@",webSocketUrl,[CSUserInfo shareInstance].info.token];
     [[TTSocketChannelManager shareInstance] configUrlString:url];
     [[TTSocketChannelManager shareInstance] openConnection];
+}
+
++ (void)initDB
+{
+    [CSMessageRecordTool setDefaultRealmForUser:[CSUserInfo shareInstance].info.token];
 }
 @end

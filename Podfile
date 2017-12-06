@@ -11,8 +11,8 @@ target 'ChangSheng' do
     #======= pod update --verbose --no-repo-update ===========
     #=========================================================
 
-
-
+pod ‘Realm’
+pod 'Bugly'
 pod 'MBProgressHUD', '~> 1.0.0'
 pod 'CYLTabBarController', '1.9.0'
 pod 'CYLTableViewRowAction', '1.0.0'

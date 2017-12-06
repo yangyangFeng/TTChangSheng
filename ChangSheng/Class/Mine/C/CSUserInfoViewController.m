@@ -97,7 +97,7 @@
         [hud hideAnimated:YES];
         [CSHttpRequestManager request_changeHeaderImage_paramters:@{@"file":@"avatar"} fileData:imageData fileType:CS_UPLOAD_FILE_IMAGE | CS_UPLOAD_FILE_CUSTOME success:^(id responseObject) {
             CSChangeAvatarModel * obj = [CSChangeAvatarModel mj_objectWithKeyValues:responseObject];
-            [CSUserInfo shareInstance].info.avatar = obj.result.avatar;
+            [[CSUserInfo shareInstance] syncUserAvatar:obj.result.avatar];
         } failure:^(NSError *error) {
             
         } uploadprogress:^(CGFloat uploadProgress) {

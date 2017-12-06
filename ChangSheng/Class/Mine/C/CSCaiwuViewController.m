@@ -151,7 +151,7 @@
         return;
     }
 //    [MBProgressHUD tt_Show];
-    [LLUtils showCustomIndicatiorHUDWithTitle:@"" inView:self.view];
+    MBProgressHUD * hud = [LLUtils showCustomIndicatiorHUDWithTitle:@"" inView:self.view];
     dispatch_async(dispatch_get_main_queue(), ^{
         NSData * imageData = [self.uploadImageView.image tt_compressToDataLength:CS_IMAGE_DATA_SIZE];
         params.score = self.inputField_fen.text.intValue;
@@ -169,9 +169,9 @@
         
         [CSHttpRequestManager request_updownFen_paramters:paramsDic fileData:imageData fileType:CS_UPLOAD_FILE_IMAGE | CS_UPLOAD_FILE_CUSTOME success:^(id responseObject) {
             CSUploadFenRequestModel * obj = [CSUploadFenRequestModel mj_objectWithKeyValues:responseObject];
-//            [MBProgressHUD tt_SuccessTitle:obj.msg];
+            [hud hideAnimated:NO];
             [LLUtils showTextHUD:obj.msg inView:self.view];
-            [CSUserInfo shareInstance].info.surplus_score = obj.result.surplus_score.intValue;
+            [[CSUserInfo shareInstance] syncUserSurplus_score:obj.result.surplus_score.intValue];
             self.my_fenLabel.text = obj.result.surplus_score;
             NSArray * array = [self.navigationController viewControllers];
             NSMutableArray * popViewControllers = [NSMutableArray arrayWithArray:array];
@@ -179,11 +179,12 @@
             [popViewControllers replaceObjectAtIndex:popViewControllers.count - 1 withObject:operationC];
             [self.navigationController setViewControllers:popViewControllers animated:YES];
         } failure:^(NSError *error) {
-            
+            [hud hideAnimated:NO];
+            [LLUtils showTextHUD:error.domain inView:self.view];
         } uploadprogress:^(CGFloat uploadProgress) {
 //            MBProgressHUD*hud = [MBProgressHUD tt_progressShowInView:self.view];
 //            hud.progress = uploadProgress;
-        } showHUD:YES];
+        } showHUD:NO];
     });
     
    

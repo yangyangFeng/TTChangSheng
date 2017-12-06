@@ -303,8 +303,10 @@ CSPublicBetInputToolBarViewDelegate
     
     [self loadMessageData];
     
-    [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.dataSource.count - 1 inSection:0] atScrollPosition:(UITableViewScrollPositionBottom) animated:NO];
-//    [self.tableView scrollsToBottomAnimated:YES];
+//    [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.dataSource.count - 1 inSection:0] atScrollPosition:(UITableViewScrollPositionBottom) animated:NO];
+
+//    [self.tableView scrollToBottomAnimated:YES];
+//    [self.tableView setContentOffset:CGPointMake(0, self.tableView.contentSize.height) animated:NO];
 }
 
 - (void)reConnectionSocket
@@ -441,7 +443,8 @@ CSPublicBetInputToolBarViewDelegate
             [self.tableView scrollToBottomAnimated:YES];
         });
      
-//           [self.tableView setContentOffset:CGPointMake(0, self.contentSize.height - (CGRectGetHeight(self.frame) - self.contentInset.bottom)) animated:animated];
+//        [self.tableView scrollToBottomAnimated:YES];
+
     }
     firstViewDidAppear = YES;
 }
@@ -495,7 +498,7 @@ CSPublicBetInputToolBarViewDelegate
         make.bottom.mas_equalTo(-50);
     }];
     
-    [self.tableView reloadData];
+//    [self.tableView reloadData];
 
     [self.view addSubview:self.gongGaoView];
     self.gongGaoView.contentView.text = self.conversationModel.group_tips;
@@ -524,6 +527,7 @@ CSPublicBetInputToolBarViewDelegate
 //    }
     self.dataSource = [self processData:self.conversationModel];
     [self.tableView reloadData];
+    [self.tableView scrollToBottomAnimated:YES];
 }
 
 - (NSMutableArray<CSMessageModel *> *)processData:(CSIMConversationModel *)conversationModel {
@@ -951,7 +955,9 @@ CSPublicBetInputToolBarViewDelegate
 #pragma mark - 处理Cell动作
 
 - (void)textPhoneNumberDidTapped:(NSString *)phoneNumber userinfo:(nullable id)userinfo {
-    [self.chatInputView dismissKeyboard];
+//    [self.chatInputView dismissKeyboard];
+//    [self.view endEditing:YES];
+    [self.inputToolBarView cs_resignFirstResponder];
     NSString *title = [NSString stringWithFormat:@"%@可能是一个电话号码,你可以", phoneNumber];
     LLActionSheet *actionSheet = [[LLActionSheet alloc] initWithTitle:title];
     LLActionSheetAction *action1 = [LLActionSheetAction actionWithTitle:@"呼叫"
@@ -989,7 +995,7 @@ CSPublicBetInputToolBarViewDelegate
 
 
 - (void)textLinkDidTapped:(NSURL *)url userinfo:(nullable id)userinfo {
-    [self.chatInputView dismissKeyboard];
+    [self.inputToolBarView cs_resignFirstResponder];
     
     if ([url.scheme isEqualToString:URL_MAIL_SCHEME]) {
         NSString *recipient = url.resourceSpecifier;
@@ -1032,7 +1038,7 @@ CSPublicBetInputToolBarViewDelegate
 
 
 - (void)textLinkDidLongPressed:(NSURL *)url userinfo:(nullable id)userinfo {
-    [self.chatInputView dismissKeyboard];
+    [self.inputToolBarView cs_resignFirstResponder];
     
     NSString *title;
     if ([url.scheme isEqualToString:URL_MAIL_SCHEME]) {
@@ -1078,7 +1084,7 @@ CSPublicBetInputToolBarViewDelegate
         _tableView.dataSource = self;
         _tableView.backgroundColor = TABLEVIEW_BACKGROUND_COLOR;
         _tableView.contentInset = UIEdgeInsetsZero;
-        
+        _tableView.allowsSelection = NO;
         self.tableView.scrollIndicatorInsets = self.tableView.contentInset;
         _tableView.separatorStyle = 0;
     }

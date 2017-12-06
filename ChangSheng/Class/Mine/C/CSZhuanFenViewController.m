@@ -10,6 +10,7 @@
 #import "StoryBoardController.h"
 #import "CSTransferScoreModel.h"
 #import "LLUtils+Popover.h"
+#import "CSOperationListViewController.h"
 @interface CSZhuanFenViewController ()
 
 @end
@@ -69,6 +70,7 @@
     return 60;
 }
 - (IBAction)confirmDidAction:(id)sender {
+    [self.view endEditing:YES];
     if (!self.inputField0.text.length) {
         CS_HUD(@"请输入ID");
         return;
@@ -81,23 +83,29 @@
         CS_HUD(@"请输入登录密码");
         return;
     }
+    
     CSTransferScoreModel * params = [CSTransferScoreModel new];
     params.score = self.inputField1.text;
     params.to_code = self.inputField0.text;
     params.password = self.inputField2.text;
 //    [MBProgressHUD tt_Show];
-    [LLUtils showCustomIndicatiorHUDWithTitle:@"" inView:self.view];
+    MBProgressHUD * hud =  [LLUtils showCustomIndicatiorHUDWithTitle:@"" inView:self.view];
     [CSHttpRequestManager request_zhuanFen_paramters:params.mj_keyValues success:^(id responseObject) {
+        [hud hideAnimated:YES];
         CSTransferScoreModel * obj = [CSTransferScoreModel mj_objectWithKeyValues:responseObject];
 //        [MBProgressHUD tt_SuccessTitle:obj.msg];
-        [CSUserInfo shareInstance].info.surplus_score = obj.result.surplus_score.intValue;
+        [[CSUserInfo shareInstance] syncUserSurplus_score:obj.result.surplus_score.intValue];
 //        [MBProgressHUD tt_SuccessTitle:@"转分成功!"];
         CS_HUD(@"转分成功!");
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [self.navigationController popViewControllerAnimated:YES];
+            NSArray * array = [self.navigationController viewControllers];
+            NSMutableArray * popViewControllers = [NSMutableArray arrayWithArray:array];
+            CSOperationListViewController * operationC = [CSOperationListViewController new];
+            [popViewControllers replaceObjectAtIndex:popViewControllers.count - 1 withObject:operationC];
+            [self.navigationController setViewControllers:popViewControllers animated:YES];
         });
     } failure:^(NSError *error) {
-        
+        [hud hideAnimated:YES];
     } showHUD:YES];
     
     

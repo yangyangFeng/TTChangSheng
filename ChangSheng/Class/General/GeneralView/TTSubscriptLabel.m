@@ -17,7 +17,7 @@
     self.layer.cornerRadius = 10.0f;
     self.textColor = [UIColor whiteColor];
     self.backgroundColor = [UIColor redColor];
-    self.font = [UIFont systemFontOfSize:12];
+    self.font = [UIFont systemFontOfSize:10];
     self.textAlignment = NSTextAlignmentCenter;
     self.adjustsFontSizeToFitWidth = YES;
 //    self.minimumScaleFactor = 10;

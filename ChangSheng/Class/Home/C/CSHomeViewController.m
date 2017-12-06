@@ -9,6 +9,8 @@
 #import "CSHomeViewController.h"
 #import "CSPublicBetViewController.h"
 
+#import "CSMessageRecordTool.h"
+
 #import "CSLoginHandler.h"
 #import "CSHomeTableViewHandler.h"
 #import "LLChatViewController.h"
@@ -21,10 +23,15 @@
 #import "CSHttpGroupResModel.h"
 #import "CSUserServiceListViewController.h"
 #import "LLUtils+Popover.h"
+#import "CSHomeConnectionStatusView.h"
+#import "TTSocketChannelManager.h"
+
+
 @interface CSHomeViewController ()<TTBaseTableViewHandlerDelegate>
 @property (nonatomic,strong) CSHomeTableViewHandler *tableHandler;
 @property (nonatomic,strong) NSArray *betGroupArray;
 @property(nonatomic,strong)MBProgressHUD * hud;
+@property(nonatomic,strong)CSHomeConnectionStatusView * connectionStatusView;
 @end
 
 @implementation CSHomeViewController
@@ -32,48 +39,66 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self.navigationController performSelector:@selector(whiteStatusBar)];
+//    [self.navigationController performSelector:@selector(whiteStatusBar)];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    [self.navigationController performSelector:@selector(blackStatusBar)];
+//    [self.navigationController performSelector:@selector(blackStatusBar)];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [self blackStatusBar];
     
     [self tt_Title:@"长圣"];
 //    [self tt_SetNaviBarHide:YES withAnimation:NO];
     self.edgesForExtendedLayout = UIRectEdgeNone;
     
 
-    self.tt_navigationBar.contentView.backgroundColor = [UIColor blackColor];
-    [self createSubviews];
     
-//    CSBetInputView * topView = [CSBetInputView viewFromXIB];
-//    CSNumberKeyboardView * keyboardView = [CSNumberKeyboardView new];
-//    
-//    [self.view addSubview:keyboardView];
-//    [self.view addSubview:topView];
-//    
-//    [keyboardView mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.left.right.bottom.mas_equalTo(0);
-//        make.height.mas_equalTo(45*4);
-//    }];
-//    [topView mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.left.right.mas_equalTo(0);
-//        make.bottom.mas_equalTo(keyboardView.mas_top).offset(0);
-//        make.height.mas_equalTo(35+44*2);
-//    }];
+    
+    _connectionStatusView = [CSHomeConnectionStatusView viewFromXIB];
+    [self.tt_navigationBar.centerView addSubview:_connectionStatusView];
+    [_connectionStatusView.indicatorView startAnimating];
+    
+    [_connectionStatusView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.mas_equalTo(0);
+    }];
+    [self createSubviews];
     
     if ([CSUserInfo shareInstance].isOnline) {
         [CSLoginHandler openSocket];
     }
     [self loadData];
-    
-//    _hud = [LLUtils showCustomIndicatiorHUDWithTitle:@"loding" inView:self.view];
+ 
+    [self.KVOController observe:[TTSocketChannelManager shareInstance] keyPath:@"connectionStatus" options:(NSKeyValueObservingOptionNew) block:^(id  _Nullable observer, id  _Nonnull object, NSDictionary<NSString *,id> * _Nonnull change) {
+        TTSocketChannelManager * socket = object;
+        dispatch_async(dispatch_get_main_queue(), ^{
+        if (socket.connectionStatus == CS_IM_Connection_Ststus_Connectioning) {
+            self.connectionStatusView.indicatorView.hidden = NO;
+            [self.connectionStatusView.indicatorView startAnimating];
+            self.connectionStatusView.statusLabel.text = @"连接中...";
+        }
+        else if (socket.connectionStatus == CS_IM_Connection_Ststus_Connectioned) {
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                self.connectionStatusView.indicatorView.hidden = YES;
+                [self.connectionStatusView.indicatorView stopAnimating];
+                self.connectionStatusView.statusLabel.text = @"长圣";
+            });
+        }
+        else
+        {
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                self.connectionStatusView.indicatorView.hidden = YES;
+                [self.connectionStatusView.indicatorView stopAnimating];
+                self.connectionStatusView.statusLabel.text = @"未连接";
+            });
+        }
+        });
+    }];
 }
 
 - (void)createSubviews

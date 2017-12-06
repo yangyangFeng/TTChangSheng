@@ -36,12 +36,18 @@
  */
 #define DISMISSTIME 1
 
+/**
+ 主题字体颜色
+ */
+#define CS_TextColor [UIColor colorWithHexColorString:@"24BC7F"]
+
 #define CS_IMAGE_DATA_SIZE 450*1000
 // 默认 占位符 颜色
 #define TEXTFIELD_PLACE_COLOR [UIColor colorWithHexColorString:@"999999"]
 //TODO: 默认 cell高度
 #define GP_CELL_HEIGHT 80
-
+//导航栏颜色
+#define CS_NAV_BAR_COLOR [UIColor whiteColor]
 //TODO: 版本号
 #define APPVERSION [[[NSBundle mainBundle] infoDictionary]  objectForKey:@"CFBundleShortVersionString"]
 
@@ -68,7 +74,7 @@
 #define NavBarHeaght 44
 #define NavStateBar 64
 // 导航栏颜色
-#define NAV_BG_COLOR [UIColor colorWithHexColorString:@"121212" alpha:1.0]
+#define NAV_BG_COLOR [UIColor colorWithHexColorString:@"ffffff" alpha:1.0]
 //主色调
 #define MAIN_COLOR [UIColor colorWithHexColorString:@"1ab6af" alpha:1.0]
 
@@ -88,7 +94,8 @@
 //TODO: tableview背景颜色
 #define TABLEVIEWCOLOR group_table_color
 //************************************************************************//
-#define IPhone4_5_6_6P(a,b,c,d) (CGSizeEqualToSize(CGSizeMake(320, 480), [[UIScreen mainScreen] bounds].size) ?(a) :(CGSizeEqualToSize(CGSizeMake(320, 568), [[UIScreen mainScreen] bounds].size) ? (b) : (CGSizeEqualToSize(CGSizeMake(375, 667), [[UIScreen mainScreen] bounds].size) ?(c) : (CGSizeEqualToSize(CGSizeMake(414, 736), [[UIScreen mainScreen] bounds].size) ?(d) : 0))))
+#define IPhone4_5_6_6P_X(a,b,c,d,e) (CGSizeEqualToSize(CGSizeMake(320, 480), [[UIScreen mainScreen] bounds].size) ?(a) :(CGSizeEqualToSize(CGSizeMake(320, 568), [[UIScreen mainScreen] bounds].size) ? (b) : (CGSizeEqualToSize(CGSizeMake(375, 667), [[UIScreen mainScreen] bounds].size) ?(c) : (CGSizeEqualToSize(CGSizeMake(414, 736), [[UIScreen mainScreen] bounds].size) ?(d) : CGSizeEqualToSize(CGSizeMake(375, 812), [[UIScreen mainScreen] bounds].size) ?(e) : 0))))
+
 #define autoSizeScaleX WIDTH/320
 #define autoSizeScaleY HEIGHT/568
 #define IPhone6P_SCALE 1.2f

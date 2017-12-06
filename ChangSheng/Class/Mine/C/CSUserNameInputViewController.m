@@ -44,6 +44,7 @@
     [self.inputField resignFirstResponder];
     NSString * nikeName = self.inputField.text;
     [CSHttpRequestManager request_changeNickName_paramters:@{@"nickname":self.inputField.text} success:^(id responseObject) {
+        [[CSUserInfo shareInstance] syncUserNickName:nikeName];
         self.callBlock(nikeName);
         [self.navigationController popViewControllerAnimated:YES];
     } failure:^(NSError *error) {

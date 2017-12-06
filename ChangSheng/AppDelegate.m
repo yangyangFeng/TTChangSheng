@@ -15,8 +15,17 @@
 #import "CSMessageModel.h"
 #import "CSHomeViewController.h"
 #import "CSLoginHandler.h"
-@interface AppDelegate ()
+#import <JhtGuidePages/JhtGradientGuidePageVC.h>
+#import <Bugly/Bugly.h>
 
+#import "CSUserServiceListViewController.h"
+#import "CSMineViewController.h"
+#import "CSFriendsListViewController.h"
+#import "TTNavigationController.h"
+@interface AppDelegate ()
+/** 引导页VC */
+@property (nonatomic, strong) JhtGradientGuidePageVC *introductionView;
+@property (nonatomic, strong) CYLTabBarController * rootViewController;
 @end
 
 @implementation AppDelegate
@@ -24,6 +33,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    [Bugly startWithAppId:@"7392769854"];
 #ifdef DEBUG
     [iConsole sharedConsole].delegate = self;
     // 日志提交邮箱
@@ -37,23 +47,29 @@
     
 #endif
     if ([CSUserInfo shareInstance].isOnline) {
-        CSHomeViewController * home = [CSHomeViewController new];
-         TTNavigationController * nav = [[TTNavigationController alloc]initWithRootViewController:home];
-        self.window.rootViewController = nav;
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [CSLoginHandler openSocket];
-        });
+        [self setupViewControllers];
+        
+//        CSHomeViewController * home = [CSHomeViewController new];
+//         TTNavigationController * nav = [[TTNavigationController alloc]initWithRootViewController:home];
+////        self.window.rootViewController = nav;
+//        self.rootViewController = nav;
+//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//            [CSLoginHandler openSocket];
+//        });
+        [CSLoginHandler initDB];
     }
     else
     {
         UIViewController * rootC = [StoryBoardController viewControllerID:@"CSLoginViewController" SBName:@"CSLoginSB"];
         TTNavigationController * nav = [[TTNavigationController alloc]initWithRootViewController:rootC];
-        self.window.rootViewController = nav;
+//        self.window.rootViewController = nav;
+        self.rootViewController = nav;
     }
-    [self.window makeKeyAndVisible];
+//    [self.window makeKeyAndVisible];
+//    self.rootViewController = self.window.rootViewController;
     
-    
-   
+    // 创建引导页
+    [self createGuideVC];
 
     
  
@@ -66,8 +82,121 @@
     IQKManager.toolbarTintColor = [UIColor greenColor];
 //    CSMessageModel * as = [CSMessageModel new];
 //    NSLog(@"%@",as.mj_JSONString);
-    sleep(1);
+//    sleep(1);
     return YES;
+}
+
+/** 创建引导页 */
+- (void)createGuideVC {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSString *firstKey = [NSString stringWithFormat:@"isFirst%@", [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]];
+    NSString *isFirst = [defaults objectForKey:firstKey];
+    NSArray * imageArray = @[@"1引导页1080", @"2引导页1080", @"3引导页1080"];
+    if (!isFirst.length) {
+   
+        UIButton *enterButton = [[UIButton alloc] init];
+        [enterButton setTitle:@"立即进入" forState:UIControlStateNormal];
+        [enterButton setBackgroundColor:rgb(41, 177, 80)];
+        enterButton.layer.cornerRadius = 5.0;
+  
+        
+        self.introductionView = [[JhtGradientGuidePageVC alloc]initWithGuideImageNames:imageArray withLastRootViewController:self.rootViewController];
+
+        self.introductionView.enterButton =  enterButton;
+        // 添加《跳过》按钮
+        self.introductionView.isNeedSkipButton = YES;
+        /******** 更多个性化配置见《JhtGradientGuidePageVC.h》 ********/
+        
+        self.window.rootViewController = self.introductionView;
+        
+        __weak AppDelegate *weakSelf = self;
+        self.introductionView.didClickedEnter = ^() {
+            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+            NSString *firstKey = [NSString stringWithFormat:@"isFirst%@", [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]];
+            NSString *isFirst = [defaults objectForKey:firstKey];
+            if (!isFirst) {
+                [defaults setObject:@"notFirst" forKey:firstKey];
+                [defaults synchronize];
+            }
+
+            weakSelf.introductionView = nil;
+        };
+    } else {
+        self.window.rootViewController = self.rootViewController;
+    }
+}
+
+- (void)joinHomeController
+{
+    [self setupViewControllers];
+    self.window.rootViewController = self.rootViewController;
+}
+
+- (void)setupViewControllers {
+    
+    CSHomeViewController * home = [CSHomeViewController new];
+    TTNavigationController * nav0 = [[TTNavigationController alloc]initWithRootViewController:home];
+    
+    CSFriendsListViewController * friend = [CSFriendsListViewController new];
+    TTNavigationController * nav1 = [[TTNavigationController alloc]initWithRootViewController:friend];
+    
+    CSUserServiceListViewController * userSer = [CSUserServiceListViewController new];
+    TTNavigationController * nav2 = [[TTNavigationController alloc]initWithRootViewController:userSer];
+    
+    CSMineViewController * minea = [CSMineViewController new];
+    TTNavigationController * nav3 = [[TTNavigationController alloc]initWithRootViewController:minea];
+    
+    CSMineViewController * mine = [CSMineViewController new];
+    TTNavigationController * nav4 = [[TTNavigationController alloc]initWithRootViewController:mine];
+    
+    CYLTabBarController *tabBarController = [[CYLTabBarController alloc] init];
+    [self customizeTabBarForController:tabBarController];
+    
+    [tabBarController setViewControllers:@[
+                                           nav0,
+                                           nav1,
+                                           nav2,
+                                           nav3,
+                                           nav4
+                                           ]];
+    self.rootViewController = tabBarController;
+}
+
+/*
+ *
+ 在`-setViewControllers:`之前设置TabBar的属性，
+ *
+ */
+- (void)customizeTabBarForController:(CYLTabBarController *)tabBarController {
+    
+    NSDictionary *dict0 = @{
+                            CYLTabBarItemTitle : @"娱乐场",
+                            CYLTabBarItemImage : @"娱乐场",
+                            CYLTabBarItemSelectedImage : @"娱乐场点击",
+                            };
+    NSDictionary *dict1 = @{
+                            CYLTabBarItemTitle : @"乐友",
+                            CYLTabBarItemImage : @"乐友",
+                            CYLTabBarItemSelectedImage : @"乐友点击",
+                            };
+    NSDictionary *dict2 = @{
+                            CYLTabBarItemTitle : @"客服",
+                            CYLTabBarItemImage : @"客服",
+                            CYLTabBarItemSelectedImage : @"客服点击",
+                            };
+    NSDictionary *dict3 = @{
+                            CYLTabBarItemTitle : @"账房",
+                            CYLTabBarItemImage : @"账房",
+                            CYLTabBarItemSelectedImage : @"账房点击",
+                            };
+    NSDictionary *dict4 = @{
+                            CYLTabBarItemTitle : @"我的",
+                            CYLTabBarItemImage : @"我的",
+                            CYLTabBarItemSelectedImage : @"我的点击",
+                            };
+    NSArray *tabBarItemsAttributes = @[ dict0, dict1, dict2 ,dict3, dict4];
+    tabBarController.tabBarItemsAttributes = tabBarItemsAttributes;
+    tabBarController.tabBar.tintColor = [UIColor colorWithHexColorString:@"24BC7F"];
 }
 
 
