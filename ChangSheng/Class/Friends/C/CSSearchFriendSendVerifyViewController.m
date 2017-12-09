@@ -8,8 +8,10 @@
 
 #import "CSSearchFriendSendVerifyViewController.h"
 
+#import "CSAddFriendParam.h"
+#import "LLUtils.h"
 @interface CSSearchFriendSendVerifyViewController ()
-
+@property (nonatomic,strong) UITextField *textField;
 @end
 
 @implementation CSSearchFriendSendVerifyViewController
@@ -38,6 +40,7 @@
     textField.clearsOnBeginEditing = YES;
     textField.clearButtonMode = UITextFieldViewModeWhileEditing;
     textField.autocapitalizationType = UITextAutocapitalizationTypeAllCharacters;
+    _textField = textField;
     
     [self.contentView addSubview:textField];
     [textField mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -50,9 +53,27 @@
 
 -(void)nextBtnDidAction
 {
-    if (self.callblock) {
-        self.callblock(@"发送验证吗");
-    }
+    CSAddFriendParam * param = [CSAddFriendParam new];
+    param.friend_id = self.userId;
+    param.msg = self.textField.text;
+
+    MBProgressHUD * hud = [LLUtils showCustomIndicatiorHUDWithTitle:@"" inView:self.view];
+    
+    [CSHttpRequestManager request_addFriend_paramters:param.mj_keyValues success:^(id responseObject) {
+        [hud hideAnimated:YES];
+        
+        [LLUtils showActionSuccessHUD:@"发送成功"];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            if (self.callblock) {
+                self.callblock(@"发送验证吗");
+            }
+        });
+    } failure:^(NSError *error) {
+        [hud hideAnimated:YES];
+        
+    } showHUD:YES];
+    
+    
 }
 
 - (void)didReceiveMemoryWarning {

@@ -9,6 +9,8 @@
 #import "CSSearchFriendViewController.h"
 
 #import "CSSearchFriendView.h"
+#import "CSFindUserParam.h"
+#import "LLUtils.h"
 @interface CSSearchFriendViewController ()<CSSearchFriendViewDelegate>
 @property(nonatomic,strong)UILabel * alertLabel;
 @end
@@ -48,14 +50,30 @@
         make.top.mas_equalTo(searchView.mas_bottom).offset(50);
     }];
     
-    self.alertLabel.hidden = NO;
 }
 
 -(void)searchBarDidSearch:(NSString *)text
 {
-    if (self.callblock) {
-        self.callblock(text);
-    }
+    MBProgressHUD * hud = [LLUtils showCustomIndicatiorHUDWithTitle:@"" inView:self.view];
+    CSFindUserParam * param = [CSFindUserParam new];
+    param.usermark = text;
+    [CSHttpRequestManager request_findUser_paramters:param.mj_keyValues success:^(id responseObject) {
+        CSFindUserParam * obj = [CSFindUserParam mj_objectWithKeyValues:responseObject];
+        if (obj.code.intValue == successCode) {
+            if (self.callblock) {
+                self.callblock(obj.result);
+            }
+            self.alertLabel.hidden = YES;
+        }
+        else
+        {
+            self.alertLabel.hidden = NO;
+        }
+        [hud hideAnimated:YES];
+    } failure:^(NSError *error) {
+        [hud hideAnimated:YES];
+    } showHUD:YES];
+    
 }
 -(UILabel *)alertLabel
 {

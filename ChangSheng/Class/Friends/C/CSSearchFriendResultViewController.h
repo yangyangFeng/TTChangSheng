@@ -7,7 +7,7 @@
 //
 
 #import "CSBaseSearchFriendViewController.h"
-
+#import "CSFindUserParam.h"
 @interface CSSearchFriendResultViewController : CSBaseSearchFriendViewController
-
+@property (nonatomic,strong) CSFindUserParam *model;
 @end

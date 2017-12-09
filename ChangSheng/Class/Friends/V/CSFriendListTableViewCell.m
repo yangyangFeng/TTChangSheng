@@ -30,6 +30,17 @@
     return cell;
 }
 
+-(void)setModel:(CSFriendchartlistModel *)model
+{
+    _model = model;
+    [_userIcon yy_setImageWithURL:[NSURL URLWithString:model.headurl] options:(YYWebImageOptionSetImageWithFadeAnimation)];
+    _number.text = model.unreadmsgnum;
+    _nickName.text = model.nickname;
+    _content.text = model.lastmsg;
+    _date.text = model.lastdata;
+    
+}
+
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code

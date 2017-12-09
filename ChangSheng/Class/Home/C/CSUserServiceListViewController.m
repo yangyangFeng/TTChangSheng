@@ -220,7 +220,8 @@ static CSUserServiceListViewController * controller = nil;
                 [hud hideAnimated:YES afterDelay:1];
             } showHUD:YES];
         }
-    }];
+    }
+     LastId:nil count:CS_Message_Count];
     
     
     

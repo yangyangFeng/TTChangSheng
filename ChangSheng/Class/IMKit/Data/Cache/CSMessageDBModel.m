@@ -20,10 +20,19 @@
 + (NSArray *)indexedProperties {
     return @[@"userId"];
 }
+
 @end
 
 
 @implementation CSMsg_User_Msg
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        _isRead = NO;
+    }
+    return self;
+}
 + (NSDictionary *)defaultPropertyValues {
     return @{@"img_width":@(0),
              @"img_height":@(0),

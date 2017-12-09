@@ -143,7 +143,9 @@
     HUD.mode = MBProgressHUDModeCustomView;
     UIImage *image = [UIImage imageNamed:@"operationbox_successful"];
     image = [image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    
     HUD.customView = [[UIImageView alloc] initWithImage:image];
+    HUD.customView.tintColor = [UIColor whiteColor];
     HUD.square = YES;
     HUD.margin = 8;
     HUD.minSize = CGSizeMake(120, 120);
@@ -152,7 +154,7 @@
     HUD.bezelView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.6];
     HUD.label.text = title;
 //    HUD.label.font = [UIFont systemFontOfSize:14];
-//    HUD.contentColor = [UIColor colorWithWhite:1 alpha:1];
+    HUD.contentColor = [UIColor colorWithWhite:1 alpha:1];
     
     [HUD layoutIfNeeded];
     HUD.label.top_LL += 10;

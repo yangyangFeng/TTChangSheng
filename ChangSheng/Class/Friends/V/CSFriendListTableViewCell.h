@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
+#import "CSFriendchartlistModel.h"
 @interface CSFriendListTableViewCell : UITableViewCell
-
+@property (nonatomic,strong) CSFriendchartlistModel *model;
 @end

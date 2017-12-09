@@ -9,5 +9,5 @@
 #import "CSBaseSearchFriendViewController.h"
 
 @interface CSSearchFriendSendVerifyViewController : CSBaseSearchFriendViewController
-
+@property (nonatomic,copy) NSString *userId;
 @end

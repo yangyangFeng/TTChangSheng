@@ -153,26 +153,82 @@ static CSMessageRecordTool * tool = nil;
     NSPredicate * pred = [NSPredicate predicateWithFormat:@"userId = %@",userId];
     RLMResults * result = [CSMsg_User objectsInRealm:realm withPredicate:pred];
     CSMsg_User * user = [result firstObject];
+    RLMSortDescriptor * rlmSort = [RLMSortDescriptor sortDescriptorWithKeyPath:@"timestamp" ascending:YES];
+    [user.msgRecords sortedResultsUsingDescriptors:@[rlmSort]];
     
-    NSInteger currentIndex = [user.msgRecords indexOfObjectWhere:@"msg_id = %@",[NSString stringWithFormat:@"%@-%@",userId,lastId]];
+    NSInteger currentIndex= -1;
+    if (lastId) {
+//        currentIndex = [user.msgRecords indexOfObjectWhere:@"msg_id = %@",[NSString stringWithFormat:@"%@-%@",userId,lastId]];
+        currentIndex += [user.msgRecords indexOfObjectWhere:@"msg_id = %@",[NSString stringWithFormat:@"%@",lastId]];
+    }
+    else
+    {
+        currentIndex += user.msgRecords.count;
+    }
     
     NSMutableArray * datas = [NSMutableArray array];
-    
-    if (currentIndex) {
-        for (int i = currentIndex ; i > currentIndex - count; i--) {
+    NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"timestamp" ascending:YES];
+    if (currentIndex) {//(currentIndex - count) ?: 0
+        for (int i = currentIndex ; i >=MAX((currentIndex - count), 0); i--) {
+            if (i >= user.msgRecords.count) {
+                break;
+            }
+            
             CSMsg_User_Msg * msgModel = [user.msgRecords objectAtIndex:i];
             CSMessageModel * model = [CSMessageModel conversionWithLocalRecordModel:msgModel chatType:(CSChatTypeChat) chatId:userId];
             [datas addObject:model];
+            NSLog(@"i===%d   ,   msgId-->%@    ,    content-->%@,    isread = %d",i,model.msgId,model.body.content, msgModel.isRead);
         }
     }
     
+    NSArray *tempArray = [datas sortedArrayUsingDescriptors:[NSArray arrayWithObjects:sortDescriptor, nil]];
     
 
     if (loadDatas) {
-        loadDatas(datas);
+        loadDatas(tempArray);
     }
+//    [self getUnReadMessageNumWithUserId:userId chatType:(CSChatTypeChat)];
+    //清除 未读消息
+    [self cleanUnReadMessageNumWithUserId:userId chatType:(CSChatTypeChat)];
     return self;
 }
+
+- (void)cleanUnReadMessageNumWithUserId:(NSString *)userId chatType:(CSChatType)chatType
+{
+    RLMRealm * realm = [RLMRealm defaultRealm];
+    NSPredicate * pred = [NSPredicate predicateWithFormat:@"userId = %@",userId];
+    RLMResults * result = [CSMsg_User objectsInRealm:realm withPredicate:pred];
+    NSPredicate * pred1 = [NSPredicate predicateWithFormat:@"isRead = NO"];
+    CSMsg_User * user = [result firstObject];
+    RLMResults * unRead = [user.msgRecords objectsWithPredicate:pred1];
+    
+    if (!unRead.count) {
+        return;
+    }
+    
+    [realm beginWriteTransaction];
+    for (CSMsg_User_Msg * msg in unRead) {
+        msg.isRead = YES;
+    }
+    [realm commitWriteTransaction];
+//    RLMResults * msgResult = []
+//    RLMSortDescriptor * rlmSort = [RLMSortDescriptor sortDescriptorWithKeyPath:@"timestamp" ascending:YES];
+//    [user.msgRecords sortedResultsUsingDescriptors:@[rlmSort]];
+}
+
+- (NSInteger)getUnReadMessageNumWithUserId:(NSString *)userId chatType:(CSChatType)chatType
+{
+    RLMRealm * realm = [RLMRealm defaultRealm];
+    NSPredicate * pred = [NSPredicate predicateWithFormat:@"userId = %@",userId];
+    RLMResults * result = [CSMsg_User objectsInRealm:realm withPredicate:pred];
+    NSPredicate * pred1 = [NSPredicate predicateWithFormat:@"isRead = NO"];
+    CSMsg_User * user = [result firstObject];
+    
+    RLMResults * unRead = [user.msgRecords objectsWithPredicate:pred1];
+    NSLog(@"未读--->%ld,修改后---->%ld",user.msgRecords.count,unRead.count);
+    return unRead.count;
+}
+
 // 查询数据
 - (id)realmSelectData:(NSString *)object theCondition:(NSString *)condition{
     

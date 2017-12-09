@@ -26,6 +26,12 @@ RLM_ARRAY_TYPE(CSMsg_User_Msg)
 @property CSMsg_User *owner;
 @property (nonatomic,copy) NSString *msg_id;
 
+
+/********************个客户端自定义字段***********************
+ *default is No
+ */
+@property (nonatomic,assign) BOOL isRead;
+
 @property (nonatomic,copy) NSString *link_url;
 @property (nonatomic,copy) NSString *type;
 @property (nonatomic,copy) NSString *content;

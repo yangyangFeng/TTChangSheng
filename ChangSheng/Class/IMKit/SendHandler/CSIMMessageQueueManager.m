@@ -10,7 +10,7 @@
 
 #import "CSIMSendMessageRequestModel.h"
 
-
+#import "CSMessageRecordTool.h"
 #import "MCDownloader.h"
 static CSIMMessageQueueManager * queueManager = nil;
 @interface CSIMMessageQueueManager ()
@@ -48,12 +48,19 @@ static CSIMMessageQueueManager * queueManager = nil;
     if (message.msgCacheKey.length) {
         [self.allSendMessages removeObjectForKey:message.msgCacheKey];
     }
-    
+//    //#TODO:消息存入数据库
+//    if (message.body.action == 4) {
+//        [CSMsgCacheTool cs_cacheMessage:message.body userId:message.body.chatId addLast:YES];
+//    }
 }
 
 - (void)cacheMessage:(CSIMSendMessageRequestModel *)message
 {
     [self.messages setObject:message forKey:message.body.msgCacheKey];
+    //#TODO:消息存入数据库
+    if (message.body.action == 4) {
+        [CSMsgCacheTool cs_cacheMessage:message.body userId:message.body.chatId addLast:YES];
+    }
 }
 
 - (void)removeCacheMessage:(CSIMSendMessageRequestModel *)message

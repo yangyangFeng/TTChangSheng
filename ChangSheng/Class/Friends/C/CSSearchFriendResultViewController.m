@@ -47,11 +47,18 @@
     // Do any additional setup after loading the view.
 }
 
+-(void)setModel:(CSFindUserParam *)model
+{
+    _model = model;
+    [_userIcon yy_setImageWithURL:[NSURL URLWithString:model.avatar] options:(YYWebImageOptionSetImageWithFadeAnimation)];
+    _userName.text = model.nickname;
+}
+
 -(void)nextBtnDidAction
 {
     DLog(@"添加好友");
     if (self.callblock) {
-        self.callblock(@"添加好友");
+        self.callblock(self.model.id);
     }
 }
 

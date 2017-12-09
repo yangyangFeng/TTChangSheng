@@ -9,8 +9,13 @@
 #import "CSAddressBookViewController.h"
 
 #import "CSAddressBookTableViewCell.h"
+
+#import "CSBaseRequestModel.h"
+#import "CSFriendListModel.h"
 @interface CSAddressBookViewController ()<UITableViewDelegate,UITableViewDataSource>
 
+@property (nonatomic,strong) NSArray *dataSource;
+@property (nonatomic,strong) UITableView *tableView;
 @end
 
 @implementation CSAddressBookViewController
@@ -35,37 +40,76 @@
         make.top.mas_equalTo(NavStateBar);
         make.left.right.bottom.mas_equalTo(0);
     }];
+    self.tableView = tableView;
+    [self loadData];
     // Do any additional setup after loading the view.
+}
+
+- (void)loadData
+{
+    CSBaseRequestModel * param = [CSBaseRequestModel new];
+
+    [CSHttpRequestManager request_friendList_paramters:param.mj_keyValues success:^(id responseObject) {
+        CSFriendListModel * obj = [CSFriendListModel mj_objectWithKeyValues:responseObject];
+        NSMutableArray * array = [NSMutableArray array];
+        for (CSFriendListModel * model in obj.result) {
+            if (model.friends.count) {
+                [array addObject:model.letter];
+            }
+        }
+        self.dataSource = array;
+        [self.tableView reloadData];
+    } failure:^(NSError *error) {
+        
+    } showHUD:NO];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 5;
+    CSFriendListModel * model = self.dataSource[section];
+    
+    return model.result.count;
 }
 
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 12;
+    return self.dataSource.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     CSAddressBookTableViewCell *cell = [CSAddressBookTableViewCell cellWithTableView:tableView];
+    CSFriendListModel * model = self.dataSource[indexPath.section];
+    CSFriendListItemModel * item = model.friends[indexPath.row];
+    [cell.userIcon yy_setImageWithURL:[NSURL URLWithString:item.avatar] options:(YYWebImageOptionSetImageWithFadeAnimation)];
+    cell.userName.text = item.nickname;
     return cell;
 }
 
 - (NSArray<NSString *> *)sectionIndexTitlesForTableView:(UITableView *)tableView
 {
-    return @[@"A",@"B",@"C",@"D",@"A",@"B",@"C",@"D",@"A",@"B",@"C",@"D"];
+    NSMutableArray * array = [NSMutableArray array];
+    for (CSFriendListModel * model in self.dataSource) {
+        
+            [array addObject:model.letter];
+        
+    }
+    return array;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
+    NSMutableArray * array = [NSMutableArray array];
+    for (CSFriendListModel * model in self.dataSource) {
+        
+            [array addObject:model.letter];
+        
+    }
     UILabel * label = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 0, 0)];
     label.textColor = CS_TextColor;
     label.font = [UIFont systemFontOfSize:15];
-    NSString * str = [@[@"A",@"B",@"C",@"D",@"A",@"B",@"C",@"D",@"A",@"B",@"C",@"D"] objectAtIndex:section];
+    NSString * str = [array objectAtIndex:section];
     label.text = [NSString stringWithFormat:@"    %@",str];
     return label;
 }

@@ -12,6 +12,9 @@
 #import "CSSearchFriendManagerViewController.h"
 
 #import "CSFriendListTableHandler.h"
+#import "CSFriendchartlistParam.h"
+#import "CSFriendRequestNumModel.h"
+#import "CSFriendchartlistModel.h"
 
 @interface CSFriendsListViewController ()<TTBaseTableViewHandlerDelegate>
 @property(nonatomic,strong)CSFriendListTableHandler * tableHandler;
@@ -25,6 +28,8 @@
     [self tt_Title:@"乐友"];
     
     [self createSubviews];
+    
+    [self loadData];
 }
 
 - (void)createSubviews
@@ -61,6 +66,29 @@
         make.right.mas_equalTo(addButton.mas_left).offset(-10);
     }];
 }
+
+- (void)loadData
+{
+    CSFriendchartlistParam * param = [CSFriendchartlistParam new];
+    param.userid = [CSUserInfo shareInstance].info.id;
+    [CSHttpRequestManager request_friendchartlist_paramters:param.mj_keyValues success:^(id responseObject) {
+        CSFriendchartlistModel * obj = [CSFriendchartlistModel mj_objectWithKeyValues:responseObject];
+        self.tableHandler.dataSource = [NSMutableArray arrayWithArray:obj.result];
+        [self.tableHandler.tableView reloadData];
+    } failure:^(NSError *error) {
+        
+    } showHUD:NO];
+    
+    [CSHttpRequestManager request_friendRequestNum_paramters:param.mj_keyValues success:^(id responseObject) {
+        CSFriendRequestNumModel * obj = [CSFriendRequestNumModel mj_objectWithKeyValues:responseObject];
+        
+        self.tableHandler.friendRequestNum = [obj.result.count intValue];
+        [self.tableHandler.tableView reloadData];
+    } failure:^(NSError *error) {
+        
+    } showHUD:NO];
+}
+
 - (void)addressBookAction
 {
     DLog(@"通讯录");

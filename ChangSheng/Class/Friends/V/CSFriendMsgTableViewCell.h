@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface CSFriendMsgTableViewCell : UITableViewCell
+@property (weak, nonatomic) IBOutlet UILabel *friendRequestNumLabel;
 
 @end

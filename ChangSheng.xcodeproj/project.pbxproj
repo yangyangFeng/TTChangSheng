@@ -232,6 +232,13 @@
 		1829A0431F8A4A2D00EAA1AB /* NSDate+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 1829A03C1F8A4A2D00EAA1AB /* NSDate+Utilities.m */; };
 		1829A0441F8A4A2D00EAA1AB /* NSFileManager+LCCKExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 1829A03E1F8A4A2D00EAA1AB /* NSFileManager+LCCKExtension.m */; };
 		1829A0451F8A4A2D00EAA1AB /* NSFileManager+Paths.m in Sources */ = {isa = PBXBuildFile; fileRef = 1829A0401F8A4A2D00EAA1AB /* NSFileManager+Paths.m */; };
+		184B22EB1FDBBC7400929005 /* CSAddFriendParam.m in Sources */ = {isa = PBXBuildFile; fileRef = 184B22EA1FDBBC7400929005 /* CSAddFriendParam.m */; };
+		184B22EE1FDBBCB700929005 /* CSFindUserParam.m in Sources */ = {isa = PBXBuildFile; fileRef = 184B22ED1FDBBCB700929005 /* CSFindUserParam.m */; };
+		184B22F11FDBBD3300929005 /* CSFriendRequestListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 184B22F01FDBBD3300929005 /* CSFriendRequestListModel.m */; };
+		184B22F41FDBC25100929005 /* CSFriendRequestNumModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 184B22F31FDBC25100929005 /* CSFriendRequestNumModel.m */; };
+		184B22F71FDBC2C100929005 /* CSFriendListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 184B22F61FDBC2C100929005 /* CSFriendListModel.m */; };
+		184B22FA1FDBC39C00929005 /* CSFriendchartlistModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 184B22F91FDBC39C00929005 /* CSFriendchartlistModel.m */; };
+		184B22FD1FDBC4DE00929005 /* CSFriendchartlistParam.m in Sources */ = {isa = PBXBuildFile; fileRef = 184B22FC1FDBC4DE00929005 /* CSFriendchartlistParam.m */; };
 		184B5CFC1F77CC03007A1C22 /* CSBaseRequestModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 184B5CFB1F77CC03007A1C22 /* CSBaseRequestModel.m */; };
 		184B5CFF1F77CC65007A1C22 /* CSRegisterParam.m in Sources */ = {isa = PBXBuildFile; fileRef = 184B5CFE1F77CC65007A1C22 /* CSRegisterParam.m */; };
 		184B5D031F77D6ED007A1C22 /* TTLineLayoutConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = 184B5D021F77D6ED007A1C22 /* TTLineLayoutConstraint.m */; };
@@ -876,6 +883,20 @@
 		1829A03E1F8A4A2D00EAA1AB /* NSFileManager+LCCKExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSFileManager+LCCKExtension.m"; sourceTree = "<group>"; };
 		1829A03F1F8A4A2D00EAA1AB /* NSFileManager+Paths.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSFileManager+Paths.h"; sourceTree = "<group>"; };
 		1829A0401F8A4A2D00EAA1AB /* NSFileManager+Paths.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSFileManager+Paths.m"; sourceTree = "<group>"; };
+		184B22E91FDBBC7300929005 /* CSAddFriendParam.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSAddFriendParam.h; sourceTree = "<group>"; };
+		184B22EA1FDBBC7400929005 /* CSAddFriendParam.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSAddFriendParam.m; sourceTree = "<group>"; };
+		184B22EC1FDBBCB700929005 /* CSFindUserParam.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSFindUserParam.h; sourceTree = "<group>"; };
+		184B22ED1FDBBCB700929005 /* CSFindUserParam.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSFindUserParam.m; sourceTree = "<group>"; };
+		184B22EF1FDBBD3300929005 /* CSFriendRequestListModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSFriendRequestListModel.h; sourceTree = "<group>"; };
+		184B22F01FDBBD3300929005 /* CSFriendRequestListModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSFriendRequestListModel.m; sourceTree = "<group>"; };
+		184B22F21FDBC25100929005 /* CSFriendRequestNumModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSFriendRequestNumModel.h; sourceTree = "<group>"; };
+		184B22F31FDBC25100929005 /* CSFriendRequestNumModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSFriendRequestNumModel.m; sourceTree = "<group>"; };
+		184B22F51FDBC2C100929005 /* CSFriendListModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSFriendListModel.h; sourceTree = "<group>"; };
+		184B22F61FDBC2C100929005 /* CSFriendListModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSFriendListModel.m; sourceTree = "<group>"; };
+		184B22F81FDBC39C00929005 /* CSFriendchartlistModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSFriendchartlistModel.h; sourceTree = "<group>"; };
+		184B22F91FDBC39C00929005 /* CSFriendchartlistModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSFriendchartlistModel.m; sourceTree = "<group>"; };
+		184B22FB1FDBC4DE00929005 /* CSFriendchartlistParam.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSFriendchartlistParam.h; sourceTree = "<group>"; };
+		184B22FC1FDBC4DE00929005 /* CSFriendchartlistParam.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSFriendchartlistParam.m; sourceTree = "<group>"; };
 		184B5CFA1F77CC03007A1C22 /* CSBaseRequestModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSBaseRequestModel.h; sourceTree = "<group>"; };
 		184B5CFB1F77CC03007A1C22 /* CSBaseRequestModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSBaseRequestModel.m; sourceTree = "<group>"; };
 		184B5CFD1F77CC65007A1C22 /* CSRegisterParam.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSRegisterParam.h; sourceTree = "<group>"; };
@@ -2640,6 +2661,12 @@
 				1857872D1F97968500BAD542 /* CSChangePWModel.m */,
 				1857872F1F9796E100BAD542 /* CSChangeAvatarModel.h */,
 				185787301F9796E100BAD542 /* CSChangeAvatarModel.m */,
+				184B22E91FDBBC7300929005 /* CSAddFriendParam.h */,
+				184B22EC1FDBBCB700929005 /* CSFindUserParam.h */,
+				184B22ED1FDBBCB700929005 /* CSFindUserParam.m */,
+				184B22EA1FDBBC7400929005 /* CSAddFriendParam.m */,
+				184B22FB1FDBC4DE00929005 /* CSFriendchartlistParam.h */,
+				184B22FC1FDBC4DE00929005 /* CSFriendchartlistParam.m */,
 			);
 			path = CPRequestModel;
 			sourceTree = "<group>";
@@ -2661,6 +2688,14 @@
 				74C8530E1F8E375900944C50 /* CSMsgHistoryModel.m */,
 				74C853101F8F763200944C50 /* CSMsgRecordModel.h */,
 				74C853111F8F763200944C50 /* CSMsgRecordModel.m */,
+				184B22EF1FDBBD3300929005 /* CSFriendRequestListModel.h */,
+				184B22F01FDBBD3300929005 /* CSFriendRequestListModel.m */,
+				184B22F21FDBC25100929005 /* CSFriendRequestNumModel.h */,
+				184B22F31FDBC25100929005 /* CSFriendRequestNumModel.m */,
+				184B22F51FDBC2C100929005 /* CSFriendListModel.h */,
+				184B22F61FDBC2C100929005 /* CSFriendListModel.m */,
+				184B22F81FDBC39C00929005 /* CSFriendchartlistModel.h */,
+				184B22F91FDBC39C00929005 /* CSFriendchartlistModel.m */,
 			);
 			path = CPResponseModel;
 			sourceTree = "<group>";
@@ -3195,7 +3230,9 @@
 				18C820151F76585F0012150B /* UITextField+Hook.m in Sources */,
 				74073A151F9A57C80098783F /* CALayer+Transition.m in Sources */,
 				1804ACDC1F7BDC6100508C1C /* LLImagePickerController.m in Sources */,
+				184B22FA1FDBC39C00929005 /* CSFriendchartlistModel.m in Sources */,
 				1804AD1A1F7BDC6100508C1C /* LLUtils+Audio.m in Sources */,
+				184B22F71FDBC2C100929005 /* CSFriendListModel.m in Sources */,
 				18C820291F7768C50012150B /* CSNewWorkHandler.m in Sources */,
 				74C8531C1F8F8FA400944C50 /* MCDownloadReceipt.m in Sources */,
 				749009D71FCFE38200E1339E /* CSFriendListTableViewCell.m in Sources */,
@@ -3228,6 +3265,7 @@
 				74073A171F9A57C80098783F /* GTMBase64.m in Sources */,
 				1804AC851F7BDC6100508C1C /* LLChatImageScrollView.m in Sources */,
 				1804AD2B1F7BDC6100508C1C /* CSIMMessageQueueManager.m in Sources */,
+				184B22EB1FDBBC7400929005 /* CSAddFriendParam.m in Sources */,
 				74C852DA1F8B5F7B00944C50 /* CSBetInputView.m in Sources */,
 				1804AD0A1F7BDC6100508C1C /* LLTipView.m in Sources */,
 				1804AD071F7BDC6100508C1C /* LLSimpleTextLabel.m in Sources */,
@@ -3252,6 +3290,7 @@
 				1804ACB51F7BDC6100508C1C /* LLMeViewController.m in Sources */,
 				749009D01FCFE2F200E1339E /* CSFriendsListViewController.m in Sources */,
 				1804AC941F7BDC6100508C1C /* LLEmotionInputView.m in Sources */,
+				184B22FD1FDBC4DE00929005 /* CSFriendchartlistParam.m in Sources */,
 				749A53AE1F9877B20024DC1B /* CSOperationRecordsHeaderView.m in Sources */,
 				74CFD2821FA1930900A3D8E5 /* CSHomeConnectionStatusView.m in Sources */,
 				1804AD041F7BDC6100508C1C /* LLLeftAlignedCollectionViewFlowLayout.m in Sources */,
@@ -3309,6 +3348,7 @@
 				1804ACC11F7BDC6100508C1C /* LLSearchResultTableController.m in Sources */,
 				74073A2E1F9A57C80098783F /* UIView+Extend.m in Sources */,
 				1804ACD31F7BDC6100508C1C /* LLUserGeneralOptions.m in Sources */,
+				184B22EE1FDBBCB700929005 /* CSFindUserParam.m in Sources */,
 				185787371F979D4D00BAD542 /* CSUserNameInputViewController.m in Sources */,
 				18C820161F76585F0012150B /* UITextField+LimitLength.m in Sources */,
 				74C852CF1F8B520B00944C50 /* CSCustomBetButton.m in Sources */,
@@ -3360,6 +3400,7 @@
 				1804ACFC1F7BDC6100508C1C /* LLAuthorizationDeniedController.m in Sources */,
 				749009F81FD3E45D00E1339E /* CSSearchFriendSendVerifyViewController.m in Sources */,
 				749009EF1FD3D98200E1339E /* CSSearchFriendResultViewController.m in Sources */,
+				184B22F11FDBBD3300929005 /* CSFriendRequestListModel.m in Sources */,
 				181343E11F7961B400CD1312 /* CSHomeTableViewCell.m in Sources */,
 				18BDAB421F9F76DB002800BC /* LBPhotoBrowserManager.m in Sources */,
 				1804AC9B1F7BDC6100508C1C /* LLLocationTableViewCell.m in Sources */,
@@ -3481,6 +3522,7 @@
 				1804ACF51F7BDC6100508C1C /* LLAssetVideoCell.m in Sources */,
 				1829A0421F8A4A2D00EAA1AB /* NSDate+LCCKExtension.m in Sources */,
 				749A53B61F98821F0024DC1B /* TTCellSelectionView.m in Sources */,
+				184B22F41FDBC25100929005 /* CSFriendRequestNumModel.m in Sources */,
 				1804AC901F7BDC6100508C1C /* LLChatInputView.m in Sources */,
 				1804ACC91F7BDC6100508C1C /* LLConfig.m in Sources */,
 				749A53B91F988D980024DC1B /* TTRefresh.m in Sources */,

@@ -14,6 +14,7 @@
 
 - (NSInteger) numberOfSectionsInTableView:(UITableView *)tableView
 {
+    
     return 2;
 }
 
@@ -25,14 +26,19 @@
     }
     else
     {
-        return 5;
+        return self.dataSource.count;
     }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0) {
-        return 40;
+        if (self.friendRequestNum != 0) {
+            return 40;
+        }
+        else{
+            return 0;
+        }
     }
     else
     {
@@ -44,7 +50,8 @@
 {
     if (indexPath.section == 0) {
         CSFriendMsgTableViewCell * cell = [CSFriendMsgTableViewCell cellWithTableView:tableView];
-        
+        NSString * str = [NSString stringWithFormat:@"您有%d位好友申请，请查看",self.friendRequestNum];
+        cell.friendRequestNumLabel.text = str;
         return cell;
     }
     else

@@ -9,5 +9,6 @@
 #import "TTBaseTableViewHandler.h"
 
 @interface CSFriendListTableHandler : TTBaseTableViewHandler
-
+@property (nonatomic,strong) NSMutableArray *dataSource;
+@property (nonatomic,assign) int friendRequestNum;
 @end

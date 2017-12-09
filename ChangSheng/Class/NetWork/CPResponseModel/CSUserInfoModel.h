@@ -15,4 +15,5 @@
 @property (nonatomic,copy) NSString *token;
 
 @property (nonatomic,copy) NSString *code;
+@property (nonatomic,copy) NSString *id;
 @end
