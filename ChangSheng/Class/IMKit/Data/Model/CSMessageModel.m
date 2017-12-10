@@ -96,6 +96,10 @@ NSMutableDictionary * tmpImageDict;
 {
     self.body = [CSMessageBodyModel mj_objectWithKeyValues:self.mj_keyValues];
 //    self.body.msgType = self.msgType;
+    if (self.isSelf) {
+        self.body.nickname = [CSUserInfo shareInstance].info.nickname;
+        self.body.avatar = [CSUserInfo shareInstance].info.avatar;
+    }
 }
 
 + (void)initialize {

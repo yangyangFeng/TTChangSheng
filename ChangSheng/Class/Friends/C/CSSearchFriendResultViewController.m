@@ -50,7 +50,7 @@
 -(void)setModel:(CSFindUserParam *)model
 {
     _model = model;
-    [_userIcon yy_setImageWithURL:[NSURL URLWithString:model.avatar] options:(YYWebImageOptionSetImageWithFadeAnimation)];
+    [_userIcon yy_setImageWithURL:[NSURL URLWithString:model.avatar] placeholder:[UIImage imageNamed:@"个人资料头像.png"]];
     _userName.text = model.nickname;
 }
 

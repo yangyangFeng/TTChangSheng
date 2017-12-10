@@ -10,6 +10,7 @@
 
 #import "CSFriendListTableViewCell.h"
 #import "CSFriendMsgTableViewCell.h"
+#import "CSFriendchartlistModel.h"
 @implementation CSFriendListTableHandler
 
 - (NSInteger) numberOfSectionsInTableView:(UITableView *)tableView
@@ -22,7 +23,12 @@
 {
     
     if (section == 0) {
-        return 1;
+        if (self.friendRequestNum != 0) {
+            return 1;
+        }
+        else{
+            return 0;
+        }
     }
     else
     {
@@ -57,7 +63,7 @@
     else
     {
         CSFriendListTableViewCell * cell = [CSFriendListTableViewCell cellWithTableView:tableView];
-        
+        cell.model = self.dataSource[indexPath.row];
         return cell;
     }
     

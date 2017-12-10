@@ -10,12 +10,16 @@
 
 #import "CSAddressBookViewController.h"
 #import "CSSearchFriendManagerViewController.h"
-
+#import "CSFriendRequestViewController.h"
 #import "CSFriendListTableHandler.h"
 #import "CSFriendchartlistParam.h"
 #import "CSFriendRequestNumModel.h"
 #import "CSFriendchartlistModel.h"
-
+#import "CSFriendchartlistModel.h"
+#import "LLUtils.h"
+#import "CSMessageRecordTool.h"
+#import "LLChatViewController.h"
+#import "StoryBoardController.h"
 @interface CSFriendsListViewController ()<TTBaseTableViewHandlerDelegate>
 @property(nonatomic,strong)CSFriendListTableHandler * tableHandler;
 @end
@@ -28,7 +32,12 @@
     [self tt_Title:@"乐友"];
     
     [self createSubviews];
-    
+     
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
     [self loadData];
 }
 
@@ -37,6 +46,7 @@
     UITableView * tableView = [[UITableView alloc]initWithFrame:CGRectZero style:(UITableViewStylePlain)];
     tableView.tableFooterView = [UIView new];
     _tableHandler = [[CSFriendListTableHandler alloc]initWithTableView:tableView];
+    _tableHandler.delegate = self;
     
     [self.view addSubview:tableView];
     
@@ -69,15 +79,18 @@
 
 - (void)loadData
 {
+    NSArray * friends = [CSMsgCacheTool AccessToChatFriendWith:(CS_Message_Record_Type_Friend)];
+    self.tableHandler.dataSource = [NSMutableArray arrayWithArray:friends];
+    [self.tableHandler.tableView reloadData];
     CSFriendchartlistParam * param = [CSFriendchartlistParam new];
-    param.userid = [CSUserInfo shareInstance].info.id;
-    [CSHttpRequestManager request_friendchartlist_paramters:param.mj_keyValues success:^(id responseObject) {
-        CSFriendchartlistModel * obj = [CSFriendchartlistModel mj_objectWithKeyValues:responseObject];
-        self.tableHandler.dataSource = [NSMutableArray arrayWithArray:obj.result];
-        [self.tableHandler.tableView reloadData];
-    } failure:^(NSError *error) {
-        
-    } showHUD:NO];
+//    param.userid = [CSUserInfo shareInstance].info.id;
+//    [CSHttpRequestManager request_friendchartlist_paramters:param.mj_keyValues success:^(id responseObject) {
+//        CSFriendchartlistModel * obj = [CSFriendchartlistModel mj_objectWithKeyValues:responseObject];
+//        self.tableHandler.dataSource = [NSMutableArray arrayWithArray:obj.result];
+//        [self.tableHandler.tableView reloadData];
+//    } failure:^(NSError *error) {
+//
+//    } showHUD:NO];
     
     [CSHttpRequestManager request_friendRequestNum_paramters:param.mj_keyValues success:^(id responseObject) {
         CSFriendRequestNumModel * obj = [CSFriendRequestNumModel mj_objectWithKeyValues:responseObject];
@@ -109,10 +122,47 @@
 {
     if (indexPath.section == 0) {
         DLog(@"点击好友请求");
+        CSFriendRequestViewController * friendRequestC = [CSFriendRequestViewController new];
+        [self.navigationController pushViewController:friendRequestC animated:YES];
     }
     else
     {
-     DLog(@"点击");
+        CSFriendchartlistModel * friendInfo = self.tableHandler.dataSource[indexPath.row];
+        
+        
+//        param.chat_type = 2;//客服为单聊
+//        param.ID = model.userid.intValue;
+        
+        MBProgressHUD *hud = [LLUtils showCustomIndicatiorHUDWithTitle:@"" inView:self.tableHandler.tableView];
+        [CSMsgCacheTool loadCacheMessageWithUserId:friendInfo.userid loadDatas:^(NSArray *msgs) {
+            if (msgs.count) {
+                [hud hideAnimated:YES afterDelay:1];
+                LLChatViewController * chatC = (LLChatViewController*)[StoryBoardController storyBoardName:@"Main" ViewControllerIdentifiter:@"LLChatViewController"];
+                
+                CSIMConversationModel * model = [CSIMConversationModel new];
+                chatC.chatType = CS_Message_Record_Type_Friend;
+                model.chatId = [friendInfo userid];
+                model.nickName = friendInfo.nickname;
+                model.allMessageModels = [NSMutableArray arrayWithArray:msgs];
+                
+                chatC.conversationModel = model;
+                [self.navigationController pushViewController:chatC animated:YES];
+            }
+            else
+            {
+                LLChatViewController * chatC = (LLChatViewController*)[StoryBoardController storyBoardName:@"Main" ViewControllerIdentifiter:@"LLChatViewController"];
+                
+                CSIMConversationModel * model = [CSIMConversationModel new];
+                chatC.chatType = CS_Message_Record_Type_Friend;
+                model.chatId = friendInfo.userid;
+                model.nickName = friendInfo.nickname;
+                
+                
+                chatC.conversationModel = model;
+                [self.navigationController pushViewController:chatC animated:YES];
+            }
+        }
+                                            LastId:nil count:CS_Message_Count chatType:(CS_Message_Record_Type_Friend)];
     }
 }
 @end

@@ -9,6 +9,7 @@
 #import "CSFriendListTableViewCell.h"
 
 #import "TTSubscriptLabel.h"
+#import "NSDate+LLExt.h"
 @interface CSFriendListTableViewCell()
 @property (weak, nonatomic) IBOutlet UIImageView *userIcon;
 @property (weak, nonatomic) IBOutlet TTSubscriptLabel *number;
@@ -38,6 +39,8 @@
     _nickName.text = model.nickname;
     _content.text = model.lastmsg;
     _date.text = model.lastdata;
+    NSDate *date = [NSDate dateWithTimeIntervalSince1970:_date.text.integerValue];
+    _date.text = [date timeIntervalBeforeNowLongDescription];
     
 }
 

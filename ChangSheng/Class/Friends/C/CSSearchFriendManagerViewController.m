@@ -34,7 +34,8 @@
     
     _scrollView = [[UIScrollView alloc] initWithFrame:self.view.bounds];
     _scrollView.contentSize = CGSizeMake(WIDTH * 3, 0);
-    //    scrollView.bouncesZoom = YES;
+    _scrollView.bouncesZoom = YES;
+    _scrollView.scrollEnabled = NO;
     _scrollView.backgroundColor = [UIColor groupTableViewBackgroundColor];
     [self.view addSubview:_scrollView];
 

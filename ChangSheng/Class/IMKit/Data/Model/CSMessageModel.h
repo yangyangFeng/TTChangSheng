@@ -160,6 +160,37 @@ typedef NS_ENUM(NSInteger, CSMessageStatus) {
 //    }
 //}
 
+typedef enum : NSUInteger {
+    CS_Message_Record_Type_Group ,
+    CS_Message_Record_Type_Service,
+    CS_Message_Record_Type_Friend,
+} CS_Message_Record_Type;
+
+static NSString* ChatTypeChange(CS_Message_Record_Type chatType)
+{
+    NSString * str;
+    switch (chatType) {
+        case CS_Message_Record_Type_Service:
+        {
+            str = @"service";
+        }
+            break;
+        case CS_Message_Record_Type_Friend:
+        {
+            str = @"friend";
+        }
+            break;
+        case CS_Message_Record_Type_Group:
+        {
+            str = @"group";
+        }
+            break;
+        default:
+            break;
+    }
+    return str;
+}
+
 @interface CSMessageModel : NSObject
 
 @property (nonatomic,weak) NSData *tempImageData;

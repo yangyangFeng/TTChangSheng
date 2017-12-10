@@ -10,10 +10,15 @@
 #import "CSMessageDBModel.h"
 
 
+#import "CSFriendchartlistModel.h"
+
+#import "CSMessageModel.h"
+
 
 typedef void(^loadDatas)(NSArray *msgs);
 
-@class CSMessageModel;
+
+
 
 #define CSMsgCacheTool [CSMessageRecordTool shareInstance]
 
@@ -23,13 +28,15 @@ typedef void(^loadDatas)(NSArray *msgs);
 /**
  *将数据缓存 从末尾添加
  */
-- (CSMessageRecordTool *)cs_cacheMessage:(CSMessageModel *)model userId:(NSString *)userId addLast:(BOOL)addLast;
-- (CSMessageRecordTool *)cs_cacheMessages:(NSArray<CSMessageModel*> *)models userId:(NSString *)userId addLast:(BOOL)addLast;
+- (CSMessageRecordTool *)cs_cacheMessage:(CSMessageModel *)model userId:(NSString *)userId addLast:(BOOL)addLast chatType:(CS_Message_Record_Type)chatType;
+- (CSMessageRecordTool *)cs_cacheMessages:(NSArray<CSMessageModel*> *)models userId:(NSString *)userId addLast:(BOOL)addLast chatType:(CS_Message_Record_Type)chatType;
 
 /**
  * default count 20.
  */
-- (CSMessageRecordTool *)loadCacheMessageWithUserId:(NSString *)userId loadDatas:(loadDatas)loadDatas;
+- (CSMessageRecordTool *)loadCacheMessageWithUserId:(NSString *)userId loadDatas:(loadDatas)loadDatas chatType:(CS_Message_Record_Type)chatType;
 
-- (CSMessageRecordTool *)loadCacheMessageWithUserId:(NSString *)userId loadDatas:(loadDatas)loadDatas LastId:(NSString *)lastId count:(NSInteger)count;
+- (CSMessageRecordTool *)loadCacheMessageWithUserId:(NSString *)userId loadDatas:(loadDatas)loadDatas LastId:(NSString *)lastId count:(NSInteger)count chatType:(CS_Message_Record_Type)chatType;
+
+- (NSArray <CSFriendchartlistModel*> *)AccessToChatFriendWith:(CS_Message_Record_Type)chatType;
 @end

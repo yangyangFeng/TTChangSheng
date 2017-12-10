@@ -71,8 +71,9 @@
         }
         [hud hideAnimated:YES];
     } failure:^(NSError *error) {
+        self.alertLabel.hidden = NO;
         [hud hideAnimated:YES];
-    } showHUD:YES];
+    } showHUD:NO];
     
 }
 -(UILabel *)alertLabel

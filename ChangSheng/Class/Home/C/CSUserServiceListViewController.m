@@ -181,7 +181,7 @@ static CSUserServiceListViewController * controller = nil;
         if (msgs.count) {
             [hud hideAnimated:YES afterDelay:1];
             LLChatViewController * chatC = (LLChatViewController*)[StoryBoardController storyBoardName:@"Main" ViewControllerIdentifiter:@"LLChatViewController"];
-            
+            chatC.chatType = CS_Message_Record_Type_Service;
             CSIMConversationModel * model = [CSIMConversationModel new];
             model.chatId = [userServiceModel id];
             model.nickName = userServiceModel.nickname;
@@ -197,7 +197,7 @@ static CSUserServiceListViewController * controller = nil;
                 
                 [hud hideAnimated:YES afterDelay:1];
                 LLChatViewController * chatC = (LLChatViewController*)[StoryBoardController storyBoardName:@"Main" ViewControllerIdentifiter:@"LLChatViewController"];
-                
+                chatC.chatType = CS_Message_Record_Type_Service;
                 CSIMConversationModel * model = [CSIMConversationModel new];
                 model.chatId = [userServiceModel id];
                 model.nickName = userServiceModel.nickname;
@@ -215,13 +215,13 @@ static CSUserServiceListViewController * controller = nil;
                 chatC.conversationModel = model;
                 [self.navigationController pushViewController:chatC animated:YES];
                 
-                [CSMsgCacheTool cs_cacheMessages:model.allMessageModels userId:userServiceModel.id addLast:YES];
+                [CSMsgCacheTool cs_cacheMessages:model.allMessageModels userId:userServiceModel.id addLast:YES chatType:CS_Message_Record_Type_Service];
             } failure:^(NSError *error) {
                 [hud hideAnimated:YES afterDelay:1];
             } showHUD:YES];
         }
     }
-     LastId:nil count:CS_Message_Count];
+     LastId:nil count:CS_Message_Count chatType:(CS_Message_Record_Type_Service)];
     
     
     

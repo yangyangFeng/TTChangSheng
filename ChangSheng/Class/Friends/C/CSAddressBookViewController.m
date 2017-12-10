@@ -7,11 +7,13 @@
 //
 
 #import "CSAddressBookViewController.h"
-
+#import "LLChatViewController.h"
+#import "StoryBoardController.h"
 #import "CSAddressBookTableViewCell.h"
-
+#import "CSMessageRecordTool.h"
 #import "CSBaseRequestModel.h"
 #import "CSFriendListModel.h"
+#import "LLUtils.h"
 @interface CSAddressBookViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @property (nonatomic,strong) NSArray *dataSource;
@@ -47,6 +49,7 @@
 
 - (void)loadData
 {
+    MBProgressHUD * hud = [LLUtils showCustomIndicatiorHUDWithTitle:@"" inView:self.tableView];
     CSBaseRequestModel * param = [CSBaseRequestModel new];
 
     [CSHttpRequestManager request_friendList_paramters:param.mj_keyValues success:^(id responseObject) {
@@ -54,21 +57,22 @@
         NSMutableArray * array = [NSMutableArray array];
         for (CSFriendListModel * model in obj.result) {
             if (model.friends.count) {
-                [array addObject:model.letter];
+                [array addObject:model];
             }
         }
         self.dataSource = array;
         [self.tableView reloadData];
+        [hud hideAnimated:YES];
     } failure:^(NSError *error) {
-        
-    } showHUD:NO];
+        [hud hideAnimated:YES];
+    } showHUD:YES];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     CSFriendListModel * model = self.dataSource[section];
     
-    return model.result.count;
+    return model.friends.count;
 }
 
 
@@ -139,6 +143,52 @@
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         DLog(@"删除cell");
     }
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    CSFriendListModel * model = self.dataSource[indexPath.section];
+    CSFriendListItemModel * item = model.friends[indexPath.row];
+
+//    CSFriendchartlistModel * friendInfo = self.tableHandler.dataSource[indexPath.row];
+    
+    
+    //        param.chat_type = 2;//客服为单聊
+    //        param.ID = model.userid.intValue;
+    
+    MBProgressHUD *hud = [LLUtils showCustomIndicatiorHUDWithTitle:@"" inView:self.tableView];
+    [CSMsgCacheTool loadCacheMessageWithUserId:item.user_id loadDatas:^(NSArray *msgs) {
+        [hud hideAnimated:YES];
+        if (msgs.count) {
+            LLChatViewController * chatC = (LLChatViewController*)[StoryBoardController storyBoardName:@"Main" ViewControllerIdentifiter:@"LLChatViewController"];
+            
+            CSIMConversationModel * model = [CSIMConversationModel new];
+                            chatC.chatType = CS_Message_Record_Type_Friend;
+            model.chatId = item.user_id;
+            model.nickName = item.nickname;
+            model.allMessageModels = [NSMutableArray arrayWithArray:msgs];
+            
+            chatC.conversationModel = model;
+            [self.navigationController pushViewController:chatC animated:YES];
+        }
+        else
+        {
+            LLChatViewController * chatC = (LLChatViewController*)[StoryBoardController storyBoardName:@"Main" ViewControllerIdentifiter:@"LLChatViewController"];
+            
+            CSIMConversationModel * model = [CSIMConversationModel new];
+                            chatC.chatType = CS_Message_Record_Type_Friend;
+            model.chatId = item.user_id;
+            model.nickName = item.nickname;
+            
+            
+            
+            chatC.conversationModel = model;
+            [self.navigationController pushViewController:chatC animated:YES];
+        }
+    }
+                                        LastId:nil count:CS_Message_Count chatType:(CS_Message_Record_Type_Friend)];
 }
 
 @end

@@ -32,6 +32,8 @@ typedef enum {
 @property(nonatomic,assign)int sendNumber;
 
 @property(nonatomic,assign)IM_SEND_STATUS sendStatus;
+
+@property(nonatomic,assign)CS_Message_Record_Type chatType;
 @end
 
 
@@ -39,6 +41,9 @@ typedef enum {
 @class CSIMUnReadListModel;
 
 @interface CSIMSendMessageRequestModel : NSObject<CSIMSendMessageRequestModelDelegate,NSMutableCopying>
+
+- (id)initWithChatType:(CS_Message_Record_Type)chatType;
+@property(nonatomic,assign)CS_Message_Record_Type chatType;
 
 @property(nonatomic,strong)Deferred * msgStatus;
 

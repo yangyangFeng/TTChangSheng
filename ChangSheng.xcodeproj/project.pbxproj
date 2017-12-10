@@ -266,6 +266,9 @@
 		187773CE1F7D1D5600A98B7C /* CSMsgHistoryRequestModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 187773CC1F7D1D5600A98B7C /* CSMsgHistoryRequestModel.m */; };
 		187773D11F7D1D6900A98B7C /* CSHttpGroupResModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 187773D01F7D1D6900A98B7C /* CSHttpGroupResModel.m */; };
 		187773D41F7D30FD00A98B7C /* CSIMConversationModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 187773D31F7D30FD00A98B7C /* CSIMConversationModel.m */; };
+		18B57DA31FDCF93200429B1E /* CSFriendRequestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B57DA21FDCF93200429B1E /* CSFriendRequestViewController.m */; };
+		18B57DA71FDCF9D600429B1E /* CSFriendRequestTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B57DA51FDCF9D600429B1E /* CSFriendRequestTableViewCell.m */; };
+		18B57DA81FDCF9D600429B1E /* CSFriendRequestTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18B57DA61FDCF9D600429B1E /* CSFriendRequestTableViewCell.xib */; };
 		18B6C60B1F8A550A007B1669 /* libmp3lame.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 18B6C6081F8A550A007B1669 /* libmp3lame.a */; };
 		18B6C60C1F8A550A007B1669 /* Mp3Recorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B6C60A1F8A550A007B1669 /* Mp3Recorder.m */; };
 		18B6C60F1F8BBF16007B1669 /* CSUploadFileParam.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B6C60E1F8BBF16007B1669 /* CSUploadFileParam.m */; };
@@ -949,6 +952,11 @@
 		187773D01F7D1D6900A98B7C /* CSHttpGroupResModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSHttpGroupResModel.m; sourceTree = "<group>"; };
 		187773D21F7D30FD00A98B7C /* CSIMConversationModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSIMConversationModel.h; sourceTree = "<group>"; };
 		187773D31F7D30FD00A98B7C /* CSIMConversationModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSIMConversationModel.m; sourceTree = "<group>"; };
+		18B57DA11FDCF93200429B1E /* CSFriendRequestViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSFriendRequestViewController.h; sourceTree = "<group>"; };
+		18B57DA21FDCF93200429B1E /* CSFriendRequestViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSFriendRequestViewController.m; sourceTree = "<group>"; };
+		18B57DA41FDCF9D600429B1E /* CSFriendRequestTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSFriendRequestTableViewCell.h; sourceTree = "<group>"; };
+		18B57DA51FDCF9D600429B1E /* CSFriendRequestTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSFriendRequestTableViewCell.m; sourceTree = "<group>"; };
+		18B57DA61FDCF9D600429B1E /* CSFriendRequestTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CSFriendRequestTableViewCell.xib; sourceTree = "<group>"; };
 		18B6C6071F8A550A007B1669 /* lame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lame.h; sourceTree = "<group>"; };
 		18B6C6081F8A550A007B1669 /* libmp3lame.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libmp3lame.a; sourceTree = "<group>"; };
 		18B6C6091F8A550A007B1669 /* Mp3Recorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Mp3Recorder.h; sourceTree = "<group>"; };
@@ -2832,6 +2840,8 @@
 				749009CF1FCFE2F200E1339E /* CSFriendsListViewController.m */,
 				749009DE1FD0E63800E1339E /* CSAddressBookViewController.h */,
 				749009DF1FD0E63800E1339E /* CSAddressBookViewController.m */,
+				18B57DA11FDCF93200429B1E /* CSFriendRequestViewController.h */,
+				18B57DA21FDCF93200429B1E /* CSFriendRequestViewController.m */,
 				749009F31FD3E30E00E1339E /* CSSearchFriendManagerViewController.h */,
 				749009F41FD3E30E00E1339E /* CSSearchFriendManagerViewController.m */,
 				749009E71FD3C84300E1339E /* CSSearchFriendViewController.h */,
@@ -2869,6 +2879,9 @@
 				749009E31FD0E97A00E1339E /* CSAddressBookTableViewCell.xib */,
 				749009EA1FD3C89B00E1339E /* CSSearchFriendView.h */,
 				749009EB1FD3C89B00E1339E /* CSSearchFriendView.m */,
+				18B57DA41FDCF9D600429B1E /* CSFriendRequestTableViewCell.h */,
+				18B57DA51FDCF9D600429B1E /* CSFriendRequestTableViewCell.m */,
+				18B57DA61FDCF9D600429B1E /* CSFriendRequestTableViewCell.xib */,
 			);
 			path = V;
 			sourceTree = "<group>";
@@ -3097,6 +3110,7 @@
 				749A53B01F9879070024DC1B /* CSOperationRecordsHeaderView.xib in Resources */,
 				1804ACE61F7BDC6100508C1C /* FriendsSendsPicturesQuitBigIcon@2x.png in Resources */,
 				74C852E61F8B7DCB00944C50 /* CSMineTableViewCell.xib in Resources */,
+				18B57DA81FDCF9D600429B1E /* CSFriendRequestTableViewCell.xib in Resources */,
 				1804ACDF1F7BDC6100508C1C /* CellBlueSelected.png in Resources */,
 				74CFD27F1FA1920800A3D8E5 /* CSHomeConnectionStatusView.xib in Resources */,
 				1804ACEB1F7BDC6100508C1C /* FriendsSendsPicturesSelectIcon.png in Resources */,
@@ -3221,6 +3235,7 @@
 				1804AD0F1F7BDC6100508C1C /* UICollectionView+LLExt.m in Sources */,
 				1804AD351F7BDC6100508C1C /* LLChatManager.m in Sources */,
 				74073A291F9A57C80098783F /* UIImage+FixOrientation.m in Sources */,
+				18B57DA31FDCF93200429B1E /* CSFriendRequestViewController.m in Sources */,
 				18C820331F7772BA0012150B /* CSBaseViewController.m in Sources */,
 				74073A121F9A57C80098783F /* UIImage+BetterFace.m in Sources */,
 				187773D41F7D30FD00A98B7C /* CSIMConversationModel.m in Sources */,
@@ -3300,6 +3315,7 @@
 				185787211F94EF4800BAD542 /* CSUploadFenRequestModel.m in Sources */,
 				185787281F97949900BAD542 /* CSTransferScoreModel.m in Sources */,
 				1804AD161F7BDC6100508C1C /* UITextView+LLDebugOnly.m in Sources */,
+				18B57DA71FDCF9D600429B1E /* CSFriendRequestTableViewCell.m in Sources */,
 				18BDAB451F9F76DB002800BC /* UIImage+LBDecoder.m in Sources */,
 				1804ACB21F7BDC6100508C1C /* LLDiscoveryController.m in Sources */,
 				74C852E11F8B769100944C50 /* CSMineViewController.m in Sources */,

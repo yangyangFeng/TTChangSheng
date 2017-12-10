@@ -9,6 +9,15 @@
 #import "CSIMSendMessageRequestModel.h"
 
 @implementation CSIMSendMessageRequestModel
+
+- (id)initWithChatType:(CS_Message_Record_Type)chatType
+{
+    if (self = [super init]) {
+        self.chatType = chatType;
+    }
+    return self;
+}
+
 -(instancetype)init
 {
     if (self = [super init]) {

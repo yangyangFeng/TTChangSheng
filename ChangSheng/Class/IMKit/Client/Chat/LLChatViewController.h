@@ -13,6 +13,7 @@
 #import "LLVoiceIndicatorView.h"
 #import "TTNav_RootViewController.h"
 #import "CSIMConversationModel.h"
+#import "CSMessageRecordTool.h"
 NS_ASSUME_NONNULL_BEGIN
 @interface LLChatViewController : TTNav_RootViewController <LLChatInputDelegate>
 
@@ -22,6 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)refreshChatControllerForReuse;
 
+@property (nonatomic,assign) CS_Message_Record_Type chatType;
 /**
  聊天界面进去前必传参数
  */

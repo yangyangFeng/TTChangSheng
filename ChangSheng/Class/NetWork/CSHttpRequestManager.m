@@ -430,8 +430,8 @@
  */
 + (void)request_agreeFriendRequest_paramters:(NSDictionary *)params success:(TTSuccessBlock)success failure:(TTFailureBlock)failure showHUD:(BOOL)showHUD
 {
-    NSString * url = @"social/friendRequestList";
-    [[CSNewWorkHandler sharedInstance] beginHttpRequestType:GET_TTREQUEST_TYPE url:url paramters:params success:^(id responseObject) {
+    NSString * url = @"social/agreeFriendRequest";
+    [[CSNewWorkHandler sharedInstance] beginHttpRequestType:POST_TTREQUEST_TYPE url:url paramters:params success:^(id responseObject) {
         
         success(responseObject);
         
@@ -447,7 +447,7 @@
 + (void)request_deleteFriend_paramters:(NSDictionary *)params success:(TTSuccessBlock)success failure:(TTFailureBlock)failure showHUD:(BOOL)showHUD
 {
     NSString * url = @"social/deleteFriend";
-    [[CSNewWorkHandler sharedInstance] beginHttpRequestType:GET_TTREQUEST_TYPE url:url paramters:params success:^(id responseObject) {
+    [[CSNewWorkHandler sharedInstance] beginHttpRequestType:POST_TTREQUEST_TYPE url:url paramters:params success:^(id responseObject) {
         
         success(responseObject);
         

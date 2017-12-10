@@ -17,6 +17,7 @@ RLM_ARRAY_TYPE(CSMsg_User_Msg)
 @interface CSMsg_User : RLMObject
 @property (nonatomic,copy) NSString *userId;
 
+@property (nonatomic,copy) NSString *userType;
 @property RLMArray <CSMsg_User_Msg> * msgRecords;
 @end
 

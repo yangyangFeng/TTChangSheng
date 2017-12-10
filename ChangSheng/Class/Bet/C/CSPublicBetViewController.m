@@ -323,7 +323,7 @@ CSPublicBetInputToolBarViewDelegate
             for (CSMsgRecordModel * msgData in obj.result.data) {
                 CSMessageModel * msgModel = [CSMessageModel conversionWithRecordModel:msgData chatType:param.chat_type chatId:[NSString stringWithFormat:@"%d",self.conversationModel.chatId]];
                 
-                CSIMSendMessageRequestModel * sendMsgModel = [CSIMSendMessageRequestModel new];
+                CSIMSendMessageRequestModel * sendMsgModel = [[CSIMSendMessageRequestModel alloc] initWithChatType:CS_Message_Record_Type_Group];
                 sendMsgModel.body = msgModel;
                 [messagesArray addObject:msgModel];
 
@@ -356,7 +356,7 @@ CSPublicBetInputToolBarViewDelegate
             for (CSMsgRecordModel * msgData in obj.result.data) {
                 CSMessageModel * msgModel = [CSMessageModel conversionWithRecordModel:msgData chatType:param.chat_type chatId:[NSString stringWithFormat:@"%d",self.conversationModel.chatId]];
 
-                CSIMSendMessageRequestModel * sendMsgModel = [CSIMSendMessageRequestModel new];
+                CSIMSendMessageRequestModel * sendMsgModel = [[CSIMSendMessageRequestModel alloc] initWithChatType:CS_Message_Record_Type_Group];
                 sendMsgModel.body = msgModel;
                 [messagesArray addObject:msgModel];
 //                [messagesRequestArray addObject:sendMsgModel];
@@ -562,7 +562,7 @@ CSPublicBetInputToolBarViewDelegate
 
 - (void)sendTextMessage:(NSString *)text {
     
-    CSIMSendMessageRequestModel * model = [CSIMSendMessageRequestModel new];
+    CSIMSendMessageRequestModel * model = [[CSIMSendMessageRequestModel alloc] initWithChatType:CS_Message_Record_Type_Group];
     CSMessageModel * msgModel = [CSMessageModel newMessageChatType:CSChatTypeGroupChat chatId:self.conversationModel.chatId msgId:nil msgType:CSMessageBodyTypeText action:4 content:text isSelf:YES];
     
     model.body = msgModel;
@@ -608,7 +608,7 @@ CSPublicBetInputToolBarViewDelegate
 }
 - (void)resendMessage:(CSMessageModel *)model {
     [self waitingMessageRefreshSendStatusWithModel:model];
-    CSIMSendMessageRequestModel * modelRequest = [CSIMSendMessageRequestModel new];
+    CSIMSendMessageRequestModel * modelRequest = [[CSIMSendMessageRequestModel alloc] initWithChatType:CS_Message_Record_Type_Group];
     modelRequest.body = model;
     [modelRequest.msgStatus when:^(id obj) {
         [self successMessageRefreshSendStatusWithModel:model];
@@ -633,7 +633,7 @@ CSPublicBetInputToolBarViewDelegate
         return;
     }
     if ([message queryMessageWithChatType:CSChatTypeGroupChat chatId:self.conversationModel.chatId]) {
-        CSIMSendMessageRequestModel * model = [CSIMSendMessageRequestModel new];
+        CSIMSendMessageRequestModel * model = [[CSIMSendMessageRequestModel alloc] initWithChatType:CS_Message_Record_Type_Group];
         model.body = message;
         [self addModelToDataSourceAndScrollToBottom:model animated:YES];
     }
@@ -683,7 +683,7 @@ CSPublicBetInputToolBarViewDelegate
 #pragma mark - 下注
 - (void)cs_betMessageModel:(CSMessageModel *)messageModel
 {
-    CSIMSendMessageRequestModel * model = [CSIMSendMessageRequestModel new];
+    CSIMSendMessageRequestModel * model = [[CSIMSendMessageRequestModel alloc] initWithChatType:CS_Message_Record_Type_Group];
     CSMessageModel * msgModel = [CSMessageModel sendBetMessageChatType:CSChatTypeGroupChat chatId:self.conversationModel.chatId msgId:nil msgType:(CSMessageBodyTypeText) betType:messageModel.playType betNumber:messageModel.score action:messageModel.action content:messageModel.content isSelf:YES];
 //     CSMessageModel * msgModel = [CSMessageModel sendBetMessageChatType:CSChatTypeGroupChat chatId:@"10" msgId:nil msgType:(CSMessageBodyTypeText) betType:messageModel.playType betNumber:messageModel.score action:messageModel.action content:messageModel.content isSelf:YES];
     
@@ -738,7 +738,7 @@ CSPublicBetInputToolBarViewDelegate
 - (void)cs_betCancleMessageModel:(CSMessageModel *)messageModel
 {
 //    [MBProgressHUD tt_Show];
-    CSIMSendMessageRequestModel * model = [CSIMSendMessageRequestModel new];
+    CSIMSendMessageRequestModel * model = [[CSIMSendMessageRequestModel alloc] initWithChatType:CS_Message_Record_Type_Group];
     CSMessageModel * msgModel = [CSMessageModel newCancleBetMessageChatType:CSChatTypeGroupChat chatId:self.conversationModel.chatId msgId:nil msgType:nil action:5 content:nil isSelf:YES];
     
     model.body = msgModel;

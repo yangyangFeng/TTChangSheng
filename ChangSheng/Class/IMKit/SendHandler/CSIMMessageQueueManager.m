@@ -48,19 +48,19 @@ static CSIMMessageQueueManager * queueManager = nil;
     if (message.msgCacheKey.length) {
         [self.allSendMessages removeObjectForKey:message.msgCacheKey];
     }
-//    //#TODO:消息存入数据库
-//    if (message.body.action == 4) {
-//        [CSMsgCacheTool cs_cacheMessage:message.body userId:message.body.chatId addLast:YES];
-//    }
+    //#TODO:消息存入数据库
+    if (message.body.action == 4) {
+        [CSMsgCacheTool cs_cacheMessage:message.body userId:message.body.chatId addLast:YES chatType:message.chatType];
+    }
 }
 
 - (void)cacheMessage:(CSIMSendMessageRequestModel *)message
 {
     [self.messages setObject:message forKey:message.body.msgCacheKey];
     //#TODO:消息存入数据库
-    if (message.body.action == 4) {
-        [CSMsgCacheTool cs_cacheMessage:message.body userId:message.body.chatId addLast:YES];
-    }
+//    if (message.body.action == 4) {
+//        [CSMsgCacheTool cs_cacheMessage:message.body userId:message.body.chatId addLast:YES chatType:(CS_Message_Record_Type_Friend)];
+//    }
 }
 
 - (void)removeCacheMessage:(CSIMSendMessageRequestModel *)message

@@ -52,7 +52,7 @@
 #define VIEW_BACKGROUND_COLOR kLLBackgroundColor_lightGray
 
 #define TABLEVIEW_BACKGROUND_COLOR kLLBackgroundColor_lightGray
-#import "CSMessageRecordTool.h"
+
 #import "LBPhotoBrowserManager.h"
 #import "LB3DTouchVC.h"
 #import "CSUploadFileModel.h"
@@ -245,7 +245,7 @@ CSIMReceiveManagerDelegate
 //                [self.tableView reloadData];
 //                [self.tableView.mj_header endRefreshing];
 //            }
-        } LastId:msgData.msgId count:CS_Message_Count];
+        } LastId:msgData.msgId count:CS_Message_Count chatType:CS_Message_Record_Type_Friend];
         
         
         
@@ -1544,7 +1544,7 @@ CSIMReceiveManagerDelegate
              
              NSData * imageData = [[LLAssetManager sharedAssetManager] fetchImageDataFromAssetModel:asset];
              
-             CSIMSendMessageRequestModel * messageRequest = [CSIMSendMessageRequestModel new];
+             CSIMSendMessageRequestModel * messageRequest = [[CSIMSendMessageRequestModel alloc] initWithChatType:self.chatType];
              CSMessageModel *messageModel = [weakSelf createImageMessageModel:imageData imageSize:asset.imageSize uploadSuccess:^{
                  //上传成功 发送消息
                  DLog(@"图片上传成功");
@@ -1638,7 +1638,7 @@ CSIMReceiveManagerDelegate
             
             
             
-            CSIMSendMessageRequestModel * messageRequest = [CSIMSendMessageRequestModel new];
+            CSIMSendMessageRequestModel * messageRequest = [[CSIMSendMessageRequestModel alloc] initWithChatType:self.chatType];
             CSMessageModel *messageModel = [self createImageMessageModel:imageData imageSize:orgImage.size uploadSuccess:^{
                 //上传成功 发送消息
                 DLog(@"图片上传成功");
@@ -1871,7 +1871,7 @@ CSIMReceiveManagerDelegate
 
 - (void)resendMessage:(CSMessageModel *)model {
     [self waitingMessageRefreshSendStatusWithModel:model];
-    CSIMSendMessageRequestModel * modelRequest = [CSIMSendMessageRequestModel new];
+    CSIMSendMessageRequestModel * modelRequest = [[CSIMSendMessageRequestModel alloc] initWithChatType:self.chatType];
     modelRequest.body = model;
     [modelRequest.msgStatus when:^(id obj) {
         [self successMessageRefreshSendStatusWithModel:model];
@@ -1932,7 +1932,7 @@ CSIMReceiveManagerDelegate
         return;
     }
     if ([message queryMessageWithChatType:CSChatTypeChat chatId:self.conversationModel.chatId]) {
-        CSIMSendMessageRequestModel * model = [CSIMSendMessageRequestModel new];
+        CSIMSendMessageRequestModel * model = [[CSIMSendMessageRequestModel alloc] initWithChatType:self.chatType];
         model.body = message;
         [self addModelToDataSourceAndScrollToBottom:model animated:YES];
     }
@@ -1954,7 +1954,7 @@ CSIMReceiveManagerDelegate
 
 - (void)sendTextMessage:(NSString *)text {
     
-    CSIMSendMessageRequestModel * model = [CSIMSendMessageRequestModel new];
+    CSIMSendMessageRequestModel * model = [[CSIMSendMessageRequestModel alloc] initWithChatType:self.chatType];
     CSMessageModel * msgModel = [CSMessageModel newMessageChatType:CSChatTypeChat chatId:self.conversationModel.chatId msgId:nil msgType:CSMessageBodyTypeText action:4 content:text isSelf:YES];
     
     model.body = msgModel;
@@ -2147,7 +2147,7 @@ CSIMReceiveManagerDelegate
     }
     
     CSMessageModel *messageModel = [[CSMessageModel alloc] initWithType:kCSMessageBodyTypeRecording];
-    CSIMSendMessageRequestModel * model = [CSIMSendMessageRequestModel new];
+    CSIMSendMessageRequestModel * model = [[CSIMSendMessageRequestModel alloc] initWithChatType:self.chatType];
     model.body = messageModel;
     [self addModelToDataSourceAndScrollToBottom:model animated:YES];
 
@@ -2256,7 +2256,7 @@ CSIMReceiveManagerDelegate
     
 //    LLChatType chatType = chatTypeForConversationType(self.conversationModel.conversationType);
 //#FIXME: 待处理
-    CSIMSendMessageRequestModel * model = [CSIMSendMessageRequestModel new];
+    CSIMSendMessageRequestModel * model = [[CSIMSendMessageRequestModel alloc] initWithChatType:self.chatType];
     __block CSMessageModel * msgModel;
     [CSHttpRequestManager upLoadFileRequestParamters:nil filePath:voiceFilePath fileType:CS_UPLOAD_FILE_VOICE success:^(id responseObject) {
         CSUploadFileModel * rsp = [CSUploadFileModel mj_objectWithKeyValues:responseObject];
