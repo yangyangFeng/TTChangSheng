@@ -66,20 +66,34 @@ NSMutableDictionary * tmpImageDict;
 {
     NSMutableDictionary * param = [NSMutableDictionary dictionary];
     [param setObject:self.chatId forKey:@"chatId"];
-    [param setObject:@(self.chatType) forKey:@"chatType"];
+    [param setObject:@(self.chatType== CSChatTypeChatFriend ? 2 : self.chatType) forKey:@"chatType"];
     [param setObject:@(self.msgType) forKey:@"msgType"];
     [param setObject:self.content forKey:@"content"];
     [param setObject:self.msgId forKey:@"msgId"];
     [param setObject:@(self.action) forKey:@"action"];
     [param setObject:@(self.playType) forKey:@"playType"];
     [param setObject:@(self.score) forKey:@"score"];
-    [param setObject:@(2) forKey:@"receiveUserType"];
+    
     if (self.msgType == CSMessageBodyTypeVoice) {
         [param setObject:@(self.mediaDuration) forKey:@"voice_length"];
     }
     if (self.msgType == CSMessageBodyTypeImage) {
         [param setObject:@(self.body.img_width) forKey:@"img_width"];
         [param setObject:@(self.body.img_height) forKey:@"img_height"];
+    }
+    switch (self.chatType) {
+        case CSChatTypeChat://客服
+        {
+            [param setObject:@(2) forKey:@"receiveUserType"];
+        }
+            break;
+        case CSChatTypeChatFriend://好友
+        {
+            [param setObject:@(1) forKey:@"receiveUserType"];
+        }
+            break;
+        default:
+            break;
     }
     return param;
 }
@@ -145,6 +159,7 @@ NSMutableDictionary * tmpImageDict;
         CSUploadFileModel * obj = [CSUploadFileModel mj_objectWithKeyValues:responseObject];
         weakSelf.content = obj.result.file_url;
         weakSelf.body.content = obj.result.file_url;
+        weakSelf.body.img_url_b = obj.result.file_url_b;
         //                 messageRequest.body.body.content
         self.tempImageData = nil;
         if (cs_uploadStatus) {

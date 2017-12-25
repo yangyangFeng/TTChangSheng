@@ -10,6 +10,8 @@
 #import "CSIMMessageQueueManager.h"
 #import "CSIMSendMessageManager.h"
 #import "LLUtils+Audio.h"
+#import "CSMessageRecordTool.h"
+
 static CSIMReceiveManager * _manager = nil;
 @interface CSIMReceiveManager ()
 @property(nonatomic,strong)dispatch_queue_t  queue;
@@ -77,7 +79,14 @@ static CSIMReceiveManager * _manager = nil;
             
             //记录未读消息
             [self insertMessage:message.result];
-           
+           //将数据存到本地
+            if (message.result.fromUserType == 1) {//普通用户
+                message.result.cs_chatType = CS_Message_Record_Type_Friend;
+            }
+            else{//客服
+                message.result.cs_chatType = CS_Message_Record_Type_Service;
+            }
+            [CSMsgCacheTool cs_cacheMessage:message.result userId:message.body.chatId addLast:YES chatType:message.result.cs_chatType];
             
             for (id<CSIMReceiveManagerDelegate> delegate in self.messageDelegates.objectEnumerator.allObjects) {
                 __strong id<CSIMReceiveManagerDelegate> strongDelegate = delegate;

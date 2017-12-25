@@ -21,7 +21,8 @@ static CSMessageRecordTool * tool = nil;
     RLMRealm * realm = [RLMRealm defaultRealm];
     [realm beginWriteTransaction];
     
-    NSPredicate * pred = [NSPredicate predicateWithFormat:@"userId = %@ AND userType = %@",userId,ChatTypeChange(chatType)];//CONTAINS
+    NSString * new_userId = [NSString stringWithFormat:@"%@-%@",ChatTypeChange(chatType),userId];
+    NSPredicate * pred = [NSPredicate predicateWithFormat:@"ID = %@ AND userType = %@",new_userId,ChatTypeChange(chatType)];//CONTAINS
     RLMResults * result = [CSMsg_User objectsInRealm:realm withPredicate:pred];
     
     CSMsg_User * user = [CSMsg_User new];
@@ -31,6 +32,7 @@ static CSMessageRecordTool * tool = nil;
     }
     else
     {
+        user.ID = new_userId;
         user.userId = userId;
     }
     
@@ -46,7 +48,7 @@ static CSMessageRecordTool * tool = nil;
     msg.timestamp = model.body.timestamp;
     msg.is_self = [NSString stringWithFormat:@"%ld",model.isSelf];
     msg.nickname = model.body.nickname;
-    msg.msg_id = [NSString stringWithFormat:@"%@-%@",userId,model.msgId];
+    msg.msg_id = [NSString stringWithFormat:@"%@-%@",new_userId,model.msgId];
     
     if (addLast) {
         [user.msgRecords addObject:msg];
@@ -59,7 +61,13 @@ static CSMessageRecordTool * tool = nil;
     //聊天类型
     user.userType = ChatTypeChange(chatType);
     
-    [realm addOrUpdateObject:user];
+    if (result.count) {
+        [realm addOrUpdateObject:user];
+    }
+    else
+    {
+        [realm addObject:user];
+    }
     [realm commitWriteTransaction];
 //    [realm transactionWithBlock:^{
 //        [realm addOrUpdateObject:user];
@@ -72,9 +80,9 @@ static CSMessageRecordTool * tool = nil;
 {
     RLMRealm * realm = [RLMRealm defaultRealm];
     [realm beginWriteTransaction];
-    
+    NSString * new_userId = [NSString stringWithFormat:@"%@-%@",ChatTypeChange(chatType),userId];
 //    NSPredicate * pred = [NSPredicate predicateWithFormat:@"userId = %@",userId];//CONTAINS
-    NSPredicate * pred = [NSPredicate predicateWithFormat:@"userId = %@ AND userType = %@",userId,ChatTypeChange(chatType)];//CONTAINS
+    NSPredicate * pred = [NSPredicate predicateWithFormat:@"ID = %@ AND userType = %@",new_userId,ChatTypeChange(chatType)];//CONTAINS
     RLMResults * result = [CSMsg_User objectsInRealm:realm withPredicate:pred];
     
     CSMsg_User * user = [CSMsg_User new];
@@ -84,6 +92,7 @@ static CSMessageRecordTool * tool = nil;
     }
     else
     {
+        user.ID = new_userId;
         user.userId = userId;
     }
     
@@ -104,7 +113,7 @@ static CSMessageRecordTool * tool = nil;
             msg.timestamp = model.body.timestamp;
             msg.is_self = [NSString stringWithFormat:@"%ld",model.isSelf];
             msg.nickname = model.body.nickname;
-            msg.msg_id = [NSString stringWithFormat:@"%@-%@",userId,model.msgId];
+            msg.msg_id = [NSString stringWithFormat:@"%@-%@",new_userId,model.msgId];
             
             [user.msgRecords addObject:msg];
         }
@@ -125,7 +134,7 @@ static CSMessageRecordTool * tool = nil;
             msg.timestamp = model.body.timestamp;
             msg.is_self = [NSString stringWithFormat:@"%ld",model.isSelf];
             msg.nickname = model.body.nickname;
-            msg.msg_id = [NSString stringWithFormat:@"%@-%@",userId,model.msgId];
+            msg.msg_id = [NSString stringWithFormat:@"%@-%@",new_userId,model.msgId];
             
             [user.msgRecords insertObject:msg atIndex:0];
 
@@ -144,7 +153,9 @@ static CSMessageRecordTool * tool = nil;
 {
     RLMRealm * realm = [RLMRealm defaultRealm];
 //    NSPredicate * pred = [NSPredicate predicateWithFormat:@"userId = %@",userId];
-    NSPredicate * pred = [NSPredicate predicateWithFormat:@"userId = %@ AND userType = %@",userId,ChatTypeChange(chatType)];//CONTAINS
+    NSString * new_userId = [NSString stringWithFormat:@"%@-%@",ChatTypeChange(chatType),userId];
+    
+    NSPredicate * pred = [NSPredicate predicateWithFormat:@"ID = %@ AND userType = %@",new_userId,ChatTypeChange(chatType)];//CONTAINS
     RLMResults * result = [CSMsg_User objectsInRealm:realm withPredicate:pred];
     CSMsg_User * user = [result firstObject];
     NSMutableArray * datas = [NSMutableArray array];
@@ -161,8 +172,11 @@ static CSMessageRecordTool * tool = nil;
 - (CSMessageRecordTool *)loadCacheMessageWithUserId:(NSString *)userId loadDatas:(loadDatas)loadDatas LastId:(NSString *)lastId count:(NSInteger)count chatType:(CS_Message_Record_Type)chatType
 {
     RLMRealm * realm = [RLMRealm defaultRealm];
+    
+    NSString * new_userId = [NSString stringWithFormat:@"%@-%@",ChatTypeChange(chatType),userId];
+    
 //    NSPredicate * pred = [NSPredicate predicateWithFormat:@"userId = %@",userId];
-    NSPredicate * pred = [NSPredicate predicateWithFormat:@"userId = %@ AND userType = %@",userId,ChatTypeChange(chatType)];//CONTAINS
+    NSPredicate * pred = [NSPredicate predicateWithFormat:@"ID = %@ AND userType = %@",new_userId,ChatTypeChange(chatType)];//CONTAINS
     RLMResults * result = [CSMsg_User objectsInRealm:realm withPredicate:pred];
     CSMsg_User * user = [result firstObject];
     RLMSortDescriptor * rlmSort = [RLMSortDescriptor sortDescriptorWithKeyPath:@"timestamp" ascending:YES];
@@ -208,8 +222,9 @@ static CSMessageRecordTool * tool = nil;
 - (void)cleanUnReadMessageNumWithUserId:(NSString *)userId chatType:(CS_Message_Record_Type)chatType
 {
     RLMRealm * realm = [RLMRealm defaultRealm];
+    NSString * new_userId = [NSString stringWithFormat:@"%@-%@",ChatTypeChange(chatType),userId];
 //    NSPredicate * pred = [NSPredicate predicateWithFormat:@"userId = %@",userId];
-    NSPredicate * pred = [NSPredicate predicateWithFormat:@"userId = %@ AND userType = %@",userId,ChatTypeChange(chatType)];//CONTAINS
+    NSPredicate * pred = [NSPredicate predicateWithFormat:@"ID = %@ AND userType = %@",new_userId,ChatTypeChange(chatType)];//CONTAINS
     RLMResults * result = [CSMsg_User objectsInRealm:realm withPredicate:pred];
     NSPredicate * pred1 = [NSPredicate predicateWithFormat:@"isRead = NO"];
     CSMsg_User * user = [result firstObject];
@@ -233,7 +248,7 @@ static CSMessageRecordTool * tool = nil;
 {
     RLMRealm * realm = [RLMRealm defaultRealm];
 //    NSPredicate * pred = [NSPredicate predicateWithFormat:@"userId = %@",userId];
-    NSPredicate * pred = [NSPredicate predicateWithFormat:@"userId = %@ AND userType = %@",userId,ChatTypeChange(chatType)];//CONTAINS
+    NSPredicate * pred = [NSPredicate predicateWithFormat:@"ID = %@ AND userType = %@",userId,ChatTypeChange(chatType)];//CONTAINS
     RLMResults * result = [CSMsg_User objectsInRealm:realm withPredicate:pred];
     NSPredicate * pred1 = [NSPredicate predicateWithFormat:@"isRead = NO"];
     CSMsg_User * user = [result firstObject];

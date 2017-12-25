@@ -16,4 +16,9 @@
  */
 @property (nonatomic,copy) NSString *file_url;
 
+/**
+ 大图地址
+ */
+@property (nonatomic,copy) NSString *file_url_b;
+
 @end

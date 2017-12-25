@@ -126,8 +126,16 @@ CSIMReceiveManagerDelegate
     [super viewDidLoad];
 
     [CSIMReceiveManager shareInstance].delegate = self;
-    //记录进入该聊天室
-    [[CSIMReceiveManager shareInstance] inChatWithChatType:(CSChatTypeChat) chatId:self.conversationModel.chatId];
+    if (self.chatType == CS_Message_Record_Type_Friend) {
+        //记录进入该聊天室
+        [[CSIMReceiveManager shareInstance] inChatWithChatType:(CSChatTypeChatFriend) chatId:self.conversationModel.chatId];
+    }
+    else
+    {
+        //记录进入该聊天室
+        [[CSIMReceiveManager shareInstance] inChatWithChatType:(CSChatTypeChat) chatId:self.conversationModel.chatId];
+    }
+    
     
     [self tt_SetNaviBarHide:NO withAnimation:NO];
     
@@ -245,7 +253,7 @@ CSIMReceiveManagerDelegate
 //                [self.tableView reloadData];
 //                [self.tableView.mj_header endRefreshing];
 //            }
-        } LastId:msgData.msgId count:CS_Message_Count chatType:CS_Message_Record_Type_Friend];
+        } LastId:msgData.msgId count:CS_Message_Count chatType:self.chatType];
         
         
         

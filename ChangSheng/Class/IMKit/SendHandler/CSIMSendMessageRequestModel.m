@@ -38,6 +38,12 @@
     return @{@"unreadList" : [CSIMUnReadListModel class]};
 }
 
+-(void)setBody:(CSMessageModel *)body
+{
+    _body = body;
+    _body.cs_chatType = self.chatType;
+}
+
 - (id)mutableCopyWithZone:(NSZone * )zone
 {
     CSIMSendMessageRequestModel * model = [CSIMSendMessageRequestModel new];

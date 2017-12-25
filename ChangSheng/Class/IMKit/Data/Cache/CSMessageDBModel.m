@@ -15,7 +15,7 @@
 @implementation CSMsg_User
 + (NSString *)primaryKey
 {
-    return @"userId";
+    return @"ID";
 }
 + (NSArray *)indexedProperties {
     return @[@"userId"];

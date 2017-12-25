@@ -135,8 +135,9 @@
         
         MBProgressHUD *hud = [LLUtils showCustomIndicatiorHUDWithTitle:@"" inView:self.tableHandler.tableView];
         [CSMsgCacheTool loadCacheMessageWithUserId:friendInfo.userid loadDatas:^(NSArray *msgs) {
+            [hud hideAnimated:YES afterDelay:1];
             if (msgs.count) {
-                [hud hideAnimated:YES afterDelay:1];
+                
                 LLChatViewController * chatC = (LLChatViewController*)[StoryBoardController storyBoardName:@"Main" ViewControllerIdentifiter:@"LLChatViewController"];
                 
                 CSIMConversationModel * model = [CSIMConversationModel new];

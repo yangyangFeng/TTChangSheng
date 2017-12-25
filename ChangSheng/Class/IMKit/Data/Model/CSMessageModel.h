@@ -37,6 +37,7 @@ typedef void(^CS_MESSAGE_UPLOAD_STATUS)(CSMessageModel *model, NSError *error) ;
 typedef enum{
     CSChatTypeGroupChat = 1,    /*! \~chinese 群聊消息 \~english Group chat */
     CSChatTypeChat   ,   /*! \~chinese 单聊消息 \~english Chat */
+    CSChatTypeChatFriend,
 //    CSChatTypeChatRoom,     /*! \~chinese 聊天室消息 \~english Chatroom chat */
 }CSChatType;
 /*!
@@ -193,6 +194,8 @@ static NSString* ChatTypeChange(CS_Message_Record_Type chatType)
 
 @interface CSMessageModel : NSObject
 
+@property(nonatomic,assign)CS_Message_Record_Type cs_chatType;
+
 @property (nonatomic,weak) NSData *tempImageData;
 - (BOOL)queryMessageWithChatType:(CSChatType)chatType chatId:(NSString *)chatId;
 /**
@@ -303,6 +306,8 @@ static NSString* ChatTypeChange(CS_Message_Record_Type chatType)
 
 @property (nonatomic) BOOL isSelected;
 
+
+@property (nonatomic) int fromUserType;  //消息发送方方用户类型    1 代表 普通用户  2 代表 系统客户（主持人）  //chartType == 2 需要
 #pragma mark - 附件、文件
 //附件下载地址
 @property (nonatomic, copy) NSString *fileRemotePath;
@@ -541,6 +546,11 @@ static NSString* ChatTypeChange(CS_Message_Record_Type chatType)
 @property(nonatomic,assign)CSMessageBodyType msgType;
 //"消息内容", //action==3 只需要content 和 linkUrl 其他不需要
 @property(nonatomic,copy)NSString * content;
+
+/**
+ 大图地址
+ */
+@property(nonatomic,copy)NSString * img_url_b;
 
 @property(nonatomic,copy)NSString * linkUrl;
 // : 0 //未读消息条数

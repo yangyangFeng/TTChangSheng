@@ -50,6 +50,12 @@ static CSIMMessageQueueManager * queueManager = nil;
     }
     //#TODO:消息存入数据库
     if (message.body.action == 4) {
+        if (message.body.receiveUserType == 1) {//普通用户消息
+            
+        }
+        else{//客服消息
+            
+        }
         [CSMsgCacheTool cs_cacheMessage:message.body userId:message.body.chatId addLast:YES chatType:message.chatType];
     }
 }
