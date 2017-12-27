@@ -162,7 +162,7 @@ typedef NS_ENUM(NSInteger, CSMessageStatus) {
 //}
 
 typedef enum : NSUInteger {
-    CS_Message_Record_Type_Group ,
+    CS_Message_Record_Type_Group = 1 ,
     CS_Message_Record_Type_Service,
     CS_Message_Record_Type_Friend,
 } CS_Message_Record_Type;

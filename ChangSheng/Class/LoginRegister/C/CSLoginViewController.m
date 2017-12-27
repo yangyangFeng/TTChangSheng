@@ -90,7 +90,8 @@
             AppDelegate * appDelegate =  (AppDelegate *)[UIApplication sharedApplication].delegate;
 
             [appDelegate joinHomeController];
-            
+//#mark - DB配置
+            [CSLoginHandler initDB];
         });
     } failBlock:^(NSError *error) {
         [hud hideAnimated:NO];

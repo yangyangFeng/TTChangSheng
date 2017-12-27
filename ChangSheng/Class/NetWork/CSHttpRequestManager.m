@@ -162,17 +162,19 @@
 }
 
 #pragma mark - 2.注册
-+ (void)request_register_paramters:(NSDictionary *)params success:(TTSuccessBlock)success failure:(TTFailureBlock)failure showHUD:(BOOL)showHUD
-{
+/**
+ *  2.注册
+ */
++ (void)request_register_paramters:(NSDictionary*)params
+                          fileData:(NSData*)fileData
+                          fileType:(CS_UPLOAD_FILE)fileType
+                           success:(TTSuccessBlock)successBlock
+                           failure:(TTFailureBlock)failureBlock
+                    uploadprogress:(TTUploadProgressBlock)progressBlock
+                           showHUD:(BOOL)showHUD{
     NSString * url = @"entrance/register";
-    [[CSNewWorkHandler sharedInstance] beginHttpRequestType:POST_TTREQUEST_TYPE url:url paramters:params success:^(id responseObject) {
-
-            success(responseObject);
-   
-    } failure:^(NSError *error) {
-       
-        failure(error);
-    } showHUD:showHUD];
+    
+    [self upLoadFileRequestWithUrl:url paramters:params fileData:fileData fileType:fileType success:successBlock failure:failureBlock uploadprogress:progressBlock showHUD:showHUD];
 }
 
 #pragma mark - 3.登录

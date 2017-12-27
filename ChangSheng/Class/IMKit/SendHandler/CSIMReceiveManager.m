@@ -76,17 +76,23 @@ static CSIMReceiveManager * _manager = nil;
 //            [message.result syncMessageBodyType:CS_changeMessageType(message.result.body.msgType)];
             
             message.result.timestamp = message.result.body.timestamp;
-            
+            message.result.isSelf = NO;
             //记录未读消息
             [self insertMessage:message.result];
            //将数据存到本地
             if (message.result.fromUserType == 1) {//普通用户
                 message.result.cs_chatType = CS_Message_Record_Type_Friend;
+                message.result.chatType = CSChatTypeChatFriend;
             }
             else{//客服
                 message.result.cs_chatType = CS_Message_Record_Type_Service;
+                message.result.chatType = CSChatTypeChat;
             }
-            [CSMsgCacheTool cs_cacheMessage:message.result userId:message.body.chatId addLast:YES chatType:message.result.cs_chatType];
+            CSCacheUserInfo * userInfo = [CSCacheUserInfo new];
+            userInfo.userId = message.result.chatId;
+            userInfo.avatar = message.result.body.avatar;
+            userInfo.nickname = message.result.body.nickname;
+            [CSMsgCacheTool cs_cacheMessage:message.result userInfo:userInfo addLast:YES chatType:message.result.cs_chatType];
             
             for (id<CSIMReceiveManagerDelegate> delegate in self.messageDelegates.objectEnumerator.allObjects) {
                 __strong id<CSIMReceiveManagerDelegate> strongDelegate = delegate;

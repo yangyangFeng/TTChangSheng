@@ -47,3 +47,7 @@
 }
 @end
 
+@implementation CSCacheUserInfo
+
+@end
+

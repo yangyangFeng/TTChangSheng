@@ -180,7 +180,7 @@ CSIMReceiveManagerDelegate
     
         CSMessageModel * msgData = [self.dataSource firstObject];
         CSMsgHistoryRequestModel * param = [CSMsgHistoryRequestModel new];
-        param.chat_type = CSChatTypeChat;//1为群聊
+        param.chat_type = self.chatType;//1为群聊
         param.ID = self.conversationModel.chatId.intValue;
         [CSHttpRequestManager request_chatRecord_paramters:param.mj_keyValues success:^(id responseObject) {
             CSMsgRecordModel * obj = [CSMsgRecordModel mj_objectWithKeyValues:responseObject];
@@ -218,6 +218,7 @@ CSIMReceiveManagerDelegate
             }
             else
             {
+                [self.tableView.mj_header endRefreshing];
                 CS_HUD(@"无历史记录");
             }
 //            if (msgs.count || msgs.count < 10) {
@@ -1420,7 +1421,7 @@ CSIMReceiveManagerDelegate
         return nil;
     }
     NSString * msgId = [CSMessageModel create_kMessageId];
-    CSMessageModel * messageModel = [CSMessageModel sendImageMessageWithImageData:imageData imageSize:imageSize chatId:self.conversationModel.chatId chatType:(CSChatTypeChat) msgId:msgId msgType:(CSMessageBodyTypeImage) action:4 content:@"" uploadProgress:^(CGFloat progress) {
+    CSMessageModel * messageModel = [CSMessageModel sendImageMessageWithImageData:imageData imageSize:imageSize chatId:self.conversationModel.chatId chatType:(self.chatType) msgId:msgId msgType:(CSMessageBodyTypeImage) action:4 content:@"" uploadProgress:^(CGFloat progress) {
         dispatch_async(dispatch_get_main_queue(), ^{
             NSLog(@"🍎🍎🍎🍎🍎🍎🍎🍎---------------->%g",progress);
             messageModel.fileUploadProgress = progress * 100;
@@ -1553,6 +1554,10 @@ CSIMReceiveManagerDelegate
              NSData * imageData = [[LLAssetManager sharedAssetManager] fetchImageDataFromAssetModel:asset];
              
              CSIMSendMessageRequestModel * messageRequest = [[CSIMSendMessageRequestModel alloc] initWithChatType:self.chatType];
+             
+             //增加聊天用户信息
+             messageRequest.userInfo = [self chatUserInfo];
+             
              CSMessageModel *messageModel = [weakSelf createImageMessageModel:imageData imageSize:asset.imageSize uploadSuccess:^{
                  //上传成功 发送消息
                  DLog(@"图片上传成功");
@@ -1647,6 +1652,11 @@ CSIMReceiveManagerDelegate
             
             
             CSIMSendMessageRequestModel * messageRequest = [[CSIMSendMessageRequestModel alloc] initWithChatType:self.chatType];
+            
+            //增加聊天用户信息
+            messageRequest.userInfo = [self chatUserInfo];
+            
+            
             CSMessageModel *messageModel = [self createImageMessageModel:imageData imageSize:orgImage.size uploadSuccess:^{
                 //上传成功 发送消息
                 DLog(@"图片上传成功");
@@ -1679,6 +1689,15 @@ CSIMReceiveManagerDelegate
     
 }
 
+- (CSCacheUserInfo *)chatUserInfo
+{
+    CSCacheUserInfo * userInfo = [CSCacheUserInfo new];
+    
+    userInfo.userId = self.conversationModel.chatId;
+    userInfo.avatar = self.conversationModel.avatarImageURL;
+    userInfo.nickname = self.conversationModel.nickName;
+    return  userInfo;
+}
 
 - (void)imagePickerController:(LLImagePickerController *)picker didFinishPickingVideo:(NSString *)videoPath {
     [self sendVideoMessageWithURL:videoPath];
@@ -1880,6 +1899,9 @@ CSIMReceiveManagerDelegate
 - (void)resendMessage:(CSMessageModel *)model {
     [self waitingMessageRefreshSendStatusWithModel:model];
     CSIMSendMessageRequestModel * modelRequest = [[CSIMSendMessageRequestModel alloc] initWithChatType:self.chatType];
+    //增加聊天用户信息
+    modelRequest.userInfo = [self chatUserInfo];
+    
     modelRequest.body = model;
     [modelRequest.msgStatus when:^(id obj) {
         [self successMessageRefreshSendStatusWithModel:model];
@@ -1939,7 +1961,7 @@ CSIMReceiveManagerDelegate
     if (!message) {
         return;
     }
-    if ([message queryMessageWithChatType:CSChatTypeChat chatId:self.conversationModel.chatId]) {
+    if ([message queryMessageWithChatType:self.chatType chatId:self.conversationModel.chatId]) {
         CSIMSendMessageRequestModel * model = [[CSIMSendMessageRequestModel alloc] initWithChatType:self.chatType];
         model.body = message;
         [self addModelToDataSourceAndScrollToBottom:model animated:YES];
@@ -1963,7 +1985,10 @@ CSIMReceiveManagerDelegate
 - (void)sendTextMessage:(NSString *)text {
     
     CSIMSendMessageRequestModel * model = [[CSIMSendMessageRequestModel alloc] initWithChatType:self.chatType];
-    CSMessageModel * msgModel = [CSMessageModel newMessageChatType:CSChatTypeChat chatId:self.conversationModel.chatId msgId:nil msgType:CSMessageBodyTypeText action:4 content:text isSelf:YES];
+    //增加聊天用户信息
+    model.userInfo = [self chatUserInfo];
+    
+    CSMessageModel * msgModel = [CSMessageModel newMessageChatType:self.chatType chatId:self.conversationModel.chatId msgId:nil msgType:CSMessageBodyTypeText action:4 content:text isSelf:YES];
     
     model.body = msgModel;
     
@@ -2156,6 +2181,10 @@ CSIMReceiveManagerDelegate
     
     CSMessageModel *messageModel = [[CSMessageModel alloc] initWithType:kCSMessageBodyTypeRecording];
     CSIMSendMessageRequestModel * model = [[CSIMSendMessageRequestModel alloc] initWithChatType:self.chatType];
+    
+    //增加聊天用户信息
+    model.userInfo = [self chatUserInfo];
+    
     model.body = messageModel;
     [self addModelToDataSourceAndScrollToBottom:model animated:YES];
 
@@ -2265,11 +2294,15 @@ CSIMReceiveManagerDelegate
 //    LLChatType chatType = chatTypeForConversationType(self.conversationModel.conversationType);
 //#FIXME: 待处理
     CSIMSendMessageRequestModel * model = [[CSIMSendMessageRequestModel alloc] initWithChatType:self.chatType];
+    
+    //增加聊天用户信息
+    model.userInfo = [self chatUserInfo];
+    
     __block CSMessageModel * msgModel;
     [CSHttpRequestManager upLoadFileRequestParamters:nil filePath:voiceFilePath fileType:CS_UPLOAD_FILE_VOICE success:^(id responseObject) {
         CSUploadFileModel * rsp = [CSUploadFileModel mj_objectWithKeyValues:responseObject];
         
-        msgModel = [CSMessageModel newVoiceMessageChatType:CSChatTypeChat chatId:self.conversationModel.chatId msgId:nil msgType:(CSMessageBodyTypeVoice) action:4 content:rsp.result.file_url localPath:voiceFilePath duration:duration uploadProgress:^(CGFloat progress) {
+        msgModel = [CSMessageModel newVoiceMessageChatType:self.chatType chatId:self.conversationModel.chatId msgId:nil msgType:(CSMessageBodyTypeVoice) action:4 content:rsp.result.file_url localPath:voiceFilePath duration:duration uploadProgress:^(CGFloat progress) {
             DLog(@"语音上传进度--->%g",progress);
         } uploadStatus:^(CSMessageModel *model, NSError *error) {
             

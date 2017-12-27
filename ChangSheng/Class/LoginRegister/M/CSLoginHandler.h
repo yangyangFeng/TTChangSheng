@@ -22,9 +22,11 @@ typedef void(^errorBlock)(NSError *error);
 /**
  *  注册
  */
-+ (void)registerWithParams:(NSDictionary *)params
-              successBlock:(successBlock)success
-                 failBlock:(errorBlock)fail;
++ (void)request_register_paramters:(NSDictionary*)params
+                          fileData:(NSData*)fileData
+                          fileType:(CS_UPLOAD_FILE)fileType
+                      successBlock:(successBlock)success
+                         failBlock:(errorBlock)fail;
 
 + (void)openSocket;
 

@@ -20,6 +20,7 @@
 #import "CSMessageRecordTool.h"
 #import "LLChatViewController.h"
 #import "StoryBoardController.h"
+#import "CSIMReceiveManager.h"
 @interface CSFriendsListViewController ()<TTBaseTableViewHandlerDelegate>
 @property(nonatomic,strong)CSFriendListTableHandler * tableHandler;
 @end
@@ -32,8 +33,17 @@
     [self tt_Title:@"乐友"];
     
     [self createSubviews];
-     
+    
+    [CSIMReceiveManager shareInstance].delegate = self;
 }
+
+- (void)cs_receiveUpdateUnreadMessage
+{
+    NSArray * friends = [CSMsgCacheTool AccessToChatFriendWith:(CS_Message_Record_Type_Friend)];
+    self.tableHandler.dataSource = [NSMutableArray arrayWithArray:friends];
+    [self.tableHandler.tableView reloadData];
+}
+
 
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -140,10 +150,12 @@
                 
                 LLChatViewController * chatC = (LLChatViewController*)[StoryBoardController storyBoardName:@"Main" ViewControllerIdentifiter:@"LLChatViewController"];
                 
-                CSIMConversationModel * model = [CSIMConversationModel new];
                 chatC.chatType = CS_Message_Record_Type_Friend;
+                
+                CSIMConversationModel * model = [CSIMConversationModel new];
                 model.chatId = [friendInfo userid];
                 model.nickName = friendInfo.nickname;
+                model.avatarImageURL = friendInfo.headurl;
                 model.allMessageModels = [NSMutableArray arrayWithArray:msgs];
                 
                 chatC.conversationModel = model;
@@ -153,11 +165,11 @@
             {
                 LLChatViewController * chatC = (LLChatViewController*)[StoryBoardController storyBoardName:@"Main" ViewControllerIdentifiter:@"LLChatViewController"];
                 
-                CSIMConversationModel * model = [CSIMConversationModel new];
                 chatC.chatType = CS_Message_Record_Type_Friend;
+                CSIMConversationModel * model = [CSIMConversationModel new];
                 model.chatId = friendInfo.userid;
                 model.nickName = friendInfo.nickname;
-                
+                model.avatarImageURL = friendInfo.headurl;
                 
                 chatC.conversationModel = model;
                 [self.navigationController pushViewController:chatC animated:YES];

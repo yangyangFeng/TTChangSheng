@@ -10,6 +10,11 @@
 
 @interface CSRegisterParam : CSBaseRequestModel
 @property (nonatomic,copy) NSString *username;
+@property (nonatomic,copy) NSString *nickname;
 @property (nonatomic,copy) NSString *password;
 @property (nonatomic,copy) NSString *referee_code;
+
+@property (nonatomic,copy) NSString *file;
+
+
 @end

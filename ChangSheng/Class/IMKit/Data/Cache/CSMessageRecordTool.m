@@ -16,40 +16,46 @@
 static CSMessageRecordTool * tool = nil;
 
 @implementation CSMessageRecordTool
-- (CSMessageRecordTool *)cs_cacheMessage:(CSMessageModel *)model userId:(NSString *)userId addLast:(BOOL)addLast chatType:(CS_Message_Record_Type)chatType
+- (CSMessageRecordTool *)cs_cacheMessage:(CSMessageModel *)model userInfo:(CSCacheUserInfo *)userInfo addLast:(BOOL)addLast chatType:(CS_Message_Record_Type)chatType
 {
     RLMRealm * realm = [RLMRealm defaultRealm];
     [realm beginWriteTransaction];
     
-    NSString * new_userId = [NSString stringWithFormat:@"%@-%@",ChatTypeChange(chatType),userId];
+    NSString * new_userId = [NSString stringWithFormat:@"%@-%@",ChatTypeChange(chatType),userInfo.userId];
     NSPredicate * pred = [NSPredicate predicateWithFormat:@"ID = %@ AND userType = %@",new_userId,ChatTypeChange(chatType)];//CONTAINS
     RLMResults * result = [CSMsg_User objectsInRealm:realm withPredicate:pred];
     
     CSMsg_User * user = [CSMsg_User new];
-    user.userType = ChatTypeChange(chatType);
+//    user.userType = ChatTypeChange(chatType);
     if (result.count) {
         user = [result firstObject];
     }
     else
     {
         user.ID = new_userId;
-        user.userId = userId;
+        user.userId = userInfo.userId;
+        user.avatar = userInfo.avatar;
+        user.nickname = userInfo.nickname;
     }
     
     CSMsg_User_Msg * msg = [CSMsg_User_Msg new];
     msg.img_width = model.body.img_width;
     msg.img_height = model.body.img_height;
     
+    if (user.ID == self.currentChatId || model.isSelf) {
+        msg.isRead = YES;
+    }
     msg.content = model.body.content;
     msg.avatar = model.body.avatar;
     msg.voice_length = model.body.voice_length;
     msg.type = [NSString stringWithFormat:@"%ld",model.body.msgType];
     msg.link_url = model.body.linkUrl;
     msg.timestamp = model.body.timestamp;
-    msg.is_self = [NSString stringWithFormat:@"%ld",model.isSelf];
+//    msg.is_self = [NSString stringWithFormat:@"%ld",model.isSelf];
+    msg.is_self = model.isSelf;
     msg.nickname = model.body.nickname;
     msg.msg_id = [NSString stringWithFormat:@"%@-%@",new_userId,model.msgId];
-    
+    msg.owner = user;
     if (addLast) {
         [user.msgRecords addObject:msg];
     }
@@ -76,24 +82,33 @@ static CSMessageRecordTool * tool = nil;
     return self;
 }
 
-- (CSMessageRecordTool *)cs_cacheMessages:(NSArray<CSMessageModel*> *)models userId:(NSString *)userId addLast:(BOOL)addLast chatType:(CS_Message_Record_Type)chatType
+- (NSString *)userId:(NSString *)userId chatType:(CS_Message_Record_Type)chatType
+{
+    NSString * new_userId = [NSString stringWithFormat:@"%@-%@",ChatTypeChange(chatType),userId];
+    return new_userId;
+}
+
+
+- (CSMessageRecordTool *)cs_cacheMessages:(NSArray<CSMessageModel*> *)models userInfo:(CSCacheUserInfo *)userInfo addLast:(BOOL)addLast chatType:(CS_Message_Record_Type)chatType
 {
     RLMRealm * realm = [RLMRealm defaultRealm];
     [realm beginWriteTransaction];
-    NSString * new_userId = [NSString stringWithFormat:@"%@-%@",ChatTypeChange(chatType),userId];
+    NSString * new_userId = [NSString stringWithFormat:@"%@-%@",ChatTypeChange(chatType),userInfo.userId];
 //    NSPredicate * pred = [NSPredicate predicateWithFormat:@"userId = %@",userId];//CONTAINS
     NSPredicate * pred = [NSPredicate predicateWithFormat:@"ID = %@ AND userType = %@",new_userId,ChatTypeChange(chatType)];//CONTAINS
     RLMResults * result = [CSMsg_User objectsInRealm:realm withPredicate:pred];
     
     CSMsg_User * user = [CSMsg_User new];
-    user.userType = ChatTypeChange(chatType);
+//    user.userType = ChatTypeChange(chatType);
     if (result.count) {
         user = [result firstObject];
     }
     else
     {
         user.ID = new_userId;
-        user.userId = userId;
+        user.userId = userInfo.userId;
+        user.avatar = userInfo.avatar;
+        user.nickname = userInfo.nickname;
     }
     
    
@@ -105,15 +120,21 @@ static CSMessageRecordTool * tool = nil;
             msg.img_width = model.body.img_width;
             msg.img_height = model.body.img_height;
             
+            if (user.ID == self.currentChatId || model.isSelf) {
+                msg.isRead = YES;
+            }
             msg.content = model.body.content;
             msg.avatar = model.body.avatar;
             msg.voice_length = model.body.voice_length;
             msg.type = [NSString stringWithFormat:@"%ld",model.body.msgType];
             msg.link_url = model.body.linkUrl;
             msg.timestamp = model.body.timestamp;
-            msg.is_self = [NSString stringWithFormat:@"%ld",model.isSelf];
+            msg.is_self = model.isSelf;
+            //[NSString stringWithFormat:@"%ld",model.isSelf];
             msg.nickname = model.body.nickname;
             msg.msg_id = [NSString stringWithFormat:@"%@-%@",new_userId,model.msgId];
+            
+            msg.owner = user;
             
             [user.msgRecords addObject:msg];
         }
@@ -126,15 +147,21 @@ static CSMessageRecordTool * tool = nil;
             msg.img_width = model.body.img_width;
             msg.img_height = model.body.img_height;
             
+            if (user.ID == self.currentChatId || model.isSelf) {
+                msg.isRead = YES;
+            }
             msg.content = model.body.content;
             msg.avatar = model.body.avatar;
             msg.voice_length = model.body.voice_length;
             msg.type = [NSString stringWithFormat:@"%ld",model.body.msgType];
             msg.link_url = model.body.linkUrl;
             msg.timestamp = model.body.timestamp;
-            msg.is_self = [NSString stringWithFormat:@"%ld",model.isSelf];
+            msg.is_self = model.isSelf;
+            //            msg.is_self = [NSString stringWithFormat:@"%ld",model.isSelf];
             msg.nickname = model.body.nickname;
             msg.msg_id = [NSString stringWithFormat:@"%@-%@",new_userId,model.msgId];
+            
+            msg.owner = user;
             
             [user.msgRecords insertObject:msg atIndex:0];
 
@@ -275,25 +302,39 @@ static CSMessageRecordTool * tool = nil;
     RLMSortDescriptor * rlmSort = [RLMSortDescriptor sortDescriptorWithKeyPath:@"timestamp" ascending:YES];
     
     NSMutableArray * datas = [NSMutableArray array];
+    NSMutableArray * haveUnReadArray = [NSMutableArray array];
+    NSMutableArray * noHaveUnReadArray = [NSMutableArray array];
     for (CSMsg_User * user in result) {
         [user.msgRecords sortedResultsUsingDescriptors:@[rlmSort]];
         
         CSFriendchartlistModel * model = [CSFriendchartlistModel new];
         CSMsg_User_Msg * msgModel = [user.msgRecords lastObject];
         model.lastmsg = msgModel.content;
-        model.nickname = msgModel.nickname;
         model.lastdata = msgModel.timestamp;
-        model.headurl = msgModel.avatar;
         model.lastmsgid = msgModel.msg_id;
+        model.nickname = user.nickname;
+        model.headurl = user.avatar;
         model.userid = user.userId;
         NSPredicate * pred1 = [NSPredicate predicateWithFormat:@"isRead = NO"];
         
         RLMResults * unRead = [user.msgRecords objectsWithPredicate:pred1];
         model.unreadmsgnum = [NSString stringWithFormat:@"%ld",unRead.count];
         
-        [datas addObject:model];
+        if (unRead.count) {
+            [haveUnReadArray addObject:model];
+        }
+        else
+        {
+            [noHaveUnReadArray addObject:model];
+        }
     }
-
+    NSArray *sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"lastdata" ascending:NO]];
+    
+    [haveUnReadArray sortUsingDescriptors:sortDescriptors];
+    [noHaveUnReadArray sortUsingDescriptors:sortDescriptors];
+    
+    [datas addObjectsFromArray:haveUnReadArray];
+    [datas addObjectsFromArray:noHaveUnReadArray];
     return datas;
 }
 //
@@ -379,7 +420,8 @@ static CSMessageRecordTool * tool = nil;
     
     NSString * pathName = [path stringByAppendingString:[NSString stringWithFormat:@"/realmDB_%@.realm",username]];
     
-
+    DLog(@"数据库地址---->%@",pathName);
+    
     config.fileURL = [NSURL URLWithString:pathName];
     
     config.migrationBlock = ^(RLMMigration * _Nonnull migration, uint64_t oldSchemaVersion) {

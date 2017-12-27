@@ -93,7 +93,7 @@ static TTSocketChannelManager * _manager = nil;
     if (self.connectionStatus == CS_IM_Connection_Ststus_Connectioned && self.webSocket.readyState == SR_OPEN) {
         [self.webSocket sendPing:nil];
     }
-    else if (self.connectionStatus == CS_IM_Connection_Ststus_Fail)
+    else if (self.connectionStatus == CS_IM_Connection_Ststus_Fail || self.connectionStatus == CS_IM_Connection_Ststus_Close)
     {
         [self openConnection];
         dispatch_async(dispatch_get_main_queue(), ^{

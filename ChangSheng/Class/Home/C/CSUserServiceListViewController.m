@@ -184,6 +184,7 @@ static CSUserServiceListViewController * controller = nil;
             chatC.chatType = CS_Message_Record_Type_Service;
             CSIMConversationModel * model = [CSIMConversationModel new];
             model.chatId = [userServiceModel id];
+            model.avatarImageURL = userServiceModel.avatar;
             model.nickName = userServiceModel.nickname;
             model.allMessageModels = [NSMutableArray arrayWithArray:msgs];
             
@@ -215,7 +216,14 @@ static CSUserServiceListViewController * controller = nil;
                 chatC.conversationModel = model;
                 [self.navigationController pushViewController:chatC animated:YES];
                 
-                [CSMsgCacheTool cs_cacheMessages:model.allMessageModels userId:userServiceModel.id addLast:YES chatType:CS_Message_Record_Type_Service];
+                
+                CSCacheUserInfo * userInfo = [CSCacheUserInfo new];
+                
+                userInfo.userId = model.chatId;
+                userInfo.avatar = @"";
+                userInfo.nickname = model.nickName;
+                
+                [CSMsgCacheTool cs_cacheMessages:model.allMessageModels userInfo:userInfo addLast:YES chatType:CS_Message_Record_Type_Service];
             } failure:^(NSError *error) {
                 [hud hideAnimated:YES afterDelay:1];
             } showHUD:YES];
@@ -226,5 +234,12 @@ static CSUserServiceListViewController * controller = nil;
     
     
 }
-
+- (CSCacheUserInfo *)chatUserInfo
+{
+    CSCacheUserInfo * userInfo = [CSCacheUserInfo new];
+    
+//    userInfo.userId = self.conversationModel.chatId;
+//    userInfo.avatar = self.conversationModel.avatarImageURL;
+    return  userInfo;
+}
 @end

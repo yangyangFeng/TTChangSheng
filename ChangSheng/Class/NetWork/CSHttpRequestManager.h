@@ -65,7 +65,13 @@ typedef enum : NSUInteger {
 /**
  *  2.注册
  */
-+ (void)request_register_paramters:(NSDictionary *)params success:(TTSuccessBlock)success failure:(TTFailureBlock)failure showHUD:(BOOL)showHUD;
++ (void)request_register_paramters:(NSDictionary*)params
+                          fileData:(NSData*)fileData
+                          fileType:(CS_UPLOAD_FILE)fileType
+                           success:(TTSuccessBlock)successBlock
+                           failure:(TTFailureBlock)failureBlock
+                    uploadprogress:(TTUploadProgressBlock)progressBlock
+                           showHUD:(BOOL)showHUD;
 #pragma mark -  3.登录
 /**
  *  3.登录

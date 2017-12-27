@@ -306,6 +306,10 @@ NSMutableDictionary * tmpImageDict;
  */
 + (CSMessageModel *)inChatWithChatType:(CSChatType )chatType chatId:(NSString *)chatId
 {
+
+    
+    CSMsgCacheTool.currentChatId = [CSMsgCacheTool userId:chatId chatType:(chatType)];
+    
     CSMessageModel * message = [CSMessageModel newMessageChatType:chatType chatId:chatId msgId:nil msgType:CSMessageBodyTypeText action:1 content:@"" isSelf:NO];
     return message;
 }
@@ -314,6 +318,7 @@ NSMutableDictionary * tmpImageDict;
  */
 + (CSMessageModel *)outChatWithChatType:(CSChatType )chatType chatId:(NSString *)chatId
 {
+    CSMsgCacheTool.currentChatId = @"";
     CSMessageModel * message = [CSMessageModel newMessageChatType:chatType chatId:chatId msgId:nil msgType:CSMessageBodyTypeText action:2 content:@"" isSelf:NO];
     return message;
 }
@@ -553,18 +558,18 @@ NSMutableDictionary * tmpImageDict;
     
     switch ((CSMessageBodyType)msgRecordModel.type.integerValue) {
         case CSMessageBodyTypeText:
-            msgBody = [CSMessageModel newMessageChatType:chatType chatId:chatId msgId:msgRecordModel.msg_id msgType:CSMessageBodyTypeText action:1 content:msgRecordModel.content isSelf:msgRecordModel.is_self.intValue];
+            msgBody = [CSMessageModel newMessageChatType:chatType chatId:chatId msgId:msgRecordModel.msg_id msgType:CSMessageBodyTypeText action:1 content:msgRecordModel.content isSelf:msgRecordModel.is_self];
             break;
         case CSMessageBodyTypeImage:
-            msgBody = [CSMessageModel newImageMessageWithImageSize:CGSizeMake(msgRecordModel.img_width, msgRecordModel.img_height) chatId:chatId chatType:chatType msgId:msgRecordModel.msg_id msgType:(CSMessageBodyTypeImage) action:1 content:msgRecordModel.content isSelf:msgRecordModel.is_self.intValue];
+            msgBody = [CSMessageModel newImageMessageWithImageSize:CGSizeMake(msgRecordModel.img_width, msgRecordModel.img_height) chatId:chatId chatType:chatType msgId:msgRecordModel.msg_id msgType:(CSMessageBodyTypeImage) action:1 content:msgRecordModel.content isSelf:msgRecordModel.is_self];
             //                       newMessageChatType:chatType chatId:chatId msgId:msgRecordModel.msg_id msgType:CSMessageBodyTypeImage action:1 content:msgRecordModel.content];
             break;
         case CSMessageBodyTypeVoice:
-            msgBody = [CSMessageModel newVoiceMessageChatType:chatType chatId:chatId msgId:msgRecordModel.msg_id msgType:CSMessageBodyTypeVoice action:1 content:msgRecordModel.content localPath:nil duration:msgRecordModel.voice_length uploadProgress:nil uploadStatus:nil isSelf:msgRecordModel.is_self.intValue];
+            msgBody = [CSMessageModel newVoiceMessageChatType:chatType chatId:chatId msgId:msgRecordModel.msg_id msgType:CSMessageBodyTypeVoice action:1 content:msgRecordModel.content localPath:nil duration:msgRecordModel.voice_length uploadProgress:nil uploadStatus:nil isSelf:msgRecordModel.is_self];
             break;
         case CSMessageBodyTypeLink:
             msgBody = [CSMessageModel newLinkImageMessageWithImageSize:CGSizeMake(msgRecordModel.img_width, msgRecordModel.img_height) chatId:chatId chatType:chatType msgId:msgRecordModel.msg_id msgType:(CSMessageBodyTypeLink) action:1 content:msgRecordModel.content
-                                                               linkUrl:msgRecordModel.link_url isSelf:msgRecordModel.is_self.intValue];
+                                                               linkUrl:msgRecordModel.link_url isSelf:msgRecordModel.is_self];
             break;
         default:
             break;

@@ -17,8 +17,11 @@ RLM_ARRAY_TYPE(CSMsg_User_Msg)
 @interface CSMsg_User : RLMObject
 @property (nonatomic,copy) NSString *ID;
 @property (nonatomic,copy) NSString *userId;
-
 @property (nonatomic,copy) NSString *userType;
+
+@property (nonatomic,copy) NSString *nickname;
+@property (nonatomic,copy) NSString *avatar;
+
 @property RLMArray <CSMsg_User_Msg> * msgRecords;
 @end
 
@@ -40,8 +43,17 @@ RLM_ARRAY_TYPE(CSMsg_User_Msg)
 @property (nonatomic,copy) NSString *timestamp;
 @property (nonatomic,copy) NSString *nickname;
 @property (nonatomic,copy) NSString *avatar;
-@property (nonatomic,copy) NSString *is_self;
+@property (nonatomic,assign) BOOL is_self;
 @property (nonatomic,assign) NSInteger voice_length;
 @property(nonatomic,assign) NSInteger img_width;
 @property(nonatomic,assign) NSInteger img_height;
+@end
+
+@interface CSCacheUserInfo : NSObject
+@property (nonatomic,copy) NSString *ID;
+@property (nonatomic,copy) NSString *userId;
+@property (nonatomic,copy) NSString *userType;
+
+@property (nonatomic,copy) NSString *nickname;
+@property (nonatomic,copy) NSString *avatar;
 @end

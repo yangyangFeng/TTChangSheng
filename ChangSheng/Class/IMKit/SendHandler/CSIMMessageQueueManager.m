@@ -56,7 +56,7 @@ static CSIMMessageQueueManager * queueManager = nil;
         else{//客服消息
             
         }
-        [CSMsgCacheTool cs_cacheMessage:message.body userId:message.body.chatId addLast:YES chatType:message.chatType];
+        [CSMsgCacheTool cs_cacheMessage:message.body userInfo:message.userInfo addLast:YES chatType:message.chatType];
     }
 }
 

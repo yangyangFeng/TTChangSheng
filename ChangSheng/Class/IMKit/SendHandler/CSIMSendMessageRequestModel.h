@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "Deferred.h"
 #import "CSMessageModel.h"
+#import "CSMessageDBModel.h"
 
 #define CSIM_SENDMESSAGE_TIME_OUT 30
 #define CS_IM_MAX_RESEND_NUMBER 1
@@ -65,7 +66,7 @@ typedef enum {
 //发送状态 1000 成功
 @property(nonatomic,assign)int code;
 
-
+@property (nonatomic,strong) CSCacheUserInfo *userInfo;
 /*-------------------------------解析未读消息-------------------------------*/
 @property(nonatomic,strong)NSArray<CSIMUnReadListModel*> * unreadList;
 

@@ -160,14 +160,18 @@
     
     MBProgressHUD *hud = [LLUtils showCustomIndicatiorHUDWithTitle:@"" inView:self.tableView];
     [CSMsgCacheTool loadCacheMessageWithUserId:item.user_id loadDatas:^(NSArray *msgs) {
+        CSFriendListItemModel * item = model.friends[indexPath.row];
         [hud hideAnimated:YES];
         if (msgs.count) {
             LLChatViewController * chatC = (LLChatViewController*)[StoryBoardController storyBoardName:@"Main" ViewControllerIdentifiter:@"LLChatViewController"];
+            
+            
             
             CSIMConversationModel * model = [CSIMConversationModel new];
                             chatC.chatType = CS_Message_Record_Type_Friend;
             model.chatId = item.user_id;
             model.nickName = item.nickname;
+            model.avatarImageURL = item.avatar;
             model.allMessageModels = [NSMutableArray arrayWithArray:msgs];
             
             chatC.conversationModel = model;
@@ -181,6 +185,7 @@
                             chatC.chatType = CS_Message_Record_Type_Friend;
             model.chatId = item.user_id;
             model.nickName = item.nickname;
+            model.avatarImageURL = item.avatar;
             
             
             

@@ -298,7 +298,7 @@
     void (^eventHandler)(void) = ^{
         dispatch_source_cancel(timer);
         
-        [toTimeout reject:[NSError errorWithDomain:@"Timeout" code:100 userInfo:nil]];
+        [toTimeout reject:[NSError errorWithDomain:@"Timeout" code:10 userInfo:nil]];
     };
     
     dispatch_source_set_timer(timer, dispatch_walltime(NULL, intervalInNanoseconds), intervalInNanoseconds, leeway);

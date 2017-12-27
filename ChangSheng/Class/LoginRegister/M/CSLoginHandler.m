@@ -20,7 +20,7 @@
                                               if (success) {
                                                   success(responseObject);
                                               }
-                                              [self initDB];
+//                                              [self initDB];
 //                                              [self openSocket];
                                           } failure:^(NSError *error) {
                                               if (fail) {
@@ -29,23 +29,25 @@
                                           } showHUD:YES];
 }
 
-+ (void)registerWithParams:(NSDictionary *)params
-              successBlock:(successBlock)success
-                 failBlock:(errorBlock)fail
++ (void)request_register_paramters:(NSDictionary*)params
+                          fileData:(NSData*)fileData
+                          fileType:(CS_UPLOAD_FILE)fileType
+                      successBlock:(successBlock)success
+                         failBlock:(errorBlock)fail
 {
-    [CSHttpRequestManager request_register_paramters:params
-                                          success:^(id responseObject) {
-                                              if (success) {
-                                                  success(responseObject);
-                                              }
-//                                              [self openSocket];
-                                              [self initDB];
-                                          } failure:^(NSError *error) {
-                                              if (fail) {
-                                                  fail(error);
-                                              }
-                                          } showHUD:YES];
+    [CSHttpRequestManager request_register_paramters:params fileData:fileData fileType:fileType success:^(id responseObject) {
+        if (success) {
+            success(responseObject);
+        }
+        //                                              [self openSocket];
+//        [self initDB];
+    } failure:^(NSError *error) {
+        if (fail) {
+            fail(error);
+        }
+    }uploadprogress:nil showHUD:YES];
 }
+
 //开启socket链接通道
 + (void)openSocket
 {
