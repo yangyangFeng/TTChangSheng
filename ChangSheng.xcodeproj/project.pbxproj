@@ -262,6 +262,7 @@
 		185787311F9796E200BAD542 /* CSChangeAvatarModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 185787301F9796E100BAD542 /* CSChangeAvatarModel.m */; };
 		185787341F97991A00BAD542 /* CSUserInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 185787331F97991A00BAD542 /* CSUserInfoViewController.m */; };
 		185787371F979D4D00BAD542 /* CSUserNameInputViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 185787361F979D4C00BAD542 /* CSUserNameInputViewController.m */; };
+		186EBEFC1FF549BF00EE275C /* CSZhangFangViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 186EBEFB1FF549BF00EE275C /* CSZhangFangViewController.m */; };
 		187773C81F7D1C6100A98B7C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 187773C61F7D1C6100A98B7C /* Main.storyboard */; };
 		187773CE1F7D1D5600A98B7C /* CSMsgHistoryRequestModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 187773CC1F7D1D5600A98B7C /* CSMsgHistoryRequestModel.m */; };
 		187773D11F7D1D6900A98B7C /* CSHttpGroupResModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 187773D01F7D1D6900A98B7C /* CSHttpGroupResModel.m */; };
@@ -945,6 +946,8 @@
 		185787331F97991A00BAD542 /* CSUserInfoViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSUserInfoViewController.m; sourceTree = "<group>"; };
 		185787351F979D4C00BAD542 /* CSUserNameInputViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSUserNameInputViewController.h; sourceTree = "<group>"; };
 		185787361F979D4C00BAD542 /* CSUserNameInputViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSUserNameInputViewController.m; sourceTree = "<group>"; };
+		186EBEFA1FF549BF00EE275C /* CSZhangFangViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSZhangFangViewController.h; sourceTree = "<group>"; };
+		186EBEFB1FF549BF00EE275C /* CSZhangFangViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSZhangFangViewController.m; sourceTree = "<group>"; };
 		187773C71F7D1C6100A98B7C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		187773CB1F7D1D5600A98B7C /* CSMsgHistoryRequestModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSMsgHistoryRequestModel.h; sourceTree = "<group>"; };
 		187773CC1F7D1D5600A98B7C /* CSMsgHistoryRequestModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSMsgHistoryRequestModel.m; sourceTree = "<group>"; };
@@ -2902,6 +2905,8 @@
 				74C49E1C1FD3FCCE00F0501B /* ZhangFang.storyboard */,
 				74C49E1E1FD4011C00F0501B /* CSZFShangXiaFenViewController.h */,
 				74C49E1F1FD4011C00F0501B /* CSZFShangXiaFenViewController.m */,
+				186EBEFA1FF549BF00EE275C /* CSZhangFangViewController.h */,
+				186EBEFB1FF549BF00EE275C /* CSZhangFangViewController.m */,
 			);
 			path = C;
 			sourceTree = "<group>";
@@ -3480,6 +3485,7 @@
 				1804AD201F7BDC6100508C1C /* LLUtils+Text.m in Sources */,
 				749009E91FD3C84300E1339E /* CSSearchFriendViewController.m in Sources */,
 				1804AD0D1F7BDC6100508C1C /* NSDate+LLExt.m in Sources */,
+				186EBEFC1FF549BF00EE275C /* CSZhangFangViewController.m in Sources */,
 				1813468E1F7AA93200CD1312 /* MLLabel.m in Sources */,
 				1804AC931F7BDC6100508C1C /* LLCollectionEmotionTip.m in Sources */,
 				74073A141F9A57C80098783F /* CALayer+Anim.m in Sources */,

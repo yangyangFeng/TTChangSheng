@@ -62,8 +62,8 @@
     switch (_currentInputType) {
         case CS_CurrentInputType_Bet:
         {
-            [self.textViewInputToolBar becomeFirstResponder];
             self.currentInputType = CS_CurrentInputType_Text;
+            [self.textViewInputToolBar becomeFirstResponder];
            
             [UIView animateWithDuration:0.2 animations:^{
                 self.my_fenLabel.alpha = 0;
@@ -88,6 +88,7 @@
             break;
         case CS_CurrentInputType_Text:
         {
+            self.currentInputType = CS_CurrentInputType_Bet;
 //            [UIView animateWithDuration:0.2 animations:^{
 //                self.textInputToolBar_Y.constant = 50;
 //                [self layoutIfNeeded];
@@ -96,7 +97,7 @@
 //            }];
             [self.textViewInputToolBar resignFirstResponder];
             
-            self.currentInputType = CS_CurrentInputType_Bet;
+            
 //            self.my_fenLabel.hidden = NO;
 //            self.inputField.hidden = NO;
 //            self.rightButton.hidden = NO;

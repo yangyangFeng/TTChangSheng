@@ -138,11 +138,11 @@
 {
     _isUpScore = isUpScore;
     if (isUpScore) {
-        _uploadLabel.text = @"上传汇款凭证";
+        _uploadLabel.text = @"上传汇款凭证照片";
     }
     else
     {
-        _uploadLabel.text = @"上传银行卡照片";
+        _uploadLabel.text = @"下分银行卡照片";
     }
 }
 - (IBAction)commitBtnDidAction:(id)sender {
@@ -152,16 +152,16 @@
         CS_HUD(@"请填写分数");
         return;
     }
-    else if (!self.inputField_name.text.length)
-    {
-        CS_HUD(@"请填写真实姓名");
-        return;
-    }
-    else if(!self.uploadImageView.image)
-    {
-        CS_HUD(@"请填上传照片");
-        return;
-    }
+//    else if (!self.inputField_name.text.length)
+//    {
+//        CS_HUD(@"请填写真实姓名");
+//        return;
+//    }
+//    else if(!self.uploadImageView.image)
+//    {
+//        CS_HUD(@"请填上传照片");
+//        return;
+//    }
     else if (self.inputField_fen.text.length && (self.inputField_fen.text.intValue > [CSUserInfo shareInstance].info.surplus_score) && !_isUpScore)
     {
         CS_HUD(@"下分数不能高于身上分");
@@ -228,7 +228,7 @@
         return 80;
     }
     else{
-        return 80;
+        return 175;
     }
 }
 

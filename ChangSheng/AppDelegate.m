@@ -143,8 +143,8 @@
     CSUserServiceListViewController * userSer = [CSUserServiceListViewController new];
     TTNavigationController * nav2 = [[TTNavigationController alloc]initWithRootViewController:userSer];
     
-    CSMineViewController * minea = [CSMineViewController new];
-    TTNavigationController * nav3 = [[TTNavigationController alloc]initWithRootViewController:minea];
+    UIViewController * zhangfang = [StoryBoardController viewControllerID:@"CSZhangFangViewController" SBName:@"ZhangFang"];
+    TTNavigationController * nav3 = [[TTNavigationController alloc]initWithRootViewController:zhangfang];
     
     CSMineViewController * mine = [CSMineViewController new];
     TTNavigationController * nav4 = [[TTNavigationController alloc]initWithRootViewController:mine];

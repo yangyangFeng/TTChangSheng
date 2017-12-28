@@ -278,12 +278,12 @@ CSIMReceiveManagerDelegate
     [self.tableView scrollToBottomAnimated:YES];
 }
 
-- (void)updateViewConstraints {
-    self.tableViewHeightConstraint.constant = SCREEN_HEIGHT - 64 - MAIN_BOTTOM_TABBAR_HEIGHT;
-    
-    [super updateViewConstraints];
-    
-}
+//- (void)updateViewConstraints {
+//    self.tableViewHeightConstraint.constant = SCREEN_HEIGHT - 64 - MAIN_BOTTOM_TABBAR_HEIGHT;
+//    
+//    [super updateViewConstraints];
+//    
+//}
 
 - (void)dealloc
 {

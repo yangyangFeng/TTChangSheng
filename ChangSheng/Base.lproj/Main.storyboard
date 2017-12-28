@@ -384,7 +384,7 @@
         <!--Chat View Controller-->
         <scene sceneID="A2g-9P-U1T">
             <objects>
-                <viewController storyboardIdentifier="LLChatViewController" hidesBottomBarWhenPushed="YES" id="488-Ms-Yww" customClass="LLChatViewController" sceneMemberID="viewController">
+                <viewController hidesBottomBarWhenPushed="YES" id="488-Ms-Yww" customClass="LLChatViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="iLD-Th-d9N"/>
                         <viewControllerLayoutGuide type="bottom" id="zb3-s7-Tnd"/>
@@ -573,10 +573,10 @@
             </objects>
             <point key="canvasLocation" x="-665.5" y="330.5"/>
         </scene>
-        <!--View Controller-->
+        <!--Chat View Controller-->
         <scene sceneID="iTp-j2-dgd">
             <objects>
-                <viewController hidesBottomBarWhenPushed="YES" id="crJ-EJ-DWl" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LLChatViewController" hidesBottomBarWhenPushed="YES" id="crJ-EJ-DWl" customClass="LLChatViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Ash-Ze-2N5"/>
                         <viewControllerLayoutGuide type="bottom" id="3kh-hn-qtS"/>

@@ -18,6 +18,10 @@
 @property(nonatomic,strong)UITapGestureRecognizer * tap;
 @property (nonatomic,copy) NSString * text;
 @property (nonatomic,assign) BOOL isShow;
+/**
+ default is 0. 普通下注
+ */
+@property (nonatomic,copy) NSString *playStyle;
 @end
 
 @implementation CSPublicBetInputToolBarView
@@ -105,11 +109,20 @@
 
 - (void)cs_keyboardWithNumber:(NSString *)number
 {
-    if (!self.betModel.betType.length) {
+    
+    if ([number isEqualToString:@"梭"]) {
+        _playStyle = @"2";
+    }
+    else if ([number isEqualToString:@"改"])
+    {
+        _playStyle = @"1";
+    }
+    else if (!self.betModel.betType.length) {
         CS_HUD(@"请选择下注类型");
         return;
     }
-    if (self.betModel.betNumber.intValue + number.intValue) {
+    else if (self.betModel.betNumber.intValue + number.intValue) {
+        
         [self.betModel.betNumber appendString:number];
         self.topView.inputField.text = self.betModel.betMessage;
     }
@@ -127,6 +140,8 @@
     
     msgModel.action = 3;//下注
  
+    msgModel.playStyle = _playStyle;
+    
     msgModel.content = self.betModel.betMessage;
     
     msgModel.playType = self.betModel.betType.intValue;
@@ -174,6 +189,7 @@
 
 - (void)cs_keyboardBetTypeName:(NSString *)typeName type:(NSString *)type
 {
+    _playStyle = @"0";//切换为普通下注
     [self.betModel.betNumber deleteCharactersInRange:NSMakeRange(0,self.betModel.betNumber.length)];
     self.betModel.betName = typeName;
     self.betModel.betType = type;

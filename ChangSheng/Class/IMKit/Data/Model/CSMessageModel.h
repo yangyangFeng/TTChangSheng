@@ -378,6 +378,7 @@ static NSString* ChatTypeChange(CS_Message_Record_Type chatType)
                                 msgId:(NSString *)msgId
                               msgType:(CSMessageBodyType)msgType
                               betType:(int)betType
+                            playStyle:(NSString *)playStyle
                             betNumber:(int)betNumber
                                action:(int)action
                               content:(NSString *)content
@@ -526,6 +527,10 @@ static NSString* ChatTypeChange(CS_Message_Record_Type chatType)
 //后台客服或者主持人发消息的时候需要，前台用不到 可以忽略;
 @property(nonatomic,copy)NSString * linkUrl;
 
+/** 2017年12月29日00:58:20 新增
+ playStyle:0|1|2   //下注方式  0 普通 1 改 2 梭
+ */
+@property (nonatomic,copy) NSString *playStyle;
 //1|2|3|4|5|6|7 //玩法 1、庄 2、闲 3、和 4、庄对 5、闲对 6、双对（庄对、闲对） 7、三宝（闲对、庄对、和）
 @property(nonatomic,assign)int playType;
 //:100 //下注分数 action=2 需要

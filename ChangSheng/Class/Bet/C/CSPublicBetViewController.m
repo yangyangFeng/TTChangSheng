@@ -73,6 +73,7 @@
 #import "CSPublicBetInputToolBarView.h"
 #import "StoryBoardController.h"
 #import "CSMsgHistoryRequestModel.h"
+#define BetBarHeight 45
 @interface CSPublicBetViewController ()
 <UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate,
 LLMessageCellActionDelegate, LLChatImagePreviewDelegate,
@@ -202,7 +203,7 @@ CSPublicBetInputToolBarViewDelegate
     [UIView animateWithDuration:0.3 delay:0 options:(UIViewAnimationOptionCurveEaseIn) animations:^{
         CGFloat textHeight;
         if (self.inputToolBarView.currentInputType == CS_CurrentInputType_Bet) {
-            textHeight = 0;
+//            textHeight = 0;
         }
         else
         {
@@ -223,15 +224,15 @@ CSPublicBetInputToolBarViewDelegate
     [UIView animateWithDuration:0.25 animations:^{
         CGFloat textHeight;
         if (self.inputToolBarView.currentInputType == CS_CurrentInputType_Bet) {
-            textHeight = 0;
+//            textHeight = 0;
         }
         else
         {
             textHeight = self.textViewChangeHeight;
         }
         self.inputToolBarView.y = HEIGHT - self.inputToolBarView.height - textHeight;
-        
-        self.tableView.contentInset = UIEdgeInsetsMake(0, 0, HEIGHT - self.inputToolBarView.height - 64 + textHeight, 0);
+   self.tableView.contentInset = UIEdgeInsetsMake(0, 0, HEIGHT - self.inputToolBarView.height - 64 + BetBarHeight*2 + textHeight, 0);
+//        self.tableView.contentInset = UIEdgeInsetsMake(0, 0, HEIGHT - self.inputToolBarView.height - 64 + self.gongGaoView.height + textHeight, 0);
         self.tableView.scrollIndicatorInsets = self.tableView.contentInset;
         [self.tableView scrollsToBottomAnimated:YES];
         [self.tableView layoutIfNeeded];
@@ -547,13 +548,6 @@ CSPublicBetInputToolBarViewDelegate
     return messageList;
 }
 
-
-- (void)updateViewConstraints {
-    self.tableViewHeightConstraint.constant = SCREEN_HEIGHT - 64 - MAIN_BOTTOM_TABBAR_HEIGHT;
-    
-    [super updateViewConstraints];
-}
-
 - (void)tapHandler:(UITapGestureRecognizer *)tap {
     [self.inputToolBarView cs_resignFirstResponder];
 }
@@ -684,7 +678,15 @@ CSPublicBetInputToolBarViewDelegate
 - (void)cs_betMessageModel:(CSMessageModel *)messageModel
 {
     CSIMSendMessageRequestModel * model = [[CSIMSendMessageRequestModel alloc] initWithChatType:CS_Message_Record_Type_Group];
-    CSMessageModel * msgModel = [CSMessageModel sendBetMessageChatType:CSChatTypeGroupChat chatId:self.conversationModel.chatId msgId:nil msgType:(CSMessageBodyTypeText) betType:messageModel.playType betNumber:messageModel.score action:messageModel.action content:messageModel.content isSelf:YES];
+    CSMessageModel * msgModel = [CSMessageModel sendBetMessageChatType:CSChatTypeGroupChat
+                                                                chatId:self.conversationModel.chatId
+                                                                 msgId:nil
+                                                               msgType:(CSMessageBodyTypeText) betType:messageModel.playType
+                                                             playStyle:messageModel.playStyle
+                                                             betNumber:messageModel.score
+                                                                action:messageModel.action
+                                                               content:messageModel.content
+                                                                isSelf:YES];
 //     CSMessageModel * msgModel = [CSMessageModel sendBetMessageChatType:CSChatTypeGroupChat chatId:@"10" msgId:nil msgType:(CSMessageBodyTypeText) betType:messageModel.playType betNumber:messageModel.score action:messageModel.action content:messageModel.content isSelf:YES];
     
     model.body = msgModel;
@@ -1096,7 +1098,7 @@ CSPublicBetInputToolBarViewDelegate
 {
     if(!_inputToolBarView)
     {
-        CGFloat height = 358;
+        CGFloat height = 358 + BetBarHeight;
         _inputToolBarView = [[CSPublicBetInputToolBarView alloc]initWithFrame:CGRectMake(0, HEIGHT - 50, WIDTH, height)];
         _inputToolBarView.delegate = self;
     }

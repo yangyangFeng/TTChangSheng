@@ -66,7 +66,7 @@
     }];
     
     UIButton * addressBookButton = [UIButton buttonWithType:(UIButtonTypeCustom)];
-    [addressBookButton setBackgroundImage:[UIImage imageNamed:@"添加"] forState:(UIControlStateNormal)];
+    [addressBookButton setBackgroundImage:[UIImage imageNamed:@"通讯录"] forState:(UIControlStateNormal)];
     [addressBookButton addTarget:self action:@selector(addressBookAction) forControlEvents:(UIControlEventTouchUpInside)];
     
     UIButton * addButton = [UIButton buttonWithType:(UIButtonTypeCustom)];

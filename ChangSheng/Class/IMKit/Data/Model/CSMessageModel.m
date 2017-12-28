@@ -72,6 +72,9 @@ NSMutableDictionary * tmpImageDict;
     [param setObject:self.msgId forKey:@"msgId"];
     [param setObject:@(self.action) forKey:@"action"];
     [param setObject:@(self.playType) forKey:@"playType"];
+    if (self.playStyle.length) {
+        [param setObject:self.playStyle forKey:@"playStyle"];
+    }
     [param setObject:@(self.score) forKey:@"score"];
     
     if (self.msgType == CSMessageBodyTypeVoice) {
@@ -482,6 +485,7 @@ NSMutableDictionary * tmpImageDict;
                                     msgId:(NSString *)msgId
                                   msgType:(CSMessageBodyType)msgType
                                   betType:(int)betType
+                                playStyle:(NSString *)playStyle
                                 betNumber:(int)betNumber
                                    action:(int)action
                                   content:(NSString *)content
@@ -490,7 +494,7 @@ NSMutableDictionary * tmpImageDict;
     CSMessageModel * messageModel = [[CSMessageModel alloc]initNewMessageChatType:chatType chatId:chatId msgId:msgId msgType:msgType action:action content:content isSelf:isSelf];
     messageModel.playType = betType;
     messageModel.score = betNumber;
-    
+    messageModel.playStyle = playStyle;
     return messageModel;
 }
 
