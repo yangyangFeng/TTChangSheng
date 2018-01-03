@@ -1,0 +1,6 @@
+framework module CYLTableViewRowAction {
+  umbrella header "CYLTableViewRowAction-umbrella.h"
+
+  export *
+  module * { export * }
+}

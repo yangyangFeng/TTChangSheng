@@ -211,4 +211,9 @@ typedef enum : NSUInteger {
 + (void)request_friendchartlist_paramters:(NSDictionary *)params success:(TTSuccessBlock)success failure:(TTFailureBlock)failure showHUD:(BOOL)showHUD;
 
 
+#pragma mark -  24.绑定用户设备
+/**
+ *  24.绑定用户设备
+ */
++ (void)request_deviceBinding_paramters:(NSDictionary *)params success:(TTSuccessBlock)success failure:(TTFailureBlock)failure showHUD:(BOOL)showHUD;
 @end

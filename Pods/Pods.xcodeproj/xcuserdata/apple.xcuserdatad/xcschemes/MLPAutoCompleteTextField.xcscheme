@@ -14,10 +14,10 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = 'A1C264F5476C0F2BB2640E72E7D244F7'
+               BlueprintIdentifier = 'F465A050FF481900E3877E099748501C'
                BlueprintName = 'MLPAutoCompleteTextField'
                ReferencedContainer = 'container:Pods.xcodeproj'
-               BuildableName = 'libMLPAutoCompleteTextField.a'>
+               BuildableName = 'MLPAutoCompleteTextField.framework'>
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

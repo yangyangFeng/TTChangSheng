@@ -22,6 +22,7 @@
 #import "CSMineViewController.h"
 #import "CSFriendsListViewController.h"
 #import "TTNavigationController.h"
+#import "AppDelegate+JPush.h"
 @interface AppDelegate ()
 /** 引导页VC */
 @property (nonatomic, strong) JhtGradientGuidePageVC *introductionView;
@@ -32,6 +33,8 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    
+    [self thirdService_application:application launchOptions:launchOptions];
     // Override point for customization after application launch.
     [Bugly startWithAppId:@"7392769854"];
 #ifdef DEBUG

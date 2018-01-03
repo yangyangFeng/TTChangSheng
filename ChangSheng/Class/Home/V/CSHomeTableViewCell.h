@@ -11,5 +11,6 @@
 @interface CSHomeTableViewCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UIImageView *bgImageView;
 @property (weak, nonatomic) IBOutlet TTSubscriptLabel *unReadNumber;
+@property (weak, nonatomic) IBOutlet UILabel *cs_title;
 
 @end

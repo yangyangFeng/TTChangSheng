@@ -505,4 +505,20 @@
         failure(error);
     } showHUD:showHUD];
 }
+
+#pragma mark -  24.绑定用户设备
+/**
+ *  24.绑定用户设备
+ */
++ (void)request_deviceBinding_paramters:(NSDictionary *)params success:(TTSuccessBlock)success failure:(TTFailureBlock)failure showHUD:(BOOL)showHUD
+{
+    NSString * url = @"entrance/deviceInfo";
+    [[CSNewWorkHandler sharedInstance] beginHttpRequestType:POST_TTREQUEST_TYPE url:url paramters:params success:^(id responseObject) {
+        
+        success(responseObject);
+        
+    } failure:^(NSError *error) {
+        failure(error);
+    } showHUD:showHUD];
+}
 @end

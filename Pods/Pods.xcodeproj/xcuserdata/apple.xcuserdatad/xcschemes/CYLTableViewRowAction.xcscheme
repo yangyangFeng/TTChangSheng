@@ -14,10 +14,10 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '977E80441B4D66A8D159688C65A1E49A'
+               BlueprintIdentifier = 'BF02A8C285A33D2128C67E005C98A1EA'
                BlueprintName = 'CYLTableViewRowAction'
                ReferencedContainer = 'container:Pods.xcodeproj'
-               BuildableName = 'libCYLTableViewRowAction.a'>
+               BuildableName = 'CYLTableViewRowAction.framework'>
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

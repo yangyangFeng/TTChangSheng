@@ -64,7 +64,7 @@ static CSIMReceiveManager * _manager = nil;
     //检查参数
     [message.result cs_checkParams];
     switch (message.result.action) {
-        // 1、普通消息 2、消息回执 3、路单图片 4、连接成功回执 5、用户上线 6 、用户下线  7、下注台面信息（前台用户不需要） 8、撤销下注回复  9、用户剩余分通知  99、后台回复前端心跳
+        // 1、普通消息 2、消息回执 3、路单图片 4、连接成功回执 5、用户上线 6 、用户下线  7、下注台面信息（前台用户不需要） 8、撤销下注回复  9、用户剩余分通知   99、后台回复前端心跳，100 、后台播放提示音用   10  切入聊天回复  11，切出回复
         case 1://
         {
             [LLUtils playNewMessageSound];
@@ -245,6 +245,62 @@ static CSIMReceiveManager * _manager = nil;
             [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICE_KEY_SOCKET_CURRENT_SCORE object:nil];
         }
             break;
+        case 10://切入回复
+        {
+//            message.body.msgCacheKey = message.body.receiptId;
+//            NSString * msgId = [sendMsg.msgCode copy];
+//            //            [sendMsg.msgStatus reject:[NSError errorWithDomain:message.msg code:message.code userInfo:nil]];
+//            //            [sendMsg.msgStatus reject:,[NSError errorWithDomain:message.msg code:message.code userInfo:nil]];
+//            if (message.code == successCode) {
+//                [sendMsg syncMsgID:message];
+//                [sendMsg.msgStatus resolve:nil];
+//                [sendMsg successed];
+//            }
+//            else
+//            {
+//                [sendMsg.msgStatus reject:[NSError errorWithDomain:message.msg code:message.code userInfo:nil]];
+//                [sendMsg failed];
+//            }
+//            message.result.msgId = msgId;
+//            [[CSIMMessageQueueManager shareInstance] removeMessages:message];
+//            for (id<CSIMReceiveManagerDelegate> delegate in
+//                 self.messageDelegates.objectEnumerator.allObjects) {
+//                __strong id<CSIMReceiveManagerDelegate> strongDelegate = delegate;
+//                if ([strongDelegate respondsToSelector:@selector(cs_sendMessageCallBlock:)]) {
+//                    [strongDelegate cs_sendMessageCallBlock:sendMsg.body];
+//                }
+//
+//            }
+        }
+//            break;
+        case 11://切出回复
+        {
+            message.body.msgCacheKey = message.body.receiptId;
+            NSString * msgId = [sendMsg.msgCode copy];
+            //            [sendMsg.msgStatus reject:[NSError errorWithDomain:message.msg code:message.code userInfo:nil]];
+            //            [sendMsg.msgStatus reject:,[NSError errorWithDomain:message.msg code:message.code userInfo:nil]];
+            if (message.code == successCode) {
+                [sendMsg syncMsgID:message];
+                [sendMsg.msgStatus resolve:nil];
+                [sendMsg successed];
+            }
+            else
+            {
+                [sendMsg.msgStatus reject:[NSError errorWithDomain:message.msg code:message.code userInfo:nil]];
+                [sendMsg failed];
+            }
+            message.result.msgId = msgId;
+            [[CSIMMessageQueueManager shareInstance] removeMessages:message];
+//            for (id<CSIMReceiveManagerDelegate> delegate in
+//                 self.messageDelegates.objectEnumerator.allObjects) {
+//                __strong id<CSIMReceiveManagerDelegate> strongDelegate = delegate;
+//                if ([strongDelegate respondsToSelector:@selector(cs_sendMessageCallBlock:)]) {
+//                    [strongDelegate cs_sendMessageCallBlock:sendMsg.body];
+//                }
+//
+//            }
+        }
+            break;
         default:
             break;
     }
@@ -328,6 +384,37 @@ static CSIMReceiveManager * _manager = nil;
         }
     }
 }
+
+- (void)inChatWithChatType:(CSChatType)chatType chatId:(NSString *)chatId status:(void(^)(NSError*))status
+{
+    
+    
+    CSIMSendMessageRequestModel * messageRequest = [CSIMSendMessageRequestModel new];
+    CSMessageModel * msg = [CSMessageModel inChatWithChatType:chatType chatId:chatId];
+    messageRequest.body = msg;
+    [[CSIMSendMessageManager shareInstance] sendMessage:messageRequest];
+    
+    [messageRequest.msgStatus when:^(id obj) {
+        self.currentChatKey = [self keyWithChatType:chatType chatId:chatId];
+        [self.unReadMessageList setObject:@"0" forKey:self.currentChatKey];
+        DLog(@"-------------------->进群成功");
+        if (status) {
+            status(nil);
+        }
+    } failed:^(NSError *error) {
+        if (status) {
+            status(error);
+        }
+        DLog(@"-------------------->进群失败\n失败原因:%@",error.domain);
+    }];
+    for (id<CSIMReceiveManagerDelegate> delegate in self.messageDelegates.objectEnumerator.allObjects) {
+        __strong id<CSIMReceiveManagerDelegate> strongDelegate = delegate;
+        if ([strongDelegate respondsToSelector:@selector(cs_receiveUpdateUnreadMessage)]) {
+            [strongDelegate cs_receiveUpdateUnreadMessage];
+        }
+    }
+}
+
 - (void)outChatWithChatType:(CSChatType)chatType chatId:(NSString *)chatId
 {
     self.currentChatKey = [self keyWithChatType:chatType chatId:chatId];

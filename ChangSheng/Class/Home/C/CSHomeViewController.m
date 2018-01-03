@@ -152,7 +152,23 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    CSHttpGroupResModel * model =self.betGroupArray[indexPath.row];
+    NSUserDefaults * user = [NSUserDefaults standardUserDefaults];
+    NSString * key = [NSString stringWithFormat:@"%ld-%@",model.type,[CSUserInfo shareInstance].info.code];
+    if (![user objectForKey:key]) { //如果未加入该群组
+        [CSHttpRequestManager request_joinGroup_paramters:@{@"group_id":@(model.id)} success:^(id responseObject) {
+            [user setObject:@(1) forKey:key];
+            [self pushBetGroupControllerWithChatId:model.id index:0 title:model.name];
+        } failure:^(NSError *error) {
+            
+        } showHUD:YES];
+    }
+    else
+    {
+        [self pushBetGroupControllerWithChatId:model.id index:0 title:model.name];
+    }
     
+    /*
     switch (indexPath.row) {
         case 0:
         {
@@ -210,9 +226,10 @@
         default:
             break;
     }
+     */
 }
 
-- (void)pushBetGroupControllerWithChatId:(int)chatId index:(int)index
+- (void)pushBetGroupControllerWithChatId:(int)chatId index:(int)index title:(NSString*)title
 {
     CSMsgHistoryRequestModel * param = [CSMsgHistoryRequestModel new];
     param.chat_type = 1;//1为群聊
@@ -230,7 +247,7 @@
         model.group_tips = obj.result.group_tips;
         
         model.chatId = [NSString stringWithFormat:@"%d",param.ID];
-        model.nickName = index ? @"大众厅" : @"VIP厅";
+        model.nickName = title;
         model.allMessageModels = [NSMutableArray array];
         
         for (CSMsgRecordModel * msgData in obj.result.data) {

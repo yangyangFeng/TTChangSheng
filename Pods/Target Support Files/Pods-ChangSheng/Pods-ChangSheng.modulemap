@@ -1,0 +1,6 @@
+framework module Pods_ChangSheng {
+  umbrella header "Pods-ChangSheng-umbrella.h"
+
+  export *
+  module * { export * }
+}

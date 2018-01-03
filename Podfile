@@ -1,4 +1,6 @@
 platform :ios, '8.0'
+use_frameworks!
+
 target 'ChangSheng' do
     inhibit_all_warnings!
     
@@ -14,8 +16,10 @@ target 'ChangSheng' do
 pod ‘Realm’
 pod 'Bugly'
 pod 'MBProgressHUD', '~> 1.0.0'
-pod 'CYLTabBarController', '1.9.0'
-pod 'CYLTableViewRowAction', '1.0.0'
+pod 'CYLTabBarController'
+#'1.9.0'
+pod 'CYLTableViewRowAction'
+#'1.0.0'
 pod 'TWMessageBarManager', '1.8.1'
 pod 'MLPAutoCompleteTextField', '1.5'
 pod 'FTPopOverMenu', '1.3.2'
@@ -33,6 +37,8 @@ pod 'SDWebImage'
 pod 'SocketRocket', '~> 0.5.1'
 pod 'KVOController'
 pod 'FSMediaPicker'
+pod 'JPush', '~> 3.0.7'
+pod 'EmptyKit'
 end
 
 

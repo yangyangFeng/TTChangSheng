@@ -55,6 +55,7 @@
 {
     UITableView * tableView = [[UITableView alloc]initWithFrame:CGRectZero style:(UITableViewStylePlain)];
     tableView.tableFooterView = [UIView new];
+    tableView.backgroundColor = TABLE_VIEW_GROUP_BACKGROUNDCOLOR;
     _tableHandler = [[CSFriendListTableHandler alloc]initWithTableView:tableView];
     _tableHandler.delegate = self;
     
@@ -145,7 +146,7 @@
         
         MBProgressHUD *hud = [LLUtils showCustomIndicatiorHUDWithTitle:@"" inView:self.tableHandler.tableView];
         [CSMsgCacheTool loadCacheMessageWithUserId:friendInfo.userid loadDatas:^(NSArray *msgs) {
-            [hud hideAnimated:YES afterDelay:1];
+            
             if (msgs.count) {
                 
                 LLChatViewController * chatC = (LLChatViewController*)[StoryBoardController storyBoardName:@"Main" ViewControllerIdentifiter:@"LLChatViewController"];
@@ -159,7 +160,14 @@
                 model.allMessageModels = [NSMutableArray arrayWithArray:msgs];
                 
                 chatC.conversationModel = model;
-                [self.navigationController pushViewController:chatC animated:YES];
+                
+                [chatC joinStatus:^(NSError * _Nonnull error) {
+                    if (!error) {
+                        [self.navigationController pushViewController:chatC animated:YES];
+                    }
+                    [hud hideAnimated:YES afterDelay:1];
+                }];
+                
             }
             else
             {
@@ -172,7 +180,13 @@
                 model.avatarImageURL = friendInfo.headurl;
                 
                 chatC.conversationModel = model;
-                [self.navigationController pushViewController:chatC animated:YES];
+//                [self.navigationController pushViewController:chatC animated:YES];
+                [chatC joinStatus:^(NSError * _Nonnull error) {
+                    if (!error) {
+                        [self.navigationController pushViewController:chatC animated:YES];
+                    }
+                    [hud hideAnimated:YES afterDelay:1];
+                }];
             }
         }
                                             LastId:nil count:CS_Message_Count chatType:(CS_Message_Record_Type_Friend)];
