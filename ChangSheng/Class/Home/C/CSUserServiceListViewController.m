@@ -179,7 +179,7 @@ static CSUserServiceListViewController * controller = nil;
     MBProgressHUD *hud = [LLUtils showCustomIndicatiorHUDWithTitle:@"" inView:self.tableView];
     [CSMsgCacheTool loadCacheMessageWithUserId:userServiceModel.id loadDatas:^(NSArray *msgs) {
         if (msgs.count) {
-            [hud hideAnimated:YES afterDelay:1];
+            
             LLChatViewController * chatC = (LLChatViewController*)[StoryBoardController storyBoardName:@"Main" ViewControllerIdentifiter:@"LLChatViewController"];
             chatC.chatType = CS_Message_Record_Type_Service;
             CSIMConversationModel * model = [CSIMConversationModel new];
@@ -189,14 +189,20 @@ static CSUserServiceListViewController * controller = nil;
             model.allMessageModels = [NSMutableArray arrayWithArray:msgs];
             
             chatC.conversationModel = model;
-            [self.navigationController pushViewController:chatC animated:YES];
+//            [self.navigationController pushViewController:chatC animated:YES];
+            [chatC joinStatus:^(NSError * _Nonnull error) {
+                if (!error) {
+                    [self.navigationController pushViewController:chatC animated:YES];
+                }
+                [hud hideAnimated:YES afterDelay:1];
+            }];
         }
         else
         {
             [CSHttpRequestManager request_chatRecord_paramters:param.mj_keyValues success:^(id responseObject) {
                 CSMsgRecordModel * obj = [CSMsgRecordModel mj_objectWithKeyValues:responseObject];
                 
-                [hud hideAnimated:YES afterDelay:1];
+                
                 LLChatViewController * chatC = (LLChatViewController*)[StoryBoardController storyBoardName:@"Main" ViewControllerIdentifiter:@"LLChatViewController"];
                 chatC.chatType = CS_Message_Record_Type_Service;
                 CSIMConversationModel * model = [CSIMConversationModel new];
@@ -214,16 +220,25 @@ static CSUserServiceListViewController * controller = nil;
                 
                 
                 chatC.conversationModel = model;
-                [self.navigationController pushViewController:chatC animated:YES];
+//                [self.navigationController pushViewController:chatC animated:YES];
+                [chatC joinStatus:^(NSError * _Nonnull error) {
+                    if (!error) {
+                        
+                        CSCacheUserInfo * userInfo = [CSCacheUserInfo new];
+                        
+                        userInfo.userId = model.chatId;
+                        userInfo.avatar = model.avatarImageURL;
+                        userInfo.nickname = model.nickName;
+                        
+                        [CSMsgCacheTool cs_cacheMessages:model.allMessageModels userInfo:userInfo addLast:YES chatType:CS_Message_Record_Type_Service];
+                        
+                        [self.navigationController pushViewController:chatC animated:YES];
+                    }
+                    [hud hideAnimated:YES afterDelay:1];
+                }];
                 
                 
-                CSCacheUserInfo * userInfo = [CSCacheUserInfo new];
-                
-                userInfo.userId = model.chatId;
-                userInfo.avatar = @"";
-                userInfo.nickname = model.nickName;
-                
-                [CSMsgCacheTool cs_cacheMessages:model.allMessageModels userInfo:userInfo addLast:YES chatType:CS_Message_Record_Type_Service];
+               
             } failure:^(NSError *error) {
                 [hud hideAnimated:YES afterDelay:1];
             } showHUD:YES];

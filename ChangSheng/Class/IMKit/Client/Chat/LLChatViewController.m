@@ -126,17 +126,7 @@ CSIMReceiveManagerDelegate
     [super viewDidLoad];
 
     [CSIMReceiveManager shareInstance].delegate = self;
-    if (self.chatType == CS_Message_Record_Type_Friend) {
-        //记录进入该聊天室
-        [[CSIMReceiveManager shareInstance] inChatWithChatType:(CSChatTypeChatFriend) chatId:self.conversationModel.chatId];
-    }
-    else
-    {
-        //记录进入该聊天室
-        [[CSIMReceiveManager shareInstance] inChatWithChatType:(CSChatTypeChat) chatId:self.conversationModel.chatId];
-    }
-    
-    
+
     [self tt_SetNaviBarHide:NO withAnimation:NO];
     
     self.tt_navigationBar.contentView.backgroundColor = [UIColor whiteColor];
@@ -173,6 +163,27 @@ CSIMReceiveManagerDelegate
     [self addRefreshTool];
     
 //    [self.view layoutIfNeeded];
+}
+
+- (void)joinStatus:(void(^)(NSError* error))status
+{
+        if (self.chatType == CS_Message_Record_Type_Friend) {
+            //记录进入该聊天室
+            [[CSIMReceiveManager shareInstance] inChatWithChatType:(CSChatTypeChatFriend) chatId:self.conversationModel.chatId status:^(NSError *error) {
+                if (status) {
+                    status(error);
+                }
+            }];
+        }
+        else
+        {
+            //记录进入该聊天室
+            [[CSIMReceiveManager shareInstance] inChatWithChatType:(CSChatTypeChat) chatId:self.conversationModel.chatId status:^(NSError *error) {
+                if (status) {
+                    status(error);
+                }
+            }];
+        }
 }
 
 - (void)reConnectionSocket

@@ -28,6 +28,7 @@
     [self tt_Title:@"通讯录"];
     
     UITableView * tableView = [[UITableView alloc]initWithFrame:CGRectZero style:(UITableViewStylePlain)];
+    tableView.backgroundColor = TABLE_VIEW_GROUP_BACKGROUNDCOLOR;
     tableView.allowsSelectionDuringEditing = YES;
     tableView.tintColor = CS_TextColor;
     tableView.tableFooterView = [UIView new];
@@ -161,7 +162,6 @@
     MBProgressHUD *hud = [LLUtils showCustomIndicatiorHUDWithTitle:@"" inView:self.tableView];
     [CSMsgCacheTool loadCacheMessageWithUserId:item.user_id loadDatas:^(NSArray *msgs) {
         CSFriendListItemModel * item = model.friends[indexPath.row];
-        [hud hideAnimated:YES];
         if (msgs.count) {
             LLChatViewController * chatC = (LLChatViewController*)[StoryBoardController storyBoardName:@"Main" ViewControllerIdentifiter:@"LLChatViewController"];
             
@@ -175,7 +175,13 @@
             model.allMessageModels = [NSMutableArray arrayWithArray:msgs];
             
             chatC.conversationModel = model;
-            [self.navigationController pushViewController:chatC animated:YES];
+//            [self.navigationController pushViewController:chatC animated:YES];
+            [chatC joinStatus:^(NSError * _Nonnull error) {
+                if (!error) {
+                    [self.navigationController pushViewController:chatC animated:YES];
+                }
+                [hud hideAnimated:YES afterDelay:1];
+            }];
         }
         else
         {
@@ -190,7 +196,13 @@
             
             
             chatC.conversationModel = model;
-            [self.navigationController pushViewController:chatC animated:YES];
+//            [self.navigationController pushViewController:chatC animated:YES];
+            [chatC joinStatus:^(NSError * _Nonnull error) {
+                if (!error) {
+                    [self.navigationController pushViewController:chatC animated:YES];
+                }
+                [hud hideAnimated:YES afterDelay:1];
+            }];
         }
     }
                                         LastId:nil count:CS_Message_Count chatType:(CS_Message_Record_Type_Friend)];

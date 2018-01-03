@@ -43,6 +43,7 @@
 - (int)getAllUnReadMessageNumberChatType:(CSChatType)chatType;
 - (NSString *)keyWithChatType:(CSChatType)chatType chatId:(NSString *)chatId;
 - (void)inChatWithChatType:(CSChatType)chatType chatId:(NSString *)chatId;
+- (void)inChatWithChatType:(CSChatType)chatType chatId:(NSString *)chatId status:(void(^)(NSError*))status;
 - (void)outChatWithChatType:(CSChatType)chatType chatId:(NSString *)chatId;
 @end
 

@@ -11,6 +11,7 @@
 #import "CSHomeTableViewCell.h"
 #import "CSHttpGroupResModel.h"
 #import "CSIMReceiveManager.h"
+#import "UIImageView+WebCache.h"
 NSString* Home_GetBgImageNameWithIndex(NSInteger index) {
     switch (index) {
         case 0:
@@ -79,12 +80,13 @@ NSString* Home_GetBgImageNameWithIndex(NSInteger index) {
 - (void)setBetGroupArray:(NSArray *)betGroupArray
 {
     _betGroupArray = betGroupArray;
-    [self updateUnreadMessageUI];
+    [self.tableView reloadData];
+//    [self updateUnreadMessageUI];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 4;
+    return self.betGroupArray.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -96,7 +98,9 @@ NSString* Home_GetBgImageNameWithIndex(NSInteger index) {
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     CSHomeTableViewCell * cell = [CSHomeTableViewCell cellWithTableView:tableView];
-    cell.bgImageView.image = [UIImage imageNamed:Home_GetBgImageNameWithIndex(indexPath.row)];
+    CSHttpGroupResModel * model = [self.betGroupArray objectAtIndex:indexPath.row];
+    [cell.bgImageView sd_setImageWithURL:[NSURL URLWithString:model.img_url]];
+    cell.cs_title.text = model.name;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }

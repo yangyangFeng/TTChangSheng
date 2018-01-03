@@ -73,7 +73,7 @@
     }
     CSLoginRequestParam * param = [CSLoginRequestParam new];
     param.username = _accountTextField.text;
-    param.password = _passwordTextField.text;
+    param.password = _passwordTextField.text.md5;
     MBProgressHUD * hud =  [LLUtils showCustomIndicatiorHUDWithTitle:@"" inView:self.view];
     [CSLoginHandler loginWithParams:param.mj_keyValues successBlock:^(id obj) {
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{

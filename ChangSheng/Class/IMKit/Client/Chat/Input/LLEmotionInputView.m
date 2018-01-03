@@ -273,7 +273,7 @@ static NSInteger number_per_line_gif;
     [self.sendButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     self.sendButton.titleLabel.font = [UIFont systemFontOfSize:14];
     self.sendButton.titleEdgeInsets = UIEdgeInsetsMake(0, 5, 0, 0);
-    self.sendButton.enabled = NO;
+    self.sendButton.enabled = YES;
     [self.sendButton addTarget:self action:@selector(sendHandler:) forControlEvents:UIControlEventTouchUpInside];
 
     self.sendButton.frame = CGRectMake(SCREEN_WIDTH - 55, _top,  55, BOTTOM_AREA_HEIGHT);

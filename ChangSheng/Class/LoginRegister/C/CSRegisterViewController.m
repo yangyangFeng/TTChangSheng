@@ -118,7 +118,7 @@
     CSRegisterParam * param = [CSRegisterParam new];
     param.nickname = self.againPasswordField.text;
     param.username = self.accountField.text;
-    param.password = self.passwordField.text;
+    param.password = self.passwordField.text.md5;
     param.referee_code = self.referrerField.text;
     param.file = @"avatar";
     

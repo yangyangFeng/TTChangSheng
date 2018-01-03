@@ -72,7 +72,7 @@ THE SOFTWARE.
 		</dict>
 		<dict>
 			<key>FooterText</key>
-			<string>Copyright 2017 tencent.com. All rights reserved.
+			<string>Copyright (C) 2017 Tencent Bugly, Inc. All rights reserved.
 </string>
 			<key>License</key>
 			<string>Copyright</string>
@@ -202,19 +202,16 @@ freely, subject to the following restrictions:
 		</dict>
 		<dict>
 			<key>FooterText</key>
-			<string>IQKeyboardManager license
-=========================
+			<string>MIT License
 
-The MIT License (MIT)
+Copyright (c) 2013-2017 Iftekhar Qurashi
 
-Copyright (c) 2013-16 Iftekhar Qurashi
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of
-this software and associated documentation files (the "Software"), to deal in
-the Software without restriction, including without limitation the rights to
-use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
-of the Software, and to permit persons to whom the Software is furnished to do
-so, subject to the following conditions:
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
 
 The above copyright notice and this permission notice shall be included in all
 copies or substantial portions of the Software.
@@ -231,6 +228,26 @@ SOFTWARE.
 			<string>MIT</string>
 			<key>Title</key>
 			<string>IQKeyboardManager</string>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+		</dict>
+		<dict>
+			<key>FooterText</key>
+			<string>Copyright jpush.cn</string>
+			<key>License</key>
+			<string>Copyright</string>
+			<key>Title</key>
+			<string>JCore</string>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+		</dict>
+		<dict>
+			<key>FooterText</key>
+			<string>Copyright jpush.cn</string>
+			<key>License</key>
+			<string>Copyright</string>
+			<key>Title</key>
+			<string>JPush</string>
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 		</dict>
