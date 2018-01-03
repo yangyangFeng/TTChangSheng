@@ -11,7 +11,7 @@
 #import <AMapSearchKit/AMapSearchKit.h>
 
 @interface LLLocationManager : NSObject
-
+//
 + (instancetype)sharedManager;
 
 - (void)takeSnapshotAtCoordinate:(CLLocationCoordinate2D)coordinate2D spanSize:(CGSize)size withCompletionBlock:(void (^)(UIImage *resultImage, CGRect rect))block;

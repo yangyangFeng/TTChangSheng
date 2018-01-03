@@ -196,10 +196,7 @@
 		1804AD381F7BDC6100508C1C /* LLSDKError.m in Sources */ = {isa = PBXBuildFile; fileRef = 1804AC721F7BDC6100508C1C /* LLSDKError.m */; };
 		1804AD391F7BDC6100508C1C /* TTSocketChannelManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1804AC761F7BDC6100508C1C /* TTSocketChannelManager.m */; };
 		1804AD3A1F7BDC6100508C1C /* TTWebSocketChannel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1804AC781F7BDC6100508C1C /* TTWebSocketChannel.m */; };
-		1804AD6E1F7BDCCE00508C1C /* AMapFoundationKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1804AD3C1F7BDCCE00508C1C /* AMapFoundationKit.framework */; };
 		1804AD6F1F7BDCCE00508C1C /* AMapLocationKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1804AD3D1F7BDCCE00508C1C /* AMapLocationKit.framework */; };
-		1804AD701F7BDCCE00508C1C /* AMapSearchKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1804AD3E1F7BDCCE00508C1C /* AMapSearchKit.framework */; };
-		1804AD711F7BDCCE00508C1C /* MAMapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1804AD3F1F7BDCCE00508C1C /* MAMapKit.framework */; };
 		1804AD721F7BDCCF00508C1C /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1804AD6A1F7BDCCE00508C1C /* libcrypto.a */; };
 		1804AD731F7BDCCF00508C1C /* libcurl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1804AD6B1F7BDCCE00508C1C /* libcurl.a */; };
 		1804AD741F7BDCCF00508C1C /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1804AD6C1F7BDCCE00508C1C /* libssl.a */; };
@@ -365,6 +362,9 @@
 		747D5C251F7DF73C00F40A41 /* TTSingleChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 747D5C241F7DF73C00F40A41 /* TTSingleChatViewController.m */; };
 		747D5C281F7DF75000F40A41 /* TTChatInputToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 747D5C271F7DF75000F40A41 /* TTChatInputToolBar.m */; };
 		747D5C2A1F7F6A2A00F40A41 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 747D5C291F7F6A2A00F40A41 /* Assets.xcassets */; };
+		7488A4471FF657C4009BC49F /* MAMapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7488A4441FF657C1009BC49F /* MAMapKit.framework */; };
+		7488A4481FF657C4009BC49F /* AMapFoundationKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7488A4451FF657C2009BC49F /* AMapFoundationKit.framework */; };
+		7488A4491FF657C4009BC49F /* AMapSearchKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7488A4461FF657C3009BC49F /* AMapSearchKit.framework */; };
 		7490097A1FCD0EFD00E1339E /* VHLNavigation.m in Sources */ = {isa = PBXBuildFile; fileRef = 749009791FCD0EF400E1339E /* VHLNavigation.m */; };
 		749009D01FCFE2F200E1339E /* CSFriendsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 749009CF1FCFE2F200E1339E /* CSFriendsListViewController.m */; };
 		749009D31FCFE31700E1339E /* CSFriendListTableHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 749009D21FCFE31700E1339E /* CSFriendListTableHandler.m */; };
@@ -788,10 +788,7 @@
 		1804AC761F7BDC6100508C1C /* TTSocketChannelManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTSocketChannelManager.m; sourceTree = "<group>"; };
 		1804AC771F7BDC6100508C1C /* TTWebSocketChannel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTWebSocketChannel.h; sourceTree = "<group>"; };
 		1804AC781F7BDC6100508C1C /* TTWebSocketChannel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTWebSocketChannel.m; sourceTree = "<group>"; };
-		1804AD3C1F7BDCCE00508C1C /* AMapFoundationKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AMapFoundationKit.framework; sourceTree = "<group>"; };
 		1804AD3D1F7BDCCE00508C1C /* AMapLocationKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AMapLocationKit.framework; sourceTree = "<group>"; };
-		1804AD3E1F7BDCCE00508C1C /* AMapSearchKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AMapSearchKit.framework; sourceTree = "<group>"; };
-		1804AD3F1F7BDCCE00508C1C /* MAMapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MAMapKit.framework; sourceTree = "<group>"; };
 		1804AD421F7BDCCE00508C1C /* EMCallLocalView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMCallLocalView.h; sourceTree = "<group>"; };
 		1804AD431F7BDCCE00508C1C /* EMCallManagerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMCallManagerDelegate.h; sourceTree = "<group>"; };
 		1804AD441F7BDCCE00508C1C /* EMCallRemoteView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMCallRemoteView.h; sourceTree = "<group>"; };
@@ -1148,6 +1145,9 @@
 		747D5C261F7DF75000F40A41 /* TTChatInputToolBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTChatInputToolBar.h; sourceTree = "<group>"; };
 		747D5C271F7DF75000F40A41 /* TTChatInputToolBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTChatInputToolBar.m; sourceTree = "<group>"; };
 		747D5C291F7F6A2A00F40A41 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		7488A4441FF657C1009BC49F /* MAMapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MAMapKit.framework; sourceTree = "<group>"; };
+		7488A4451FF657C2009BC49F /* AMapFoundationKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AMapFoundationKit.framework; sourceTree = "<group>"; };
+		7488A4461FF657C3009BC49F /* AMapSearchKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AMapSearchKit.framework; sourceTree = "<group>"; };
 		749009781FCD0EF400E1339E /* VHLNavigation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHLNavigation.h; sourceTree = "<group>"; };
 		749009791FCD0EF400E1339E /* VHLNavigation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VHLNavigation.m; sourceTree = "<group>"; };
 		749009CE1FCFE2F200E1339E /* CSFriendsListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSFriendsListViewController.h; sourceTree = "<group>"; };
@@ -1262,12 +1262,12 @@
 				45603A8B1988AD44F015EEB7 /* libPods-ChangSheng.a in Frameworks */,
 				1804AD6F1F7BDCCE00508C1C /* AMapLocationKit.framework in Frameworks */,
 				1804AD731F7BDCCF00508C1C /* libcurl.a in Frameworks */,
+				7488A4481FF657C4009BC49F /* AMapFoundationKit.framework in Frameworks */,
 				1804AD721F7BDCCF00508C1C /* libcrypto.a in Frameworks */,
 				74C853041F8DF4A600944C50 /* lame.framework in Frameworks */,
-				1804AD711F7BDCCE00508C1C /* MAMapKit.framework in Frameworks */,
+				7488A4471FF657C4009BC49F /* MAMapKit.framework in Frameworks */,
+				7488A4491FF657C4009BC49F /* AMapSearchKit.framework in Frameworks */,
 				1804AD751F7BDCCF00508C1C /* libHyphenateSDK.a in Frameworks */,
-				1804AD701F7BDCCE00508C1C /* AMapSearchKit.framework in Frameworks */,
-				1804AD6E1F7BDCCE00508C1C /* AMapFoundationKit.framework in Frameworks */,
 				18B6C60B1F8A550A007B1669 /* libmp3lame.a in Frameworks */,
 				74CFD27C1FA1848100A3D8E5 /* JhtGuidePages.framework in Frameworks */,
 				1804ACDA1F7BDC6100508C1C /* libopencore-amrwb.a in Frameworks */,
@@ -2015,10 +2015,10 @@
 		1804AD3B1F7BDCCE00508C1C /* AMap */ = {
 			isa = PBXGroup;
 			children = (
-				1804AD3C1F7BDCCE00508C1C /* AMapFoundationKit.framework */,
+				7488A4451FF657C2009BC49F /* AMapFoundationKit.framework */,
+				7488A4461FF657C3009BC49F /* AMapSearchKit.framework */,
+				7488A4441FF657C1009BC49F /* MAMapKit.framework */,
 				1804AD3D1F7BDCCE00508C1C /* AMapLocationKit.framework */,
-				1804AD3E1F7BDCCE00508C1C /* AMapSearchKit.framework */,
-				1804AD3F1F7BDCCE00508C1C /* MAMapKit.framework */,
 			);
 			path = AMap;
 			sourceTree = "<group>";
@@ -3054,7 +3054,7 @@
 				TargetAttributes = {
 					18C81F3C1F74B8E00012150B = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = A6L56BC597;
+						DevelopmentTeam = P2BWAW94QL;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -3685,7 +3685,7 @@
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = A6L56BC597;
+				DEVELOPMENT_TEAM = P2BWAW94QL;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3721,7 +3721,7 @@
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = A6L56BC597;
+				DEVELOPMENT_TEAM = P2BWAW94QL;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
