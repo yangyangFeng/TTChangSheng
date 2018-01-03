@@ -227,6 +227,7 @@
 		181C060F1F92139900F4A15E /* CSBetInputToolBarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 181C060E1F92139900F4A15E /* CSBetInputToolBarView.xib */; };
 		181C06121F92167B00F4A15E /* CSPublicBetInputToolBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 181C06111F92167B00F4A15E /* CSPublicBetInputToolBarView.m */; };
 		181C06151F92180900F4A15E /* CSPublicBetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 181C06141F92180900F4A15E /* CSPublicBetViewController.m */; };
+		1826974E1FFB6B95001FF805 /* AppDelegate+JPush.m in Sources */ = {isa = PBXBuildFile; fileRef = 1826974D1FFB6B95001FF805 /* AppDelegate+JPush.m */; };
 		1829A0411F8A4A2D00EAA1AB /* NSDate+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 1829A0381F8A4A2D00EAA1AB /* NSDate+Extension.m */; };
 		1829A0421F8A4A2D00EAA1AB /* NSDate+LCCKExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 1829A03A1F8A4A2D00EAA1AB /* NSDate+LCCKExtension.m */; };
 		1829A0431F8A4A2D00EAA1AB /* NSDate+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 1829A03C1F8A4A2D00EAA1AB /* NSDate+Utilities.m */; };
@@ -877,6 +878,8 @@
 		181C06111F92167B00F4A15E /* CSPublicBetInputToolBarView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSPublicBetInputToolBarView.m; sourceTree = "<group>"; };
 		181C06131F92180900F4A15E /* CSPublicBetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSPublicBetViewController.h; sourceTree = "<group>"; };
 		181C06141F92180900F4A15E /* CSPublicBetViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSPublicBetViewController.m; sourceTree = "<group>"; };
+		1826974C1FFB6B95001FF805 /* AppDelegate+JPush.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AppDelegate+JPush.h"; sourceTree = "<group>"; };
+		1826974D1FFB6B95001FF805 /* AppDelegate+JPush.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "AppDelegate+JPush.m"; sourceTree = "<group>"; };
 		1829A0371F8A4A2D00EAA1AB /* NSDate+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Extension.h"; sourceTree = "<group>"; };
 		1829A0381F8A4A2D00EAA1AB /* NSDate+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Extension.m"; sourceTree = "<group>"; };
 		1829A0391F8A4A2D00EAA1AB /* NSDate+LCCKExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+LCCKExtension.h"; sourceTree = "<group>"; };
@@ -2297,6 +2300,8 @@
 			children = (
 				18C81F431F74B8E00012150B /* AppDelegate.h */,
 				18C81F441F74B8E00012150B /* AppDelegate.m */,
+				1826974C1FFB6B95001FF805 /* AppDelegate+JPush.h */,
+				1826974D1FFB6B95001FF805 /* AppDelegate+JPush.m */,
 				18C81F571F7656A00012150B /* Class */,
 				18C81F401F74B8E00012150B /* Supporting Files */,
 			);
@@ -3272,6 +3277,7 @@
 				1804ACB91F7BDC6100508C1C /* LLNoDisturbTableViewController.m in Sources */,
 				181C060D1F92138B00F4A15E /* CSBetInputToolBarView.m in Sources */,
 				1804AC8A1F7BDC6100508C1C /* LLChatAssetDisplayController.m in Sources */,
+				1826974E1FFB6B95001FF805 /* AppDelegate+JPush.m in Sources */,
 				74073A281F9A57C80098783F /* UIImage+Extend.m in Sources */,
 				1804AC841F7BDC6100508C1C /* LLGIFDisplayController.m in Sources */,
 				18C81FF01F76585F0012150B /* StoryBoardController.m in Sources */,
