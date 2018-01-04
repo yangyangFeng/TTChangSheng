@@ -24,6 +24,7 @@
 #import "UIView+WNEmptyView.h"
 @interface CSFriendsListViewController ()<TTBaseTableViewHandlerDelegate>
 @property(nonatomic,strong)CSFriendListTableHandler * tableHandler;
+@property(nonatomic,strong)UIView * contentView;
 @end
 
 @implementation CSFriendsListViewController
@@ -43,6 +44,14 @@
     NSArray * friends = [CSMsgCacheTool AccessToChatFriendWith:(CS_Message_Record_Type_Friend)];
     self.tableHandler.dataSource = [NSMutableArray arrayWithArray:friends];
     [self.tableHandler.tableView reloadData];
+    if (friends.count){
+        [self.tableHandler.tableView hideBlankPageView];
+    }
+    else{
+        
+        [self.tableHandler.tableView showBlankPageView];
+        self.tableHandler.tableView.blankPageView.backgroundColor = [UIColor clearColor];
+    }
 }
 
 
@@ -54,22 +63,23 @@
 
 - (void)createSubviews
 {
-    UITableView * tableView = [[UITableView alloc]initWithFrame:CGRectZero style:(UITableViewStylePlain)];
+    self.contentView = [[UIView alloc] initWithFrame:CGRectMake(0, 64, WIDTH, self.view.height - 64)];
+    [self.view addSubview:self.contentView];
+  
+    UITableView * tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 64, WIDTH, self.view.height - 64) style:(UITableViewStylePlain)];
     tableView.tableFooterView = [UIView new];
     tableView.backgroundColor = TABLE_VIEW_GROUP_BACKGROUNDCOLOR;
+    tableView.allowsSelectionDuringEditing = YES;
     _tableHandler = [[CSFriendListTableHandler alloc]initWithTableView:tableView];
     _tableHandler.delegate = self;
-    tableView.blankPreTitle = @"你还未收到乐友信息";
-    tableView.blankPageView.backgroundColor = [UIColor clearColor];
-    //    tableView.blankButtonTitle = @"点击刷新";
-    tableView.blankImageName = @"通讯录-空.png";
+   
     
     [self.view addSubview:tableView];
     
-    [tableView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(64);
-        make.left.right.bottom.mas_equalTo(0);
-    }];
+//    [tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.top.mas_equalTo(64);
+//        make.left.right.bottom.mas_equalTo(0);
+//    }];
     
     UIButton * addressBookButton = [UIButton buttonWithType:(UIButtonTypeCustom)];
     [addressBookButton setBackgroundImage:[UIImage imageNamed:@"通讯录"] forState:(UIControlStateNormal)];
@@ -91,6 +101,11 @@
         make.bottom.mas_equalTo(-11);
         make.right.mas_equalTo(addButton.mas_left).offset(-10);
     }];
+    
+    
+    self.tableHandler.tableView.blankPreTitle = @"你还未收到乐友信息";
+    self.tableHandler.tableView.blankImageName = @"通讯录-空.png";
+ 
 }
 
 - (void)loadData
@@ -121,9 +136,13 @@
         [self.tableHandler.tableView hideBlankPageView];
     }
     else{
+    
         [self.tableHandler.tableView showBlankPageView];
+        self.tableHandler.tableView.blankPageView.backgroundColor = [UIColor clearColor];
     }
 }
+
+
 
 - (void)addressBookAction
 {
@@ -174,10 +193,15 @@
                 chatC.conversationModel = model;
       
                 [LLChatViewController joinStatus:^(NSError * _Nonnull error) {
+                    [hud hideAnimated:YES];
                     if (!error) {
                         [self.navigationController pushViewController:chatC animated:YES];
                     }
-                    [hud hideAnimated:YES afterDelay:1];
+                    else
+                    {
+                        CS_HUD(error.domain);
+                    }
+                    
                 } chatId:model.chatId chatType:CS_Message_Record_Type_Friend];
                 
             }
@@ -193,10 +217,14 @@
                 
                 chatC.conversationModel = model;
                 [LLChatViewController joinStatus:^(NSError * _Nonnull error) {
+                    [hud hideAnimated:YES];
                     if (!error) {
                         [self.navigationController pushViewController:chatC animated:YES];
                     }
-                    [hud hideAnimated:YES afterDelay:1];
+                    else
+                    {
+                        CS_HUD(error.domain);
+                    };
                 } chatId:model.chatId chatType:CS_Message_Record_Type_Friend];
             }
         }

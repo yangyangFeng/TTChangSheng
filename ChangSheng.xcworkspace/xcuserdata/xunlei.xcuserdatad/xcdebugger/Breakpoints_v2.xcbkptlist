@@ -186,53 +186,6 @@
             endingLineNumber = "116"
             landmarkName = "-registerAction:"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__43-[CSRegisterViewController registerAction:]_block_invoke.126"
-                  moduleName = "ChangSheng"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/xunlei/TTWork/TTChangSheng/ChangSheng/Class/LoginRegister/C/CSRegisterViewController.m"
-                  timestampString = "533719707.544396"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "116"
-                  endingLineNumber = "116"
-                  offsetFromSymbolStart = "92">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__copy_helper_block_.127"
-                  moduleName = "ChangSheng"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/xunlei/TTWork/TTChangSheng/ChangSheng/Class/LoginRegister/C/CSRegisterViewController.m"
-                  timestampString = "533719707.547773"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "116"
-                  endingLineNumber = "116"
-                  offsetFromSymbolStart = "51">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__destroy_helper_block_.128"
-                  moduleName = "ChangSheng"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/xunlei/TTWork/TTChangSheng/ChangSheng/Class/LoginRegister/C/CSRegisterViewController.m"
-                  timestampString = "533719707.550887"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "116"
-                  endingLineNumber = "116"
-                  offsetFromSymbolStart = "29">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -242,12 +195,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ChangSheng/Class/IMKit/Data/Cache/CSMessageRecordTool.m"
-            timestampString = "532263420.864377"
+            timestampString = "536749550.079558"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "25"
             endingLineNumber = "25"
-            landmarkName = "-cs_cacheMessage:userId:addLast:"
+            landmarkName = "-cs_cacheMessage:userInfo:addLast:chatType:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -265,6 +218,22 @@
             endingLineNumber = "16"
             landmarkName = "-joinHomeController"
             landmarkType = "6">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ChangSheng/Class/Friends/C/CSFriendsListViewController.m"
+            timestampString = "536749550.079665"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "135"
+            endingLineNumber = "135"
+            landmarkName = "-loadData"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

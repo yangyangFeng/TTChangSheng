@@ -8,6 +8,8 @@
 
 #import "CSFriendListTableHandler.h"
 
+#import "CSMessageRecordTool.h"
+
 #import "CSFriendListTableViewCell.h"
 #import "CSFriendMsgTableViewCell.h"
 #import "CSFriendchartlistModel.h"
@@ -69,6 +71,21 @@
     
 }
 
+-(BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return YES;
+}
+    
+    
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        CSFriendchartlistModel * friendModel = self.dataSource[indexPath.row];
+        [CSMsgCacheTool deleteFriendRecord:friendModel.userid chatType:(CS_Message_Record_Type_Friend)];
+//        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:(UITableViewRowAnimationFade)];
+    }
+}
+    
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [super tableView:tableView didSelectRowAtIndexPath:indexPath];

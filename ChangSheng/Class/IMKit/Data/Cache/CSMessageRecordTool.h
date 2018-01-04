@@ -46,6 +46,10 @@ typedef void(^loadDatas)(NSArray *msgs);
 - (NSArray <CSFriendchartlistModel*> *)AccessToChatFriendWith:(CS_Message_Record_Type)chatType;
 
 /**
+ 删除好友聊天消息
+ */
+- (void)deleteFriendRecord:(NSString *)userId chatType:(CS_Message_Record_Type)chatType;
+/**
  根据 useid 和聊天类型转换DB userid
 
  @param userId <#userId description#>

@@ -337,6 +337,20 @@ static CSMessageRecordTool * tool = nil;
     [datas addObjectsFromArray:noHaveUnReadArray];
     return datas;
 }
+    
+- (void)deleteFriendRecord:(NSString *)userId chatType:(CS_Message_Record_Type)chatType
+{
+    RLMRealm * realm = [RLMRealm defaultRealm];
+    [realm beginWriteTransaction];
+    
+    NSString * new_userId = [NSString stringWithFormat:@"%@-%@",ChatTypeChange(chatType),userId];
+    NSPredicate * pred = [NSPredicate predicateWithFormat:@"ID = %@ AND userType = %@",new_userId,ChatTypeChange(chatType)];//CONTAINS
+    RLMResults * result = [CSMsg_User objectsInRealm:realm withPredicate:pred];
+    CSMsg_User * user = [result firstObject];
+    [user.msgRecords removeAllObjects];
+    [realm deleteObject:user];
+    [realm commitWriteTransaction];
+}
 //
 //// 更新数据
 //- (BOOL)realmsUpdateData:(NSString *)object theCondition:(NSString *)condition property:(NSDictionary *)dict{

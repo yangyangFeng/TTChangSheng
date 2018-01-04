@@ -10,10 +10,10 @@
 
 @class CSFriendListItemModel;
 @interface CSFriendListModel : CSHttpsResModel
-@property (nonatomic, strong)NSArray<CSFriendListModel*>*result;
+@property (nonatomic, strong)NSMutableArray<CSFriendListModel*>*result;
 
 @property (nonatomic,copy) NSString *letter;
-@property (nonatomic, strong)NSArray <CSFriendListItemModel*>* friends;
+@property (nonatomic, strong)NSMutableArray <CSFriendListItemModel*>* friends;
 @end
 
 @interface CSFriendListItemModel : NSObject

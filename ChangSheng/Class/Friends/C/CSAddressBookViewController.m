@@ -15,9 +15,10 @@
 #import "CSFriendListModel.h"
 #import "LLUtils.h"
 #import "UIView+WNEmptyView.h"
+#import "CSDeleteFriendRequest.h"
 @interface CSAddressBookViewController ()<UITableViewDelegate,UITableViewDataSource>
 
-@property (nonatomic,strong) NSArray *dataSource;
+@property (nonatomic,strong) NSMutableArray *dataSource;
 @property (nonatomic,strong) UITableView *tableView;
 @end
 
@@ -79,6 +80,7 @@
         else
         {
             [self.tableView showBlankPageView];
+            self.tableView.blankPageView.backgroundColor = [UIColor clearColor];
         }
         
     } failure:^(NSError *error) {
@@ -124,9 +126,7 @@
 {
     NSMutableArray * array = [NSMutableArray array];
     for (CSFriendListModel * model in self.dataSource) {
-        
-            [array addObject:model.letter];
-        
+        [array addObject:model.letter];
     }
     UILabel * label = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 0, 0)];
     label.textColor = CS_TextColor;
@@ -159,7 +159,24 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        DLog(@"删除cell");
+        CSFriendListModel * model = self.dataSource[indexPath.section];
+        CSFriendListItemModel * item = model.friends[indexPath.row];
+        CSDeleteFriendRequest * param = [CSDeleteFriendRequest new];
+        param.friend_id = item.user_id;
+        [CSHttpRequestManager request_deleteFriend_paramters:param.mj_keyValues success:^(id responseObject) {
+            
+            if (!model.friends.count)
+            {
+                [self.dataSource removeObjectAtIndex:indexPath.section];
+                [tableView deleteSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationFade];
+                
+            } else {
+                [model.friends removeObjectAtIndex:indexPath.row];
+                [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            }
+        } failure:^(NSError *error) {
+            
+        } showHUD:YES];
     }
 }
 
@@ -194,10 +211,14 @@
             chatC.conversationModel = model;
 //            [self.navigationController pushViewController:chatC animated:YES];
             [LLChatViewController joinStatus:^(NSError * _Nonnull error) {
+                [hud hideAnimated:YES];
                 if (!error) {
                     [self.navigationController pushViewController:chatC animated:YES];
                 }
-                [hud hideAnimated:YES afterDelay:1];
+                else
+                {
+                    CS_HUD(error.domain);
+                }
             } chatId:model.chatId chatType:CS_Message_Record_Type_Friend];
         }
         else
@@ -215,10 +236,14 @@
             chatC.conversationModel = model;
 //            [self.navigationController pushViewController:chatC animated:YES];
             [LLChatViewController joinStatus:^(NSError * _Nonnull error) {
+                [hud hideAnimated:YES];
                 if (!error) {
                     [self.navigationController pushViewController:chatC animated:YES];
                 }
-                [hud hideAnimated:YES afterDelay:1];
+                else
+                {
+                    CS_HUD(error.domain);
+                }
             } chatId:model.chatId chatType:CS_Message_Record_Type_Friend];
         }
     }
