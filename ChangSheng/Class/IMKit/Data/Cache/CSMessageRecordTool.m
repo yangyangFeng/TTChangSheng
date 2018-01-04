@@ -221,8 +221,8 @@ static CSMessageRecordTool * tool = nil;
     
     NSMutableArray * datas = [NSMutableArray array];
     NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"timestamp" ascending:YES];
-    if (currentIndex) {//(currentIndex - count) ?: 0
-        for (int i = currentIndex ; i >=MAX((currentIndex - count), 0); i--) {
+    if (currentIndex>=0) {//(currentIndex - count) ?: 0
+        for (int i = currentIndex ; i >=MAX((currentIndex - count), -1); i--) {
             if (i >= user.msgRecords.count) {
                 break;
             }
@@ -230,7 +230,7 @@ static CSMessageRecordTool * tool = nil;
             CSMsg_User_Msg * msgModel = [user.msgRecords objectAtIndex:i];
             CSMessageModel * model = [CSMessageModel conversionWithLocalRecordModel:msgModel chatType:(CSChatTypeChat) chatId:userId];
             [datas addObject:model];
-            NSLog(@"i===%d   ,   msgId-->%@    ,    content-->%@,    isread = %d",i,model.msgId,model.body.content, msgModel.isRead);
+//            NSLog(@"i===%d   ,   msgId-->%@    ,    content-->%@,    isread = %d",i,model.msgId,model.body.content, msgModel.isRead);
         }
     }
     

@@ -219,6 +219,7 @@
 		1813468F1F7AA93200CD1312 /* MLLinkLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 181346831F7AA93200CD1312 /* MLLinkLabel.m */; };
 		181346901F7AA93200CD1312 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 181346841F7AA93200CD1312 /* LICENSE */; };
 		181346911F7AA93200CD1312 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 181346851F7AA93200CD1312 /* README.md */; };
+		1819A7AE1FFB843300CEA5E7 /* AppDelegate+JPush.m in Sources */ = {isa = PBXBuildFile; fileRef = 1819A7AD1FFB843200CEA5E7 /* AppDelegate+JPush.m */; };
 		181C060A1F9212AB00F4A15E /* CSPublicBetTableViewHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 181C06091F9212AB00F4A15E /* CSPublicBetTableViewHandler.m */; };
 		181C060D1F92138B00F4A15E /* CSBetInputToolBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 181C060C1F92138B00F4A15E /* CSBetInputToolBarView.m */; };
 		181C060F1F92139900F4A15E /* CSBetInputToolBarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 181C060E1F92139900F4A15E /* CSBetInputToolBarView.xib */; };
@@ -229,6 +230,8 @@
 		1829A0431F8A4A2D00EAA1AB /* NSDate+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 1829A03C1F8A4A2D00EAA1AB /* NSDate+Utilities.m */; };
 		1829A0441F8A4A2D00EAA1AB /* NSFileManager+LCCKExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 1829A03E1F8A4A2D00EAA1AB /* NSFileManager+LCCKExtension.m */; };
 		1829A0451F8A4A2D00EAA1AB /* NSFileManager+Paths.m in Sources */ = {isa = PBXBuildFile; fileRef = 1829A0401F8A4A2D00EAA1AB /* NSFileManager+Paths.m */; };
+		183A14821FFCDC1900E1991A /* CSSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183A14811FFCDC1900E1991A /* CSSwift.swift */; };
+		183A14841FFCDCEA00E1991A /* CSEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183A14831FFCDCEA00E1991A /* CSEmptyView.swift */; };
 		184B22EB1FDBBC7400929005 /* CSAddFriendParam.m in Sources */ = {isa = PBXBuildFile; fileRef = 184B22EA1FDBBC7400929005 /* CSAddFriendParam.m */; };
 		184B22EE1FDBBCB700929005 /* CSFindUserParam.m in Sources */ = {isa = PBXBuildFile; fileRef = 184B22ED1FDBBCB700929005 /* CSFindUserParam.m */; };
 		184B22F11FDBBD3300929005 /* CSFriendRequestListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 184B22F01FDBBD3300929005 /* CSFriendRequestListModel.m */; };
@@ -247,6 +250,7 @@
 		184B5D211F794C0F007A1C22 /* NSDictionary+Log.m in Sources */ = {isa = PBXBuildFile; fileRef = 184B5D1A1F794C0F007A1C22 /* NSDictionary+Log.m */; };
 		184B5D221F794C0F007A1C22 /* Deferred.m in Sources */ = {isa = PBXBuildFile; fileRef = 184B5D1D1F794C0F007A1C22 /* Deferred.m */; };
 		184B5D231F794C0F007A1C22 /* Promise.m in Sources */ = {isa = PBXBuildFile; fileRef = 184B5D1F1F794C0F007A1C22 /* Promise.m */; };
+		184DD6641FFBD43D00C2A085 /* CSDeviceBindingModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 184DD6631FFBD43D00C2A085 /* CSDeviceBindingModel.m */; };
 		185787161F94BB1E00BAD542 /* CSCaiwuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 185787151F94BB1C00BAD542 /* CSCaiwuViewController.m */; };
 		185787181F94BC2400BAD542 /* Mine.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 185787171F94BC2400BAD542 /* Mine.storyboard */; };
 		1857871B1F94D4C500BAD542 /* CSCaiwuTableViewInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1857871A1F94D4C500BAD542 /* CSCaiwuTableViewInfoCell.m */; };
@@ -323,7 +327,6 @@
 		18C820331F7772BA0012150B /* CSBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C820321F7772BA0012150B /* CSBaseViewController.m */; };
 		18C820361F7772C90012150B /* CSLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C820351F7772C90012150B /* CSLoginViewController.m */; };
 		18C820391F777A1F0012150B /* CSRegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C820381F777A1F0012150B /* CSRegisterViewController.m */; };
-		45603A8B1988AD44F015EEB7 /* libPods-ChangSheng.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 84C57046CFB3067E7FF70B34 /* libPods-ChangSheng.a */; };
 		740739CF1F9A56760098783F /* VoiceMessageSource.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 740739CE1F9A56750098783F /* VoiceMessageSource.bundle */; };
 		74073A121F9A57C80098783F /* UIImage+BetterFace.m in Sources */ = {isa = PBXBuildFile; fileRef = 740739D31F9A57C70098783F /* UIImage+BetterFace.m */; };
 		74073A131F9A57C80098783F /* UIImageView+BetterFace.m in Sources */ = {isa = PBXBuildFile; fileRef = 740739D51F9A57C70098783F /* UIImageView+BetterFace.m */; };
@@ -423,6 +426,7 @@
 		74CFD2821FA1930900A3D8E5 /* CSHomeConnectionStatusView.m in Sources */ = {isa = PBXBuildFile; fileRef = 74CFD2811FA1930900A3D8E5 /* CSHomeConnectionStatusView.m */; };
 		74CFD2991FA3203400A3D8E5 /* skip_button.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 74CFD2981FA3203400A3D8E5 /* skip_button.bundle */; };
 		74CFD29B1FA323BA00A3D8E5 /* csLoading.gif in Resources */ = {isa = PBXBuildFile; fileRef = 74CFD29A1FA323BA00A3D8E5 /* csLoading.gif */; };
+		86947FC8E25D0D68959F9D09 /* libPods-ChangSheng.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 703D1BC29FB5CFC57587E47B /* libPods-ChangSheng.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -865,6 +869,8 @@
 		181346831F7AA93200CD1312 /* MLLinkLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLLinkLabel.m; sourceTree = "<group>"; };
 		181346841F7AA93200CD1312 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		181346851F7AA93200CD1312 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		1819A7AC1FFB843200CEA5E7 /* AppDelegate+JPush.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AppDelegate+JPush.h"; sourceTree = "<group>"; };
+		1819A7AD1FFB843200CEA5E7 /* AppDelegate+JPush.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AppDelegate+JPush.m"; sourceTree = "<group>"; };
 		181C06081F9212AB00F4A15E /* CSPublicBetTableViewHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSPublicBetTableViewHandler.h; sourceTree = "<group>"; };
 		181C06091F9212AB00F4A15E /* CSPublicBetTableViewHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSPublicBetTableViewHandler.m; sourceTree = "<group>"; };
 		181C060B1F92138B00F4A15E /* CSBetInputToolBarView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSBetInputToolBarView.h; sourceTree = "<group>"; };
@@ -884,6 +890,9 @@
 		1829A03E1F8A4A2D00EAA1AB /* NSFileManager+LCCKExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSFileManager+LCCKExtension.m"; sourceTree = "<group>"; };
 		1829A03F1F8A4A2D00EAA1AB /* NSFileManager+Paths.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSFileManager+Paths.h"; sourceTree = "<group>"; };
 		1829A0401F8A4A2D00EAA1AB /* NSFileManager+Paths.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSFileManager+Paths.m"; sourceTree = "<group>"; };
+		183A14801FFCDC1800E1991A /* ChangSheng-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ChangSheng-Bridging-Header.h"; sourceTree = "<group>"; };
+		183A14811FFCDC1900E1991A /* CSSwift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSSwift.swift; sourceTree = "<group>"; };
+		183A14831FFCDCEA00E1991A /* CSEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSEmptyView.swift; sourceTree = "<group>"; };
 		184B22E91FDBBC7300929005 /* CSAddFriendParam.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSAddFriendParam.h; sourceTree = "<group>"; };
 		184B22EA1FDBBC7400929005 /* CSAddFriendParam.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSAddFriendParam.m; sourceTree = "<group>"; };
 		184B22EC1FDBBCB700929005 /* CSFindUserParam.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSFindUserParam.h; sourceTree = "<group>"; };
@@ -920,6 +929,9 @@
 		184B5D1D1F794C0F007A1C22 /* Deferred.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Deferred.m; sourceTree = "<group>"; };
 		184B5D1E1F794C0F007A1C22 /* Promise.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Promise.h; sourceTree = "<group>"; };
 		184B5D1F1F794C0F007A1C22 /* Promise.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Promise.m; sourceTree = "<group>"; };
+		184DD6611FFBCE9500C2A085 /* ChangSheng.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ChangSheng.entitlements; sourceTree = "<group>"; };
+		184DD6621FFBD43D00C2A085 /* CSDeviceBindingModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSDeviceBindingModel.h; sourceTree = "<group>"; };
+		184DD6631FFBD43D00C2A085 /* CSDeviceBindingModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSDeviceBindingModel.m; sourceTree = "<group>"; };
 		185787141F94BB1C00BAD542 /* CSCaiwuViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSCaiwuViewController.h; sourceTree = "<group>"; };
 		185787151F94BB1C00BAD542 /* CSCaiwuViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSCaiwuViewController.m; sourceTree = "<group>"; };
 		185787171F94BC2400BAD542 /* Mine.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Mine.storyboard; sourceTree = "<group>"; };
@@ -1069,6 +1081,7 @@
 		18C820381F777A1F0012150B /* CSRegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSRegisterViewController.m; sourceTree = "<group>"; };
 		3832B035DD6FEB49471E342C /* Pods-ChangSheng.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChangSheng.release.xcconfig"; path = "Pods/Target Support Files/Pods-ChangSheng/Pods-ChangSheng.release.xcconfig"; sourceTree = "<group>"; };
 		6DABF67951BD25C72917B8F1 /* Pods-ChangSheng.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChangSheng.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ChangSheng/Pods-ChangSheng.debug.xcconfig"; sourceTree = "<group>"; };
+		703D1BC29FB5CFC57587E47B /* libPods-ChangSheng.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ChangSheng.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		740739CE1F9A56750098783F /* VoiceMessageSource.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = VoiceMessageSource.bundle; sourceTree = "<group>"; };
 		740739D21F9A57C70098783F /* UIImage+BetterFace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+BetterFace.h"; sourceTree = "<group>"; };
 		740739D31F9A57C70098783F /* UIImage+BetterFace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+BetterFace.m"; sourceTree = "<group>"; };
@@ -1250,7 +1263,6 @@
 		74CFD29A1FA323BA00A3D8E5 /* csLoading.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = csLoading.gif; path = ChangSheng/csLoading.gif; sourceTree = SOURCE_ROOT; };
 		74CFD29C1FA3274000A3D8E5 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
 		74CFD29D1FA3274000A3D8E5 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
-		84C57046CFB3067E7FF70B34 /* libPods-ChangSheng.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ChangSheng.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1259,7 +1271,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				1804AD741F7BDCCF00508C1C /* libssl.a in Frameworks */,
-				45603A8B1988AD44F015EEB7 /* libPods-ChangSheng.a in Frameworks */,
 				1804AD6F1F7BDCCE00508C1C /* AMapLocationKit.framework in Frameworks */,
 				1804AD731F7BDCCF00508C1C /* libcurl.a in Frameworks */,
 				7488A4481FF657C4009BC49F /* AMapFoundationKit.framework in Frameworks */,
@@ -1272,6 +1283,7 @@
 				74CFD27C1FA1848100A3D8E5 /* JhtGuidePages.framework in Frameworks */,
 				1804ACDA1F7BDC6100508C1C /* libopencore-amrwb.a in Frameworks */,
 				1804ACD91F7BDC6100508C1C /* libopencore-amrnb.a in Frameworks */,
+				86947FC8E25D0D68959F9D09 /* libPods-ChangSheng.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2295,6 +2307,9 @@
 		18C81F3F1F74B8E00012150B /* ChangSheng */ = {
 			isa = PBXGroup;
 			children = (
+				184DD6611FFBCE9500C2A085 /* ChangSheng.entitlements */,
+				1819A7AC1FFB843200CEA5E7 /* AppDelegate+JPush.h */,
+				1819A7AD1FFB843200CEA5E7 /* AppDelegate+JPush.m */,
 				18C81F431F74B8E00012150B /* AppDelegate.h */,
 				18C81F441F74B8E00012150B /* AppDelegate.m */,
 				18C81F571F7656A00012150B /* Class */,
@@ -2313,6 +2328,8 @@
 				18C81F511F74B8E00012150B /* Info.plist */,
 				18C81F411F74B8E00012150B /* main.m */,
 				18C81F861F7657AA0012150B /* changShengPch.pch */,
+				183A14811FFCDC1900E1991A /* CSSwift.swift */,
+				183A14801FFCDC1800E1991A /* ChangSheng-Bridging-Header.h */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -2547,6 +2564,7 @@
 				74C852DB1F8B764F00944C50 /* JSWave */,
 				184B5D001F77D6ED007A1C22 /* GPCustomNSLayoutConstraint */,
 				18C81F671F7657900012150B /* BaseController */,
+				183A14831FFCDCEA00E1991A /* CSEmptyView.swift */,
 			);
 			path = General;
 			sourceTree = "<group>";
@@ -2678,6 +2696,8 @@
 				184B22EA1FDBBC7400929005 /* CSAddFriendParam.m */,
 				184B22FB1FDBC4DE00929005 /* CSFriendchartlistParam.h */,
 				184B22FC1FDBC4DE00929005 /* CSFriendchartlistParam.m */,
+				184DD6621FFBD43D00C2A085 /* CSDeviceBindingModel.h */,
+				184DD6631FFBD43D00C2A085 /* CSDeviceBindingModel.m */,
 			);
 			path = CPRequestModel;
 			sourceTree = "<group>";
@@ -2714,7 +2734,7 @@
 		56ABFCA75FEA5294DA6E44F2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				84C57046CFB3067E7FF70B34 /* libPods-ChangSheng.a */,
+				703D1BC29FB5CFC57587E47B /* libPods-ChangSheng.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -3054,8 +3074,19 @@
 				TargetAttributes = {
 					18C81F3C1F74B8E00012150B = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = P2BWAW94QL;
-						ProvisioningStyle = Automatic;
+
+						DevelopmentTeam = A6L56BC597;
+						LastSwiftMigration = 0900;
+						ProvisioningStyle = Manual;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
+
 					};
 				};
 			};
@@ -3167,7 +3198,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		3397C0F5EF0ED65B5B9961FE /* [CP] Embed Pods Frameworks */ = {
@@ -3176,9 +3207,60 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-ChangSheng/Pods-ChangSheng-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/AFDownloadRequestOperation/AFDownloadRequestOperation.framework",
+				"${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework",
+				"${BUILT_PRODUCTS_DIR}/CYLTabBarController/CYLTabBarController.framework",
+				"${BUILT_PRODUCTS_DIR}/CYLTableViewRowAction/CYLTableViewRowAction.framework",
+				"${BUILT_PRODUCTS_DIR}/EmptyKit/EmptyKit.framework",
+				"${BUILT_PRODUCTS_DIR}/FSMediaPicker/FSMediaPicker.framework",
+				"${BUILT_PRODUCTS_DIR}/FTPopOverMenu/FTPopOverMenu.framework",
+				"${BUILT_PRODUCTS_DIR}/FXForms/FXForms.framework",
+				"${BUILT_PRODUCTS_DIR}/IQKeyboardManager/IQKeyboardManager.framework",
+				"${BUILT_PRODUCTS_DIR}/KVOController/KVOController.framework",
+				"${BUILT_PRODUCTS_DIR}/MBProgressHUD/MBProgressHUD.framework",
+				"${BUILT_PRODUCTS_DIR}/MJExtension/MJExtension.framework",
+				"${BUILT_PRODUCTS_DIR}/MJRefresh/MJRefresh.framework",
+				"${BUILT_PRODUCTS_DIR}/MLPAutoCompleteTextField/MLPAutoCompleteTextField.framework",
+				"${BUILT_PRODUCTS_DIR}/MMPopupView/MMPopupView.framework",
+				"${BUILT_PRODUCTS_DIR}/Masonry/Masonry.framework",
+				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
+				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
+				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
+				"${BUILT_PRODUCTS_DIR}/SocketRocket/SocketRocket.framework",
+				"${BUILT_PRODUCTS_DIR}/TWMessageBarManager/TWMessageBarManager.framework",
+				"${BUILT_PRODUCTS_DIR}/YTKNetwork/YTKNetwork.framework",
+				"${BUILT_PRODUCTS_DIR}/YYCache/YYCache.framework",
+				"${BUILT_PRODUCTS_DIR}/YYImage/YYImage.framework",
+				"${BUILT_PRODUCTS_DIR}/YYWebImage/YYWebImage.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AFDownloadRequestOperation.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AFNetworking.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CYLTabBarController.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CYLTableViewRowAction.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/EmptyKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FSMediaPicker.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FTPopOverMenu.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FXForms.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManager.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KVOController.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MBProgressHUD.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MJExtension.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MJRefresh.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MLPAutoCompleteTextField.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MMPopupView.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Masonry.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SocketRocket.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TWMessageBarManager.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YTKNetwork.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YYCache.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YYImage.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YYWebImage.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -3192,7 +3274,7 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-ChangSheng/Pods-ChangSheng-resources.sh",
-				$PODS_CONFIGURATION_BUILD_DIR/FSMediaPicker/FSMediaPicker.bundle,
+				"$PODS_CONFIGURATION_BUILD_DIR/FSMediaPicker/FSMediaPicker.bundle",
 				"${PODS_ROOT}/IQKeyboardManager/IQKeyboardManager/Resources/IQKeyboardManager.bundle",
 				"${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle",
 				"${PODS_ROOT}/RedPacketAlipay/AlipaySDK.bundle",
@@ -3272,6 +3354,7 @@
 				1804ACB91F7BDC6100508C1C /* LLNoDisturbTableViewController.m in Sources */,
 				181C060D1F92138B00F4A15E /* CSBetInputToolBarView.m in Sources */,
 				1804AC8A1F7BDC6100508C1C /* LLChatAssetDisplayController.m in Sources */,
+				1819A7AE1FFB843300CEA5E7 /* AppDelegate+JPush.m in Sources */,
 				74073A281F9A57C80098783F /* UIImage+Extend.m in Sources */,
 				1804AC841F7BDC6100508C1C /* LLGIFDisplayController.m in Sources */,
 				18C81FF01F76585F0012150B /* StoryBoardController.m in Sources */,
@@ -3333,10 +3416,12 @@
 				749009F21FD3DA2400E1339E /* CSBaseSearchFriendViewController.m in Sources */,
 				1804ACB71F7BDC6100508C1C /* LLGeneralSettingController.m in Sources */,
 				74073A221F9A57C80098783F /* UIButton+TTExtend.m in Sources */,
+				184DD6641FFBD43D00C2A085 /* CSDeviceBindingModel.m in Sources */,
 				18BDAB461F9F76DB002800BC /* LBZoomScrollView.m in Sources */,
 				18C81F801F7657900012150B /* TTBaseNavigationBar.m in Sources */,
 				1804AC961F7BDC6100508C1C /* LLChatViewController.m in Sources */,
 				1804ACDE1F7BDC6100508C1C /* LLAssetsGroupModel.m in Sources */,
+				183A14841FFCDCEA00E1991A /* CSEmptyView.swift in Sources */,
 				1804AD371F7BDC6100508C1C /* LLContactManager.m in Sources */,
 				18C81F7C1F7657900012150B /* GPBaseController.m in Sources */,
 				74073A191F9A57C80098783F /* NSArray+Extend.m in Sources */,
@@ -3350,6 +3435,7 @@
 				74073A3D1F9D86FC0098783F /* GTMStackTrace.m in Sources */,
 				18C81FEC1F76585F0012150B /* MBProgressHUD+TTHUD.m in Sources */,
 				1804ACAB1F7BDC6100508C1C /* LLContactController.m in Sources */,
+				183A14821FFCDC1900E1991A /* CSSwift.swift in Sources */,
 				1804ACA31F7BDC6100508C1C /* LLChatSharePanel.m in Sources */,
 				1804AD361F7BDC6100508C1C /* LLClientManager.m in Sources */,
 				18C81FEF1F76585F0012150B /* NSString+TTLengthExtend.m in Sources */,
@@ -3626,7 +3712,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -3669,7 +3755,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -3682,10 +3768,14 @@
 			baseConfigurationReference = 6DABF67951BD25C72917B8F1 /* Pods-ChangSheng.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = P2BWAW94QL;
+
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = ChangSheng/ChangSheng.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer: xiong yuhao (2BT9NFB8DG)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: xiong yuhao (2BT9NFB8DG)";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = A6L56BC597;
+
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3697,6 +3787,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/ChangSheng/changShengPch.pch";
 				INFOPLIST_FILE = ChangSheng/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3706,10 +3797,13 @@
 					"$(PROJECT_DIR)/ChangSheng/Class/Lib/HyphenateSDK/lib",
 					"$(PROJECT_DIR)/ChangSheng/Class/IMKit/General/Audio/TTVoiceLib",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.cnepay.IntercommerceV2;
+				PRODUCT_BUNDLE_IDENTIFIER = com.changsheng.www;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "e387af7c-ff8b-47f6-b4d8-7df3501f016a";
+				PROVISIONING_PROFILE_SPECIFIER = com.changsheng.dev;
+				SWIFT_OBJC_BRIDGING_HEADER = "ChangSheng/ChangSheng-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -3718,10 +3812,14 @@
 			baseConfigurationReference = 3832B035DD6FEB49471E342C /* Pods-ChangSheng.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = P2BWAW94QL;
+
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = ChangSheng/ChangSheng.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: xiong yuhao (A6L56BC597)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = A6L56BC597;
+
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3733,6 +3831,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/ChangSheng/changShengPch.pch";
 				INFOPLIST_FILE = ChangSheng/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3742,9 +3841,12 @@
 					"$(PROJECT_DIR)/ChangSheng/Class/Lib/HyphenateSDK/lib",
 					"$(PROJECT_DIR)/ChangSheng/Class/IMKit/General/Audio/TTVoiceLib",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.cnepay.IntercommerceV2;
+				PRODUCT_BUNDLE_IDENTIFIER = com.changsheng.www;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "27e43b2d-c5ed-4e64-b07d-2666431bdb8a";
+				PROVISIONING_PROFILE_SPECIFIER = com.changsheng.dis;
+				SWIFT_OBJC_BRIDGING_HEADER = "ChangSheng/ChangSheng-Bridging-Header.h";
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};

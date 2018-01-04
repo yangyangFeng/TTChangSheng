@@ -33,6 +33,7 @@ pod 'SDWebImage'
 pod 'SocketRocket', '~> 0.5.1'
 pod 'KVOController'
 pod 'FSMediaPicker'
+pod 'JPush', '~> 3.0.7'
 end
 
 

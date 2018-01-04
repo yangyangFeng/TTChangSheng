@@ -9,6 +9,11 @@
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="HelveticaNeueExtras.ttc">
+            <string>HelveticaNeue-CondensedBold</string>
+        </array>
+    </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -40,24 +45,35 @@
                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="大众厅" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6yf-gi-7dm">
+                        <rect key="frame" x="0.0" y="0.0" width="386" height="122.5"/>
+                        <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBold" family="Helvetica Neue" pointSize="40"/>
+                        <color key="textColor" red="0.011764705882352941" green="0.090196078431372548" blue="0.19607843137254902" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 <constraints>
                     <constraint firstItem="QcF-II-u1D" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="1XQ-Tr-Lrg"/>
                     <constraint firstAttribute="bottomMargin" secondItem="QcF-II-u1D" secondAttribute="bottom" id="1Xv-jm-EaA"/>
+                    <constraint firstItem="6yf-gi-7dm" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="68B-Cg-9gh"/>
+                    <constraint firstItem="6yf-gi-7dm" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="CKW-Yj-DZq"/>
                     <constraint firstItem="Isd-f1-XRK" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="D1c-nZ-C3b"/>
                     <constraint firstItem="QcF-II-u1D" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="HWA-bd-RGy"/>
                     <constraint firstItem="Isd-f1-XRK" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="HnZ-G2-GC7"/>
                     <constraint firstAttribute="trailing" secondItem="Isd-f1-XRK" secondAttribute="trailing" id="bkM-cZ-flC"/>
                     <constraint firstAttribute="bottom" secondItem="Isd-f1-XRK" secondAttribute="bottom" id="cWN-nE-gVR"/>
+                    <constraint firstAttribute="bottom" secondItem="6yf-gi-7dm" secondAttribute="bottom" id="dVQ-g2-A48"/>
                     <constraint firstAttribute="trailing" secondItem="AdY-5s-yqT" secondAttribute="trailing" constant="-10" id="fcr-Xs-NYb"/>
                     <constraint firstAttribute="trailingMargin" secondItem="QcF-II-u1D" secondAttribute="trailing" id="ixQ-zQ-Kv1"/>
+                    <constraint firstAttribute="trailing" secondItem="6yf-gi-7dm" secondAttribute="trailing" id="luT-ir-EdQ"/>
                     <constraint firstItem="AdY-5s-yqT" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="-10" id="w0A-8s-9ln"/>
                 </constraints>
             </tableViewCellContentView>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <connections>
                 <outlet property="bgImageView" destination="Isd-f1-XRK" id="bWT-ga-8hd"/>
+                <outlet property="cs_title" destination="6yf-gi-7dm" id="o8I-A1-KOg"/>
                 <outlet property="unReadNumber" destination="AdY-5s-yqT" id="oIS-sr-fN5"/>
             </connections>
             <point key="canvasLocation" x="67" y="101.5"/>

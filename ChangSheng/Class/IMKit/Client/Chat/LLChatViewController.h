@@ -17,6 +17,12 @@
 NS_ASSUME_NONNULL_BEGIN
 @interface LLChatViewController : TTNav_RootViewController <LLChatInputDelegate>
 
+/**
+ 调用,判断是否加入成功
+
+ @param status
+ */
+- (void)joinStatus:(void(^)(NSError* error))status;
 //@property (nonatomic) LLConversationModel *conversationModel;
 
 - (void)fetchMessageList;
