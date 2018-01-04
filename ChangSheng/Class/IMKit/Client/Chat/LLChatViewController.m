@@ -165,11 +165,13 @@ CSIMReceiveManagerDelegate
 //    [self.view layoutIfNeeded];
 }
 
-- (void)joinStatus:(void(^)(NSError* error))status
++ (void)joinStatus:(void(^)(NSError* error))status
+            chatId:(NSString *)chatId
+          chatType:(CS_Message_Record_Type)chatType
 {
-        if (self.chatType == CS_Message_Record_Type_Friend) {
+        if (chatType == CS_Message_Record_Type_Friend) {
             //记录进入该聊天室
-            [[CSIMReceiveManager shareInstance] inChatWithChatType:(CSChatTypeChatFriend) chatId:self.conversationModel.chatId status:^(NSError *error) {
+            [[CSIMReceiveManager shareInstance] inChatWithChatType:(CSChatTypeChatFriend) chatId:chatId status:^(NSError *error) {
                 if (status) {
                     status(error);
                 }
@@ -178,7 +180,7 @@ CSIMReceiveManagerDelegate
         else
         {
             //记录进入该聊天室
-            [[CSIMReceiveManager shareInstance] inChatWithChatType:(CSChatTypeChat) chatId:self.conversationModel.chatId status:^(NSError *error) {
+            [[CSIMReceiveManager shareInstance] inChatWithChatType:(CSChatTypeChat) chatId:chatId status:^(NSError *error) {
                 if (status) {
                     status(error);
                 }

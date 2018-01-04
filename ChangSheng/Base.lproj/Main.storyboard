@@ -586,11 +586,8 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="UnD-qb-h0N">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="617"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="553"/>
                                 <color key="backgroundColor" red="0.90196078430000004" green="0.90196078430000004" blue="0.90588235289999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="617" id="XLV-kl-V8k"/>
-                                </constraints>
                                 <connections>
                                     <outlet property="dataSource" destination="crJ-EJ-DWl" id="HTn-wb-Iyl"/>
                                     <outlet property="delegate" destination="crJ-EJ-DWl" id="qyK-gL-Qi7"/>
@@ -695,6 +692,7 @@
                             <constraint firstAttribute="trailing" secondItem="6eK-n2-vjm" secondAttribute="trailing" id="b0S-G4-kQq"/>
                             <constraint firstItem="6eK-n2-vjm" firstAttribute="top" secondItem="UnD-qb-h0N" secondAttribute="bottom" id="bFe-8u-p3e"/>
                             <constraint firstItem="UnD-qb-h0N" firstAttribute="leading" secondItem="FJ6-7R-uVB" secondAttribute="leading" id="gPQ-0q-m9R"/>
+                            <constraint firstItem="UnD-qb-h0N" firstAttribute="top" secondItem="FJ6-7R-uVB" secondAttribute="top" constant="64" id="l9s-Xe-dsU"/>
                             <constraint firstAttribute="trailing" secondItem="UnD-qb-h0N" secondAttribute="trailing" id="pCC-lp-Oef"/>
                             <constraint firstAttribute="bottom" secondItem="6eK-n2-vjm" secondAttribute="bottom" id="xS7-Ym-Z9X"/>
                         </constraints>
@@ -707,7 +705,6 @@
                         <outlet property="refreshView" destination="c1w-0t-x13" id="Sa7-E1-K4E"/>
                         <outlet property="tableView" destination="UnD-qb-h0N" id="9K1-sd-kwr"/>
                         <outlet property="tableViewBottomConstraint" destination="bFe-8u-p3e" id="6JW-Dp-KWP"/>
-                        <outlet property="tableViewHeightConstraint" destination="XLV-kl-V8k" id="ef1-FJ-ZtT"/>
                         <outlet property="voiceTipView" destination="PRz-LS-sb2" id="lq2-lr-vdP"/>
                     </connections>
                 </viewController>
