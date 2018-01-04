@@ -21,8 +21,8 @@
 #define MIDDLE_AREA_HEIGHT 10
 #define BOTTOM_BUTTON_WIDTH 45
 
-#define ROWS_EMOJI 2
-#define ROWS_GIF 3
+#define ROWS_EMOJI 3
+#define ROWS_GIF 2
 
 static NSInteger number_per_line_emoji;
 static NSInteger number_per_line_gif;
