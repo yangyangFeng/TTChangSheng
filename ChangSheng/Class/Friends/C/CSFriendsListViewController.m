@@ -21,6 +21,7 @@
 #import "LLChatViewController.h"
 #import "StoryBoardController.h"
 #import "CSIMReceiveManager.h"
+#import "UIView+WNEmptyView.h"
 @interface CSFriendsListViewController ()<TTBaseTableViewHandlerDelegate>
 @property(nonatomic,strong)CSFriendListTableHandler * tableHandler;
 @end
@@ -58,6 +59,10 @@
     tableView.backgroundColor = TABLE_VIEW_GROUP_BACKGROUNDCOLOR;
     _tableHandler = [[CSFriendListTableHandler alloc]initWithTableView:tableView];
     _tableHandler.delegate = self;
+    tableView.blankPreTitle = @"你还未收到乐友信息";
+    tableView.blankPageView.backgroundColor = [UIColor clearColor];
+    //    tableView.blankButtonTitle = @"点击刷新";
+    tableView.blankImageName = @"通讯录-空.png";
     
     [self.view addSubview:tableView];
     
@@ -111,6 +116,13 @@
     } failure:^(NSError *error) {
         
     } showHUD:NO];
+    
+    if (friends.count){
+        [self.tableHandler.tableView hideBlankPageView];
+    }
+    else{
+        [self.tableHandler.tableView showBlankPageView];
+    }
 }
 
 - (void)addressBookAction
@@ -160,13 +172,13 @@
                 model.allMessageModels = [NSMutableArray arrayWithArray:msgs];
                 
                 chatC.conversationModel = model;
-                
-                [chatC joinStatus:^(NSError * _Nonnull error) {
+      
+                [LLChatViewController joinStatus:^(NSError * _Nonnull error) {
                     if (!error) {
                         [self.navigationController pushViewController:chatC animated:YES];
                     }
                     [hud hideAnimated:YES afterDelay:1];
-                }];
+                } chatId:model.chatId chatType:CS_Message_Record_Type_Friend];
                 
             }
             else
@@ -180,13 +192,12 @@
                 model.avatarImageURL = friendInfo.headurl;
                 
                 chatC.conversationModel = model;
-//                [self.navigationController pushViewController:chatC animated:YES];
-                [chatC joinStatus:^(NSError * _Nonnull error) {
+                [LLChatViewController joinStatus:^(NSError * _Nonnull error) {
                     if (!error) {
                         [self.navigationController pushViewController:chatC animated:YES];
                     }
                     [hud hideAnimated:YES afterDelay:1];
-                }];
+                } chatId:model.chatId chatType:CS_Message_Record_Type_Friend];
             }
         }
                                             LastId:nil count:CS_Message_Count chatType:(CS_Message_Record_Type_Friend)];

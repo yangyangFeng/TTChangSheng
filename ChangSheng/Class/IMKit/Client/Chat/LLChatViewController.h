@@ -23,6 +23,10 @@ NS_ASSUME_NONNULL_BEGIN
  @param status
  */
 - (void)joinStatus:(void(^)(NSError* error))status;
+
++ (void)joinStatus:(void(^)(NSError* error))status
+            chatId:(NSString *)chatId
+          chatType:(CS_Message_Record_Type)chatType;
 //@property (nonatomic) LLConversationModel *conversationModel;
 
 - (void)fetchMessageList;

@@ -271,6 +271,11 @@
 		187773CE1F7D1D5600A98B7C /* CSMsgHistoryRequestModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 187773CC1F7D1D5600A98B7C /* CSMsgHistoryRequestModel.m */; };
 		187773D11F7D1D6900A98B7C /* CSHttpGroupResModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 187773D01F7D1D6900A98B7C /* CSHttpGroupResModel.m */; };
 		187773D41F7D30FD00A98B7C /* CSIMConversationModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 187773D31F7D30FD00A98B7C /* CSIMConversationModel.m */; };
+		187A70891FFE09E200077B10 /* icon_no_netWork@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 187A70831FFE09E000077B10 /* icon_no_netWork@3x.png */; };
+		187A708A1FFE09E200077B10 /* icon_no_netWork@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 187A70851FFE09E000077B10 /* icon_no_netWork@2x.png */; };
+		187A708B1FFE09E200077B10 /* UIView+WNEmptyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 187A70861FFE09E000077B10 /* UIView+WNEmptyView.m */; };
+		187A708C1FFE09E200077B10 /* icon_no_data@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 187A70871FFE09E000077B10 /* icon_no_data@3x.png */; };
+		187A708D1FFE09E200077B10 /* icon_no_data@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 187A70881FFE09E000077B10 /* icon_no_data@2x.png */; };
 		18B57DA31FDCF93200429B1E /* CSFriendRequestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B57DA21FDCF93200429B1E /* CSFriendRequestViewController.m */; };
 		18B57DA71FDCF9D600429B1E /* CSFriendRequestTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B57DA51FDCF9D600429B1E /* CSFriendRequestTableViewCell.m */; };
 		18B57DA81FDCF9D600429B1E /* CSFriendRequestTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18B57DA61FDCF9D600429B1E /* CSFriendRequestTableViewCell.xib */; };
@@ -967,6 +972,12 @@
 		187773D01F7D1D6900A98B7C /* CSHttpGroupResModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSHttpGroupResModel.m; sourceTree = "<group>"; };
 		187773D21F7D30FD00A98B7C /* CSIMConversationModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSIMConversationModel.h; sourceTree = "<group>"; };
 		187773D31F7D30FD00A98B7C /* CSIMConversationModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSIMConversationModel.m; sourceTree = "<group>"; };
+		187A70831FFE09E000077B10 /* icon_no_netWork@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_no_netWork@3x.png"; sourceTree = "<group>"; };
+		187A70841FFE09E000077B10 /* UIView+WNEmptyView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+WNEmptyView.h"; sourceTree = "<group>"; };
+		187A70851FFE09E000077B10 /* icon_no_netWork@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_no_netWork@2x.png"; sourceTree = "<group>"; };
+		187A70861FFE09E000077B10 /* UIView+WNEmptyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+WNEmptyView.m"; sourceTree = "<group>"; };
+		187A70871FFE09E000077B10 /* icon_no_data@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_no_data@3x.png"; sourceTree = "<group>"; };
+		187A70881FFE09E000077B10 /* icon_no_data@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_no_data@2x.png"; sourceTree = "<group>"; };
 		18B57DA11FDCF93200429B1E /* CSFriendRequestViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSFriendRequestViewController.h; sourceTree = "<group>"; };
 		18B57DA21FDCF93200429B1E /* CSFriendRequestViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSFriendRequestViewController.m; sourceTree = "<group>"; };
 		18B57DA41FDCF9D600429B1E /* CSFriendRequestTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSFriendRequestTableViewCell.h; sourceTree = "<group>"; };
@@ -2246,6 +2257,19 @@
 			path = GeneralView;
 			sourceTree = "<group>";
 		};
+		187A70821FFE09E000077B10 /* WNEmptyView */ = {
+			isa = PBXGroup;
+			children = (
+				187A70831FFE09E000077B10 /* icon_no_netWork@3x.png */,
+				187A70841FFE09E000077B10 /* UIView+WNEmptyView.h */,
+				187A70851FFE09E000077B10 /* icon_no_netWork@2x.png */,
+				187A70861FFE09E000077B10 /* UIView+WNEmptyView.m */,
+				187A70871FFE09E000077B10 /* icon_no_data@3x.png */,
+				187A70881FFE09E000077B10 /* icon_no_data@2x.png */,
+			);
+			path = WNEmptyView;
+			sourceTree = "<group>";
+		};
 		18B6C6061F8A550A007B1669 /* TTVoiceLib */ = {
 			isa = PBXGroup;
 			children = (
@@ -2557,6 +2581,7 @@
 		18C81F661F76570D0012150B /* General */ = {
 			isa = PBXGroup;
 			children = (
+				187A70821FFE09E000077B10 /* WNEmptyView */,
 				749009771FCD0EF400E1339E /* VHLNavigation */,
 				74CFD2791FA1848100A3D8E5 /* JhtGuidePages_SDK */,
 				18BDAB261F9F76DB002800BC /* LBPhotoBrowser */,
@@ -3121,6 +3146,7 @@
 				74C852E81F8B800700944C50 /* CSMineItem.plist in Resources */,
 				18BDAB4A1F9F7DC2002800BC /* CSGongGaoView.xib in Resources */,
 				1804AC8F1F7BDC6100508C1C /* LLVideoPlaybackController.xib in Resources */,
+				187A708D1FFE09E200077B10 /* icon_no_data@2x.png in Resources */,
 				1804ACEA1F7BDC6100508C1C /* FriendsSendsPicturesSelectBigYIcon@2x.png in Resources */,
 				181C060F1F92139900F4A15E /* CSBetInputToolBarView.xib in Resources */,
 				749009E51FD0E97A00E1339E /* CSAddressBookTableViewCell.xib in Resources */,
@@ -3137,6 +3163,7 @@
 				749009DD1FD02D1300E1339E /* CSFriendMsgTableViewCell.xib in Resources */,
 				1804ACE71F7BDC6100508C1C /* FriendsSendsPicturesSelectBigNIcon.png in Resources */,
 				1804AD281F7BDC6100508C1C /* Media.xcassets in Resources */,
+				187A708C1FFE09E200077B10 /* icon_no_data@3x.png in Resources */,
 				1804ACA21F7BDC6100508C1C /* LLChatMoreBottomBar.xib in Resources */,
 				1804ACAD1F7BDC6100508C1C /* LLContactSearchViews.xib in Resources */,
 				1804ACC01F7BDC6100508C1C /* LLMessageSearchResultCell.xib in Resources */,
@@ -3147,6 +3174,7 @@
 				18B57DA81FDCF9D600429B1E /* CSFriendRequestTableViewCell.xib in Resources */,
 				1804ACDF1F7BDC6100508C1C /* CellBlueSelected.png in Resources */,
 				74CFD27F1FA1920800A3D8E5 /* CSHomeConnectionStatusView.xib in Resources */,
+				187A708A1FFE09E200077B10 /* icon_no_netWork@2x.png in Resources */,
 				1804ACEB1F7BDC6100508C1C /* FriendsSendsPicturesSelectIcon.png in Resources */,
 				1804ACF21F7BDC6100508C1C /* MMVideoPreviewPlayHL@3x.png in Resources */,
 				74C852D11F8B579C00944C50 /* CSNumberKeyboardView.xib in Resources */,
@@ -3156,6 +3184,7 @@
 				1804AD291F7BDC6100508C1C /* Monaco.ttf in Resources */,
 				18BDAB471F9F76DB002800BC /* LBLoading.png in Resources */,
 				1804ACA81F7BDC6100508C1C /* LLVoiceIndicatorView.xib in Resources */,
+				187A70891FFE09E200077B10 /* icon_no_netWork@3x.png in Resources */,
 				1804ACEE1F7BDC6100508C1C /* FriendsSendsPicturesSelectYIcon@2x.png in Resources */,
 				74C8530C1F8E336600944C50 /* CSUserTableViewCell.xib in Resources */,
 				1804AC881F7BDC6100508C1C /* LLImageBottomBar.xib in Resources */,
@@ -3272,7 +3301,7 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-ChangSheng/Pods-ChangSheng-resources.sh",
-				"$PODS_CONFIGURATION_BUILD_DIR/FSMediaPicker/FSMediaPicker.bundle",
+				$PODS_CONFIGURATION_BUILD_DIR/FSMediaPicker/FSMediaPicker.bundle,
 				"${PODS_ROOT}/IQKeyboardManager/IQKeyboardManager/Resources/IQKeyboardManager.bundle",
 				"${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle",
 				"${PODS_ROOT}/RedPacketAlipay/AlipaySDK.bundle",
@@ -3597,6 +3626,7 @@
 				18BDAB481F9F76DB002800BC /* LBTapDetectingImageView.m in Sources */,
 				1804ACAF1F7BDC6100508C1C /* LLConversationListCell.m in Sources */,
 				18C81F451F74B8E00012150B /* AppDelegate.m in Sources */,
+				187A708B1FFE09E200077B10 /* UIView+WNEmptyView.m in Sources */,
 				18BDAB401F9F76DB002800BC /* LBLoadingView.m in Sources */,
 				1804AC8D1F7BDC6100508C1C /* LLVideoDownloadStatusHUD.m in Sources */,
 				1804ACF61F7BDC6100508C1C /* LLImageNumberView.m in Sources */,
@@ -3783,7 +3813,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/ChangSheng/changShengPch.pch";
 				INFOPLIST_FILE = ChangSheng/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3825,7 +3855,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/ChangSheng/changShengPch.pch";
 				INFOPLIST_FILE = ChangSheng/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",

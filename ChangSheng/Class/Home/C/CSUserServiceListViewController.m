@@ -190,12 +190,12 @@ static CSUserServiceListViewController * controller = nil;
             
             chatC.conversationModel = model;
 //            [self.navigationController pushViewController:chatC animated:YES];
-            [chatC joinStatus:^(NSError * _Nonnull error) {
+            [LLChatViewController joinStatus:^(NSError * _Nonnull error) {
                 if (!error) {
                     [self.navigationController pushViewController:chatC animated:YES];
                 }
                 [hud hideAnimated:YES afterDelay:1];
-            }];
+            } chatId:model.chatId chatType:CS_Message_Record_Type_Friend];
         }
         else
         {
@@ -220,8 +220,7 @@ static CSUserServiceListViewController * controller = nil;
                 
                 
                 chatC.conversationModel = model;
-//                [self.navigationController pushViewController:chatC animated:YES];
-                [chatC joinStatus:^(NSError * _Nonnull error) {
+                [LLChatViewController joinStatus:^(NSError * _Nonnull error) {
                     if (!error) {
                         
                         CSCacheUserInfo * userInfo = [CSCacheUserInfo new];
@@ -235,9 +234,7 @@ static CSUserServiceListViewController * controller = nil;
                         [self.navigationController pushViewController:chatC animated:YES];
                     }
                     [hud hideAnimated:YES afterDelay:1];
-                }];
-                
-                
+                } chatId:model.chatId chatType:CS_Message_Record_Type_Friend];
                
             } failure:^(NSError *error) {
                 [hud hideAnimated:YES afterDelay:1];
