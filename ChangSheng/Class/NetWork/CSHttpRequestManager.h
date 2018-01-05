@@ -216,4 +216,10 @@ typedef enum : NSUInteger {
  *  24.绑定用户设备
  */
 + (void)request_deviceBinding_paramters:(NSDictionary *)params success:(TTSuccessBlock)success failure:(TTFailureBlock)failure showHUD:(BOOL)showHUD;
+
+#pragma mark -  25.退出登录
+/**
+ *  25.退出登录
+ */
++ (void)request_logout_paramters:(NSDictionary *)params success:(TTSuccessBlock)success failure:(TTFailureBlock)failure showHUD:(BOOL)showHUD;
 @end

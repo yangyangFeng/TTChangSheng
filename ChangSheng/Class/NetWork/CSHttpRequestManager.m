@@ -521,4 +521,20 @@
         failure(error);
     } showHUD:showHUD];
 }
+
+#pragma mark -  25.退出登录
+/**
+ *  25.退出登录
+ */
++ (void)request_logout_paramters:(NSDictionary *)params success:(TTSuccessBlock)success failure:(TTFailureBlock)failure showHUD:(BOOL)showHUD
+{
+    NSString * url = @"my/loginOut";
+    [[CSNewWorkHandler sharedInstance] beginHttpRequestType:POST_TTREQUEST_TYPE url:url paramters:params success:^(id responseObject) {
+        
+        success(responseObject);
+        
+    } failure:^(NSError *error) {
+        failure(error);
+    } showHUD:showHUD];
+}
 @end

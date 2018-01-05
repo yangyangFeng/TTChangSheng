@@ -118,7 +118,8 @@
 
 - (void)logoutDidAction
 {
-//    [MBProgressHUD tt_Show];
+
+//    [CSHttpRequestManager request_logout_p];
     
     [LLUtils showConfirmAlertWithTitle:@"" message:@"您是否要退出登录?" yesTitle:@"确认" yesAction:^{
         [LLUtils showCustomIndicatiorHUDWithTitle:@"" inView:self.view];
