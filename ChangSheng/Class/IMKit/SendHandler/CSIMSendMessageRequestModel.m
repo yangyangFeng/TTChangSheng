@@ -21,7 +21,7 @@
 -(instancetype)init
 {
     if (self = [super init]) {
-//        _msgStatus = (Deferred*)[[Deferred alloc] timeout:CSIM_SENDMESSAGE_TIME_OUT];
+        //        _msgStatus = (Deferred*)[[Deferred alloc] timeout:CSIM_SENDMESSAGE_TIME_OUT];
         _sendNumber = 0;
         _sendStatus = IM_Send_No;
     }
@@ -96,5 +96,9 @@
 @end
 
 @implementation CSIMUnReadListModel
++ (NSDictionary *)mj_objectClassInArray
+{
+    return @{@"chatList" : [CSMessageModel class]};
+}
+@end
 
-@end;

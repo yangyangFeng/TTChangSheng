@@ -210,9 +210,7 @@ static TTSocketChannelManager * _manager = nil;
             case AFNetworkReachabilityStatusNotReachable: // 没有网络(断网)
                 [CSNewWorkHandler sharedInstance].networkError = YES;
                 DLog(@"-------😴😴😴😴------>断网");
-                if ([CSUserInfo shareInstance].isOnline) {
                     [[self shareInstance] closeConnection];
-                }
                 break;
             case AFNetworkReachabilityStatusReachableViaWWAN: // 手机自带网络
                 DLog(@"-------😴😴😴😴------>手机自带网络");

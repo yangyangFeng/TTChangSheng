@@ -517,6 +517,7 @@ static NSString* ChatTypeChange(CS_Message_Record_Type chatType)
 @property(nonatomic,copy)NSString* chatId;
 //消息id （如果action=1 不需要， =2 || ==5 代表服务器返回的消息自增id, ==3 || ==4 代表客户端生成的唯一id  *
 @property(nonatomic,copy)NSString * msgId;
+@property(nonatomic,copy)NSString * id;
 //服务端发给客户端: 1、普通消息 2、消息回执 3、路单图片 4、连接成功回执 5、用户上线 6 、用户下线
 //客户端发给服务端: 1、进群  2、出群 3、下注  4、普通消息  5、撤销 6、加群  7、退群 99、web前端心跳    ps: 1 暂时不用
 @property(nonatomic,assign)int action;
@@ -585,10 +586,19 @@ static NSString* ChatTypeChange(CS_Message_Record_Type chatType)
 
 @interface CSUnreadListModel : NSObject
 // chatType:1|2 //1,群聊 2,单聊
-@property(nonatomic,assign)int chatType;
+//@property(nonatomic,assign)int chatType;
 //:10 //未读数量
-@property(nonatomic,assign)int count;
+//@property(nonatomic,assign)int count;
 //如果chatType=1 代表群组id 如果chatType=2 代表用户id
-@property(nonatomic,assign)int chatId;
+//@property(nonatomic,assign)int chatId;
 
+@property (nonatomic, assign)int fromUserType;
+@property (nonatomic, assign)int chatType;
+@property (nonatomic,copy) NSString* chatId;
+@property (nonatomic, assign)int count;
+
+@property (nonatomic,copy) NSString *avatar;
+@property (nonatomic,copy) NSString *nickname;
+
+@property (nonatomic,strong) NSArray<CSMessageModel*> *chatList;
 @end

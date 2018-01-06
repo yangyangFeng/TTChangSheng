@@ -20,6 +20,7 @@
 #import "CSZhuanFenViewController.h"
 #import "CSChangePWViewController.h"
 #import "LLUtils+Popover.h"
+#import "CSIMSendMessageManager.h"
 @interface CSMineViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) UITableView *tableView;
 
@@ -119,20 +120,23 @@
 - (void)logoutDidAction
 {
 
-//    [CSHttpRequestManager request_logout_p];
-    
     [LLUtils showConfirmAlertWithTitle:@"" message:@"您是否要退出登录?" yesTitle:@"确认" yesAction:^{
         [LLUtils showCustomIndicatiorHUDWithTitle:@"" inView:self.view];
-        [[CSUserInfo shareInstance] logout];
-        [[TTSocketChannelManager shareInstance] closeConnection];
-        
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            UIViewController * rootC = [StoryBoardController viewControllerID:@"CSLoginViewController" SBName:@"CSLoginSB"];
-            TTNavigationController * nav = [[TTNavigationController alloc]initWithRootViewController:rootC];
-            AppDelegate * appDelegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
-            appDelegate.window.rootViewController = nav;
-            [LLUtils showTextHUD:@"已退出登录" inView:self.view];
-        });
+        [CSHttpRequestManager request_logout_paramters:@{} success:^(id responseObject) {
+            [[CSUserInfo shareInstance] logout];
+            [[CSIMSendMessageManager shareInstance] stopGCDTimer];
+            [[TTSocketChannelManager shareInstance] closeConnection];
+            
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                UIViewController * rootC = [StoryBoardController viewControllerID:@"CSLoginViewController" SBName:@"CSLoginSB"];
+                TTNavigationController * nav = [[TTNavigationController alloc]initWithRootViewController:rootC];
+                AppDelegate * appDelegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
+                appDelegate.window.rootViewController = nav;
+                [LLUtils showTextHUD:@"已退出登录" inView:self.view];
+            });
+        } failure:^(NSError *error) {
+            
+        } showHUD:YES];
     }];
 }
 

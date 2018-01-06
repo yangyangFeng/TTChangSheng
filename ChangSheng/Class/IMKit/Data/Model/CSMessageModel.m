@@ -300,6 +300,7 @@ NSMutableDictionary * tmpImageDict;
     }
         
     self.isSelf = NO;
+    
     [self syncMessageBodyType:CS_changeMessageType(self.body.msgType)];
     [self processModelForCell];
 }
@@ -1100,6 +1101,11 @@ NSMutableDictionary * tmpImageDict;
     return @{@"unreadList" : [CSUnreadListModel class]};
 }
 
+//+ (NSDictionary *)mj_replacedKeyFromPropertyName
+//{
+//    return @{@"msgId" : @"id"};
+//}
+
 + (NSArray *)mj_ignoredPropertyNames
 {
     return @[@"thumbnailImage"];
@@ -1129,6 +1135,10 @@ NSMutableDictionary * tmpImageDict;
 
 @implementation CSUnreadListModel
 
++(NSDictionary *)mj_objectClassInArray
+{
+    return @{@"chatList" : [CSMessageModel class]};
+}
 
 
 @end
