@@ -69,7 +69,7 @@ NSMutableDictionary * tmpImageDict;
     [param setObject:@(self.chatType== CSChatTypeChatFriend ? 2 : self.chatType) forKey:@"chatType"];
     [param setObject:@(self.msgType) forKey:@"msgType"];
     [param setObject:self.content forKey:@"content"];
-    [param setObject:self.msgId forKey:@"msgId"];
+    [param setObject:self.body.msgId forKey:@"msgId"];
     [param setObject:@(self.action) forKey:@"action"];
     [param setObject:@(self.playType) forKey:@"playType"];
     if (self.playStyle.length) {
@@ -111,7 +111,9 @@ NSMutableDictionary * tmpImageDict;
 
 - (void)formaterMessage
 {
+    NSString * msgId = self.body.msgId;
     self.body = [CSMessageBodyModel mj_objectWithKeyValues:self.mj_keyValues];
+    self.body.msgId = msgId ?: self.body.msgId;
 //    self.body.msgType = self.msgType;
     if (self.isSelf) {
         self.body.nickname = [CSUserInfo shareInstance].info.nickname;
@@ -160,7 +162,7 @@ NSMutableDictionary * tmpImageDict;
     
     [CSHttpRequestManager upLoadFileRequestParamters:nil fileData:self.tempImageData fileType:(CS_UPLOAD_FILE_IMAGE) success:^(id responseObject) {
         CSUploadFileModel * obj = [CSUploadFileModel mj_objectWithKeyValues:responseObject];
-        weakSelf.content = obj.result.file_url;
+        weakSelf.content = obj.result.file_url_b;
         weakSelf.body.content = obj.result.file_url;
         weakSelf.body.img_url_b = obj.result.file_url_b;
         //                 messageRequest.body.body.content
@@ -396,15 +398,15 @@ NSMutableDictionary * tmpImageDict;
         self.chatType = chatType;
         self.chatId = chatId;
         if (msgId) {
-            self.msgId = msgId;
+            self.body.msgId = msgId;
         }
         else
         {
             
-            self.msgId = [CSMessageModel create_kMessageId];
+            self.body.msgId = [CSMessageModel create_kMessageId];
         }
         self.timestamp = [NSDate date].timestamp;
-        self.msgCacheKey = self.msgId;
+        self.msgCacheKey = self.body.msgId;
         self.msgType = msgType;
         self.action = action;//普通消息
 //        self.msgType = msgType;
@@ -436,7 +438,7 @@ NSMutableDictionary * tmpImageDict;
 - (BOOL)isEqual:(id)object
 {
     CSMessageModel * obj = object;
-    if ([obj.msgId isEqualToString:self.msgId]) {
+    if ([obj.body.msgId isEqualToString:self.body.msgId]) {
         return YES;
     }
     return NO;
@@ -1137,7 +1139,7 @@ NSMutableDictionary * tmpImageDict;
 
 +(NSDictionary *)mj_objectClassInArray
 {
-    return @{@"chatList" : [CSMessageModel class]};
+    return @{@"chatList" : [CSMessageBodyModel class]};
 }
 
 

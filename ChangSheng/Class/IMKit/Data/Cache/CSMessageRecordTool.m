@@ -71,6 +71,7 @@ static CSMessageRecordTool * tool = nil;
     //聊天类型
     user.userType = ChatTypeChange(chatType);
     
+    
     if (result.count) {
         [realm addOrUpdateObject:user];
     }
@@ -114,7 +115,7 @@ static CSMessageRecordTool * tool = nil;
     msg.link_url = model.body.linkUrl;
     msg.timestamp = model.body.timestamp;
     //    msg.is_self = [NSString stringWithFormat:@"%ld",model.isSelf];
-    msg.msg_id = [NSString stringWithFormat:@"%@-%@",new_userId,model.msgId];
+    msg.msg_id = [NSString stringWithFormat:@"%@-%@",new_userId,model.body.msgId];
     return msg;
 }
 
@@ -129,6 +130,7 @@ static CSMessageRecordTool * tool = nil;
 {
     RLMRealm * realm = [RLMRealm defaultRealm];
     [realm beginWriteTransaction];
+    
     NSString * new_userId = [self userId:userInfo.userId chatType:chatType];
     NSPredicate * pred = [NSPredicate predicateWithFormat:@"ID = %@ AND userType = %@",new_userId,ChatTypeChange(chatType)];//CONTAINS
     RLMResults * result = [CSMsg_User objectsInRealm:realm withPredicate:pred];
@@ -147,7 +149,7 @@ static CSMessageRecordTool * tool = nil;
     }
     
    
-
+    NSMutableArray * messageArray = [NSMutableArray array];
     if (addLast) {
         for (CSMessageModel * model in models){
             
@@ -156,9 +158,10 @@ static CSMessageRecordTool * tool = nil;
 //            NSPredicate * pred = [NSPredicate predicateWithFormat:@"msgId = %@",msg.msg_id];//CONTAINS
             RLMResults * result = [CSMsg_User_Msg objectsInRealm:realm where:@"msg_id = %@",msg.msg_id];
 //                                   objectInRealm:realm withPredicate:pred];
-            if (result.count) {
-                return self;
-            }
+//            if (result.count) {
+//                [realm commitWriteTransaction];
+//                return self;
+//            }
 //            msg.img_width = model.body.img_width;
 //            msg.img_height = model.body.img_height;
 //
@@ -177,8 +180,11 @@ static CSMessageRecordTool * tool = nil;
 //            msg.msg_id = [NSString stringWithFormat:@"%@-%@",new_userId,model.msgId];
             
             msg.owner = user;
+//            [realm addOrUpdateObject:msg];
             
-            [user.msgRecords addObject:msg];
+            
+            [messageArray addObject:msg];
+//            [user.msgRecords addObject:msg];
         }
     }
     else
@@ -190,9 +196,10 @@ static CSMessageRecordTool * tool = nil;
             //如果已存在数据 就不再添加了
 //            NSPredicate * pred = [NSPredicate predicateWithFormat:@"msgId = %@",msg.msg_id];//CONTAINS
             RLMResults * result = [CSMsg_User_Msg objectsInRealm:realm where:@"msg_id = %@",msg.msg_id];
-            if (result.count) {
-                return self;
-            }
+//            if (result.count) {
+//                [realm commitWriteTransaction];
+//                return self;
+//            }
 //            [CSMsg_User_Msg new];
 //            msg.img_width = model.body.img_width;
 //            msg.img_height = model.body.img_height;
@@ -213,7 +220,8 @@ static CSMessageRecordTool * tool = nil;
             
             msg.owner = user;
             
-            [user.msgRecords insertObject:msg atIndex:0];
+            [messageArray addObject:msg];
+//            [user.msgRecords insertObject:msg atIndex:0];
 
         }
     }
@@ -221,7 +229,10 @@ static CSMessageRecordTool * tool = nil;
     //聊天类型
     user.userType = ChatTypeChange(chatType);
     
-    [realm addOrUpdateObject:user];
+//    [realm addOrUpdateObject:user];
+    [realm addOrUpdateObjects:messageArray];
+    
+//    RLMResults * result = [CSMsg_User_Msg objectsInRealm:realm where:@"msg_id = %@",msg.msg_id];
     [realm commitWriteTransaction];
     return self;
 }
@@ -358,19 +369,22 @@ static CSMessageRecordTool * tool = nil;
     NSMutableArray * haveUnReadArray = [NSMutableArray array];
     NSMutableArray * noHaveUnReadArray = [NSMutableArray array];
     for (CSMsg_User * user in result) {
-        [user.msgRecords sortedResultsUsingDescriptors:@[rlmSort]];
+        RLMResults * msgRecords = [CSMsg_User_Msg objectsInRealm:realm where:@"owner = %@",user];
+        [msgRecords sortedResultsUsingDescriptors:@[rlmSort]];
         
         CSFriendchartlistModel * model = [CSFriendchartlistModel new];
-        CSMsg_User_Msg * msgModel = [user.msgRecords lastObject];
+        CSMsg_User_Msg * msgModel = [msgRecords lastObject];
         model.lastmsg = msgModel.content;
         model.lastdata = msgModel.timestamp;
+        
         model.lastmsgid = msgModel.msg_id;
+        model.type = msgModel.type;
         model.nickname = user.nickname;
         model.headurl = user.avatar;
         model.userid = user.userId;
         NSPredicate * pred1 = [NSPredicate predicateWithFormat:@"isRead = NO"];
         
-        RLMResults * unRead = [user.msgRecords objectsWithPredicate:pred1];
+        RLMResults * unRead = [msgRecords objectsWithPredicate:pred1];
         model.unreadmsgnum = [NSString stringWithFormat:@"%ld",unRead.count];
         
         if (unRead.count) {

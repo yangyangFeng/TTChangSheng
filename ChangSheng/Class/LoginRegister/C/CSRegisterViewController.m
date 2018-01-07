@@ -21,12 +21,13 @@
 #import "LLUtils+Popover.h"
 #import "CSLoginHandler.h"
 @interface CSRegisterViewController ()<FSMediaPickerDelegate>
-@property (weak, nonatomic) IBOutlet UITextField *accountField;
-@property (weak, nonatomic) IBOutlet UITextField *passwordField;
-@property (weak, nonatomic) IBOutlet UITextField *againPasswordField;
+
 @property (weak, nonatomic) IBOutlet UITextField *referrerField;
 @property (weak, nonatomic) IBOutlet UIButton *readBtn;
+@property (weak, nonatomic) IBOutlet UITextField *password;
 
+@property (weak, nonatomic) IBOutlet UITextField *nickName;
+@property (weak, nonatomic) IBOutlet UITextField *account;
 @property (weak, nonatomic) IBOutlet UIButton *headBtn;
 @property (nonatomic, strong)NSData * imageData;
 @end
@@ -82,23 +83,23 @@
     [self.view endEditing:YES];
  
     
-    if (!self.accountField.text.length) {
+    if (!self.nickName.text.length) {
         CS_HUD(@"昵称不能为空");
         return;
     }
-    else if (!self.passwordField.text.length) {
+    else if (!self.account.text.length) {
         CS_HUD(@"账号不能为空");
         return;
     }
-    else if (self.passwordField.text.length<6 | self.passwordField.text.length > 20){
+    else if (self.account.text.length<6 | self.account.text.length > 20){
         CS_HUD(@"账号为6到20位数字和字母");
         return;
     }
-    else if (!self.againPasswordField.text.length) {
+    else if (!self.password.text.length) {
         CS_HUD(@"密码不能为空");
         return;
     }
-    else if (self.againPasswordField.text.length<6 | self.againPasswordField.text.length > 20){
+    else if (self.password.text.length<6 | self.password.text.length > 20){
         CS_HUD(@"密码为6到20位数字和字母");
         return;
     }
@@ -116,9 +117,9 @@
     }
     
     CSRegisterParam * param = [CSRegisterParam new];
-    param.nickname = self.againPasswordField.text;
-    param.username = self.accountField.text;
-    param.password = self.passwordField.text.md5;
+    param.nickname = self.nickName.text;
+    param.username = self.account.text;
+    param.password = self.password.text.md5;
     param.referee_code = self.referrerField.text;
     param.file = @"avatar";
     

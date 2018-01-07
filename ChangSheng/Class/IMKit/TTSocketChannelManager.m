@@ -83,6 +83,7 @@ static TTSocketChannelManager * _manager = nil;
         NSLog(@"发送\n-------------------------------------------\n%@\n---------------------------------------",message);
         [self.webSocket send:message];
     }
+
 }
 
 /**

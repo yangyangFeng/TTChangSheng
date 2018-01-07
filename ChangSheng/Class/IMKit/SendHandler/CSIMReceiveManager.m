@@ -77,8 +77,7 @@ static CSIMReceiveManager * _manager = nil;
             
             message.result.timestamp = message.result.body.timestamp;
             message.result.isSelf = NO;
-            //记录未读消息
-            [self insertMessage:message.result];
+            
             //            if (message.result,chatType == 1) { //如果是群聊
             //                message.result.cs_chatType = CS_Message_Record_Type_Group;
             //                message.result.chatType = CSChatTypeChatGroup;
@@ -94,7 +93,8 @@ static CSIMReceiveManager * _manager = nil;
                 message.result.cs_chatType = CS_Message_Record_Type_Service;
                 message.result.chatType = CSChatTypeChat;
             }
-            //            }
+            //记录未读消息
+            [self insertMessage:message.result];
             
             CSCacheUserInfo * userInfo = [CSCacheUserInfo new];
             userInfo.userId = message.result.chatId;
@@ -130,7 +130,7 @@ static CSIMReceiveManager * _manager = nil;
                 [sendMsg.msgStatus reject:[NSError errorWithDomain:message.msg code:message.code userInfo:nil]];
                 [sendMsg failed];
             }
-            message.result.msgId = msgId;
+            message.result.body.msgId = msgId;
             [[CSIMMessageQueueManager shareInstance] removeMessages:message];
             for (id<CSIMReceiveManagerDelegate> delegate in
                  self.messageDelegates.objectEnumerator.allObjects) {
@@ -166,9 +166,6 @@ static CSIMReceiveManager * _manager = nil;
                     [strongDelegate cs_receiveUpdateUnreadMessage];
                 }
             }
-            
-            
-            
         }
             break;
         case 4:
@@ -181,24 +178,27 @@ static CSIMReceiveManager * _manager = nil;
                     continue;
                 }
                 //                DLog(@"新消息-------->%@",message.result.body.content);
-                for (CSMessageModel * message in tempModel.chatList) {
-                    [message cs_checkParams];
-                    [message formaterMessage];
-                    message.msgId = message.id;
+                for (CSMessageBodyModel * body in tempModel.chatList) {
+                    CSMessageModel * messageData = [CSMessageModel mj_objectWithKeyValues:tempModel.mj_keyValues];
+                    messageData.body = body;
+                    [messageData cs_checkParams];
+//                    [messageData formaterMessage];
+//                    message.msgId = message.id;
 //                    message.isSelf = NO;
-                    //记录未读消息
-                    [self insertMessage:message];
-                    
                     //将数据存到本地
                     if (tempModel.fromUserType == 1) {//普通用户
-                        message.cs_chatType = CS_Message_Record_Type_Friend;
-                        message.chatType = CSChatTypeChatFriend;
+                        messageData.cs_chatType = CS_Message_Record_Type_Friend;
+                        messageData.chatType = CSChatTypeChatFriend;
                     }
                     else{//客服
-                        message.cs_chatType = CS_Message_Record_Type_Service;
-                        message.chatType = CSChatTypeChat;
+                        messageData.cs_chatType = CS_Message_Record_Type_Service;
+                        messageData.chatType = CSChatTypeChat;
                     }
-                    [array addObject:message];
+                    
+                    //记录未读消息
+                    [self insertMessage:messageData];
+                    
+                    [array addObject:messageData];
                 }
                 CSCacheUserInfo * userInfo = [CSCacheUserInfo new];
                 userInfo.userId = tempModel.chatId;
@@ -207,15 +207,7 @@ static CSIMReceiveManager * _manager = nil;
                 
                 CSMessageModel * item = [array firstObject];
                 [CSMsgCacheTool cs_cacheMessages:array userInfo:userInfo addLast:YES chatType:item.chatType];
-                //计算数据高度
-                //            [message.result processModelForCell];
-                //            message.result.msgType = message.result.body.msgType;
-                //            [message.result syncMessageBodyType:CS_changeMessageType(message.result.body.msgType)];
-                
-                
-                
-                
-                //                [self insertChatWithChatType:tempModel.chatType chatId:[NSString stringWithFormat:@"%d",tempModel.chatId] unReadCount:[NSString stringWithFormat:@"%d",tempModel.count]];
+
             }
             for (id<CSIMReceiveManagerDelegate> delegate in self.messageDelegates.objectEnumerator.allObjects) {
                 __strong id<CSIMReceiveManagerDelegate> strongDelegate = delegate;
@@ -270,7 +262,7 @@ static CSIMReceiveManager * _manager = nil;
                 [sendMsg.msgStatus reject:[NSError errorWithDomain:message.msg code:message.code userInfo:nil]];
                 [sendMsg failed];
             }
-            message.result.msgId = msgId;
+            message.result.body.msgId = msgId;
             [[CSIMMessageQueueManager shareInstance] removeMessages:message];
             for (id<CSIMReceiveManagerDelegate> delegate in self.messageDelegates.objectEnumerator.allObjects) {
                 if ([delegate respondsToSelector:@selector(cs_sendMessageCallBlock:)]) {
@@ -336,7 +328,7 @@ static CSIMReceiveManager * _manager = nil;
                 [sendMsg.msgStatus reject:[NSError errorWithDomain:message.msg code:message.code userInfo:nil]];
                 [sendMsg failed];
             }
-            message.result.msgId = msgId;
+            message.result.body.msgId = msgId;
             [[CSIMMessageQueueManager shareInstance] removeMessages:message];
             //            for (id<CSIMReceiveManagerDelegate> delegate in
             //                 self.messageDelegates.objectEnumerator.allObjects) {
@@ -367,6 +359,11 @@ static CSIMReceiveManager * _manager = nil;
             key = CS_MESSAGE_KEY_GROUP;
         }
             break;
+        case CSChatTypeChatFriend:
+        {
+            key = CS_MESSAGE_KEY_FEIEND;
+        }
+            break;
         default:
             break;
     }
@@ -395,6 +392,11 @@ static CSIMReceiveManager * _manager = nil;
         case CSChatTypeGroupChat:
         {
             key = CS_MESSAGE_KEY_GROUP;
+        }
+            break;
+        case CSChatTypeChatFriend:
+        {
+            key = CS_MESSAGE_KEY_FEIEND;
         }
             break;
         default:

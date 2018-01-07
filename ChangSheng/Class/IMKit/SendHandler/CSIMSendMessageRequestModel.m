@@ -60,7 +60,7 @@
 
 - (void)syncMsgID:(CSIMSendMessageRequestModel *)message;
 {
-    self.body.msgId = message.body.msgId;
+    self.body.body.msgId = message.body.receiptId;
 }
 
 - (void)successed
@@ -75,11 +75,11 @@
 
 - (NSString *)msgId
 {
-    return _body.msgId;
+    return _body.body.msgId;
 }
 - (NSString *)msgCode
 {
-    return _body.msgId;
+    return _body.body.msgId;
 }
 - (NSString *)msgCacheKey
 {

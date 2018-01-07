@@ -17,7 +17,6 @@
 
 - (NSInteger) numberOfSectionsInTableView:(UITableView *)tableView
 {
-    
     return 2;
 }
 
@@ -82,13 +81,19 @@
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         CSFriendchartlistModel * friendModel = self.dataSource[indexPath.row];
         [CSMsgCacheTool deleteFriendRecord:friendModel.userid chatType:(CS_Message_Record_Type_Friend)];
-//        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:(UITableViewRowAnimationFade)];
+        [self.dataSource removeObject:friendModel];
+        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:(UITableViewRowAnimationFade)];
+        if ([_mydelegate respondsToSelector:@selector(deleteFriedAction)]) {
+            [_mydelegate deleteFriedAction];
+        }
     }
 }
     
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [super tableView:tableView didSelectRowAtIndexPath:indexPath];
+    if ([_mydelegate respondsToSelector:@selector(tableView:didSelectRowAtIndexPath:)]) {
+        [_mydelegate tableView:tableView didSelectRowAtIndexPath:indexPath];
+    }
 }
 
 @end

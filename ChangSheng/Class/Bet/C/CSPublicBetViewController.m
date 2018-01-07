@@ -348,7 +348,7 @@ CSPublicBetInputToolBarViewDelegate
         CSMsgHistoryRequestModel * param = [CSMsgHistoryRequestModel new];
         param.chat_type = CSChatTypeGroupChat;//1为群聊
         param.ID = self.conversationModel.chatId.intValue;
-        param.last_id = msgData.msgId;
+        param.last_id = msgData.body.msgId;
         [CSHttpRequestManager request_chatRecord_paramters:param.mj_keyValues success:^(id responseObject) {
             CSMsgRecordModel * obj = [CSMsgRecordModel mj_objectWithKeyValues:responseObject];
 
@@ -539,7 +539,7 @@ CSPublicBetInputToolBarViewDelegate
         if (i == 0 || (models[i].body.timestamp.integerValue - models[i-1].body.timestamp.integerValue > CHAT_CELL_TIME_INTERVEL)) {
             CSMessageModel *model = [[CSMessageModel alloc] initWithType:kCSMessageBodyTypeDateTime];
             model.body.timestamp = models[i].timestamp;
-            model.msgId = models[i].msgId;
+            model.body.msgId = models[i].body.msgId;
             [messageList addObject:model];
         }
         [messageList addObject:models[i]];

@@ -22,7 +22,7 @@
 #import "StoryBoardController.h"
 #import "CSIMReceiveManager.h"
 #import "UIView+WNEmptyView.h"
-@interface CSFriendsListViewController ()<TTBaseTableViewHandlerDelegate>
+@interface CSFriendsListViewController ()<CSFriendListTableHandlerDelegate>
 @property(nonatomic,strong)CSFriendListTableHandler * tableHandler;
 @property(nonatomic,strong)UIView * contentView;
 @end
@@ -45,12 +45,14 @@
     self.tableHandler.dataSource = [NSMutableArray arrayWithArray:friends];
     [self.tableHandler.tableView reloadData];
     if (friends.count){
-        [self.tableHandler.tableView hideBlankPageView];
+        [self.contentView hideBlankPageView];
+        self.contentView.hidden = YES;
     }
     else{
         
-        [self.tableHandler.tableView showBlankPageView];
-        self.tableHandler.tableView.blankPageView.backgroundColor = [UIColor clearColor];
+        [self.contentView showBlankPageView];
+        self.contentView.hidden = NO;
+        self.contentView.blankPageView.backgroundColor = [UIColor clearColor];
     }
 }
 
@@ -64,14 +66,16 @@
 - (void)createSubviews
 {
     self.contentView = [[UIView alloc] initWithFrame:CGRectMake(0, 64, WIDTH, self.view.height - 64)];
-    [self.view addSubview:self.contentView];
+    self.contentView.backgroundColor = [UIColor clearColor];
+    self.contentView.userInteractionEnabled = NO;
+    
   
     UITableView * tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 64, WIDTH, self.view.height - 64) style:(UITableViewStylePlain)];
     tableView.tableFooterView = [UIView new];
     tableView.backgroundColor = TABLE_VIEW_GROUP_BACKGROUNDCOLOR;
     tableView.allowsSelectionDuringEditing = YES;
     _tableHandler = [[CSFriendListTableHandler alloc]initWithTableView:tableView];
-    _tableHandler.delegate = self;
+    _tableHandler.mydelegate = self;
    
     
     [self.view addSubview:tableView];
@@ -102,14 +106,15 @@
         make.right.mas_equalTo(addButton.mas_left).offset(-10);
     }];
     
-    
-    self.tableHandler.tableView.blankPreTitle = @"你还未收到乐友信息";
-    self.tableHandler.tableView.blankImageName = @"通讯录-空.png";
+    [self.view addSubview:self.contentView];
  
 }
 
 - (void)loadData
 {
+    self.contentView.blankPreTitle = @"你还未收到乐友信息";
+    self.contentView.blankImageName = @"通讯录-空.png";
+    
     NSArray * friends = [CSMsgCacheTool AccessToChatFriendWith:(CS_Message_Record_Type_Friend)];
     self.tableHandler.dataSource = [NSMutableArray arrayWithArray:friends];
     [self.tableHandler.tableView reloadData];
@@ -133,12 +138,14 @@
     } showHUD:NO];
     
     if (friends.count){
-        [self.tableHandler.tableView hideBlankPageView];
+        [self.contentView hideBlankPageView];
+        self.contentView.hidden = YES;
     }
     else{
     
-        [self.tableHandler.tableView showBlankPageView];
-        self.tableHandler.tableView.blankPageView.backgroundColor = [UIColor clearColor];
+        [self.contentView showBlankPageView];
+        self.contentView.hidden = NO;
+        self.contentView.blankPageView.backgroundColor = [UIColor clearColor];
     }
 }
 
@@ -170,7 +177,6 @@
     else
     {
         CSFriendchartlistModel * friendInfo = self.tableHandler.dataSource[indexPath.row];
-        
         
 //        param.chat_type = 2;//客服为单聊
 //        param.ID = model.userid.intValue;
@@ -230,5 +236,10 @@
         }
                                             LastId:nil count:CS_Message_Count chatType:(CS_Message_Record_Type_Friend)];
     }
+}
+
+- (void)deleteFriedAction
+{
+    [self loadData];
 }
 @end

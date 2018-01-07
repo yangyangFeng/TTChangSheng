@@ -125,16 +125,16 @@ CREATE_SHARED_MANAGER(LLMessageCellManager)
 }
 
 - (LLMessageBaseCell *)messageCellForMessageModel:(CSMessageModel *)messageModel tableView:(UITableView *)tableView {
-//    LLMessageBaseCell *_cell = _allMessageCells[messageModel.msgId];
+//    LLMessageBaseCell *_cell = _allMessageCells[messageModel.body.msgId];
 //    if (_cell) {
 //        return _cell;
 //    }
 //    
-//    LL_MessageCell_Data *data = [self messageCellDataForConversationId:messageModel.msgId];
+//    LL_MessageCell_Data *data = [self messageCellDataForConversationId:messageModel.body.msgId];
 //    //有空余名额
 //    if (_allMessageCells.count < MAX_CACHE_CELLS) {
 //        _cell = [self createMessageCellForMessageModel:messageModel withReuseIdentifier:nil];
-//        _allMessageCells[messageModel.msgId] = _cell;
+//        _allMessageCells[messageModel.body.msgId] = _cell;
 //        [self addMessageCellToCellData:_cell cellData:data];
 //        
 //        while (_allMessageCells.count == MAX_CACHE_CELLS && self.allMessageCellData.count > 1) {
@@ -144,11 +144,11 @@ CREATE_SHARED_MANAGER(LLMessageCellManager)
 //        //缓存最新消息
 //        if (messageModel.timestamp > [data.allMessageCells lastObject].messageModel.timestamp) {
 //            LLMessageBaseCell *firstCell = data.allMessageCells[0];
-//            [_allMessageCells removeObjectForKey:firstCell.messageModel.msgId];
+//            [_allMessageCells removeObjectForKey:firstCell.messageModel.body.msgId];
 //            [data.allMessageCells removeObjectAtIndex:0];
 //            
 //            _cell = [self createMessageCellForMessageModel:messageModel withReuseIdentifier:nil];
-//            _allMessageCells[messageModel.msgId] = _cell;
+//            _allMessageCells[messageModel.body.msgId] = _cell;
 //            [self addMessageCellToCellData:_cell cellData:data];
 //        //采用TableView重用
 //        }else {
@@ -185,7 +185,7 @@ CREATE_SHARED_MANAGER(LLMessageCellManager)
         [data.allMessageCells removeObjectsInRange:range];
         
         for (LLMessageBaseCell *cell in deleteCells) {
-            [_allMessageCells removeObjectForKey:cell.messageModel.msgId];
+            [_allMessageCells removeObjectForKey:cell.messageModel.body.msgId];
         }
         
     }
@@ -211,9 +211,9 @@ CREATE_SHARED_MANAGER(LLMessageCellManager)
 - (LLMessageBaseCell *)removeCellForMessageModel:(CSMessageModel *)messageModel {
     LL_MessageCell_Data *data = [self messageCellDataForConversationId:messageModel.chatId];
     
-    LLMessageBaseCell *cell = self.allCells[messageModel.msgId];
+    LLMessageBaseCell *cell = self.allCells[messageModel.body.msgId];
     if (cell) {
-        [_allMessageCells removeObjectForKey:messageModel.msgId];
+        [_allMessageCells removeObjectForKey:messageModel.body.msgId];
         [data.allMessageCells removeObject:cell];
     }
     
@@ -221,9 +221,9 @@ CREATE_SHARED_MANAGER(LLMessageCellManager)
 }
 
 - (void)updateMessageModel:(CSMessageModel *)messageModel toMessageId:(NSString *)newMessageId {
-    LLMessageBaseCell *cell = self.allCells[messageModel.msgId];
+    LLMessageBaseCell *cell = self.allCells[messageModel.body.msgId];
     if (cell) {
-        [_allMessageCells removeObjectForKey:messageModel.msgId];
+        [_allMessageCells removeObjectForKey:messageModel.body.msgId];
         _allMessageCells[newMessageId] = cell;
     }
 
@@ -233,12 +233,12 @@ CREATE_SHARED_MANAGER(LLMessageCellManager)
     if (messageModels.count == 0)
         return;
     
-    LL_MessageCell_Data *data = [self messageCellDataForConversationId:messageModels[0].msgId];
+    LL_MessageCell_Data *data = [self messageCellDataForConversationId:messageModels[0].body.msgId];
     
     for (CSMessageModel *model in messageModels) {
-        LLMessageBaseCell *cell = self.allCells[model.msgId];
+        LLMessageBaseCell *cell = self.allCells[model.body.msgId];
         if (cell) {
-            [_allMessageCells removeObjectForKey:model.msgId];
+            [_allMessageCells removeObjectForKey:model.body.msgId];
             [data.allMessageCells removeObject:cell];
         }
     }

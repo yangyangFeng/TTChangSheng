@@ -267,7 +267,7 @@ CSIMReceiveManagerDelegate
 //                [self.tableView reloadData];
 //                [self.tableView.mj_header endRefreshing];
 //            }
-        } LastId:msgData.msgId count:CS_Message_Count chatType:self.chatType];
+        } LastId:msgData.body.msgId count:CS_Message_Count chatType:self.chatType];
         
         
         
@@ -735,7 +735,7 @@ CSIMReceiveManagerDelegate
         if (i == 0 || (models[i].body.timestamp.integerValue - models[i-1].body.timestamp.integerValue > CHAT_CELL_TIME_INTERVEL)) {
             CSMessageModel *model = [[CSMessageModel alloc] initWithType:kCSMessageBodyTypeDateTime];
             model.body.timestamp = models[i].timestamp;
-            model.msgId = models[i].msgId;
+            model.body.msgId = models[i].body.msgId;
             [messageList addObject:model];
         }
         [messageList addObject:models[i]];
@@ -1037,6 +1037,12 @@ CSIMReceiveManagerDelegate
 #pragma mark - 处理键盘事件
 
 - (void)updateKeyboard:(LLKeyboardShowHideInfo)keyboardInfo {
+    
+//    CGRect kbFrame = [[keyboardInfo userInfo][UIKeyboardFrameEndUserInfoKey] CGRectValue];
+//    CGFloat constant = kbFrame.size.height;
+    
+
+    
     CGFloat constant = keyboardInfo.toKeyboardType == kLLKeyboardTypeNone ? 0 :
     keyboardInfo.keyboardHeight;
     
@@ -1053,7 +1059,8 @@ CSIMReceiveManagerDelegate
                          self.chatInputViewBottomConstraint.constant = constant;
                          [self.view layoutIfNeeded];
                          
-                         self.tableView.contentInset = UIEdgeInsetsMake(constant + CGRectGetHeight(self.chatInputView.frame) - MAIN_BOTTOM_TABBAR_HEIGHT, 0, 0, 0);
+                         self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
+//                         UIEdgeInsetsMake(constant + CGRectGetHeight(self.chatInputView.frame) - MAIN_BOTTOM_TABBAR_HEIGHT, 0, 0, 0);
                          self.tableView.scrollIndicatorInsets = self.tableView.contentInset;
 
                      }
@@ -1486,7 +1493,7 @@ CSIMReceiveManagerDelegate
             continue;
         }
         LLMessageBaseCell *chatCell = (LLMessageBaseCell *)cell;
-        if ([chatCell.messageModel.msgId isEqualToString:messageId]) {
+        if ([chatCell.messageModel.body.msgId isEqualToString:messageId]) {
             return chatCell;
         }
     }

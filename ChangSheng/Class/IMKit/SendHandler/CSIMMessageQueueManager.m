@@ -92,7 +92,6 @@ static CSIMMessageQueueManager * queueManager = nil;
                 if (message.sendStatus == IM_SendFailed) {
                     [messagesArray addObject:message ];
                 }
-                
             }            
         }
     }

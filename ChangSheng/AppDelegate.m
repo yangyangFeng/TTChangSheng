@@ -23,10 +23,11 @@
 #import "CSFriendsListViewController.h"
 #import "TTNavigationController.h"
 #import "AppDelegate+JPush.h"
+#import "CSBaseTabBarViewController.h"
 @interface AppDelegate ()
 /** 引导页VC */
 @property (nonatomic, strong) JhtGradientGuidePageVC *introductionView;
-@property (nonatomic, strong) CYLTabBarController * rootViewController;
+@property (nonatomic, strong) CSBaseTabBarViewController * rootViewController;
 @end
 
 @implementation AppDelegate
@@ -152,7 +153,7 @@
     CSMineViewController * mine = [CSMineViewController new];
     TTNavigationController * nav4 = [[TTNavigationController alloc]initWithRootViewController:mine];
     
-    CYLTabBarController *tabBarController = [[CYLTabBarController alloc] init];
+    CSBaseTabBarViewController *tabBarController = [[CSBaseTabBarViewController alloc] init];
     [self customizeTabBarForController:tabBarController];
     
     [tabBarController setViewControllers:@[

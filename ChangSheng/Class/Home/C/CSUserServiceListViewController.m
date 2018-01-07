@@ -195,7 +195,7 @@ static CSUserServiceListViewController * controller = nil;
                     [self.navigationController pushViewController:chatC animated:YES];
                 }
                 [hud hideAnimated:YES afterDelay:1];
-            } chatId:model.chatId chatType:CS_Message_Record_Type_Friend];
+            } chatId:model.chatId chatType:CS_Message_Record_Type_Service];
         }
         else
         {
@@ -234,7 +234,7 @@ static CSUserServiceListViewController * controller = nil;
                         [self.navigationController pushViewController:chatC animated:YES];
                     }
                     [hud hideAnimated:YES afterDelay:1];
-                } chatId:model.chatId chatType:CS_Message_Record_Type_Friend];
+                } chatId:model.chatId chatType:CS_Message_Record_Type_Service];
                
             } failure:^(NSError *error) {
                 [hud hideAnimated:YES afterDelay:1];

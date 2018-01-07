@@ -16,6 +16,7 @@
 #import "LLUtils.h"
 #import "UIView+WNEmptyView.h"
 #import "CSDeleteFriendRequest.h"
+#import "CSSearchFriendManagerViewController.h"
 @interface CSAddressBookViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @property (nonatomic,strong) NSMutableArray *dataSource;
@@ -50,9 +51,19 @@
     
     tableView.blankPreTitle = @"你还未添加乐友";
     tableView.blankPageView.backgroundColor = [UIColor clearColor];
-//    tableView.blankButtonTitle = @"点击刷新";
     self.tableView.blankImageName = @"没朋友.png";
     
+    UIButton * addButton = [UIButton buttonWithType:(UIButtonTypeCustom)];
+    [addButton setBackgroundImage:[UIImage imageNamed:@"添加"] forState:(UIControlStateNormal)];
+    [addButton addTarget:self action:@selector(addAction) forControlEvents:(UIControlEventTouchUpInside)];
+    
+    [self.myNavigationBar.rightView addSubview:addButton];
+    [addButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.height.mas_equalTo(22);
+        make.bottom.mas_equalTo(-11);
+        make.right.mas_equalTo(-19);
+    }];
+
     // Do any additional setup after loading the view.
 }
 
@@ -210,15 +221,17 @@
             
             chatC.conversationModel = model;
 //            [self.navigationController pushViewController:chatC animated:YES];
+            [hud hideAnimated:YES];
             [LLChatViewController joinStatus:^(NSError * _Nonnull error) {
-                [hud hideAnimated:YES];
-                if (!error) {
-                    [self.navigationController pushViewController:chatC animated:YES];
-                }
-                else
-                {
-                    CS_HUD(error.domain);
-                }
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    if (!error) {
+                        [self.navigationController pushViewController:chatC animated:YES];
+                    }
+                    else
+                    {
+                        CS_HUD(error.domain);
+                    }
+                });
             } chatId:model.chatId chatType:CS_Message_Record_Type_Friend];
         }
         else
@@ -234,20 +247,29 @@
             
             
             chatC.conversationModel = model;
+            [hud hideAnimated:YES];
 //            [self.navigationController pushViewController:chatC animated:YES];
             [LLChatViewController joinStatus:^(NSError * _Nonnull error) {
-                [hud hideAnimated:YES];
-                if (!error) {
-                    [self.navigationController pushViewController:chatC animated:YES];
-                }
-                else
-                {
-                    CS_HUD(error.domain);
-                }
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    if (!error) {
+                        [self.navigationController pushViewController:chatC animated:YES];
+                    }
+                    else
+                    {
+                        CS_HUD(error.domain);
+                    }
+                });
             } chatId:model.chatId chatType:CS_Message_Record_Type_Friend];
         }
     }
                                         LastId:nil count:CS_Message_Count chatType:(CS_Message_Record_Type_Friend)];
 }
 
+- (void)addAction
+{
+    DLog(@"添加好友");
+    CSSearchFriendManagerViewController * addFriendC = [CSSearchFriendManagerViewController new];
+    
+    [self.navigationController pushViewController:addFriendC animated:YES];
+}
 @end

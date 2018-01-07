@@ -8,7 +8,13 @@
 
 #import "TTBaseTableViewHandler.h"
 
+@protocol CSFriendListTableHandlerDelegate <TTBaseTableViewHandlerDelegate>
+- (void)deleteFriedAction;
+@end
 @interface CSFriendListTableHandler : TTBaseTableViewHandler
+
+@property (nonatomic, weak) id <CSFriendListTableHandlerDelegate> mydelegate;
+
 @property (nonatomic,strong) NSMutableArray *dataSource;
 @property (nonatomic,assign) int friendRequestNum;
 @end

@@ -251,6 +251,8 @@
 		184B5D221F794C0F007A1C22 /* Deferred.m in Sources */ = {isa = PBXBuildFile; fileRef = 184B5D1D1F794C0F007A1C22 /* Deferred.m */; };
 		184B5D231F794C0F007A1C22 /* Promise.m in Sources */ = {isa = PBXBuildFile; fileRef = 184B5D1F1F794C0F007A1C22 /* Promise.m */; };
 		184DD6641FFBD43D00C2A085 /* CSDeviceBindingModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 184DD6631FFBD43D00C2A085 /* CSDeviceBindingModel.m */; };
+		185374FC2001FE65003307AD /* CSBaseTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 185374FB2001FE65003307AD /* CSBaseTabBarViewController.m */; };
+		18537502200202D8003307AD /* UITabBar+Badge.m in Sources */ = {isa = PBXBuildFile; fileRef = 18537501200202D8003307AD /* UITabBar+Badge.m */; };
 		185787161F94BB1E00BAD542 /* CSCaiwuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 185787151F94BB1C00BAD542 /* CSCaiwuViewController.m */; };
 		185787181F94BC2400BAD542 /* Mine.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 185787171F94BC2400BAD542 /* Mine.storyboard */; };
 		1857871B1F94D4C500BAD542 /* CSCaiwuTableViewInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1857871A1F94D4C500BAD542 /* CSCaiwuTableViewInfoCell.m */; };
@@ -938,6 +940,10 @@
 		184DD6611FFBCE9500C2A085 /* ChangSheng.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ChangSheng.entitlements; sourceTree = "<group>"; };
 		184DD6621FFBD43D00C2A085 /* CSDeviceBindingModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSDeviceBindingModel.h; sourceTree = "<group>"; };
 		184DD6631FFBD43D00C2A085 /* CSDeviceBindingModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSDeviceBindingModel.m; sourceTree = "<group>"; };
+		185374FA2001FE65003307AD /* CSBaseTabBarViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSBaseTabBarViewController.h; sourceTree = "<group>"; };
+		185374FB2001FE65003307AD /* CSBaseTabBarViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSBaseTabBarViewController.m; sourceTree = "<group>"; };
+		18537500200202D8003307AD /* UITabBar+Badge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UITabBar+Badge.h"; sourceTree = "<group>"; };
+		18537501200202D8003307AD /* UITabBar+Badge.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UITabBar+Badge.m"; sourceTree = "<group>"; };
 		185787141F94BB1C00BAD542 /* CSCaiwuViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSCaiwuViewController.h; sourceTree = "<group>"; };
 		185787151F94BB1C00BAD542 /* CSCaiwuViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSCaiwuViewController.m; sourceTree = "<group>"; };
 		185787171F94BC2400BAD542 /* Mine.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Mine.storyboard; sourceTree = "<group>"; };
@@ -976,6 +982,7 @@
 		187A70861FFE09E000077B10 /* UIView+WNEmptyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+WNEmptyView.m"; sourceTree = "<group>"; };
 		187A70871FFE09E000077B10 /* icon_no_data@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_no_data@3x.png"; sourceTree = "<group>"; };
 		187A70881FFE09E000077B10 /* icon_no_data@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_no_data@2x.png"; sourceTree = "<group>"; };
+		18A2075120020B0D00C92F3C /* CSSearchFriendViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSSearchFriendViewController.h; sourceTree = "<group>"; };
 		18B57DA11FDCF93200429B1E /* CSFriendRequestViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSFriendRequestViewController.h; sourceTree = "<group>"; };
 		18B57DA21FDCF93200429B1E /* CSFriendRequestViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSFriendRequestViewController.m; sourceTree = "<group>"; };
 		18B57DA41FDCF9D600429B1E /* CSFriendRequestTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSFriendRequestTableViewCell.h; sourceTree = "<group>"; };
@@ -1192,7 +1199,6 @@
 		749009E11FD0E97A00E1339E /* CSAddressBookTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSAddressBookTableViewCell.h; sourceTree = "<group>"; };
 		749009E21FD0E97A00E1339E /* CSAddressBookTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSAddressBookTableViewCell.m; sourceTree = "<group>"; };
 		749009E31FD0E97A00E1339E /* CSAddressBookTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CSAddressBookTableViewCell.xib; sourceTree = "<group>"; };
-		749009E71FD3C84300E1339E /* CSSearchFriendViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSSearchFriendViewController.h; sourceTree = "<group>"; };
 		749009E81FD3C84300E1339E /* CSSearchFriendViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSSearchFriendViewController.m; sourceTree = "<group>"; };
 		749009EA1FD3C89B00E1339E /* CSSearchFriendView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSSearchFriendView.h; sourceTree = "<group>"; };
 		749009EB1FD3C89B00E1339E /* CSSearchFriendView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSSearchFriendView.m; sourceTree = "<group>"; };
@@ -2577,6 +2583,8 @@
 				18C81FE91F76585F0012150B /* UIView+Line.m */,
 				749A53B71F988D980024DC1B /* TTRefresh.h */,
 				749A53B81F988D980024DC1B /* TTRefresh.m */,
+				18537500200202D8003307AD /* UITabBar+Badge.h */,
+				18537501200202D8003307AD /* UITabBar+Badge.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -2611,6 +2619,8 @@
 				18C81F6E1F7657900012150B /* GPSBBaseTableViewController.h */,
 				18C81F6F1F7657900012150B /* GPSBBaseTableViewController.m */,
 				18C81F701F7657900012150B /* TTNavController */,
+				185374FA2001FE65003307AD /* CSBaseTabBarViewController.h */,
+				185374FB2001FE65003307AD /* CSBaseTabBarViewController.m */,
 			);
 			path = BaseController;
 			sourceTree = "<group>";
@@ -2897,7 +2907,7 @@
 				18B57DA21FDCF93200429B1E /* CSFriendRequestViewController.m */,
 				749009F31FD3E30E00E1339E /* CSSearchFriendManagerViewController.h */,
 				749009F41FD3E30E00E1339E /* CSSearchFriendManagerViewController.m */,
-				749009E71FD3C84300E1339E /* CSSearchFriendViewController.h */,
+				18A2075120020B0D00C92F3C /* CSSearchFriendViewController.h */,
 				749009E81FD3C84300E1339E /* CSSearchFriendViewController.m */,
 				749009ED1FD3D98200E1339E /* CSSearchFriendResultViewController.h */,
 				749009EE1FD3D98200E1339E /* CSSearchFriendResultViewController.m */,
@@ -3582,6 +3592,7 @@
 				18C81F831F7657900012150B /* TTNavigationBar.m in Sources */,
 				181346871F7AA93200CD1312 /* NSMutableAttributedString+MLLabel.m in Sources */,
 				184B5D031F77D6ED007A1C22 /* TTLineLayoutConstraint.m in Sources */,
+				18537502200202D8003307AD /* UITabBar+Badge.m in Sources */,
 				1804ACCA1F7BDC6100508C1C /* InvitationManager.m in Sources */,
 				74073A161F9A57C80098783F /* CALayerAnimConst.m in Sources */,
 				181C060A1F9212AB00F4A15E /* CSPublicBetTableViewHandler.m in Sources */,
@@ -3666,6 +3677,7 @@
 				749A53B61F98821F0024DC1B /* TTCellSelectionView.m in Sources */,
 				184B22F41FDBC25100929005 /* CSFriendRequestNumModel.m in Sources */,
 				1804AC901F7BDC6100508C1C /* LLChatInputView.m in Sources */,
+				185374FC2001FE65003307AD /* CSBaseTabBarViewController.m in Sources */,
 				1804ACC91F7BDC6100508C1C /* LLConfig.m in Sources */,
 				749A53B91F988D980024DC1B /* TTRefresh.m in Sources */,
 				18C820131F76585F0012150B /* UIStoryboard+VireController.m in Sources */,

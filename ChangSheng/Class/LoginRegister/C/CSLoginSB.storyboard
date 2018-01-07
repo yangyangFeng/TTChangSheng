@@ -215,7 +215,7 @@
                                         <rect key="frame" x="95" y="0.0" width="256" height="45"/>
                                         <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="alphabet"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                                     </textField>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -253,7 +253,7 @@
                                         <rect key="frame" x="95" y="0.0" width="256" height="45"/>
                                         <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" keyboardType="alphabet"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="alphabet" smartInsertDeleteType="no" smartQuotesType="no"/>
                                     </textField>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -459,10 +459,10 @@
                     </view>
                     <navigationItem key="navigationItem" id="tto-Ha-hee"/>
                     <connections>
-                        <outlet property="accountField" destination="bRR-Nl-3WN" id="KVr-hn-zQ8"/>
-                        <outlet property="againPasswordField" destination="XQS-wV-5tv" id="We6-kz-w6d"/>
+                        <outlet property="account" destination="hWU-cQ-hzC" id="T8D-PH-Fni"/>
                         <outlet property="headBtn" destination="pph-mM-aMo" id="LBD-4e-NpN"/>
-                        <outlet property="passwordField" destination="hWU-cQ-hzC" id="XrP-XP-FS8"/>
+                        <outlet property="nickName" destination="bRR-Nl-3WN" id="HiB-Iu-qFA"/>
+                        <outlet property="password" destination="XQS-wV-5tv" id="ETR-fz-YBy"/>
                         <outlet property="readBtn" destination="odj-7Q-Vnb" id="jjd-zg-IgO"/>
                         <outlet property="referrerField" destination="Eqo-nx-IyG" id="AZT-p3-sRx"/>
                     </connections>

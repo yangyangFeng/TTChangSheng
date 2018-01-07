@@ -7,7 +7,7 @@
 //
 
 #import "CSIMSendMessageManager.h"
-
+#import "CSNewWorkHandler.h"
 
 static CSIMSendMessageManager * msgManager = nil;
 
@@ -62,6 +62,14 @@ static CSIMSendMessageManager * msgManager = nil;
 
 - (void)forwardMessage:(id)message
 {
+    if (([TTSocketChannelManager shareInstance].webSocket.readyState != SR_OPEN) ||
+        [CSNewWorkHandler sharedInstance].networkError) {
+        NSLog(@"发送\n-------------------------------------------\n%@\n---------------------------------------",message);
+        CSIMSendMessageRequestModel * request = (CSIMSendMessageRequestModel *)message;
+        [request.msgStatus reject:[NSError errorWithDomain:@"网络连接已断开." code:201 userInfo:nil]];
+        return;
+    }
+
 //    NSLog(@"转发消息%@\n当前线程->%@",message,[NSThread currentThread]);
     [CSIMSendMessageRequest sendMessage:message successBlock:^(id obj) {
         
@@ -97,7 +105,7 @@ static CSIMSendMessageManager * msgManager = nil;
     //起始时间
     dispatch_time_t start = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(15.0 * NSEC_PER_SEC));
     //间隔时间
-    uint64_t interval = (uint64_t)(15.0 * NSEC_PER_SEC);
+    uint64_t interval = (uint64_t)(5.0 * NSEC_PER_SEC);
     dispatch_source_set_timer(self.timer, start, interval, 0);
     
     // 设置回调

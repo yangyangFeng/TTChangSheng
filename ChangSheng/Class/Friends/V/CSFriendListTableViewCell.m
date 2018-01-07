@@ -37,11 +37,25 @@
     [_userIcon yy_setImageWithURL:[NSURL URLWithString:model.headurl] options:(YYWebImageOptionSetImageWithFadeAnimation)];
     _number.text = model.unreadmsgnum;
     _nickName.text = model.nickname;
-    _content.text = model.lastmsg;
+    
     _date.text = model.lastdata;
     NSDate *date = [NSDate dateWithTimeIntervalSince1970:_date.text.integerValue];
     _date.text = [date timeIntervalBeforeNowLongDescription];
     
+    if ([model.type isEqualToString:@"2"]) {
+        _content.text = @"[图片消息]";
+    }
+    else if ([model.type isEqualToString:@"3"])
+    {
+        _content.text = @"[语音消息]";
+    }
+    else if ([model.type isEqualToString:@"4"])
+    {
+        _content.text = model.lastmsg;
+    }
+    else{
+        _content.text = model.lastmsg;
+    }
 }
 
 - (void)awakeFromNib {
