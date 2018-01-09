@@ -537,4 +537,20 @@
         failure(error);
     } showHUD:showHUD];
 }
+
+#pragma mark -  26.获取大厅用户列表
+/**
+ *  26.获取大厅用户列表
+ */
++ (void)request_groupUserList_paramters:(NSDictionary *)params success:(TTSuccessBlock)success failure:(TTFailureBlock)failure showHUD:(BOOL)showHUD
+{
+    NSString * url = @"chat/groupUserList";
+    [[CSNewWorkHandler sharedInstance] beginHttpRequestType:GET_TTREQUEST_TYPE url:url paramters:params success:^(id responseObject) {
+        
+        success(responseObject);
+        
+    } failure:^(NSError *error) {
+        failure(error);
+    } showHUD:showHUD];
+}
 @end

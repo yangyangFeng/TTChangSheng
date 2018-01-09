@@ -152,16 +152,16 @@
         CS_HUD(@"请填写分数");
         return;
     }
-//    else if (!self.inputField_name.text.length)
-//    {
-//        CS_HUD(@"请填写真实姓名");
-//        return;
-//    }
-//    else if(!self.uploadImageView.image)
-//    {
-//        CS_HUD(@"请填上传照片");
-//        return;
-//    }
+    else if (!self.inputField_name.text.length)
+    {
+        CS_HUD(@"请填写真实姓名");
+        return;
+    }
+    else if(!self.uploadImageView.image)
+    {
+        CS_HUD(@"请填上传照片");
+        return;
+    }
     else if (self.inputField_fen.text.length && (self.inputField_fen.text.intValue > [CSUserInfo shareInstance].info.surplus_score) && !_isUpScore)
     {
         CS_HUD(@"下分数不能高于身上分");
@@ -225,7 +225,7 @@
     }
     else if (indexPath.row == 1)
     {
-        return 80;
+        return 195-40;
     }
     else{
         return 175;

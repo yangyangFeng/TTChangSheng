@@ -46,6 +46,8 @@
 #import "MFMailComposeViewController_LL.h"
 #import "LLMessageBaseCell.h"
 #import "LLUtils+Popover.h"
+
+#import "CSPublicBetMemberViewController.h"
 @import MediaPlayer;
 
 #define BLACK_BAR_VIEW_TAG 1000
@@ -397,8 +399,10 @@ CSPublicBetInputToolBarViewDelegate
 
 - (void)kefuBtnDidAction
 {
-    CSUserServiceListViewController * C = [CSUserServiceListViewController new];
+    CSPublicBetMemberViewController * C = [CSPublicBetMemberViewController new];
     [self.navigationController pushViewController:C animated:YES];
+//    CSUserServiceListViewController * C = [CSUserServiceListViewController new];
+//    [self.navigationController pushViewController:C animated:YES];
 }
 
 - (void)tt_DefaultRightBtnClickAction

@@ -67,25 +67,27 @@
         resultC.view.frame = CGRectMake(WIDTH, 0, WIDTH, HEIGHT);
         sendVerifyC.view.frame = CGRectMake(WIDTH*2, 0, WIDTH, HEIGHT);
     
+    WEAKSELF;
     [searchC setCallblock:^(id obj) {
         
         [UIView animateWithDuration:0.15 animations:^{
-            self.scrollView.contentOffset = CGPointMake(WIDTH, 0);
+            weakSelf.scrollView.contentOffset = CGPointMake(WIDTH, 0);
         }];
         [resultC setModel:obj];
     }];
     
     [resultC setCallblock:^(id obj) {
         sendVerifyC.userId = obj;
-        [self tt_Title:@"详细资料"];
+        [weakSelf tt_Title:@"详细资料"];
         
         [UIView animateWithDuration:0.15 animations:^{
-            self.scrollView.contentOffset = CGPointMake(WIDTH * 2, 0);
+            weakSelf.scrollView.contentOffset = CGPointMake(WIDTH * 2, 0);
         }];
     }];
     
     [sendVerifyC setCallblock:^(id obj) {
-        self.scrollView.contentOffset = CGPointMake(WIDTH, 0);
+//        self.scrollView.contentOffset = CGPointMake(WIDTH, 0);
+        [weakSelf.navigationController popViewControllerAnimated:YES];
     }];
 }
 

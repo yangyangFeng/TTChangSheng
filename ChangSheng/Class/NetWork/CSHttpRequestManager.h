@@ -222,4 +222,10 @@ typedef enum : NSUInteger {
  *  25.退出登录
  */
 + (void)request_logout_paramters:(NSDictionary *)params success:(TTSuccessBlock)success failure:(TTFailureBlock)failure showHUD:(BOOL)showHUD;
+
+#pragma mark -  26.获取大厅用户列表
+/**
+ *  26.获取大厅用户列表
+ */
++ (void)request_groupUserList_paramters:(NSDictionary *)params success:(TTSuccessBlock)success failure:(TTFailureBlock)failure showHUD:(BOOL)showHUD;
 @end

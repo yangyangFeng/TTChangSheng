@@ -41,6 +41,7 @@
 
 #import "MJRefresh.h"
 
+#import "UIImageView+WebCache.h"
 
 #import "SVProgressHUD.h"
 #import "SVProgressHUD+TTCategory.h"
