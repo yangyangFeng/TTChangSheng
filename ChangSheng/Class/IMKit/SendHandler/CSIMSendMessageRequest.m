@@ -13,6 +13,7 @@
 #import "CSIMSendMessageManager.h"
 #import "TTSocketChannelManager.h"
 #import "LLUtils+Audio.h"
+#import "CSIMReceiveManager.h"
 @implementation CSIMSendMessageRequest
 + (void)sendMessage:(id)message
      successBlock:(sendSuccess)success
@@ -21,6 +22,10 @@
     CSIMSendMessageRequestModel * msgRequestModel = (CSIMSendMessageRequestModel *)message;
     //将发送的消息缓存
     [[CSIMMessageQueueManager shareInstance] insertMessage:message];
+    
+    if (msgRequestModel.body.action == 1) {
+        [CSIMReceiveManager shareInstance].currentAction = message;
+    }
     
     [[TTSocketChannelManager shareInstance] sendMessage:[msgRequestModel.body changeParams].mj_JSONString];
     

@@ -173,7 +173,9 @@ CSIMReceiveManagerDelegate
             //记录进入该聊天室
             [[CSIMReceiveManager shareInstance] inChatWithChatType:(CSChatTypeChatFriend) chatId:chatId status:^(NSError *error) {
                 if (status) {
-                    status(error);
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        status(nil);
+                    });
                 }
             }];
         }
@@ -181,40 +183,21 @@ CSIMReceiveManagerDelegate
         {
             //记录进入该聊天室
             [[CSIMReceiveManager shareInstance] inChatWithChatType:(CSChatTypeChat) chatId:chatId status:^(NSError *error) {
-                if (status) {
-                    status(error);
-                }
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    status(nil);
+                });
             }];
         }
 }
 
 - (void)reConnectionSocket
 {
-    
-        CSMessageModel * msgData = [self.dataSource firstObject];
-        CSMsgHistoryRequestModel * param = [CSMsgHistoryRequestModel new];
-        param.chat_type = self.chatType;//1为群聊
-        param.ID = self.conversationModel.chatId.intValue;
-        [CSHttpRequestManager request_chatRecord_paramters:param.mj_keyValues success:^(id responseObject) {
-            CSMsgRecordModel * obj = [CSMsgRecordModel mj_objectWithKeyValues:responseObject];
-            
-            NSMutableArray * messagesArray = [NSMutableArray array];
-
-            for (CSMsgRecordModel * msgData in obj.result.data) {
-                CSMessageModel * msgModel = [CSMessageModel conversionWithRecordModel:msgData chatType:param.chat_type chatId:[NSString stringWithFormat:@"%d",self.conversationModel.chatId]];
-       
-                [messagesArray addObject:msgModel];
-            }
-            
-            self.conversationModel.allMessageModels = messagesArray;
-             
-            self.dataSource = [self processData:self.conversationModel];
-            [self.tableView reloadData];
-            
-        } failure:^(NSError *error) {
-            
-        } showHUD:NO];
-    
+    //记录进入该聊天室
+    [[CSIMReceiveManager shareInstance] inChatWithChatType:self.chatType chatId:self.conversationModel.chatId status:^(NSError *error) {
+        if (!error) {
+            DLog(@"重新切入成功");
+        }
+    }];
 }
 
 - (void)addRefreshTool

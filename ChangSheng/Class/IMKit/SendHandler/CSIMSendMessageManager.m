@@ -66,7 +66,9 @@ static CSIMSendMessageManager * msgManager = nil;
         [CSNewWorkHandler sharedInstance].networkError) {
         NSLog(@"发送\n-------------------------------------------\n%@\n---------------------------------------",message);
         CSIMSendMessageRequestModel * request = (CSIMSendMessageRequestModel *)message;
-        [request.msgStatus reject:[NSError errorWithDomain:@"网络连接已断开." code:201 userInfo:nil]];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [request.msgStatus reject:[NSError errorWithDomain:@"网络连接已断开." code:201 userInfo:nil]];
+        });
         return;
     }
 

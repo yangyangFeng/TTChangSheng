@@ -36,11 +36,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ChangSheng/Class/IMKit/Client/Chat/LLChatViewController.m"
-            timestampString = "537010865.185919"
+            timestampString = "537118984.14369"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "710"
-            endingLineNumber = "710"
+            startingLineNumber = "693"
+            endingLineNumber = "693"
             landmarkName = "LLChatViewController"
             landmarkType = "3">
          </BreakpointContent>
@@ -52,11 +52,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ChangSheng/Class/IMKit/Client/Chat/LLChatViewController.m"
-            timestampString = "537010865.189149"
+            timestampString = "537118984.144019"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "753"
-            endingLineNumber = "753"
+            startingLineNumber = "736"
+            endingLineNumber = "736"
             landmarkName = "-numberOfSectionsInTableView:"
             landmarkType = "7">
          </BreakpointContent>
@@ -68,11 +68,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ChangSheng/Class/IMKit/Client/Chat/LLChatViewController.m"
-            timestampString = "537010865.190172"
+            timestampString = "537118984.1441849"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "714"
-            endingLineNumber = "714"
+            startingLineNumber = "697"
+            endingLineNumber = "697"
             landmarkName = "LLChatViewController"
             landmarkType = "3">
          </BreakpointContent>
@@ -116,11 +116,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ChangSheng/Class/IMKit/Client/Chat/LLChatViewController.m"
-            timestampString = "537010865.199416"
+            timestampString = "537118984.144393"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2642"
-            endingLineNumber = "2642"
+            startingLineNumber = "2625"
+            endingLineNumber = "2625"
             landmarkName = "-observeValueForKeyPath:ofObject:change:context:"
             landmarkType = "7">
          </BreakpointContent>
@@ -148,11 +148,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ChangSheng/Class/IMKit/Client/Chat/LLChatViewController.m"
-            timestampString = "537010865.202208"
+            timestampString = "537118984.144645"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1402"
-            endingLineNumber = "1402"
+            startingLineNumber = "1385"
+            endingLineNumber = "1385"
             landmarkName = "-selectControllDidTapped:selected:"
             landmarkType = "7">
          </BreakpointContent>
@@ -196,11 +196,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ChangSheng/Class/IMKit/Client/Chat/LLChatViewController.m"
-            timestampString = "537010865.2053781"
+            timestampString = "537118984.1448441"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1550"
-            endingLineNumber = "1550"
+            startingLineNumber = "1533"
+            endingLineNumber = "1533"
             landmarkName = "-imagePickerControllerDidCancel:"
             landmarkType = "7">
          </BreakpointContent>
@@ -212,11 +212,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ChangSheng/Class/IMKit/Client/Chat/LLChatViewController.m"
-            timestampString = "537010865.20609"
+            timestampString = "537118984.144973"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1423"
-            endingLineNumber = "1423"
+            startingLineNumber = "1406"
+            endingLineNumber = "1406"
             landmarkName = "-shareAction:"
             landmarkType = "7">
          </BreakpointContent>
@@ -228,11 +228,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ChangSheng/Class/IMKit/Client/Chat/LLChatViewController.m"
-            timestampString = "537010865.20652"
+            timestampString = "537118984.1450779"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "856"
-            endingLineNumber = "856"
+            startingLineNumber = "839"
+            endingLineNumber = "839"
             landmarkName = "-tableView:cellForRowAtIndexPath:"
             landmarkType = "7">
             <Locations>
@@ -276,76 +276,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ChangSheng/Class/IMKit/Client/Chat/LLChatViewController.m"
-            timestampString = "537010865.207005"
+            timestampString = "537118984.145224"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "860"
-            endingLineNumber = "860"
+            startingLineNumber = "843"
+            endingLineNumber = "843"
             landmarkName = "-tableView:heightForRowAtIndexPath:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ChangSheng/Class/IMKit/Client/Chat/LLChatViewController.m"
-            timestampString = "537010865.2074879"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "225"
-            endingLineNumber = "225"
-            landmarkName = "-addRefreshTool"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__38-[LLChatViewController addRefreshTool]_block_invoke"
-                  moduleName = "ChangSheng"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/apple/Desktop/%E9%95%BF%E5%9C%A3/TTChangSheng/ChangSheng/Class/IMKit/Client/Chat/LLChatViewController.m"
-                  timestampString = "537009025.068346"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "225"
-                  endingLineNumber = "225"
-                  offsetFromSymbolStart = "100">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__38-[LLChatViewController addRefreshTool]_block_invoke_2"
-                  moduleName = "ChangSheng"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/apple/Desktop/%E9%95%BF%E5%9C%A3/TTChangSheng/ChangSheng/Class/IMKit/Client/Chat/LLChatViewController.m"
-                  timestampString = "537009025.078962"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "226"
-                  endingLineNumber = "226"
-                  offsetFromSymbolStart = "47">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ChangSheng/Class/IMKit/Client/Chat/LLChatViewController.m"
-            timestampString = "537010865.2080801"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "211"
-            endingLineNumber = "211"
-            landmarkName = "-reConnectionSocket"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -388,11 +324,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ChangSheng/Class/IMKit/Client/Chat/LLChatViewController.m"
-            timestampString = "537010865.211342"
+            timestampString = "537118984.145443"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "257"
-            endingLineNumber = "257"
+            startingLineNumber = "240"
+            endingLineNumber = "240"
             landmarkName = "-addRefreshTool"
             landmarkType = "7">
             <Locations>
@@ -404,12 +340,12 @@
                   moduleName = "ChangSheng"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/apple/Desktop/%E9%95%BF%E5%9C%A3/TTChangSheng/ChangSheng/Class/IMKit/Client/Chat/LLChatViewController.m"
-                  timestampString = "537009025.109009"
+                  timestampString = "537118984.787961"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "270"
-                  endingLineNumber = "270"
-                  offsetFromSymbolStart = "280">
+                  startingLineNumber = "253"
+                  endingLineNumber = "253"
+                  offsetFromSymbolStart = "324">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -419,42 +355,42 @@
                   moduleName = "ChangSheng"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/apple/Desktop/%E9%95%BF%E5%9C%A3/TTChangSheng/ChangSheng/Class/IMKit/Client/Chat/LLChatViewController.m"
-                  timestampString = "537009025.1142811"
+                  timestampString = "537118984.791025"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "270"
-                  endingLineNumber = "270"
-                  offsetFromSymbolStart = "974">
+                  startingLineNumber = "253"
+                  endingLineNumber = "253"
+                  offsetFromSymbolStart = "904">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "__copy_helper_block_.167"
+                  symbolName = "__copy_helper_block_.139"
                   moduleName = "ChangSheng"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/apple/Desktop/%E9%95%BF%E5%9C%A3/TTChangSheng/ChangSheng/Class/IMKit/Client/Chat/LLChatViewController.m"
-                  timestampString = "537009025.119993"
+                  timestampString = "537118984.794175"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "270"
-                  endingLineNumber = "270"
-                  offsetFromSymbolStart = "51">
+                  startingLineNumber = "253"
+                  endingLineNumber = "253"
+                  offsetFromSymbolStart = "64">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "__destroy_helper_block_.168"
+                  symbolName = "__destroy_helper_block_.140"
                   moduleName = "ChangSheng"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/apple/Desktop/%E9%95%BF%E5%9C%A3/TTChangSheng/ChangSheng/Class/IMKit/Client/Chat/LLChatViewController.m"
-                  timestampString = "537009025.125077"
+                  timestampString = "537118984.798148"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "270"
-                  endingLineNumber = "270"
-                  offsetFromSymbolStart = "29">
+                  startingLineNumber = "253"
+                  endingLineNumber = "253"
+                  offsetFromSymbolStart = "36">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -466,11 +402,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ChangSheng/Class/IMKit/Client/Chat/LLChatViewController.m"
-            timestampString = "537010865.2117929"
+            timestampString = "537118984.145542"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1563"
-            endingLineNumber = "1563"
+            startingLineNumber = "1546"
+            endingLineNumber = "1546"
             landmarkName = "-imagePickerController:didFinishPickingImages:withError:"
             landmarkType = "7">
          </BreakpointContent>
@@ -610,7 +546,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ChangSheng/Class/IMKit/Client/Chat/LLChatViewController.m"
-            timestampString = "537010865.22654"
+            timestampString = "537118984.1458549"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "131"
@@ -626,7 +562,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ChangSheng/Class/IMKit/Client/Chat/LLChatViewController.m"
-            timestampString = "537010865.227098"
+            timestampString = "537118984.1459481"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "136"
@@ -642,11 +578,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ChangSheng/Class/IMKit/SendHandler/CSIMSendMessageRequest.m"
-            timestampString = "536939375.350161"
+            timestampString = "537118984.146118"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "39"
-            endingLineNumber = "39"
+            startingLineNumber = "44"
+            endingLineNumber = "44"
             landmarkName = "+sendMessage:successBlock:failBlock:"
             landmarkType = "7">
          </BreakpointContent>
@@ -674,11 +610,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ChangSheng/Class/IMKit/SendHandler/CSIMSendMessageManager.m"
-            timestampString = "537010865.230351"
+            timestampString = "537118984.146354"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "119"
-            endingLineNumber = "119"
+            startingLineNumber = "121"
+            endingLineNumber = "121"
             landmarkName = "-createGCDTimer"
             landmarkType = "7">
          </BreakpointContent>
@@ -690,11 +626,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ChangSheng/Class/IMKit/SendHandler/CSIMSendMessageManager.m"
-            timestampString = "537010865.232797"
+            timestampString = "537118984.1465631"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "100"
-            endingLineNumber = "100"
+            startingLineNumber = "102"
+            endingLineNumber = "102"
             landmarkName = "-createGCDTimer"
             landmarkType = "7">
          </BreakpointContent>
@@ -706,11 +642,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ChangSheng/Class/IMKit/SendHandler/CSIMSendMessageManager.m"
-            timestampString = "537010865.234813"
+            timestampString = "537118984.146751"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "124"
-            endingLineNumber = "124"
+            startingLineNumber = "126"
+            endingLineNumber = "126"
             landmarkName = "-createGCDTimer"
             landmarkType = "7">
          </BreakpointContent>
@@ -722,11 +658,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ChangSheng/Class/IMKit/Client/Chat/LLChatViewController.m"
-            timestampString = "537010865.239212"
+            timestampString = "537118984.146908"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1968"
-            endingLineNumber = "1968"
+            startingLineNumber = "1951"
+            endingLineNumber = "1951"
             landmarkName = "-sendGifMessage:"
             landmarkType = "7">
          </BreakpointContent>
@@ -754,27 +690,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ChangSheng/Class/Bet/V/CSPublicBetInputToolBarView.m"
-            timestampString = "536177696.848377"
+            timestampString = "537118984.147076"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "114"
-            endingLineNumber = "114"
-            landmarkName = "-cs_keyboardWithNumber:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ChangSheng/Class/Bet/V/CSPublicBetInputToolBarView.m"
-            timestampString = "536177696.848447"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "144"
-            endingLineNumber = "144"
+            startingLineNumber = "156"
+            endingLineNumber = "156"
             landmarkName = "-cs_keyboardWithBetAction"
             landmarkType = "7">
          </BreakpointContent>
@@ -786,11 +706,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ChangSheng/Class/Bet/V/CSPublicBetInputToolBarView.m"
-            timestampString = "536177696.848514"
+            timestampString = "537118984.1475461"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "153"
-            endingLineNumber = "153"
+            startingLineNumber = "165"
+            endingLineNumber = "165"
             landmarkName = "-cs_keyboardWithBetAction"
             landmarkType = "7">
          </BreakpointContent>
@@ -887,22 +807,6 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "173"
             endingLineNumber = "173"
-            landmarkName = "-tableView:didSelectRowAtIndexPath:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ChangSheng/Class/Friends/C/CSFriendsListViewController.m"
-            timestampString = "537000833.685123"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "187"
-            endingLineNumber = "187"
             landmarkName = "-tableView:didSelectRowAtIndexPath:"
             landmarkType = "7">
          </BreakpointContent>
@@ -1010,11 +914,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ChangSheng/Class/IMKit/SendHandler/CSIMReceiveManager.m"
-            timestampString = "537010865.2521141"
+            timestampString = "537118984.148194"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "497"
-            endingLineNumber = "497"
+            startingLineNumber = "500"
+            endingLineNumber = "500"
             landmarkName = "-insertChatWithChatType:chatId:unReadCount:"
             landmarkType = "7">
          </BreakpointContent>
@@ -1026,11 +930,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ChangSheng/Class/IMKit/SendHandler/CSIMReceiveManager.m"
-            timestampString = "537010865.257067"
+            timestampString = "537118984.148403"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "442"
-            endingLineNumber = "442"
+            startingLineNumber = "445"
+            endingLineNumber = "445"
             landmarkName = "-inChatWithChatType:chatId:status:"
             landmarkType = "7">
          </BreakpointContent>
@@ -1042,11 +946,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ChangSheng/Class/IMKit/SendHandler/CSIMReceiveManager.m"
-            timestampString = "537010865.267527"
+            timestampString = "537118984.148541"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "448"
-            endingLineNumber = "448"
+            startingLineNumber = "451"
+            endingLineNumber = "451"
             landmarkName = "-inChatWithChatType:chatId:status:"
             landmarkType = "7">
          </BreakpointContent>
@@ -1058,11 +962,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ChangSheng/Class/IMKit/SendHandler/CSIMReceiveManager.m"
-            timestampString = "537010865.269143"
+            timestampString = "537118984.148635"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "102"
-            endingLineNumber = "102"
+            startingLineNumber = "105"
+            endingLineNumber = "105"
             landmarkName = "-receiveMessage:"
             landmarkType = "7">
          </BreakpointContent>
@@ -1106,11 +1010,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ChangSheng/Class/IMKit/SendHandler/CSIMReceiveManager.m"
-            timestampString = "537010865.270772"
+            timestampString = "537118984.148823"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "175"
-            endingLineNumber = "175"
+            startingLineNumber = "178"
+            endingLineNumber = "178"
             landmarkName = "-receiveMessage:"
             landmarkType = "7">
             <Locations>
@@ -1154,11 +1058,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ChangSheng/Class/IMKit/SendHandler/CSIMReceiveManager.m"
-            timestampString = "537010865.271718"
+            timestampString = "537118984.148991"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "177"
-            endingLineNumber = "177"
+            startingLineNumber = "180"
+            endingLineNumber = "180"
             landmarkName = "-receiveMessage:"
             landmarkType = "7">
          </BreakpointContent>
@@ -1170,11 +1074,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ChangSheng/Class/IMKit/SendHandler/CSIMReceiveManager.m"
-            timestampString = "537010865.2726409"
+            timestampString = "537118984.149128"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "184"
-            endingLineNumber = "184"
+            startingLineNumber = "187"
+            endingLineNumber = "187"
             landmarkName = "-receiveMessage:"
             landmarkType = "7">
          </BreakpointContent>
@@ -1186,124 +1090,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ChangSheng/Class/IMKit/SendHandler/CSIMReceiveManager.m"
-            timestampString = "537010865.2734801"
+            timestampString = "537118984.14931"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "207"
-            endingLineNumber = "207"
+            startingLineNumber = "210"
+            endingLineNumber = "210"
             landmarkName = "-receiveMessage:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ChangSheng/Class/IMKit/SendHandler/CSIMReceiveManager.m"
-            timestampString = "537010865.274299"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "209"
-            endingLineNumber = "209"
-            landmarkName = "-receiveMessage:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ChangSheng/Class/IMKit/Data/Cache/CSMessageRecordTool.m"
-            timestampString = "537010865.275198"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "156"
-            endingLineNumber = "156"
-            landmarkName = "-cs_cacheMessages:userInfo:addLast:chatType:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ChangSheng/Class/IMKit/Data/Cache/CSMessageRecordTool.m"
-            timestampString = "537010865.2758009"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "135"
-            endingLineNumber = "135"
-            landmarkName = "-cs_cacheMessages:userInfo:addLast:chatType:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ChangSheng/Class/IMKit/Data/Cache/CSMessageRecordTool.m"
-            timestampString = "537010865.276526"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "165"
-            endingLineNumber = "165"
-            landmarkName = "-cs_cacheMessages:userInfo:addLast:chatType:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ChangSheng/Class/IMKit/Data/Cache/CSMessageRecordTool.m"
-            timestampString = "537010865.2771831"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "185"
-            endingLineNumber = "185"
-            landmarkName = "-cs_cacheMessages:userInfo:addLast:chatType:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ChangSheng/Class/IMKit/Data/Cache/CSMessageRecordTool.m"
-            timestampString = "537010865.2777441"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "203"
-            endingLineNumber = "203"
-            landmarkName = "-cs_cacheMessages:userInfo:addLast:chatType:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ChangSheng/Class/IMKit/Data/Cache/CSMessageRecordTool.m"
-            timestampString = "537010865.278362"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "154"
-            endingLineNumber = "154"
-            landmarkName = "-cs_cacheMessages:userInfo:addLast:chatType:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1314,11 +1106,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ChangSheng/Class/IMKit/SendHandler/CSIMReceiveManager.m"
-            timestampString = "537010865.278872"
+            timestampString = "537118984.149444"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "487"
-            endingLineNumber = "487"
+            startingLineNumber = "490"
+            endingLineNumber = "490"
             landmarkName = "-insertMessage:"
             landmarkType = "7">
          </BreakpointContent>
@@ -1330,11 +1122,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ChangSheng/Class/IMKit/Client/Chat/LLChatViewController.m"
-            timestampString = "537010865.280049"
+            timestampString = "537118984.149568"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "738"
-            endingLineNumber = "738"
+            startingLineNumber = "721"
+            endingLineNumber = "721"
             landmarkName = "-processData:"
             landmarkType = "7">
          </BreakpointContent>
@@ -1345,28 +1137,12 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ChangSheng/Class/Friends/C/CSFriendsListViewController.m"
-            timestampString = "537000833.733613"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "197"
-            endingLineNumber = "197"
-            landmarkName = "-tableView:didSelectRowAtIndexPath:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "ChangSheng/Class/IMKit/Client/Chat/LLChatViewController.m"
-            timestampString = "537010865.280848"
+            timestampString = "537118984.149683"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2013"
-            endingLineNumber = "2013"
+            startingLineNumber = "1996"
+            endingLineNumber = "1996"
             landmarkName = "-sendTextMessage:"
             landmarkType = "7">
          </BreakpointContent>
@@ -1374,15 +1150,15 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ChangSheng/Class/IMKit/Client/Chat/LLChatViewController.m"
-            timestampString = "537010865.2814111"
+            timestampString = "537118984.149823"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "770"
-            endingLineNumber = "770"
+            startingLineNumber = "753"
+            endingLineNumber = "753"
             landmarkName = "-tableView:cellForRowAtIndexPath:"
             landmarkType = "7">
          </BreakpointContent>
@@ -1425,28 +1201,12 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ChangSheng/Class/IMKit/Data/Model/CSMessageModel.m"
-            timestampString = "537010865.2857701"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "68"
-            endingLineNumber = "68"
-            landmarkName = "-changeParams"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "ChangSheng/Class/IMKit/Client/Chat/LLChatViewController.m"
-            timestampString = "537010865.2881759"
+            timestampString = "537118984.150023"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1054"
-            endingLineNumber = "1054"
+            startingLineNumber = "1037"
+            endingLineNumber = "1037"
             landmarkName = "-updateKeyboard:"
             landmarkType = "7">
          </BreakpointContent>
@@ -1454,63 +1214,47 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ChangSheng/Class/IMKit/SendHandler/CSIMSendMessageManager.m"
-            timestampString = "537010865.28982"
+            timestampString = "537118984.150151"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "65"
-            endingLineNumber = "65"
-            landmarkName = "-forwardMessage:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ChangSheng/Class/IMKit/SendHandler/CSIMSendMessageManager.m"
-            timestampString = "537010865.2914391"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "74"
-            endingLineNumber = "74"
+            startingLineNumber = "76"
+            endingLineNumber = "76"
             landmarkName = "-forwardMessage:"
             landmarkType = "7">
             <Locations>
                <Location
-                  shouldBeEnabled = "Yes"
+                  shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "-[CSIMSendMessageManager forwardMessage:]"
                   moduleName = "ChangSheng"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/apple/Desktop/%E9%95%BF%E5%9C%A3/TTChangSheng/ChangSheng/Class/IMKit/SendHandler/CSIMSendMessageManager.m"
-                  timestampString = "537009025.69669"
+                  timestampString = "537114606.966276"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "74"
                   endingLineNumber = "74"
-                  offsetFromSymbolStart = "621">
+                  offsetFromSymbolStart = "676">
                </Location>
                <Location
-                  shouldBeEnabled = "Yes"
+                  shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "__41-[CSIMSendMessageManager forwardMessage:]_block_invoke"
                   moduleName = "ChangSheng"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/apple/Desktop/%E9%95%BF%E5%9C%A3/TTChangSheng/ChangSheng/Class/IMKit/SendHandler/CSIMSendMessageManager.m"
-                  timestampString = "537009025.701691"
+                  timestampString = "537114606.970183"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "76"
                   endingLineNumber = "76"
-                  offsetFromSymbolStart = "52">
+                  offsetFromSymbolStart = "56">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -1521,13 +1265,45 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ChangSheng/Class/IMKit/SendHandler/CSIMSendMessageManager.m"
-            timestampString = "537010865.292258"
+            filePath = "ChangSheng/Class/IMKit/SendHandler/CSIMReceiveManager.m"
+            timestampString = "537118984.150362"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "69"
             endingLineNumber = "69"
-            landmarkName = "-forwardMessage:"
+            landmarkName = "-receiveMessage:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ChangSheng/Class/IMKit/Client/Chat/LLChatViewController.m"
+            timestampString = "537118984.150593"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "198"
+            endingLineNumber = "198"
+            landmarkName = "-reConnectionSocket"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ChangSheng/Class/Bet/V/CSPublicBetInputToolBarView.m"
+            timestampString = "537118984.15081"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "112"
+            endingLineNumber = "112"
+            landmarkName = "-cs_keyboardWithNumber:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

@@ -45,10 +45,10 @@ static CSUserServiceListViewController * controller = nil;
 
 + (id)shareInstance
 {
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
+//    static dispatch_once_t onceToken;
+//    dispatch_once(&onceToken, ^{
         controller = [[CSUserServiceListViewController alloc]init];
-    });
+//    });
     return controller;
 }
 

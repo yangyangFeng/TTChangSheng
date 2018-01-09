@@ -61,6 +61,9 @@ static CSIMReceiveManager * _manager = nil;
 - (void)receiveMessage:(CSIMSendMessageRequestModel *)message
 {
     CSIMSendMessageRequestModel * sendMsg = [[CSIMMessageQueueManager shareInstance] checkMessageContains:message];
+    if (message.code == 2001) {//需要切入聊天
+        [[CSIMSendMessageManager shareInstance] sendMessage:self.currentAction];
+    }
     //检查参数
     [message.result cs_checkParams];
     switch (message.result.action) {

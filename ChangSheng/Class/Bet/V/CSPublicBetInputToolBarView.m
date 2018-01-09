@@ -111,21 +111,33 @@
 {
     
     if ([number isEqualToString:@"梭"]) {
+        if (!self.betModel.betType.length) {
+            CS_HUD(@"请选择下注类型");
+            return;
+        }
         _playStyle = @"2";
+        [self.betModel.betNumber appendString:number];
+        self.topView.inputField.text = self.betModel.betMessage;
     }
     else if ([number isEqualToString:@"改"])
     {
         _playStyle = @"1";
+        self.topView.inputField.text = @"改";
     }
     else if (!self.betModel.betType.length) {
         CS_HUD(@"请选择下注类型");
         return;
     }
     else if (self.betModel.betNumber.intValue + number.intValue) {
-        
         [self.betModel.betNumber appendString:number];
-        self.topView.inputField.text = self.betModel.betMessage;
+        if (_playStyle == @"1") {
+            self.topView.inputField.text = [NSString stringWithFormat:@"改%@",self.betModel.betMessage];
+        }else
+        {
+            self.topView.inputField.text = self.betModel.betMessage;
+        }
     }
+
 }
 
 - (void)cs_keyboardWithBetAction
@@ -173,6 +185,7 @@
     else if (self.betModel.betNumber.length == 0)
     {
         [self.betModel cleanBetMessage];
+        _playStyle = @"0";
     }
     self.topView.inputField.text = self.betModel.betMessage;
 }
@@ -189,12 +202,23 @@
 
 - (void)cs_keyboardBetTypeName:(NSString *)typeName type:(NSString *)type
 {
-    _playStyle = @"0";//切换为普通下注
-    [self.betModel.betNumber deleteCharactersInRange:NSMakeRange(0,self.betModel.betNumber.length)];
-    self.betModel.betName = typeName;
-    self.betModel.betType = type;
-    
-    self.topView.inputField.text = self.betModel.betMessage;
+    if (_playStyle == @"1") { //如果为改
+        [self.betModel.betNumber deleteCharactersInRange:NSMakeRange(0,self.betModel.betNumber.length)];
+        self.betModel.betName = typeName;
+        self.betModel.betType = type;
+        
+        self.topView.inputField.text = [NSString stringWithFormat:@"改%@",self.betModel.betMessage];
+
+    }
+    else
+    {
+        _playStyle = @"0";//切换为普通下注
+        [self.betModel.betNumber deleteCharactersInRange:NSMakeRange(0,self.betModel.betNumber.length)];
+        self.betModel.betName = typeName;
+        self.betModel.betType = type;
+        
+        self.topView.inputField.text = self.betModel.betMessage;
+    }
 }
 
 - (void)cs_keyboardBtnActionType:(int)type

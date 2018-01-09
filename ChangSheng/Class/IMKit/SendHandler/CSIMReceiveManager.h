@@ -10,7 +10,7 @@
 #import "CSIMSendMessageRequestModel.h"
 
 #import "CSMessageModel.h"
-
+@class CSIMSendMessageRequestModel;
 #define CS_MESSAGE_KEY_SINGLE @"single"
 #define CS_MESSAGE_KEY_GROUP @"group"
 #define CS_MESSAGE_KEY_FEIEND @"friend"
@@ -46,6 +46,8 @@
 - (void)inChatWithChatType:(CSChatType)chatType chatId:(NSString *)chatId;
 - (void)inChatWithChatType:(CSChatType)chatType chatId:(NSString *)chatId status:(void(^)(NSError*))status;
 - (void)outChatWithChatType:(CSChatType)chatType chatId:(NSString *)chatId;
+
+@property (nonatomic,strong) CSIMSendMessageRequestModel *currentAction;
 @end
 
 
