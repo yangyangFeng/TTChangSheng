@@ -2467,23 +2467,23 @@ CSIMReceiveManagerDelegate
     LLMessageVoiceCell *cell = (LLMessageVoiceCell *)[self visibleCellForMessageModel:messageModel];
     [cell stopVoicePlaying];
     
-    NSMutableArray<CSMessageModel *> *allMessageModels = self.dataSource;
-    for (NSInteger index = [allMessageModels indexOfObject:messageModel] + 1, r = allMessageModels.count; index < r; index ++ ) {
-        CSMessageModel *model = allMessageModels[index];
-    
-        if (model.messageBodyType == kCSMessageBodyTypeVoice && !model.isMediaPlayed && !model.isMediaPlaying && !model.isSelf && model.isVoicePlayable) {
-            
-            [[LLChatManager sharedManager] changeVoiceMessageModelPlayStatus:model];
-            LLMessageBaseCell *cell = [self visibleCellForMessageModel:model];
-            if (cell) {
-                cell.messageModel = cell.messageModel;
-            }
-
-            [[LLAudioManager sharedManager] startPlayingWithPath:model.fileLocalPath delegate:self userinfo:model continuePlaying:YES];
-            
-            return;
-        }
-    }
+//    NSMutableArray<CSMessageModel *> *allMessageModels = self.dataSource;
+//    for (NSInteger index = [allMessageModels indexOfObject:messageModel] + 1, r = allMessageModels.count; index < r; index ++ ) {
+//        CSMessageModel *model = allMessageModels[index];
+//    
+//        if (model.messageBodyType == kCSMessageBodyTypeVoice && !model.isMediaPlayed && !model.isMediaPlaying && !model.isSelf && model.isVoicePlayable) {
+//            
+//            [[LLChatManager sharedManager] changeVoiceMessageModelPlayStatus:model];
+//            LLMessageBaseCell *cell = [self visibleCellForMessageModel:model];
+//            if (cell) {
+//                cell.messageModel = cell.messageModel;
+//            }
+//
+//            [[LLAudioManager sharedManager] startPlayingWithPath:model.fileLocalPath delegate:self userinfo:model continuePlaying:YES];
+//            
+//            return;
+//        }
+//    }
     
     [[LLAudioManager sharedManager] stopPlaying];
 

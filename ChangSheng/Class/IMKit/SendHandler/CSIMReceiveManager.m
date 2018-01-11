@@ -93,6 +93,7 @@ static CSIMReceiveManager * _manager = nil;
             userInfo.userId = message.result.chatId;
             userInfo.avatar = message.result.body.avatar;
             userInfo.nickname = message.result.body.nickname;
+            message.result.mediaDuration = message.result.body.voice_length;
             [CSMsgCacheTool cs_cacheMessage:message.result userInfo:userInfo addLast:YES chatType:message.result.cs_chatType];
             
             for (id<CSIMReceiveManagerDelegate> delegate in self.messageDelegates.objectEnumerator.allObjects) {

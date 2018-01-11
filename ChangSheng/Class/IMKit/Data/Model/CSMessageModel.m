@@ -258,6 +258,7 @@ NSMutableDictionary * tmpImageDict;
 
     [model formaterMessage];
     [model processModelForCell];
+    model.body.voice_length = duration;
     return model;
 
 }
