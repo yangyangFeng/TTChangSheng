@@ -89,6 +89,12 @@
 //        self.scrollView.contentOffset = CGPointMake(WIDTH, 0);
         [weakSelf.navigationController popViewControllerAnimated:YES];
     }];
+    if (_userParam) {
+
+            weakSelf.scrollView.contentOffset = CGPointMake(WIDTH, 0);
+
+        [resultC setModel:_userParam];
+    }
 }
 
 - (void)didReceiveMemoryWarning {

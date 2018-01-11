@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 #import "TTNav_RootViewController.h"
 @interface CSPublicBetMemberViewController : TTNav_RootViewController
-
+@property (nonatomic,copy) NSString *group_id;
 @end

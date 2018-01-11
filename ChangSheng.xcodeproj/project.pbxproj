@@ -228,20 +228,10 @@
 		1829A0441F8A4A2D00EAA1AB /* NSFileManager+LCCKExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 1829A03E1F8A4A2D00EAA1AB /* NSFileManager+LCCKExtension.m */; };
 		1829A0451F8A4A2D00EAA1AB /* NSFileManager+Paths.m in Sources */ = {isa = PBXBuildFile; fileRef = 1829A0401F8A4A2D00EAA1AB /* NSFileManager+Paths.m */; };
 		182A13222004C0D900BF44E5 /* CSPublicBetMemberViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 182A13212004C0D900BF44E5 /* CSPublicBetMemberViewController.m */; };
-		182A13392004C4A400BF44E5 /* CSCustomNumberButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 182A13252004C4A300BF44E5 /* CSCustomNumberButton.m */; };
-		182A133A2004C4A400BF44E5 /* CSGongGaoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 182A13262004C4A300BF44E5 /* CSGongGaoView.m */; };
-		182A133B2004C4A400BF44E5 /* CSBetInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = 182A13282004C4A300BF44E5 /* CSBetInputView.m */; };
-		182A133C2004C4A400BF44E5 /* CSPublicBetInputToolBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 182A13292004C4A300BF44E5 /* CSPublicBetInputToolBarView.m */; };
-		182A133D2004C4A400BF44E5 /* CSNumberKeyboardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 182A132A2004C4A300BF44E5 /* CSNumberKeyboardView.xib */; };
-		182A133E2004C4A400BF44E5 /* CMInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = 182A132B2004C4A300BF44E5 /* CMInputView.m */; };
-		182A133F2004C4A400BF44E5 /* CSBetInputToolBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 182A132C2004C4A300BF44E5 /* CSBetInputToolBarView.m */; };
-		182A13402004C4A400BF44E5 /* CSNumberKeyboardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 182A132F2004C4A300BF44E5 /* CSNumberKeyboardView.m */; };
-		182A13412004C4A400BF44E5 /* CSBetInputToolBarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 182A13332004C4A300BF44E5 /* CSBetInputToolBarView.xib */; };
-		182A13422004C4A400BF44E5 /* CSBetInputView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 182A13342004C4A300BF44E5 /* CSBetInputView.xib */; };
-		182A13432004C4A400BF44E5 /* CSGongGaoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 182A13352004C4A300BF44E5 /* CSGongGaoView.xib */; };
-		182A13442004C4A400BF44E5 /* CSCustomBetButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 182A13372004C4A300BF44E5 /* CSCustomBetButton.m */; };
 		182A13472004C4BE00BF44E5 /* CSUserListCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 182A13462004C4BE00BF44E5 /* CSUserListCollectionViewCell.m */; };
 		182A134A2004C8FF00BF44E5 /* CSUserListResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 182A13492004C8FF00BF44E5 /* CSUserListResponse.m */; };
+		182A134D2005EFCC00BF44E5 /* CSUserListSwitchView.m in Sources */ = {isa = PBXBuildFile; fileRef = 182A134C2005EFCC00BF44E5 /* CSUserListSwitchView.m */; };
+		182A13502005F53800BF44E5 /* CSBaseButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 182A134F2005F53800BF44E5 /* CSBaseButton.m */; };
 		183A14821FFCDC1900E1991A /* CSSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183A14811FFCDC1900E1991A /* CSSwift.swift */; };
 		183A14841FFCDCEA00E1991A /* CSEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183A14831FFCDCEA00E1991A /* CSEmptyView.swift */; };
 		184B22EB1FDBBC7400929005 /* CSAddFriendParam.m in Sources */ = {isa = PBXBuildFile; fileRef = 184B22EA1FDBBC7400929005 /* CSAddFriendParam.m */; };
@@ -287,6 +277,20 @@
 		187A708B1FFE09E200077B10 /* UIView+WNEmptyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 187A70861FFE09E000077B10 /* UIView+WNEmptyView.m */; };
 		187A708C1FFE09E200077B10 /* icon_no_data@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 187A70871FFE09E000077B10 /* icon_no_data@3x.png */; };
 		187A708D1FFE09E200077B10 /* icon_no_data@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 187A70881FFE09E000077B10 /* icon_no_data@2x.png */; };
+		1881306B20061C3D00B0F691 /* CSGongGaoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1881306A20061C3D00B0F691 /* CSGongGaoView.m */; };
+		1881307F20061C4600B0F691 /* CSCustomBetButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 1881306D20061C4300B0F691 /* CSCustomBetButton.m */; };
+		1881308020061C4600B0F691 /* CSGongGaoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1881306E20061C4300B0F691 /* CSGongGaoView.xib */; };
+		1881308120061C4600B0F691 /* CSBetInputToolBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1881306F20061C4300B0F691 /* CSBetInputToolBarView.m */; };
+		1881308220061C4600B0F691 /* CSNumberKeyboardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1881307120061C4400B0F691 /* CSNumberKeyboardView.xib */; };
+		1881308320061C4600B0F691 /* CSBetInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1881307320061C4400B0F691 /* CSBetInputView.m */; };
+		1881308420061C4600B0F691 /* CSPublicBetInputToolBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1881307620061C4500B0F691 /* CSPublicBetInputToolBarView.m */; };
+		1881308520061C4600B0F691 /* CMInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1881307820061C4500B0F691 /* CMInputView.m */; };
+		1881308620061C4600B0F691 /* CSNumberKeyboardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1881307920061C4500B0F691 /* CSNumberKeyboardView.m */; };
+		1881308720061C4600B0F691 /* CSCustomNumberButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 1881307A20061C4500B0F691 /* CSCustomNumberButton.m */; };
+		1881308820061C4600B0F691 /* CSBetInputToolBarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1881307B20061C4600B0F691 /* CSBetInputToolBarView.xib */; };
+		1881308920061C4600B0F691 /* CSBetInputView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1881307E20061C4600B0F691 /* CSBetInputView.xib */; };
+		1881308C2007104700B0F691 /* CSChatRoomInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1881308B2007104700B0F691 /* CSChatRoomInfo.m */; };
+		1881308F200710EF00B0F691 /* CSChatRoomInfoManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1881308E200710EF00B0F691 /* CSChatRoomInfoManager.m */; };
 		18B57DA31FDCF93200429B1E /* CSFriendRequestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B57DA21FDCF93200429B1E /* CSFriendRequestViewController.m */; };
 		18B57DA71FDCF9D600429B1E /* CSFriendRequestTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B57DA51FDCF9D600429B1E /* CSFriendRequestTableViewCell.m */; };
 		18B57DA81FDCF9D600429B1E /* CSFriendRequestTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18B57DA61FDCF9D600429B1E /* CSFriendRequestTableViewCell.xib */; };
@@ -898,30 +902,14 @@
 		1829A0401F8A4A2D00EAA1AB /* NSFileManager+Paths.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSFileManager+Paths.m"; sourceTree = "<group>"; };
 		182A13202004C0D900BF44E5 /* CSPublicBetMemberViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSPublicBetMemberViewController.h; sourceTree = "<group>"; };
 		182A13212004C0D900BF44E5 /* CSPublicBetMemberViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSPublicBetMemberViewController.m; sourceTree = "<group>"; };
-		182A13252004C4A300BF44E5 /* CSCustomNumberButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSCustomNumberButton.m; sourceTree = "<group>"; };
-		182A13262004C4A300BF44E5 /* CSGongGaoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSGongGaoView.m; sourceTree = "<group>"; };
-		182A13272004C4A300BF44E5 /* CSNumberKeyboardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSNumberKeyboardView.h; sourceTree = "<group>"; };
-		182A13282004C4A300BF44E5 /* CSBetInputView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSBetInputView.m; sourceTree = "<group>"; };
-		182A13292004C4A300BF44E5 /* CSPublicBetInputToolBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSPublicBetInputToolBarView.m; sourceTree = "<group>"; };
-		182A132A2004C4A300BF44E5 /* CSNumberKeyboardView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CSNumberKeyboardView.xib; sourceTree = "<group>"; };
-		182A132B2004C4A300BF44E5 /* CMInputView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMInputView.m; sourceTree = "<group>"; };
-		182A132C2004C4A300BF44E5 /* CSBetInputToolBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSBetInputToolBarView.m; sourceTree = "<group>"; };
-		182A132D2004C4A300BF44E5 /* CSCustomBetButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSCustomBetButton.h; sourceTree = "<group>"; };
-		182A132E2004C4A300BF44E5 /* CSBetInputView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSBetInputView.h; sourceTree = "<group>"; };
-		182A132F2004C4A300BF44E5 /* CSNumberKeyboardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSNumberKeyboardView.m; sourceTree = "<group>"; };
-		182A13302004C4A300BF44E5 /* CSGongGaoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSGongGaoView.h; sourceTree = "<group>"; };
-		182A13312004C4A300BF44E5 /* CSCustomNumberButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSCustomNumberButton.h; sourceTree = "<group>"; };
-		182A13322004C4A300BF44E5 /* CSPublicBetInputToolBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSPublicBetInputToolBarView.h; sourceTree = "<group>"; };
-		182A13332004C4A300BF44E5 /* CSBetInputToolBarView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CSBetInputToolBarView.xib; sourceTree = "<group>"; };
-		182A13342004C4A300BF44E5 /* CSBetInputView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CSBetInputView.xib; sourceTree = "<group>"; };
-		182A13352004C4A300BF44E5 /* CSGongGaoView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CSGongGaoView.xib; sourceTree = "<group>"; };
-		182A13362004C4A300BF44E5 /* CMInputView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMInputView.h; sourceTree = "<group>"; };
-		182A13372004C4A300BF44E5 /* CSCustomBetButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSCustomBetButton.m; sourceTree = "<group>"; };
-		182A13382004C4A300BF44E5 /* CSBetInputToolBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSBetInputToolBarView.h; sourceTree = "<group>"; };
 		182A13452004C4BE00BF44E5 /* CSUserListCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSUserListCollectionViewCell.h; sourceTree = "<group>"; };
 		182A13462004C4BE00BF44E5 /* CSUserListCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSUserListCollectionViewCell.m; sourceTree = "<group>"; };
 		182A13482004C8FF00BF44E5 /* CSUserListResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSUserListResponse.h; sourceTree = "<group>"; };
 		182A13492004C8FF00BF44E5 /* CSUserListResponse.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSUserListResponse.m; sourceTree = "<group>"; };
+		182A134B2005EFCC00BF44E5 /* CSUserListSwitchView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSUserListSwitchView.h; sourceTree = "<group>"; };
+		182A134C2005EFCC00BF44E5 /* CSUserListSwitchView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSUserListSwitchView.m; sourceTree = "<group>"; };
+		182A134E2005F53800BF44E5 /* CSBaseButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSBaseButton.h; sourceTree = "<group>"; };
+		182A134F2005F53800BF44E5 /* CSBaseButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSBaseButton.m; sourceTree = "<group>"; };
 		183A14801FFCDC1800E1991A /* ChangSheng-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ChangSheng-Bridging-Header.h"; sourceTree = "<group>"; };
 		183A14811FFCDC1900E1991A /* CSSwift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSSwift.swift; sourceTree = "<group>"; };
 		183A14831FFCDCEA00E1991A /* CSEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSEmptyView.swift; sourceTree = "<group>"; };
@@ -1006,6 +994,30 @@
 		187A70861FFE09E000077B10 /* UIView+WNEmptyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+WNEmptyView.m"; sourceTree = "<group>"; };
 		187A70871FFE09E000077B10 /* icon_no_data@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_no_data@3x.png"; sourceTree = "<group>"; };
 		187A70881FFE09E000077B10 /* icon_no_data@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_no_data@2x.png"; sourceTree = "<group>"; };
+		1881306A20061C3D00B0F691 /* CSGongGaoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSGongGaoView.m; sourceTree = "<group>"; };
+		1881306C20061C4300B0F691 /* CSCustomBetButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSCustomBetButton.h; sourceTree = "<group>"; };
+		1881306D20061C4300B0F691 /* CSCustomBetButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSCustomBetButton.m; sourceTree = "<group>"; };
+		1881306E20061C4300B0F691 /* CSGongGaoView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CSGongGaoView.xib; sourceTree = "<group>"; };
+		1881306F20061C4300B0F691 /* CSBetInputToolBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSBetInputToolBarView.m; sourceTree = "<group>"; };
+		1881307020061C4400B0F691 /* CMInputView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMInputView.h; sourceTree = "<group>"; };
+		1881307120061C4400B0F691 /* CSNumberKeyboardView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CSNumberKeyboardView.xib; sourceTree = "<group>"; };
+		1881307220061C4400B0F691 /* CSCustomNumberButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSCustomNumberButton.h; sourceTree = "<group>"; };
+		1881307320061C4400B0F691 /* CSBetInputView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSBetInputView.m; sourceTree = "<group>"; };
+		1881307420061C4400B0F691 /* CSBetInputToolBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSBetInputToolBarView.h; sourceTree = "<group>"; };
+		1881307520061C4400B0F691 /* CSNumberKeyboardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSNumberKeyboardView.h; sourceTree = "<group>"; };
+		1881307620061C4500B0F691 /* CSPublicBetInputToolBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSPublicBetInputToolBarView.m; sourceTree = "<group>"; };
+		1881307720061C4500B0F691 /* CSPublicBetInputToolBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSPublicBetInputToolBarView.h; sourceTree = "<group>"; };
+		1881307820061C4500B0F691 /* CMInputView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMInputView.m; sourceTree = "<group>"; };
+		1881307920061C4500B0F691 /* CSNumberKeyboardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSNumberKeyboardView.m; sourceTree = "<group>"; };
+		1881307A20061C4500B0F691 /* CSCustomNumberButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSCustomNumberButton.m; sourceTree = "<group>"; };
+		1881307B20061C4600B0F691 /* CSBetInputToolBarView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CSBetInputToolBarView.xib; sourceTree = "<group>"; };
+		1881307C20061C4600B0F691 /* CSBetInputView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSBetInputView.h; sourceTree = "<group>"; };
+		1881307D20061C4600B0F691 /* CSGongGaoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSGongGaoView.h; sourceTree = "<group>"; };
+		1881307E20061C4600B0F691 /* CSBetInputView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CSBetInputView.xib; sourceTree = "<group>"; };
+		1881308A2007104700B0F691 /* CSChatRoomInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSChatRoomInfo.h; sourceTree = "<group>"; };
+		1881308B2007104700B0F691 /* CSChatRoomInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSChatRoomInfo.m; sourceTree = "<group>"; };
+		1881308D200710EF00B0F691 /* CSChatRoomInfoManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSChatRoomInfoManager.h; sourceTree = "<group>"; };
+		1881308E200710EF00B0F691 /* CSChatRoomInfoManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSChatRoomInfoManager.m; sourceTree = "<group>"; };
 		18A2075120020B0D00C92F3C /* CSSearchFriendViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSSearchFriendViewController.h; sourceTree = "<group>"; };
 		18B57DA11FDCF93200429B1E /* CSFriendRequestViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSFriendRequestViewController.h; sourceTree = "<group>"; };
 		18B57DA21FDCF93200429B1E /* CSFriendRequestViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSFriendRequestViewController.m; sourceTree = "<group>"; };
@@ -1649,6 +1661,10 @@
 				74BFF8FD1FB552330061A68D /* CSMessageRecordTool.m */,
 				74BFF9001FB946690061A68D /* CSMessageDBModel.h */,
 				74BFF9011FB946690061A68D /* CSMessageDBModel.m */,
+				1881308A2007104700B0F691 /* CSChatRoomInfo.h */,
+				1881308B2007104700B0F691 /* CSChatRoomInfo.m */,
+				1881308D200710EF00B0F691 /* CSChatRoomInfoManager.h */,
+				1881308E200710EF00B0F691 /* CSChatRoomInfoManager.m */,
 				1804AB811F7BDC6100508C1C /* LLConversationModelManager.h */,
 				1804AB821F7BDC6100508C1C /* LLConversationModelManager.m */,
 				1804AB831F7BDC6100508C1C /* LLMessageCacheManager.h */,
@@ -2224,6 +2240,8 @@
 			children = (
 				182A13452004C4BE00BF44E5 /* CSUserListCollectionViewCell.h */,
 				182A13462004C4BE00BF44E5 /* CSUserListCollectionViewCell.m */,
+				182A134B2005EFCC00BF44E5 /* CSUserListSwitchView.h */,
+				182A134C2005EFCC00BF44E5 /* CSUserListSwitchView.m */,
 			);
 			path = UserListView;
 			sourceTree = "<group>";
@@ -2231,26 +2249,26 @@
 		182A13242004C4A300BF44E5 /* PublicBetView */ = {
 			isa = PBXGroup;
 			children = (
-				182A13252004C4A300BF44E5 /* CSCustomNumberButton.m */,
-				182A13262004C4A300BF44E5 /* CSGongGaoView.m */,
-				182A13272004C4A300BF44E5 /* CSNumberKeyboardView.h */,
-				182A13282004C4A300BF44E5 /* CSBetInputView.m */,
-				182A13292004C4A300BF44E5 /* CSPublicBetInputToolBarView.m */,
-				182A132A2004C4A300BF44E5 /* CSNumberKeyboardView.xib */,
-				182A132B2004C4A300BF44E5 /* CMInputView.m */,
-				182A132C2004C4A300BF44E5 /* CSBetInputToolBarView.m */,
-				182A132D2004C4A300BF44E5 /* CSCustomBetButton.h */,
-				182A132E2004C4A300BF44E5 /* CSBetInputView.h */,
-				182A132F2004C4A300BF44E5 /* CSNumberKeyboardView.m */,
-				182A13302004C4A300BF44E5 /* CSGongGaoView.h */,
-				182A13312004C4A300BF44E5 /* CSCustomNumberButton.h */,
-				182A13322004C4A300BF44E5 /* CSPublicBetInputToolBarView.h */,
-				182A13332004C4A300BF44E5 /* CSBetInputToolBarView.xib */,
-				182A13342004C4A300BF44E5 /* CSBetInputView.xib */,
-				182A13352004C4A300BF44E5 /* CSGongGaoView.xib */,
-				182A13362004C4A300BF44E5 /* CMInputView.h */,
-				182A13372004C4A300BF44E5 /* CSCustomBetButton.m */,
-				182A13382004C4A300BF44E5 /* CSBetInputToolBarView.h */,
+				1881307020061C4400B0F691 /* CMInputView.h */,
+				1881307820061C4500B0F691 /* CMInputView.m */,
+				1881307420061C4400B0F691 /* CSBetInputToolBarView.h */,
+				1881306F20061C4300B0F691 /* CSBetInputToolBarView.m */,
+				1881307B20061C4600B0F691 /* CSBetInputToolBarView.xib */,
+				1881307C20061C4600B0F691 /* CSBetInputView.h */,
+				1881307320061C4400B0F691 /* CSBetInputView.m */,
+				1881307E20061C4600B0F691 /* CSBetInputView.xib */,
+				1881306C20061C4300B0F691 /* CSCustomBetButton.h */,
+				1881306D20061C4300B0F691 /* CSCustomBetButton.m */,
+				1881307220061C4400B0F691 /* CSCustomNumberButton.h */,
+				1881307A20061C4500B0F691 /* CSCustomNumberButton.m */,
+				1881307D20061C4600B0F691 /* CSGongGaoView.h */,
+				1881306E20061C4300B0F691 /* CSGongGaoView.xib */,
+				1881307520061C4400B0F691 /* CSNumberKeyboardView.h */,
+				1881307920061C4500B0F691 /* CSNumberKeyboardView.m */,
+				1881307120061C4400B0F691 /* CSNumberKeyboardView.xib */,
+				1881307720061C4500B0F691 /* CSPublicBetInputToolBarView.h */,
+				1881307620061C4500B0F691 /* CSPublicBetInputToolBarView.m */,
+				1881306A20061C3D00B0F691 /* CSGongGaoView.m */,
 			);
 			path = PublicBetView;
 			sourceTree = "<group>";
@@ -2668,6 +2686,8 @@
 				18C81F701F7657900012150B /* TTNavController */,
 				185374FA2001FE65003307AD /* CSBaseTabBarViewController.h */,
 				185374FB2001FE65003307AD /* CSBaseTabBarViewController.m */,
+				182A134E2005F53800BF44E5 /* CSBaseButton.h */,
+				182A134F2005F53800BF44E5 /* CSBaseButton.m */,
 			);
 			path = BaseController;
 			sourceTree = "<group>";
@@ -3189,7 +3209,6 @@
 				1804ACE51F7BDC6100508C1C /* FriendsSendsPicturesQuitBigIcon.png in Resources */,
 				1804ACB01F7BDC6100508C1C /* LLConversationListCell.xib in Resources */,
 				74C852E81F8B800700944C50 /* CSMineItem.plist in Resources */,
-				182A133D2004C4A400BF44E5 /* CSNumberKeyboardView.xib in Resources */,
 				1804AC8F1F7BDC6100508C1C /* LLVideoPlaybackController.xib in Resources */,
 				187A708D1FFE09E200077B10 /* icon_no_data@2x.png in Resources */,
 				1804ACEA1F7BDC6100508C1C /* FriendsSendsPicturesSelectBigYIcon@2x.png in Resources */,
@@ -3199,17 +3218,15 @@
 				1804ACE01F7BDC6100508C1C /* CellBlueSelected@2x.png in Resources */,
 				1804AD251F7BDC6100508C1C /* Emotion.bundle in Resources */,
 				1804ACF01F7BDC6100508C1C /* MMVideoPreviewPlay@3x.png in Resources */,
-				182A13412004C4A400BF44E5 /* CSBetInputToolBarView.xib in Resources */,
 				1804ACEC1F7BDC6100508C1C /* FriendsSendsPicturesSelectIcon@2x.png in Resources */,
 				749009D81FCFE38200E1339E /* CSFriendListTableViewCell.xib in Resources */,
 				1804ACE11F7BDC6100508C1C /* CellGreySelected.png in Resources */,
 				740739CF1F9A56760098783F /* VoiceMessageSource.bundle in Resources */,
+				1881308820061C4600B0F691 /* CSBetInputToolBarView.xib in Resources */,
 				1804ACA61F7BDC6100508C1C /* LLShareCollectionViewCell.xib in Resources */,
-				182A13432004C4A400BF44E5 /* CSGongGaoView.xib in Resources */,
 				749009DD1FD02D1300E1339E /* CSFriendMsgTableViewCell.xib in Resources */,
 				1804ACE71F7BDC6100508C1C /* FriendsSendsPicturesSelectBigNIcon.png in Resources */,
 				1804AD281F7BDC6100508C1C /* Media.xcassets in Resources */,
-				182A13422004C4A400BF44E5 /* CSBetInputView.xib in Resources */,
 				187A708C1FFE09E200077B10 /* icon_no_data@3x.png in Resources */,
 				1804ACA21F7BDC6100508C1C /* LLChatMoreBottomBar.xib in Resources */,
 				1804ACAD1F7BDC6100508C1C /* LLContactSearchViews.xib in Resources */,
@@ -3218,11 +3235,14 @@
 				749A53B01F9879070024DC1B /* CSOperationRecordsHeaderView.xib in Resources */,
 				1804ACE61F7BDC6100508C1C /* FriendsSendsPicturesQuitBigIcon@2x.png in Resources */,
 				74C852E61F8B7DCB00944C50 /* CSMineTableViewCell.xib in Resources */,
+				1881308020061C4600B0F691 /* CSGongGaoView.xib in Resources */,
 				18B57DA81FDCF9D600429B1E /* CSFriendRequestTableViewCell.xib in Resources */,
 				1804ACDF1F7BDC6100508C1C /* CellBlueSelected.png in Resources */,
+				1881308920061C4600B0F691 /* CSBetInputView.xib in Resources */,
 				74CFD27F1FA1920800A3D8E5 /* CSHomeConnectionStatusView.xib in Resources */,
 				187A708A1FFE09E200077B10 /* icon_no_netWork@2x.png in Resources */,
 				1804ACEB1F7BDC6100508C1C /* FriendsSendsPicturesSelectIcon.png in Resources */,
+				1881308220061C4600B0F691 /* CSNumberKeyboardView.xib in Resources */,
 				1804ACF21F7BDC6100508C1C /* MMVideoPreviewPlayHL@3x.png in Resources */,
 				181346901F7AA93200CD1312 /* LICENSE in Resources */,
 				1804ACED1F7BDC6100508C1C /* FriendsSendsPicturesSelectYIcon.png in Resources */,
@@ -3381,6 +3401,8 @@
 				1804ACD41F7BDC6100508C1C /* LLUserProfile.m in Sources */,
 				1804AD391F7BDC6100508C1C /* TTSocketChannelManager.m in Sources */,
 				74073A1E1F9A57C80098783F /* NSString+Hash.m in Sources */,
+				182A134D2005EFCC00BF44E5 /* CSUserListSwitchView.m in Sources */,
+				1881307F20061C4600B0F691 /* CSCustomBetButton.m in Sources */,
 				1857872E1F97968500BAD542 /* CSChangePWModel.m in Sources */,
 				747D5C281F7DF75000F40A41 /* TTChatInputToolBar.m in Sources */,
 				1804AD061F7BDC6100508C1C /* LLSearchViewController.m in Sources */,
@@ -3394,7 +3416,6 @@
 				181343D71F795FA300CD1312 /* CSHomeViewController.m in Sources */,
 				1804AD0F1F7BDC6100508C1C /* UICollectionView+LLExt.m in Sources */,
 				1804AD351F7BDC6100508C1C /* LLChatManager.m in Sources */,
-				182A133C2004C4A400BF44E5 /* CSPublicBetInputToolBarView.m in Sources */,
 				74073A291F9A57C80098783F /* UIImage+FixOrientation.m in Sources */,
 				18B57DA31FDCF93200429B1E /* CSFriendRequestViewController.m in Sources */,
 				18C820331F7772BA0012150B /* CSBaseViewController.m in Sources */,
@@ -3403,7 +3424,6 @@
 				1804AD091F7BDC6100508C1C /* LLTableViewCellData.m in Sources */,
 				1804ACC31F7BDC6100508C1C /* LLSubSearchBaseController.m in Sources */,
 				18C8202E1F776A850012150B /* CSHttpsResModel.m in Sources */,
-				182A133B2004C4A400BF44E5 /* CSBetInputView.m in Sources */,
 				18C820151F76585F0012150B /* UITextField+Hook.m in Sources */,
 				74073A151F9A57C80098783F /* CALayer+Transition.m in Sources */,
 				1804ACDC1F7BDC6100508C1C /* LLImagePickerController.m in Sources */,
@@ -3412,7 +3432,6 @@
 				184B22F71FDBC2C100929005 /* CSFriendListModel.m in Sources */,
 				18C820291F7768C50012150B /* CSNewWorkHandler.m in Sources */,
 				74C8531C1F8F8FA400944C50 /* MCDownloadReceipt.m in Sources */,
-				182A13392004C4A400BF44E5 /* CSCustomNumberButton.m in Sources */,
 				749009D71FCFE38200E1339E /* CSFriendListTableViewCell.m in Sources */,
 				1857872B1F9795CE00BAD542 /* CSScoreRecordModel.m in Sources */,
 				747130AF1FFE143700A170EF /* CSDeleteFriendRequest.m in Sources */,
@@ -3424,7 +3443,6 @@
 				1804ACC71F7BDC6100508C1C /* LLMessageModelManager.m in Sources */,
 				184B5D221F794C0F007A1C22 /* Deferred.m in Sources */,
 				182A134A2004C8FF00BF44E5 /* CSUserListResponse.m in Sources */,
-				182A133A2004C4A400BF44E5 /* CSGongGaoView.m in Sources */,
 				1804AD1F1F7BDC6100508C1C /* LLUtils+Popover.m in Sources */,
 				749009DC1FD02D1300E1339E /* CSFriendMsgTableViewCell.m in Sources */,
 				18C81FEE1F76585F0012150B /* NSString+TTExtend.m in Sources */,
@@ -3462,6 +3480,7 @@
 				1804AD2D1F7BDC6100508C1C /* CSIMSendMessageManager.m in Sources */,
 				74073A1D1F9A57C80098783F /* NSString+Extend.m in Sources */,
 				74073A201F9A57C80098783F /* UIBarButtonItem+Extend.m in Sources */,
+				1881306B20061C3D00B0F691 /* CSGongGaoView.m in Sources */,
 				1804ACD11F7BDC6100508C1C /* LLContactModel.m in Sources */,
 				1804AC7C1F7BDC6100508C1C /* LLMessageDateCell.m in Sources */,
 				74073A2C1F9A57C80098783F /* UIScrollView+MJFooterHeader.m in Sources */,
@@ -3471,12 +3490,11 @@
 				1804ACB51F7BDC6100508C1C /* LLMeViewController.m in Sources */,
 				749009D01FCFE2F200E1339E /* CSFriendsListViewController.m in Sources */,
 				1804AC941F7BDC6100508C1C /* LLEmotionInputView.m in Sources */,
-				182A13402004C4A400BF44E5 /* CSNumberKeyboardView.m in Sources */,
 				184B22FD1FDBC4DE00929005 /* CSFriendchartlistParam.m in Sources */,
+				1881308520061C4600B0F691 /* CMInputView.m in Sources */,
 				749A53AE1F9877B20024DC1B /* CSOperationRecordsHeaderView.m in Sources */,
 				74CFD2821FA1930900A3D8E5 /* CSHomeConnectionStatusView.m in Sources */,
 				1804AD041F7BDC6100508C1C /* LLLeftAlignedCollectionViewFlowLayout.m in Sources */,
-				182A133F2004C4A400BF44E5 /* CSBetInputToolBarView.m in Sources */,
 				1804ACC21F7BDC6100508C1C /* LLSNSSearchController.m in Sources */,
 				185787311F9796E200BAD542 /* CSChangeAvatarModel.m in Sources */,
 				74C8531B1F8F8FA400944C50 /* MCDownloadOperation.m in Sources */,
@@ -3487,6 +3505,7 @@
 				18BDAB451F9F76DB002800BC /* UIImage+LBDecoder.m in Sources */,
 				1804ACB21F7BDC6100508C1C /* LLDiscoveryController.m in Sources */,
 				74C852E11F8B769100944C50 /* CSMineViewController.m in Sources */,
+				1881308620061C4600B0F691 /* CSNumberKeyboardView.m in Sources */,
 				181C06151F92180900F4A15E /* CSPublicBetViewController.m in Sources */,
 				1857871E1F94D4EB00BAD542 /* CSCaiwuTableViewImageCell.m in Sources */,
 				1804AD131F7BDC6100508C1C /* UINavigationBar+LLExt.m in Sources */,
@@ -3511,6 +3530,7 @@
 				1804AC861F7BDC6100508C1C /* LLImageAnimationView.m in Sources */,
 				1804AC7D1F7BDC6100508C1C /* LLMessageGifCell.m in Sources */,
 				1804ACFE1F7BDC6100508C1C /* LLVideoDisPlayController.m in Sources */,
+				1881308120061C4600B0F691 /* CSBetInputToolBarView.m in Sources */,
 				1829A0431F8A4A2D00EAA1AB /* NSDate+Utilities.m in Sources */,
 				74073A3D1F9D86FC0098783F /* GTMStackTrace.m in Sources */,
 				18C81FEC1F76585F0012150B /* MBProgressHUD+TTHUD.m in Sources */,
@@ -3537,6 +3557,7 @@
 				1804ACD31F7BDC6100508C1C /* LLUserGeneralOptions.m in Sources */,
 				184B22EE1FDBBCB700929005 /* CSFindUserParam.m in Sources */,
 				185787371F979D4D00BAD542 /* CSUserNameInputViewController.m in Sources */,
+				1881308720061C4600B0F691 /* CSCustomNumberButton.m in Sources */,
 				18C820161F76585F0012150B /* UITextField+LimitLength.m in Sources */,
 				1804ACA71F7BDC6100508C1C /* LLVoiceIndicatorView.m in Sources */,
 				18BDAB3D1F9F76DB002800BC /* LBOptionView.m in Sources */,
@@ -3547,6 +3568,7 @@
 				1804AC801F7BDC6100508C1C /* LLMessageRecordingCell.m in Sources */,
 				181343DD1F79609900CD1312 /* CSHomeTableViewHandler.m in Sources */,
 				1804AD1D1F7BDC6100508C1C /* LLUtils+IPhone.m in Sources */,
+				1881308F200710EF00B0F691 /* CSChatRoomInfoManager.m in Sources */,
 				1804ACA01F7BDC6100508C1C /* UIImagePickerController_L1.m in Sources */,
 				74073A2F1F9A57C80098783F /* UIWindow+Launch.m in Sources */,
 				749009F51FD3E30E00E1339E /* CSSearchFriendManagerViewController.m in Sources */,
@@ -3592,6 +3614,7 @@
 				18C81F7F1F7657900012150B /* GPSBBaseTableViewController.m in Sources */,
 				18BDAB3F1F9F76DB002800BC /* LBPhotoBrowserConst.m in Sources */,
 				1804AD151F7BDC6100508C1C /* UITableView+LLExt.m in Sources */,
+				1881308C2007104700B0F691 /* CSChatRoomInfo.m in Sources */,
 				1804AC8E1F7BDC6100508C1C /* LLVideoPlaybackController.m in Sources */,
 				181346861F7AA93200CD1312 /* NSAttributedString+MLLabel.m in Sources */,
 				1804AC791F7BDC6100508C1C /* LLNavigationController.m in Sources */,
@@ -3627,7 +3650,6 @@
 				181346871F7AA93200CD1312 /* NSMutableAttributedString+MLLabel.m in Sources */,
 				184B5D031F77D6ED007A1C22 /* TTLineLayoutConstraint.m in Sources */,
 				18537502200202D8003307AD /* UITabBar+Badge.m in Sources */,
-				182A133E2004C4A400BF44E5 /* CMInputView.m in Sources */,
 				1804ACCA1F7BDC6100508C1C /* InvitationManager.m in Sources */,
 				74073A161F9A57C80098783F /* CALayerAnimConst.m in Sources */,
 				181C060A1F9212AB00F4A15E /* CSPublicBetTableViewHandler.m in Sources */,
@@ -3659,6 +3681,7 @@
 				1804ACBD1F7BDC6100508C1C /* LLChatSearchController.m in Sources */,
 				1804AD081F7BDC6100508C1C /* LLTableViewCell.m in Sources */,
 				7490097A1FCD0EFD00E1339E /* VHLNavigation.m in Sources */,
+				182A13502005F53800BF44E5 /* CSBaseButton.m in Sources */,
 				1804AC911F7BDC6100508C1C /* LLChatTextView.m in Sources */,
 				74073A2A1F9A57C80098783F /* UIImage+Water.m in Sources */,
 				74073A271F9A57C80098783F /* UIImage+Cut.m in Sources */,
@@ -3667,13 +3690,14 @@
 				1804ACF71F7BDC6100508C1C /* LLImageScrollView.m in Sources */,
 				1804AD1B1F7BDC6100508C1C /* LLUtils+CGHelper.m in Sources */,
 				1804AC7B1F7BDC6100508C1C /* LLMessageBaseCell.m in Sources */,
+				1881308320061C4600B0F691 /* CSBetInputView.m in Sources */,
 				1804ACAA1F7BDC6100508C1C /* LLContactApplyController.m in Sources */,
-				182A13442004C4A400BF44E5 /* CSCustomBetButton.m in Sources */,
 				1804AC9E1F7BDC6100508C1C /* LLWebViewController.m in Sources */,
 				185787341F97991A00BAD542 /* CSUserInfoViewController.m in Sources */,
 				1804AD141F7BDC6100508C1C /* UIScrollView+LLExt.m in Sources */,
 				1804ACAC1F7BDC6100508C1C /* LLContactSearchHeaderView.m in Sources */,
 				187773D11F7D1D6900A98B7C /* CSHttpGroupResModel.m in Sources */,
+				1881308420061C4600B0F691 /* CSPublicBetInputToolBarView.m in Sources */,
 				181346891F7AA93200CD1312 /* MLExpressionManager.m in Sources */,
 				74073A261F9A57C80098783F /* UIImage+Color.m in Sources */,
 				18BDAB481F9F76DB002800BC /* LBTapDetectingImageView.m in Sources */,

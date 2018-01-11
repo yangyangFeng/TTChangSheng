@@ -10,6 +10,9 @@
 #import "CSHttpRequestManager.h"
 #import "TTSocketChannelManager.h"
 #import "CSMessageRecordTool.h"
+#import "CSDeviceBindingModel.h"
+#import "JPUSHService.h"
+#import "AppDelegate.h"
 @implementation CSLoginHandler
 + (void)loginWithParams:(NSDictionary *)params
                 successBlock:(successBlock)success
@@ -46,6 +49,33 @@
             fail(error);
         }
     }uploadprogress:nil showHUD:YES];
+}
+
+#pragma mark - 登陆后所有配置项
++ (void)initAllSets:(CSUserInfoModel *)info
+{
+    [CSUserInfo shareInstance].info = info;
+    [[CSUserInfo shareInstance] login];
+    
+    AppDelegate * appDelegate =  (AppDelegate *)[UIApplication sharedApplication].delegate;
+    [appDelegate joinHomeController];
+    
+    //#mark - DB配置
+    [CSLoginHandler initDB];
+    [CSLoginHandler bindingDeviceRegister];
+}
+
++ (void)bindingDeviceRegister
+{
+    CSDeviceBindingModel * param = [CSDeviceBindingModel new];
+    param.device_id = [JPUSHService registrationID];
+    param.system_version = APPVERSION;
+    param.type = @"ios";
+    [CSHttpRequestManager request_deviceBinding_paramters:param.mj_keyValues success:^(id responseObject) {
+        
+    } failure:^(NSError *error) {
+        
+    } showHUD:NO];
 }
 
 //开启socket链接通道

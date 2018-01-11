@@ -79,19 +79,13 @@
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [hud hideAnimated:NO];
             [LLUtils showTextHUD:@"登录成功!" inView:self.view];
+            
+            
             NSLog(@"%@",obj);
             CSUserInfoModel * info = [CSUserInfoModel mj_objectWithKeyValues:[[obj mj_JSONObject] objectForKey:@"result"]];
-            [CSUserInfo shareInstance].info = info;
-            [[CSUserInfo shareInstance] login];
             
-            
-            
-
-            AppDelegate * appDelegate =  (AppDelegate *)[UIApplication sharedApplication].delegate;
-
-            [appDelegate joinHomeController];
-//#mark - DB配置
-            [CSLoginHandler initDB];
+            [CSLoginHandler initAllSets:info];
+  
         });
     } failBlock:^(NSError *error) {
         [hud hideAnimated:NO];

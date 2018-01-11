@@ -379,33 +379,65 @@ CSPublicBetInputToolBarViewDelegate
 
 - (void)createNavigationBarButtons
 {
-    UIButton * caiwuBtn =self.tt_navigationBar.rightBtn;
-    caiwuBtn.hidden = NO;
-    [caiwuBtn setImage:[UIImage imageNamed:@"财务BTN"] forState:(UIControlStateNormal)];
-    
+//    UIButton * caiwuBtn =self.tt_navigationBar.rightBtn;
+//    caiwuBtn.hidden = NO;
+//    [caiwuBtn setImage:[UIImage imageNamed:@"财务BTN"] forState:(UIControlStateNormal)];
+    self.tt_navigationBar.contentView.userInteractionEnabled = YES;
+    self.tt_navigationBar.centerView.userInteractionEnabled = NO;
+    self.tt_navigationBar.rightView.userInteractionEnabled = NO;
     UIButton * kefuBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [kefuBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 20, 0, 0)];
+//    [kefuBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 20, 0, 0)];
     [kefuBtn setImage:[UIImage imageNamed:@"客服BTN"] forState:(UIControlStateNormal)];
     [kefuBtn addTarget:self action:@selector(kefuBtnDidAction) forControlEvents:(UIControlEventTouchUpInside)];
-    [kefuBtn sizeToFit];
-    [self.tt_navigationBar.centerView addSubview:kefuBtn];
-    [kefuBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+//    [kefuBtn sizeToFit];
+    [self.tt_navigationBar.contentView addSubview:kefuBtn];
+
+    
+    UIButton * caiwuBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+//    [caiwuBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 20, 0, 0)];
+    [caiwuBtn setImage:[UIImage imageNamed:@"财务BTN"] forState:(UIControlStateNormal)];
+    [caiwuBtn addTarget:self action:@selector(caiwuAction) forControlEvents:(UIControlEventTouchUpInside)];
+//    [caiwuBtn sizeToFit];
+    [self.tt_navigationBar.contentView addSubview:caiwuBtn];
+    
+    UIButton * userListBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+//    [userListBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 20, 0, 0)];
+    [userListBtn setImage:[UIImage imageNamed:@"朋友"] forState:(UIControlStateNormal)];
+    [userListBtn addTarget:self action:@selector(groupUserListAction) forControlEvents:(UIControlEventTouchUpInside)];
+//    [userListBtn sizeToFit];
+    [self.tt_navigationBar.contentView addSubview:userListBtn];
+    
+    [userListBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.bottom.mas_equalTo(0);
         make.height.mas_equalTo(44);
         make.width.mas_equalTo(44);
     }];
+    [caiwuBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.height.width.mas_equalTo(44);
+        make.bottom.mas_equalTo(0);
+        make.right.mas_equalTo(userListBtn.mas_left).offset(0);
+    }];
+    [kefuBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.height.mas_equalTo(44);
+        make.bottom.mas_equalTo(0);
+        make.right.mas_equalTo(caiwuBtn.mas_left).offset(0);
+    }];
 }
 
+- (void)groupUserListAction
+{
+    CSPublicBetMemberViewController * C = [CSPublicBetMemberViewController new];
+    C.group_id = self.conversationModel.chatId;
+    [self.navigationController pushViewController:C animated:YES];
+}
 
 - (void)kefuBtnDidAction
 {
-    CSPublicBetMemberViewController * C = [CSPublicBetMemberViewController new];
+    CSUserServiceListViewController * C = [CSUserServiceListViewController new];
     [self.navigationController pushViewController:C animated:YES];
-//    CSUserServiceListViewController * C = [CSUserServiceListViewController new];
-//    [self.navigationController pushViewController:C animated:YES];
 }
 
-- (void)tt_DefaultRightBtnClickAction
+- (void)caiwuAction
 {
     UIViewController * caiwuController = [StoryBoardController viewControllerID:@"CSCaiwuViewController" SBName:@"Mine"];
     [self.navigationController pushViewController:caiwuController animated:YES];
@@ -938,7 +970,7 @@ CSPublicBetInputToolBarViewDelegate
         case kCSMessageBodyTypeLink:
             //            [self cellVideoDidTapped:(LLMessageVideoCell *)cell];
             
-            [self loadWebLinkWithUrl:[NSString stringWithFormat:@"%@?group_id=%@&token=%@",cell.messageModel.body.linkUrl,self.conversationModel.chatId,[CSUserInfo shareInstance].info.token] title:@""];
+            [self loadWebLinkWithUrl:[NSString stringWithFormat:@"%@&token=%@",cell.messageModel.body.linkUrl,[CSUserInfo shareInstance].info.token] title:@""];
             break;
         case kCSMessageBodyTypeVoice:
             //            [self cellVoiceDidTapped:(LLMessageVoiceCell *)cell];

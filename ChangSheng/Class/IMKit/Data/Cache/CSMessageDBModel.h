@@ -40,6 +40,7 @@ RLM_ARRAY_TYPE(CSMsg_User_Msg)
 @property (nonatomic,copy) NSString *link_url;
 @property (nonatomic,copy) NSString *type;
 @property (nonatomic,copy) NSString *content;
+@property (nonatomic,copy) NSString *img_url_b;
 @property (nonatomic,copy) NSString *timestamp;
 @property (nonatomic,copy) NSString *nickname;
 @property (nonatomic,copy) NSString *avatar;

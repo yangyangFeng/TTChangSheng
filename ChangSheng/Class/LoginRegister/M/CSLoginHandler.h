@@ -7,7 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import "CSUserInfoModel.h"
+#import "GPLoginInfoModel.h"
 typedef void(^voidBlock)();
 typedef void(^successBlock)(id obj);
 typedef void(^errorBlock)(NSError *error);
@@ -27,6 +28,10 @@ typedef void(^errorBlock)(NSError *error);
                           fileType:(CS_UPLOAD_FILE)fileType
                       successBlock:(successBlock)success
                          failBlock:(errorBlock)fail;
+
++ (void)initAllSets:(CSUserInfoModel *)info;
+
++ (void)bindingDeviceRegister;
 
 + (void)openSocket;
 

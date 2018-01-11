@@ -8,8 +8,13 @@
 
 #import "CSPublicBetMemberViewController.h"
 #import "CSUserListCollectionViewCell.h"
+#import "CSSearchFriendManagerViewController.h"
 
+#import "CSChatRoomInfoManager.h"
+
+#import "CSBaseButton.h"
 #import "CSUserListResponse.h"
+#import "CSUserListSwitchView.h"
 @interface CSPublicBetMemberViewController ()<UICollectionViewDelegate,UICollectionViewDataSource>
 @property (nonatomic,strong) NSMutableArray *dataSource;
 
@@ -21,6 +26,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [self tt_Title:@"用户列表"];
+    
     [self initSubviews];
     
     [self loadData];
@@ -29,7 +36,12 @@
 }
 
 - (void)initSubviews{
+    
+    
+    
+    self.view.backgroundColor = [UIColor groupTableViewBackgroundColor];
     UICollectionViewFlowLayout * layout = [UICollectionViewFlowLayout new];
+    layout.sectionInset =UIEdgeInsetsMake(10, 20, 0, 20);
     layout.itemSize = CGSizeMake(50, 70);
     layout.scrollDirection = UICollectionViewScrollDirectionVertical;
     UICollectionView * collectionView = [[UICollectionView alloc]initWithFrame:self.view.bounds collectionViewLayout:layout];
@@ -40,23 +52,51 @@
     _collectionView = collectionView;
     [self.view addSubview:collectionView];
     
+    
+    CSUserListSwitchView * switchView = [CSUserListSwitchView new];
+    switchView.switchBtn.on = [CSChatRoomInfoManager getChatGroupMute:self.group_id];
+    [switchView.switchBtn addTarget:self action:@selector(switchAction:) forControlEvents:(UIControlEventValueChanged)];
+    [self.view addSubview:switchView];
+    
+    CSBaseButton * logoutBtn = [CSBaseButton buttonWithTitle:@"删除并退出"];
+    logoutBtn.titleLabel.font = [UIFont systemFontOfSize:16];
+    [logoutBtn setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
+    [self.view addSubview:logoutBtn];
+    
+    [logoutBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.mas_equalTo(300);
+        make.height.mas_equalTo(45);
+        make.centerX.mas_equalTo(0);
+        make.bottom.mas_equalTo(-50);
+    }];
+    [switchView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.mas_equalTo(0);
+        make.bottom.mas_equalTo(logoutBtn.mas_top).offset(-25);
+        make.height.mas_equalTo(45);
+    }];
+    
     [collectionView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(74);
         make.left.right.mas_equalTo(0);
-        make.height.mas_equalTo(405);
+        make.bottom.mas_equalTo(switchView.mas_top).offset(-15);
     }];
     
 }
 
 - (void)loadData
 {
-    [CSHttpRequestManager request_groupUserList_paramters:@{@"group_id":@"1"} success:^(id responseObject) {
+    [CSHttpRequestManager request_groupUserList_paramters:@{@"group_id":self.group_id} success:^(id responseObject) {
         CSUserListResponse * obj = [CSUserListResponse mj_objectWithKeyValues:responseObject];
         self.dataSource = [NSMutableArray arrayWithArray:obj.result];
         [self.collectionView reloadData];
     } failure:^(NSError *error) {
         
     } showHUD:YES];
+}
+
+- (void)switchAction:(UISwitch *)btn
+{
+    [CSChatRoomInfoManager setChatGroupMute:self.group_id isMute:btn.isOn];
 }
 
 #pragma makr - delegate
@@ -73,4 +113,15 @@
     return  cell;
 }
 
+-(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    CSUserListResponse * model = self.dataSource[indexPath.row];
+    CSSearchFriendManagerViewController * addFriendC = [CSSearchFriendManagerViewController new];
+    CSFindUserParam * param = [CSFindUserParam new];
+    param.id = model.user_id;
+    param.avatar = model.avatar;
+    param.nickname = model.nickname;
+    addFriendC.userParam = param;
+    [self.navigationController pushViewController:addFriendC animated:YES];
+}
 @end

@@ -43,7 +43,7 @@
 
 - (void)cleanBetMessage;
 
-
+@property (nonatomic,copy) NSString *playStyle;
 
 @property (nonatomic,copy) NSString *betType;
 @property (nonatomic,copy) NSString *betName;

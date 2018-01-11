@@ -114,6 +114,7 @@ static CSMessageRecordTool * tool = nil;
     msg.type = [NSString stringWithFormat:@"%ld",model.body.msgType];
     msg.link_url = model.body.linkUrl;
     msg.timestamp = model.body.timestamp;
+    msg.img_url_b = model.body.img_url_b;
     //    msg.is_self = [NSString stringWithFormat:@"%ld",model.isSelf];
     msg.msg_id = [NSString stringWithFormat:@"%@-%@",new_userId,model.body.msgId];
     return msg;

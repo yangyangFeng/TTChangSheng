@@ -21,7 +21,7 @@
 /**
  default is 0. 普通下注
  */
-@property (nonatomic,copy) NSString *playStyle;
+//@property (nonatomic,copy) NSString *playStyle;
 @end
 
 @implementation CSPublicBetInputToolBarView
@@ -109,35 +109,117 @@
 
 - (void)cs_keyboardWithNumber:(NSString *)number
 {
+    if ([self.betModel.playStyle isEqualToString:@"3"]) {
+        return;
+    }
+    
     
     if ([number isEqualToString:@"梭"]) {
         if (!self.betModel.betType.length) {
             CS_HUD(@"请选择下注类型");
             return;
         }
-        _playStyle = @"2";
-        [self.betModel.betNumber appendString:number];
-        self.topView.inputField.text = self.betModel.betMessage;
+        if ([self.betModel.playStyle isEqualToString:@"1"]) { ////如果是改 改+梭 = 3
+            self.betModel.playStyle = @"3";
+            //                [self.betModel.betNumber appendString:number];
+            self.topView.inputField.text = self.betModel.betMessage;
+            //                [NSString stringWithFormat:@"改%@",self.betModel.betMessage];
+        }
+        else
+        {
+            self.betModel.playStyle = @"2";
+            //                if (![self.betModel.betNumber containsString:@"梭"]) {
+            //                    [self.betModel.betNumber appendString:number];
+            //                }
+            self.topView.inputField.text = self.betModel.betMessage;
+        }
     }
     else if ([number isEqualToString:@"改"])
     {
-        _playStyle = @"1";
-        self.topView.inputField.text = @"改";
+        self.betModel.playStyle = @"1";
+        self.topView.inputField.text = self.betModel.betMessage;
+        //            @"改";
     }
     else if (!self.betModel.betType.length) {
         CS_HUD(@"请选择下注类型");
         return;
     }
     else if (self.betModel.betNumber.intValue + number.intValue) {
+        
         [self.betModel.betNumber appendString:number];
-        if (_playStyle == @"1") {
-            self.topView.inputField.text = [NSString stringWithFormat:@"改%@",self.betModel.betMessage];
-        }else
-        {
-            self.topView.inputField.text = self.betModel.betMessage;
-        }
+        self.topView.inputField.text = self.betModel.betMessage;
+        //            if (self.betModel.playStyle == @"1") {
+        //                self.topView.inputField.text = [NSString stringWithFormat:@"改%@",self.betModel.betMessage];
+        //            }else
+        //            {
+        //                self.topView.inputField.text = self.betModel.betMessage;
+        //            }
     }
 
+    
+    
+    
+    
+    
+    
+    /*
+    if ([self.betModel.playStyle isEqualToString:@"3"]) {
+        return;
+    }
+    else if ([self.betModel.playStyle isEqualToString:@"0"] ||
+             [self.betModel.playStyle isEqualToString:@"1"]) {
+    
+        if ([number isEqualToString:@"梭"]) {
+            if (!self.betModel.betType.length) {
+                CS_HUD(@"请选择下注类型");
+                return;
+            }
+            if ([self.betModel.playStyle isEqualToString:@"1"]) { ////如果是改 改+梭 = 3
+                self.betModel.playStyle = @"3";
+//                [self.betModel.betNumber appendString:number];
+                self.topView.inputField.text = self.betModel.betMessage;
+//                [NSString stringWithFormat:@"改%@",self.betModel.betMessage];
+            }
+            else
+            {
+                self.betModel.playStyle = @"2";
+//                if (![self.betModel.betNumber containsString:@"梭"]) {
+//                    [self.betModel.betNumber appendString:number];
+//                }
+                self.topView.inputField.text = self.betModel.betMessage;
+            }
+        }
+        else if ([number isEqualToString:@"改"])
+        {
+            self.betModel.playStyle = @"1";
+            self.topView.inputField.text = self.betModel.betMessage;
+//            @"改";
+        }
+        else if (!self.betModel.betType.length) {
+            CS_HUD(@"请选择下注类型");
+            return;
+        }
+        else if (self.betModel.betNumber.intValue + number.intValue) {
+            
+            [self.betModel.betNumber appendString:number];
+            self.topView.inputField.text = self.betModel.betMessage;
+//            if (self.betModel.playStyle == @"1") {
+//                self.topView.inputField.text = [NSString stringWithFormat:@"改%@",self.betModel.betMessage];
+//            }else
+//            {
+//                self.topView.inputField.text = self.betModel.betMessage;
+//            }
+        }
+    }
+    else if ([self.betModel.playStyle isEqualToString:@"2"])//如果是梭哈 之后只能改
+    {
+        if ([number isEqualToString:@"改"])
+        {
+            self.betModel.playStyle = @"1";
+            self.topView.inputField.text = @"改";
+        }
+    }
+    */
 }
 
 - (void)cs_keyboardWithBetAction
@@ -145,14 +227,18 @@
     if (!self.betModel.betType.length) {
         return;
     }
-    if (!self.betModel.betNumber.length) {
+    if ([self.betModel.playStyle intValue] < 1 &&
+        !self.betModel.betNumber.length) {
         return;
     }
+//    if (!self.betModel.playStyle.length) {
+//        return;
+//    }
     CSMessageModel * msgModel = [CSMessageModel new];
     
     msgModel.action = 3;//下注
  
-    msgModel.playStyle = _playStyle;
+    msgModel.playStyle = self.betModel.playStyle;
     
     msgModel.content = self.betModel.betMessage;
     
@@ -167,6 +253,8 @@
     
     [self.betModel cleanBetMessage];
 
+    
+    
     self.topView.inputField.text = self.betModel.betMessage;
 }
 
@@ -185,7 +273,7 @@
     else if (self.betModel.betNumber.length == 0)
     {
         [self.betModel cleanBetMessage];
-        _playStyle = @"0";
+        self.betModel.playStyle = @"0";
     }
     self.topView.inputField.text = self.betModel.betMessage;
 }
@@ -202,17 +290,18 @@
 
 - (void)cs_keyboardBetTypeName:(NSString *)typeName type:(NSString *)type
 {
-    if (_playStyle == @"1") { //如果为改
+    if (self.betModel.playStyle == @"1") { //如果为改
         [self.betModel.betNumber deleteCharactersInRange:NSMakeRange(0,self.betModel.betNumber.length)];
         self.betModel.betName = typeName;
         self.betModel.betType = type;
         
-        self.topView.inputField.text = [NSString stringWithFormat:@"改%@",self.betModel.betMessage];
+        self.topView.inputField.text = self.betModel.betMessage;
+//        [NSString stringWithFormat:@"改%@",self.betModel.betMessage];
 
     }
     else
     {
-        _playStyle = @"0";//切换为普通下注
+        self.betModel.playStyle = @"0";//切换为普通下注
         [self.betModel.betNumber deleteCharactersInRange:NSMakeRange(0,self.betModel.betNumber.length)];
         self.betModel.betName = typeName;
         self.betModel.betType = type;
@@ -331,8 +420,17 @@
     return self;
 }
 
+-(void)setPlayStyle:(NSString *)playStyle
+{
+    _playStyle = playStyle;
+    if ([playStyle isEqualToString:@"2"]) {
+        [self.betNumber deleteCharactersInRange:NSMakeRange(0, self.betNumber.length)];
+    }
+}
+
 - (void)cleanBetMessage
 {
+    self.playStyle = @"0";
     self.betName = @"";
     self.betType = @"";
     [self.betNumber deleteCharactersInRange:NSMakeRange(0, self.betNumber.length)];
@@ -340,7 +438,20 @@
 
 - (NSString *)betMessage
 {
-    return [NSString stringWithFormat:@"%@%@",self.betName.length ? [NSString stringWithFormat:@"%@:",self.betName] : @"",self.betNumber.length ? self.betNumber : @""];
+    if ([self.playStyle isEqualToString:@"1"]) {
+        return [NSString stringWithFormat:@"改%@%@",self.betName.length ? [NSString stringWithFormat:@"%@:",self.betName] : @"",self.betNumber.length ? self.betNumber : @""];
+    }
+    else if ([self.playStyle isEqualToString:@"2"]){
+        return [NSString stringWithFormat:@"%@梭",self.betName.length ? [NSString stringWithFormat:@"%@:",self.betName] : @""];
+    }
+    else if ([self.playStyle isEqualToString:@"3"])
+    {
+        return [NSString stringWithFormat:@"改%@:梭",self.betName];
+    }
+    else
+    {
+        return [NSString stringWithFormat:@"%@%@",self.betName.length ? [NSString stringWithFormat:@"%@:",self.betName] : @"",self.betNumber.length ? self.betNumber : @""];
+    }
 }
 
 @end

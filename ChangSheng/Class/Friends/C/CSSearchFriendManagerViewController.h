@@ -7,7 +7,7 @@
 //
 
 #import "TTNav_RootViewController.h"
-
+#import "CSFindUserParam.h"
 @interface CSSearchFriendManagerViewController : TTNav_RootViewController
-
+@property (nonatomic,strong) CSFindUserParam *userParam;
 @end

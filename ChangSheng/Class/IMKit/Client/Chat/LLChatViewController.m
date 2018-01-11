@@ -1491,7 +1491,7 @@ CSIMReceiveManagerDelegate
             CSMessageModel *model = self.dataSource[i];
             if (model.messageBodyType == kCSMessageBodyTypeImage ||
                 model.messageBodyType == kCSMessageBodyTypeVideo) {
-                [arrayUrl addObject:model.body.content];
+                [arrayUrl addObject:model.body.img_url_b];
                 [arrayImageView addObject:cell.chatImageView];
                 if (model == cell.messageModel) {
                     index = arrayUrl.count - 1;

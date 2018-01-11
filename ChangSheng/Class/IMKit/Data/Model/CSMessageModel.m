@@ -569,6 +569,7 @@ NSMutableDictionary * tmpImageDict;
             break;
         case CSMessageBodyTypeImage:
             msgBody = [CSMessageModel newImageMessageWithImageSize:CGSizeMake(msgRecordModel.img_width, msgRecordModel.img_height) chatId:chatId chatType:chatType msgId:msgRecordModel.msg_id msgType:(CSMessageBodyTypeImage) action:1 content:msgRecordModel.content isSelf:msgRecordModel.is_self];
+            msgBody.body.img_url_b = msgRecordModel.img_url_b;
             //                       newMessageChatType:chatType chatId:chatId msgId:msgRecordModel.msg_id msgType:CSMessageBodyTypeImage action:1 content:msgRecordModel.content];
             break;
         case CSMessageBodyTypeVoice:

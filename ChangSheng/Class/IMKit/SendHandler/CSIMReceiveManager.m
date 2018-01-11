@@ -11,7 +11,7 @@
 #import "CSIMSendMessageManager.h"
 #import "LLUtils+Audio.h"
 #import "CSMessageRecordTool.h"
-
+#import "CSChatRoomInfoManager.h"
 static CSIMReceiveManager * _manager = nil;
 @interface CSIMReceiveManager ()
 @property(nonatomic,strong)dispatch_queue_t  queue;
@@ -70,23 +70,13 @@ static CSIMReceiveManager * _manager = nil;
             // 1、普通消息 2、消息回执 3、路单图片 4、连接成功回执 5、用户上线 6 、用户下线  7、下注台面信息（前台用户不需要） 8、撤销下注回复  9、用户剩余分通知   99、后台回复前端心跳，100 、后台播放提示音用   10  切入聊天回复  11，切出回复
         case 1://
         {
-            [LLUtils playNewMessageSound];
+            
             DLog(@"新消息-------->%@",message.result.body.content);
             [message.result cs_checkParams];
-            //计算数据高度
-            //            [message.result processModelForCell];
-            //            message.result.msgType = message.result.body.msgType;
-            //            [message.result syncMessageBodyType:CS_changeMessageType(message.result.body.msgType)];
             
             message.result.timestamp = message.result.body.timestamp;
             message.result.isSelf = NO;
-            
-            //            if (message.result,chatType == 1) { //如果是群聊
-            //                message.result.cs_chatType = CS_Message_Record_Type_Group;
-            //                message.result.chatType = CSChatTypeChatGroup;
-            //            }
-            //            else
-            //            {
+
             //将数据存到本地
             if (message.result.fromUserType == 1) {//普通用户
                 message.result.cs_chatType = CS_Message_Record_Type_Friend;
@@ -490,6 +480,15 @@ static CSIMReceiveManager * _manager = nil;
     if (!(self.currentChatKey.length && [self.currentChatKey isEqualToString:key])) {
         //如果当前未处于聊天室 取出 原有 数目累加
         [self.unReadMessageList setObject:[NSString stringWithFormat:@"%d",messageModel.body.unreadCount] forKey: key];
+        if (messageModel.chatType == CSChatTypeGroupChat &&
+            [CSChatRoomInfoManager getChatGroupMute:messageModel.chatId]) {
+            [LLUtils playNewMessageSound];
+        }else if(messageModel.chatType == CSChatTypeChat ||
+                 messageModel.chatType == CSChatTypeChatFriend)
+        {
+            [LLUtils playNewMessageSound];
+        }
+            
     }
 }
 

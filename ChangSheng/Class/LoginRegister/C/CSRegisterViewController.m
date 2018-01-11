@@ -127,20 +127,16 @@
     
     [CSLoginHandler request_register_paramters:param.mj_keyValues fileData:_imageData fileType:CS_UPLOAD_FILE_IMAGE | CS_UPLOAD_FILE_CUSTOME successBlock:^(id obj) {
         GPLoginInfoModel *res = [GPLoginInfoModel mj_objectWithKeyValues:obj];
+        
         //        CSUserInfo * info = [CSUserInfo shareInstance];
         //        info.info = obj.result;
         //        [[CSUserInfo shareInstance] login];
         [hud hideAnimated:NO];
         [LLUtils showTextHUD:res.msg inView:self.view];
         CSUserInfoModel * info = [CSUserInfoModel mj_objectWithKeyValues:[[obj mj_JSONObject] objectForKey:@"result"]];
-        [CSUserInfo shareInstance].info = info;
-        [[CSUserInfo shareInstance] login];
         
-        AppDelegate * appDelegate =  (AppDelegate *)[UIApplication sharedApplication].delegate;
-        [appDelegate joinHomeController];
+        [CSLoginHandler initAllSets:info];
         
-        //#mark - DB配置
-        [CSLoginHandler initDB];
     } failBlock:^(NSError *error) {
         [hud hideAnimated:NO];
     }];
