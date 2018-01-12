@@ -7,6 +7,7 @@
 //
 
 #import "CSCaiwuViewController.h"
+
 #import "CSOperationListViewController.h"
 #import "CSCaiwuTableViewInfoCell.h"
 #import "CSCaiwuTableViewImageCell.h"
@@ -88,7 +89,6 @@
     [self tt_SetNaviBarHide:NO withAnimation:NO];
     self.tt_navigationBar.contentView.backgroundColor = [UIColor whiteColor];
     self.tt_navigationBar.titleLabel.textColor = [UIColor colorWithHexColorString:@"333333"];
-    self.isUpScore = YES;
     
     self.my_fenLabel.text = [NSString stringWithFormat:@"%d",[CSUserInfo shareInstance].info.surplus_score];
     self.commitBtn.layer.masksToBounds = YES;

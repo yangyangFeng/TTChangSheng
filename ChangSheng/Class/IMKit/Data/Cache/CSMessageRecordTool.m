@@ -39,23 +39,7 @@ static CSMessageRecordTool * tool = nil;
         user.nickname = userInfo.nickname;
     }
     
-//    CSMsg_User_Msg * msg = [CSMsg_User_Msg new];
-//    msg.img_width = model.body.img_width;
-//    msg.img_height = model.body.img_height;
-//
-//    if (user.ID == self.currentChatId || model.isSelf) {
-//        msg.isRead = YES;
-//    }
-//    msg.content = model.body.content;
-//    msg.voice_length = model.body.voice_length;
-//    msg.type = [NSString stringWithFormat:@"%ld",model.body.msgType];
-//    msg.link_url = model.body.linkUrl;
-//    msg.timestamp = model.body.timestamp;
-////    msg.is_self = [NSString stringWithFormat:@"%ld",model.isSelf];
-//    msg.is_self = model.isSelf;
-//    msg.avatar = userInfo.avatar;
-//    msg.nickname = userInfo.nickname;
-//    msg.msg_id = [NSString stringWithFormat:@"%@-%@",new_userId,model.msgId];
+
     
     CSMsg_User_Msg * msg = [self cs_dataModelTransformationMessage:model userInfo:userInfo chatType:chatType];
     msg.owner = user;
@@ -87,7 +71,8 @@ static CSMessageRecordTool * tool = nil;
     return self;
 }
 
-- (CSMsg_User_Msg *)cs_dataModelTransformationMessage:(CSMessageModel *)model userInfo:(CSCacheUserInfo *)userInfo
+- (CSMsg_User_Msg *)cs_dataModelTransformationMessage:(CSMessageModel *)model
+                                             userInfo:(CSCacheUserInfo *)userInfo
                                              chatType:(CS_Message_Record_Type)chatType
 {
     NSString * new_userId = [self userId:userInfo.userId chatType:chatType];
@@ -115,7 +100,7 @@ static CSMessageRecordTool * tool = nil;
     msg.link_url = model.body.linkUrl;
     msg.timestamp = model.body.timestamp;
     msg.img_url_b = model.body.img_url_b;
-    //    msg.is_self = [NSString stringWithFormat:@"%ld",model.isSelf];
+    msg.chatType = ChatTypeChange(chatType);
     msg.msg_id = [NSString stringWithFormat:@"%@-%@",new_userId,model.body.msgId];
     return msg;
 }
@@ -147,6 +132,7 @@ static CSMessageRecordTool * tool = nil;
         user.userId = userInfo.userId;
         user.avatar = userInfo.avatar;
         user.nickname = userInfo.nickname;
+        [realm addObject:user];
     }
     
    
@@ -155,37 +141,11 @@ static CSMessageRecordTool * tool = nil;
         for (CSMessageModel * model in models){
             
             CSMsg_User_Msg * msg = [self cs_dataModelTransformationMessage:model userInfo:userInfo chatType:chatType];
-            //如果已存在数据 就不再添加了
-//            NSPredicate * pred = [NSPredicate predicateWithFormat:@"msgId = %@",msg.msg_id];//CONTAINS
-            RLMResults * result = [CSMsg_User_Msg objectsInRealm:realm where:@"msg_id = %@",msg.msg_id];
-//                                   objectInRealm:realm withPredicate:pred];
-//            if (result.count) {
-//                [realm commitWriteTransaction];
-//                return self;
-//            }
-//            msg.img_width = model.body.img_width;
-//            msg.img_height = model.body.img_height;
-//
-//            if (user.ID == self.currentChatId || model.isSelf) {
-//                msg.isRead = YES;
-//            }
-//            msg.content = model.body.content;
-//            msg.avatar = model.body.avatar;
-//            msg.voice_length = model.body.voice_length;
-//            msg.type = [NSString stringWithFormat:@"%ld",model.body.msgType];
-//            msg.link_url = model.body.linkUrl;
-//            msg.timestamp = model.body.timestamp;
-//            msg.is_self = model.isSelf;
-//            //[NSString stringWithFormat:@"%ld",model.isSelf];
-//            msg.nickname = model.body.nickname;
-//            msg.msg_id = [NSString stringWithFormat:@"%@-%@",new_userId,model.msgId];
-            
+
             msg.owner = user;
-//            [realm addOrUpdateObject:msg];
-            
-            
+
             [messageArray addObject:msg];
-//            [user.msgRecords addObject:msg];
+
         }
     }
     else
@@ -196,28 +156,8 @@ static CSMessageRecordTool * tool = nil;
             
             //如果已存在数据 就不再添加了
 //            NSPredicate * pred = [NSPredicate predicateWithFormat:@"msgId = %@",msg.msg_id];//CONTAINS
-            RLMResults * result = [CSMsg_User_Msg objectsInRealm:realm where:@"msg_id = %@",msg.msg_id];
-//            if (result.count) {
-//                [realm commitWriteTransaction];
-//                return self;
-//            }
-//            [CSMsg_User_Msg new];
-//            msg.img_width = model.body.img_width;
-//            msg.img_height = model.body.img_height;
-//
-//            if (user.ID == self.currentChatId || model.isSelf) {
-//                msg.isRead = YES;
-//            }
-//            msg.content = model.body.content;
-//            msg.avatar = model.body.avatar;
-//            msg.voice_length = model.body.voice_length;
-//            msg.type = [NSString stringWithFormat:@"%ld",model.body.msgType];
-//            msg.link_url = model.body.linkUrl;
-//            msg.timestamp = model.body.timestamp;
-//            msg.is_self = model.isSelf;
-//            //            msg.is_self = [NSString stringWithFormat:@"%ld",model.isSelf];
-//            msg.nickname = model.body.nickname;
-//            msg.msg_id = [NSString stringWithFormat:@"%@-%@",new_userId,model.msgId];
+//            RLMResults * result = [CSMsg_User_Msg objectsInRealm:realm where:@"msg_id = %@",msg.msg_id];
+
             
             msg.owner = user;
             
@@ -232,7 +172,7 @@ static CSMessageRecordTool * tool = nil;
     
 //    [realm addOrUpdateObject:user];
     [realm addOrUpdateObjects:messageArray];
-    
+    user.msgRecords = [CSMsg_User_Msg objectsWhere:@"owner = %@",user];
 //    RLMResults * result = [CSMsg_User_Msg objectsInRealm:realm where:@"msg_id = %@",msg.msg_id];
     [realm commitWriteTransaction];
     return self;
@@ -416,7 +356,7 @@ static CSMessageRecordTool * tool = nil;
     NSPredicate * pred = [NSPredicate predicateWithFormat:@"ID = %@ AND userType = %@",new_userId,ChatTypeChange(chatType)];//CONTAINS
     RLMResults * result = [CSMsg_User objectsInRealm:realm withPredicate:pred];
     CSMsg_User * user = [result firstObject];
-    [user.msgRecords removeAllObjects];
+    [realm deleteObjects:user.msgRecords];
     [realm deleteObject:user];
     [realm commitWriteTransaction];
 }

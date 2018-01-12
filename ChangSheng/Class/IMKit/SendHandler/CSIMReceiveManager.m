@@ -12,12 +12,14 @@
 #import "LLUtils+Audio.h"
 #import "CSMessageRecordTool.h"
 #import "CSChatRoomInfoManager.h"
+
 static CSIMReceiveManager * _manager = nil;
 @interface CSIMReceiveManager ()
 @property(nonatomic,strong)dispatch_queue_t  queue;
 @property (nonatomic, strong)NSMapTable * messageDelegates;
 @property (nonatomic, strong)NSMutableDictionary * unReadMessageList;
 @property (nonatomic,copy) NSString *currentChatKey;
+
 @end
 @implementation CSIMReceiveManager
 -(NSMapTable *)messageDelegates
@@ -54,9 +56,12 @@ static CSIMReceiveManager * _manager = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         _manager = [CSIMReceiveManager new];
+       
     });
     return _manager;
 }
+
+
 
 - (void)receiveMessage:(CSIMSendMessageRequestModel *)message
 {
@@ -76,25 +81,35 @@ static CSIMReceiveManager * _manager = nil;
             
             message.result.timestamp = message.result.body.timestamp;
             message.result.isSelf = NO;
-
-            //将数据存到本地
-            if (message.result.fromUserType == 1) {//普通用户
-                message.result.cs_chatType = CS_Message_Record_Type_Friend;
-                message.result.chatType = CSChatTypeChatFriend;
+            if (message.result.chatType == CSChatTypeGroupChat) {
+                message.result.cs_chatType = CS_Message_Record_Type_Group;
+                message.result.chatType = CSChatTypeGroupChat;
+            }else{
+                
+                if (message.result.fromUserType == 1) {//普通用户
+                    message.result.cs_chatType = CS_Message_Record_Type_Friend;
+                    message.result.chatType = CSChatTypeChatFriend;
+                }
+                else{//客服
+                    message.result.cs_chatType = CS_Message_Record_Type_Service;
+                    message.result.chatType = CSChatTypeChat;
+                }
             }
-            else{//客服
-                message.result.cs_chatType = CS_Message_Record_Type_Service;
-                message.result.chatType = CSChatTypeChat;
-            }
+         
             //记录未读消息
             [self insertMessage:message.result];
             
-            CSCacheUserInfo * userInfo = [CSCacheUserInfo new];
-            userInfo.userId = message.result.chatId;
-            userInfo.avatar = message.result.body.avatar;
-            userInfo.nickname = message.result.body.nickname;
-            message.result.mediaDuration = message.result.body.voice_length;
-            [CSMsgCacheTool cs_cacheMessage:message.result userInfo:userInfo addLast:YES chatType:message.result.cs_chatType];
+            if (message.result.chatType != CSChatTypeGroupChat) {
+                CSCacheUserInfo * userInfo = [CSCacheUserInfo new];
+                userInfo.userId = message.result.chatId;
+                userInfo.avatar = message.result.body.avatar;
+                userInfo.nickname = message.result.body.nickname;
+                message.result.mediaDuration = message.result.body.voice_length;
+                //将数据存到本地
+                [CSMsgCacheTool cs_cacheMessage:message.result userInfo:userInfo addLast:YES chatType:message.result.cs_chatType];
+            }
+            
+            
             
             for (id<CSIMReceiveManagerDelegate> delegate in self.messageDelegates.objectEnumerator.allObjects) {
                 __strong id<CSIMReceiveManagerDelegate> strongDelegate = delegate;
@@ -391,6 +406,12 @@ static CSIMReceiveManager * _manager = nil;
         case CSChatTypeChatFriend:
         {
             key = CS_MESSAGE_KEY_FEIEND;
+            RLMRealm * realm = [RLMRealm defaultRealm];
+            NSPredicate * pred = [NSPredicate predicateWithFormat:@"chatType CONTAINS %@ AND isRead = NO",CS_MESSAGE_KEY_FEIEND];//CONTAINS
+//            NSString * pred = [NSString stringWithFormat:@"chatType = %@",CS_MESSAGE_KEY_FEIEND];
+            RLMResults * results = [CSMsg_User_Msg objectsInRealm:realm withPredicate:pred];
+//                                    bjectsInRealm:realm where:pred];
+            return results.count;
         }
             break;
         default:
@@ -420,12 +441,8 @@ static CSIMReceiveManager * _manager = nil;
     } failed:^(NSError *error) {
         DLog(@"-------------------->进群失败\n失败原因:%@",error.domain);
     }];
-    for (id<CSIMReceiveManagerDelegate> delegate in self.messageDelegates.objectEnumerator.allObjects) {
-        __strong id<CSIMReceiveManagerDelegate> strongDelegate = delegate;
-        if ([strongDelegate respondsToSelector:@selector(cs_receiveUpdateUnreadMessage)]) {
-            [strongDelegate cs_receiveUpdateUnreadMessage];
-        }
-    }
+    //更新消息未读条数
+    [self updateAllUnreadMessageNum];
 }
 
 - (void)inChatWithChatType:(CSChatType)chatType chatId:(NSString *)chatId status:(void(^)(NSError*))status
@@ -450,12 +467,8 @@ static CSIMReceiveManager * _manager = nil;
         }
         DLog(@"-------------------->进群失败\n失败原因:%@",error.domain);
     }];
-    for (id<CSIMReceiveManagerDelegate> delegate in self.messageDelegates.objectEnumerator.allObjects) {
-        __strong id<CSIMReceiveManagerDelegate> strongDelegate = delegate;
-        if ([strongDelegate respondsToSelector:@selector(cs_receiveUpdateUnreadMessage)]) {
-            [strongDelegate cs_receiveUpdateUnreadMessage];
-        }
-    }
+    //更新消息未读条数
+    [self updateAllUnreadMessageNum];
 }
 
 - (void)outChatWithChatType:(CSChatType)chatType chatId:(NSString *)chatId
@@ -473,11 +486,14 @@ static CSIMReceiveManager * _manager = nil;
     } failed:^(NSError *error) {
         DLog(@"-------------------->退群失败\n失败原因:%@",error.domain);
     }];
+    //更新消息未读条数
+    [self updateAllUnreadMessageNum];
 }
 
 - (void)insertMessage:(CSMessageModel *)messageModel
 {
     NSString * key = [self keyWithChatType:messageModel.chatType chatId:messageModel.chatId];
+    
     if (!(self.currentChatKey.length && [self.currentChatKey isEqualToString:key])) {
         //如果当前未处于聊天室 取出 原有 数目累加
         [self.unReadMessageList setObject:[NSString stringWithFormat:@"%d",messageModel.body.unreadCount] forKey: key];
@@ -491,6 +507,8 @@ static CSIMReceiveManager * _manager = nil;
         }
             
     }
+    //更新消息未读条数
+    [self updateAllUnreadMessageNum];
 }
 
 - (void)insertChatWithChatType:(CSChatType)chatType chatId:(NSString *)chatId unReadCount:(NSString *)count
@@ -499,6 +517,18 @@ static CSIMReceiveManager * _manager = nil;
     if (!(self.currentChatKey.length && [self.currentChatKey isEqualToString:key])) {
         //如果当前未处于聊天室 取出 原有 数目累加
         [self.unReadMessageList setObject:count forKey: key];
+    }
+    //更新消息未读条数
+    [self updateAllUnreadMessageNum];
+}
+//更新消息未读条数
+- (void)updateAllUnreadMessageNum
+{
+    for (id<CSIMReceiveManagerDelegate> delegate in self.messageDelegates.objectEnumerator.allObjects) {
+//        __strong id<CSIMReceiveManagerDelegate> strongDelegate = delegate;
+        if ([delegate respondsToSelector:@selector(cs_receiveUpdateUnreadMessage)]) {
+            [delegate cs_receiveUpdateUnreadMessage];
+        }
     }
 }
 @end

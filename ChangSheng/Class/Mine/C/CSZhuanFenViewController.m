@@ -87,7 +87,7 @@
     CSTransferScoreModel * params = [CSTransferScoreModel new];
     params.score = self.inputField1.text;
     params.to_code = self.inputField0.text;
-    params.password = self.inputField2.text;
+    params.password = self.inputField2.text.md5;
 //    [MBProgressHUD tt_Show];
     MBProgressHUD * hud =  [LLUtils showCustomIndicatiorHUDWithTitle:@"" inView:self.view];
     [CSHttpRequestManager request_zhuanFen_paramters:params.mj_keyValues success:^(id responseObject) {

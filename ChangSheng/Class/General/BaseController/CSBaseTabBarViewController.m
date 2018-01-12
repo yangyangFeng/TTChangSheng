@@ -7,21 +7,34 @@
 //
 
 #import "CSBaseTabBarViewController.h"
-
+#import <Realm/Realm.h>
 #import "CSIMReceiveManager.h"
 #import "UITabBar+Badge.h"
 @interface CSBaseTabBarViewController ()<CSIMReceiveManagerDelegate>
-
+@property (nonatomic,strong) RLMNotificationToken *token;
 @end
 
 @implementation CSBaseTabBarViewController
+-(instancetype)init{
+    if (self = [super init]) {
+        WEAKSELF;
+        _token = [[RLMRealm defaultRealm] addNotificationBlock:^(RLMNotification  _Nonnull notification, RLMRealm * _Nonnull realm) {
+            [weakSelf cs_receiveUpdateUnreadMessage];
+        }];
+    }
+    return self;
+}
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self cs_receiveUpdateUnreadMessage];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     [CSIMReceiveManager shareInstance].delegate = self;
     
-    [self cs_receiveUpdateUnreadMessage];
     // Do any additional setup after loading the view.
 }
 

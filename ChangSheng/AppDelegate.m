@@ -51,6 +51,8 @@
     
 #endif
     if ([CSUserInfo shareInstance].isOnline) {
+        [CSLoginHandler initDB];
+        
         [self setupViewControllers];
         
 //        CSHomeViewController * home = [CSHomeViewController new];
@@ -60,7 +62,7 @@
 //        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
 //            [CSLoginHandler openSocket];
 //        });
-        [CSLoginHandler initDB];
+        
     }
     else
     {

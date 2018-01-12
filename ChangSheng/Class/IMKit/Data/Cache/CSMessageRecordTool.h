@@ -50,11 +50,9 @@ typedef void(^loadDatas)(NSArray *msgs);
  */
 - (void)deleteFriendRecord:(NSString *)userId chatType:(CS_Message_Record_Type)chatType;
 /**
- 根据 useid 和聊天类型转换DB userid
-
- @param userId <#userId description#>
- @param chatType <#chatType description#>
- @return <#return value description#>
+ *  根据 useid 和聊天类型转换DB userid
  */
 - (NSString *)userId:(NSString *)userId chatType:(CS_Message_Record_Type)chatType;
+
+- (id)realmSelectData:(NSString *)object theCondition:(NSString *)condition;
 @end

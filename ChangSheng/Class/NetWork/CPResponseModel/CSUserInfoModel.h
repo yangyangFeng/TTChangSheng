@@ -16,4 +16,10 @@
 
 @property (nonatomic,copy) NSString *code;
 @property (nonatomic,copy) NSString *id;
+
+
+@property (nonatomic,assign) int up_score;
+@property (nonatomic,assign) int down_score;
+@property (nonatomic,strong) CSUserInfoModel *result;
 @end
+

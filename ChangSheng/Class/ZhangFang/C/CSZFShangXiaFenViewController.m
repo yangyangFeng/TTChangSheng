@@ -35,11 +35,23 @@
     // Do any additional setup after loading the view.
 }
 
+- (void)loadData{
+    [CSHttpRequestManager request_getUserInfo_paramters:@{} success:^(id responseObject) {
+        CSUserInfoModel * obj = [CSUserInfoModel mj_objectWithKeyValues:responseObject].result;
+        self.shenshangfen.text = [NSString stringWithFormat:@"身上分:%d",obj.surplus_score];
+        self.daishenhe.text = [NSString stringWithFormat:@"待审核:%d",obj.down_score];
+    } failure:^(NSError *error) {
+        
+    } showHUD:NO];
+}
+
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
     
     [self blackStatusBar];
+    
+    [self loadData];
 }
 
 - (IBAction)shangfenDIdAction:(id)sender {

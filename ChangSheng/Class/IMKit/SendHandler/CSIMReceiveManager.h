@@ -48,6 +48,7 @@
 - (void)outChatWithChatType:(CSChatType)chatType chatId:(NSString *)chatId;
 
 @property (nonatomic,strong) CSIMSendMessageRequestModel *currentAction;
+
 @end
 
 

@@ -553,4 +553,20 @@
         failure(error);
     } showHUD:showHUD];
 }
+
+#pragma mark -  27.获取用户个人信息
+/**
+ *  27.获取用户个人信息
+ */
++ (void)request_getUserInfo_paramters:(NSDictionary *)params success:(TTSuccessBlock)success failure:(TTFailureBlock)failure showHUD:(BOOL)showHUD
+{
+    NSString * url = @"/my/userInfo";
+    [[CSNewWorkHandler sharedInstance] beginHttpRequestType:GET_TTREQUEST_TYPE url:url paramters:params success:^(id responseObject) {
+        
+        success(responseObject);
+        
+    } failure:^(NSError *error) {
+        failure(error);
+    } showHUD:showHUD];
+}
 @end

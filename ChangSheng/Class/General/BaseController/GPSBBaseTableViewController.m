@@ -7,6 +7,7 @@
 //
 
 #import "GPSBBaseTableViewController.h"
+#import <Realm/Realm.h>
 
 @interface GPSBBaseTableViewController ()
 

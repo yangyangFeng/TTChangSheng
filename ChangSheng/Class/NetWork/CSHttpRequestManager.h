@@ -228,4 +228,10 @@ typedef enum : NSUInteger {
  *  26.获取大厅用户列表
  */
 + (void)request_groupUserList_paramters:(NSDictionary *)params success:(TTSuccessBlock)success failure:(TTFailureBlock)failure showHUD:(BOOL)showHUD;
+
+#pragma mark -  27.获取用户个人信息
+/**
+ *  27.获取用户个人信息
+ */
++ (void)request_getUserInfo_paramters:(NSDictionary *)params success:(TTSuccessBlock)success failure:(TTFailureBlock)failure showHUD:(BOOL)showHUD;
 @end

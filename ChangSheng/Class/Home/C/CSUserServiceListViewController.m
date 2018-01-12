@@ -45,10 +45,7 @@ static CSUserServiceListViewController * controller = nil;
 
 + (id)shareInstance
 {
-//    static dispatch_once_t onceToken;
-//    dispatch_once(&onceToken, ^{
-        controller = [[CSUserServiceListViewController alloc]init];
-//    });
+    controller = [[CSUserServiceListViewController alloc]init];
     return controller;
 }
 
@@ -112,11 +109,7 @@ static CSUserServiceListViewController * controller = nil;
 
 - (void)loadData
 {
- 
-    
-    //    TTSingleChatViewController * vc = [TTSingleChatViewController new];
-    //    [self.navigationController pushViewController:vc animated:YES];
-//    [MBProgressHUD tt_ShowInViewDefaultTitle:self.view];
+
     MBProgressHUD * hud = [LLUtils showCustomIndicatiorHUDWithTitle:@"" inView:self.view];
     [CSHttpRequestManager request_helperList_paramters:nil success:^(id responseObject) {
         CSMsgHistoryModel * obj = [CSMsgHistoryModel mj_objectWithKeyValues:responseObject];

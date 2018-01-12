@@ -39,6 +39,7 @@ RLM_ARRAY_TYPE(CSMsg_User_Msg)
 
 @property (nonatomic,copy) NSString *link_url;
 @property (nonatomic,copy) NSString *type;
+@property (nonatomic,copy) NSString *chatType;
 @property (nonatomic,copy) NSString *content;
 @property (nonatomic,copy) NSString *img_url_b;
 @property (nonatomic,copy) NSString *timestamp;
@@ -46,8 +47,8 @@ RLM_ARRAY_TYPE(CSMsg_User_Msg)
 @property (nonatomic,copy) NSString *avatar;
 @property (nonatomic,assign) BOOL is_self;
 @property (nonatomic,assign) NSInteger voice_length;
-@property(nonatomic,assign) NSInteger img_width;
-@property(nonatomic,assign) NSInteger img_height;
+@property (nonatomic,assign) NSInteger img_width;
+@property (nonatomic,assign) NSInteger img_height;
 @end
 
 @interface CSCacheUserInfo : NSObject

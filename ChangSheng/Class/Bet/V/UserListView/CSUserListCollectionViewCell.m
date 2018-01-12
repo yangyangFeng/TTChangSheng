@@ -21,7 +21,7 @@
         UIImageView * userIcon = [UIImageView new];
         UILabel * userName = [UILabel new];
         userName.text = @"用户名";
-        userName.textColor = [UIColor colorWithHexColorString:@"#666666"];
+        userName.textColor = [UIColor colorWithHexColorString:@"666666"];
         userName.font = [UIFont systemFontOfSize:13];
         userName.textAlignment = NSTextAlignmentCenter;
         

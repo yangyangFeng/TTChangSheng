@@ -167,66 +167,7 @@
     {
         [self pushBetGroupControllerWithChatId:model.id index:0 title:model.name];
     }
-    
-    /*
-    switch (indexPath.row) {
-        case 0:
-        {
-            CSHttpGroupResModel * model =self.betGroupArray[0];
-            NSUserDefaults * user = [NSUserDefaults standardUserDefaults];
-            NSString * key = [NSString stringWithFormat:@"vip%@",[CSUserInfo shareInstance].info.code];
-            if (![user objectForKey:key]) { //如果未加入该群组
-                [CSHttpRequestManager request_joinGroup_paramters:@{@"group_id":@(model.id)} success:^(id responseObject) {
-                    [user setObject:@(1) forKey:key];
-                    [self pushBetGroupControllerWithChatId:model.id index:0];
-                } failure:^(NSError *error) {
-                    
-                } showHUD:YES];
-            }
-            else
-            {
-                [self pushBetGroupControllerWithChatId:model.id index:0];
-            }
-        }
-            break;
-        case 1:
-        {
-            CSHttpGroupResModel * model =self.betGroupArray[1];
-            
-            
-            NSString * key = [NSString stringWithFormat:@"public%@",[CSUserInfo shareInstance].info.code];
-            NSUserDefaults * user = [NSUserDefaults standardUserDefaults];
-            if (![user objectForKey:key]) { //如果未加入该群组
-                [CSHttpRequestManager request_joinGroup_paramters:@{@"group_id":@(model.id)} success:^(id responseObject) {
-                    [user setObject:@(1) forKey:key];
-                    [self pushBetGroupControllerWithChatId:model.id index:1];
-                } failure:^(NSError *error) {
-                    
-                } showHUD:YES];
-            }
-            else
-            {
-                [self pushBetGroupControllerWithChatId:model.id index:1];
-            }
-            
-        }
-            break;
-        case 2:
-        {
-            CSUserServiceListViewController * C = [CSUserServiceListViewController new];
-            [self.navigationController pushViewController:C animated:YES];
-        }
-            break;
-        case 3:
-        {
-            UIViewController * caiwuController = [StoryBoardController viewControllerID:@"CSCaiwuViewController" SBName:@"Mine"];
-            [self.navigationController pushViewController:caiwuController animated:YES];
-        }
-            break;
-        default:
-            break;
-    }
-     */
+
 }
 
 - (void)pushBetGroupControllerWithChatId:(int)chatId index:(int)index title:(NSString*)title
