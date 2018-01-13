@@ -498,7 +498,7 @@ static CSIMReceiveManager * _manager = nil;
         //如果当前未处于聊天室 取出 原有 数目累加
         [self.unReadMessageList setObject:[NSString stringWithFormat:@"%d",messageModel.body.unreadCount] forKey: key];
         if (messageModel.chatType == CSChatTypeGroupChat &&
-            [CSChatRoomInfoManager getChatGroupMute:messageModel.chatId]) {
+            ![CSChatRoomInfoManager getChatGroupMute:messageModel.chatId]) {
             [LLUtils playNewMessageSound];
         }else if(messageModel.chatType == CSChatTypeChat ||
                  messageModel.chatType == CSChatTypeChatFriend)

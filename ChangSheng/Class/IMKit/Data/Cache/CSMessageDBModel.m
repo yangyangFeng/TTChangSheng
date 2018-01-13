@@ -36,7 +36,9 @@
 + (NSDictionary *)defaultPropertyValues {
     return @{@"img_width":@(0),
              @"img_height":@(0),
-             @"voice_length":@(0)};
+             @"voice_length":@(0),
+             @"isMediaPlayed":@(NO)
+             };
 }
 + (NSString *)primaryKey
 {

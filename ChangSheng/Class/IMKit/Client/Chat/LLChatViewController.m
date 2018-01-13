@@ -53,6 +53,7 @@
 
 #define TABLEVIEW_BACKGROUND_COLOR kLLBackgroundColor_lightGray
 
+#import "CSMessageRecordTool.h"
 #import "LBPhotoBrowserManager.h"
 #import "LB3DTouchVC.h"
 #import "CSUploadFileModel.h"
@@ -2425,10 +2426,14 @@ CSIMReceiveManagerDelegate
     
     [[LLChatManager sharedManager] changeVoiceMessageModelPlayStatus:messageModel];
     messageModel.isMediaPlaying = YES;
+    messageModel.isMediaPlayed = YES;
     [cell startVoicePlaying];
     
     [[LLDeviceManager sharedManager] enableProximitySensor];
     [LLDeviceManager sharedManager].delegate = self;
+    
+    //标记当前消息已读
+    [[CSMessageRecordTool shareInstance] readVoiceMessageWith:messageModel];
 }
 
 - (void)audioPlayVolumeTooLow {
@@ -2444,8 +2449,9 @@ CSIMReceiveManagerDelegate
     if (_voiceIndicatorView.superview)
         [LLTipView hideTipView:_voiceIndicatorView];
     
-    CSMessageModel *messageModel = (LLMessageModel *)userinfo;
+    CSMessageModel *messageModel = (CSMessageModel *)userinfo;
     messageModel.isMediaPlaying = NO;
+    
     LLMessageVoiceCell *cell = (LLMessageVoiceCell *)[self visibleCellForMessageModel:messageModel];
     [cell stopVoicePlaying];
 
@@ -2462,10 +2468,12 @@ CSIMReceiveManagerDelegate
 - (void)audioPlayDidFinished:(id)userinfo {
     [self hideVoiceIndicatorViewAfterDelay:3];
     
+    
     CSMessageModel *messageModel = (CSMessageModel *)userinfo;
     messageModel.isMediaPlaying = NO;
     LLMessageVoiceCell *cell = (LLMessageVoiceCell *)[self visibleCellForMessageModel:messageModel];
     [cell stopVoicePlaying];
+   
     
 //    NSMutableArray<CSMessageModel *> *allMessageModels = self.dataSource;
 //    for (NSInteger index = [allMessageModels indexOfObject:messageModel] + 1, r = allMessageModels.count; index < r; index ++ ) {

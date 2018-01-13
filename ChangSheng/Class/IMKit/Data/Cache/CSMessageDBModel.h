@@ -36,7 +36,7 @@ RLM_ARRAY_TYPE(CSMsg_User_Msg)
  *default is No
  */
 @property (nonatomic,assign) BOOL isRead;
-
+@property (nonatomic,assign) BOOL isMediaPlayed;
 @property (nonatomic,copy) NSString *link_url;
 @property (nonatomic,copy) NSString *type;
 @property (nonatomic,copy) NSString *chatType;

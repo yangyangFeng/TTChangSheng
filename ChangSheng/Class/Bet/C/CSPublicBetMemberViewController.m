@@ -41,7 +41,7 @@
     
     self.view.backgroundColor = [UIColor groupTableViewBackgroundColor];
     UICollectionViewFlowLayout * layout = [UICollectionViewFlowLayout new];
-    layout.sectionInset =UIEdgeInsetsMake(10, 20, 0, 20);
+    layout.sectionInset =UIEdgeInsetsMake(10, 20, 20, 20);
     layout.itemSize = CGSizeMake(50, 70);
     layout.scrollDirection = UICollectionViewScrollDirectionVertical;
     UICollectionView * collectionView = [[UICollectionView alloc]initWithFrame:self.view.bounds collectionViewLayout:layout];
@@ -59,6 +59,7 @@
     [self.view addSubview:switchView];
     
     CSBaseButton * logoutBtn = [CSBaseButton buttonWithTitle:@"删除并退出"];
+    [logoutBtn addTarget:self action:@selector(gobackAction) forControlEvents:(UIControlEventTouchUpInside)];
     logoutBtn.titleLabel.font = [UIFont systemFontOfSize:16];
     [logoutBtn setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
     [self.view addSubview:logoutBtn];
@@ -97,6 +98,12 @@
 - (void)switchAction:(UISwitch *)btn
 {
     [CSChatRoomInfoManager setChatGroupMute:self.group_id isMute:btn.isOn];
+}
+
+- (void)gobackAction
+{
+    [self.navigationController popToRootViewControllerAnimated:YES];
+    [CSChatRoomInfoManager setChatGroupMute:self.group_id isMute:YES];
 }
 
 #pragma makr - delegate

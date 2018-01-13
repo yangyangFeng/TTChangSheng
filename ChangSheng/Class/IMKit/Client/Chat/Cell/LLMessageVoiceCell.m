@@ -39,7 +39,7 @@
         _durationLabel.textColor = kLLTextColor_lightGray_7;
         _durationLabel.textAlignment = NSTextAlignmentLeft;
         [self.contentView addSubview:_durationLabel];
-        
+        //未读标记
         _isMediaPlayedIndicator = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 10)];
         _isMediaPlayedIndicator.backgroundColor = kLLBackgroundColor_SlightDardRed;
         _isMediaPlayedIndicator.layer.cornerRadius = 5;
@@ -78,6 +78,7 @@
     
     
     [super setMessageModel:messageModel];
+    
 //    if (self.messageModel.isSelf) {
 //        if ([messageModel checkNeedsUpdateUploadStatus]){
 //            [self updateMessageUploadStatus];

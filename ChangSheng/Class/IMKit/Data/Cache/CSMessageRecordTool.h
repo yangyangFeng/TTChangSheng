@@ -55,4 +55,6 @@ typedef void(^loadDatas)(NSArray *msgs);
 - (NSString *)userId:(NSString *)userId chatType:(CS_Message_Record_Type)chatType;
 
 - (id)realmSelectData:(NSString *)object theCondition:(NSString *)condition;
+
+- (void)readVoiceMessageWith:(CSMessageModel *)model;
 @end

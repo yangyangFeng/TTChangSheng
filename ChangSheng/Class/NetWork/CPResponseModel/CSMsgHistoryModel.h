@@ -15,4 +15,8 @@
 @property(nonatomic,copy)NSString * id;
 @property(nonatomic,copy)NSString * nickname;
 @property(nonatomic,copy)NSString * avatar;
+/**
+ 客服是否在线
+ */
+@property (nonatomic,assign) BOOL is_online;
 @end

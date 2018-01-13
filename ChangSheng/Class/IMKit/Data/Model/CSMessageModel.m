@@ -584,7 +584,7 @@ NSMutableDictionary * tmpImageDict;
             break;
     }
     [msgBody internal_setMessageStatus:(kCSMessageStatusSuccessed)];
-    
+    msgBody.isMediaPlayed = msgRecordModel.isMediaPlayed;
     msgBody.body.avatar = msgRecordModel.avatar;
     msgBody.body.nickname = msgRecordModel.nickname;
     msgBody.body.timestamp = msgRecordModel.timestamp;

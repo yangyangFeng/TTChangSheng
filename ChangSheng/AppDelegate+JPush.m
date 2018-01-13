@@ -18,9 +18,7 @@
 
 
 - (void)thirdService_application:(UIApplication *)application launchOptions:(NSDictionary *)launchOptions
-{
-    
-    
+{    
     //  Bugly的初始化要放到友盟统计的后面 当bugly使用完handler的时候会返回给友盟，防止bugly没有捕获到bug
 //    BuglyConfig *config = [[BuglyConfig alloc]init];
 //    config.blockMonitorEnable = YES;

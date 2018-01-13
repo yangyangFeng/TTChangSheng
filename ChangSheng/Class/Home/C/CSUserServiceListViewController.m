@@ -157,6 +157,15 @@ static CSUserServiceListViewController * controller = nil;
 //    cell.model = model;
      [cell.userIcon yy_setImageWithURL:[NSURL URLWithString:model.avatar] placeholder:[UIImage imageNamed:@"聊天自定义头像"]];
     cell.userName.text = model.nickname;
+    if (model.is_online) {//如果客服在线
+        cell.isOnlineLabel.text = @"在线";
+        cell.isOnlineLabel.textColor = [UIColor colorWithHexColorString:@"333333"];
+    }
+    else
+    {
+        cell.isOnlineLabel.text = @"离线";
+        cell.isOnlineLabel.textColor = [UIColor colorWithHexColorString:@"666666"];
+    }
     return cell;
 }
 

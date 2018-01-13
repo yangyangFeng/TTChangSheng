@@ -218,12 +218,12 @@ BOOL LLMessageCell_isEditing = NO;
 - (void)setMessageModel:(CSMessageModel *)messageModel {
     _messageModel = messageModel;
     self.isCellSelected = messageModel.isSelected;
-    if (messageModel.chatType == CSChatTypeChat) {//如果是单聊没有用户名
-        self.nikeName.hidden = YES;
-    }
-    else{
+    if (messageModel.chatType == CSChatTypeGroupChat) {//群聊要显示用户名
         self.nikeName.hidden = NO;
         self.nikeName.text = messageModel.body.nickname;
+    }
+    else{//如果是单聊没有用户名
+        self.nikeName.hidden = YES;
     }
     
  

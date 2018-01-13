@@ -13,6 +13,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *userIcon;
 @property (weak, nonatomic) IBOutlet UILabel *userName;
 @property (weak, nonatomic) IBOutlet TTSubscriptLabel *unReadNumber;
+@property (weak, nonatomic) IBOutlet UILabel *isOnlineLabel;
 
 @property (nonatomic,strong) CSMsgHistoryModel *model;
 @end

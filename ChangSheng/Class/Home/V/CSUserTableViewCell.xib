@@ -42,17 +42,35 @@
                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="rightIcon" translatesAutoresizingMaskIntoConstraints="NO" id="Ck0-fH-n3a">
+                        <rect key="frame" x="301" y="14.5" width="9" height="15"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="9" id="alu-S5-A5e"/>
+                            <constraint firstAttribute="height" constant="15" id="oNx-fV-0ts"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="在线" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ai3-Du-uIg">
+                        <rect key="frame" x="262" y="13" width="29" height="17"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="ai3-Du-uIg" firstAttribute="centerY" secondItem="Ck0-fH-n3a" secondAttribute="centerY" id="1zK-n2-OKI"/>
                     <constraint firstItem="V4G-oG-g2e" firstAttribute="centerY" secondItem="Y1C-1L-fDd" secondAttribute="centerY" id="89G-R3-9zE"/>
                     <constraint firstAttribute="trailing" secondItem="V0V-yP-rpl" secondAttribute="trailing" constant="-10" id="A7g-QU-GQR"/>
                     <constraint firstItem="V0V-yP-rpl" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="-10" id="DZe-MH-EFz"/>
+                    <constraint firstItem="Ck0-fH-n3a" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="Fsc-Cq-3hk"/>
                     <constraint firstItem="Y1C-1L-fDd" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="Vyu-lZ-IR7"/>
+                    <constraint firstItem="Ck0-fH-n3a" firstAttribute="leading" secondItem="ai3-Du-uIg" secondAttribute="trailing" constant="10" id="W6E-ic-qY8"/>
+                    <constraint firstAttribute="trailing" secondItem="Ck0-fH-n3a" secondAttribute="trailing" constant="10" id="YXy-Nt-lzY"/>
                     <constraint firstItem="Y1C-1L-fDd" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="b2Q-9O-loD"/>
                     <constraint firstItem="V4G-oG-g2e" firstAttribute="leading" secondItem="Y1C-1L-fDd" secondAttribute="trailing" constant="15" id="ddd-rb-HRR"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="isOnlineLabel" destination="ai3-Du-uIg" id="cD1-ti-88k"/>
                 <outlet property="unReadNumber" destination="V0V-yP-rpl" id="RWP-Jw-K4c"/>
                 <outlet property="userIcon" destination="Y1C-1L-fDd" id="h8c-RG-JYS"/>
                 <outlet property="userName" destination="V4G-oG-g2e" id="7KB-wQ-6bH"/>
@@ -61,6 +79,7 @@
         </tableViewCell>
     </objects>
     <resources>
+        <image name="rightIcon" width="7" height="12"/>
         <image name="聊天自定义头像" width="40" height="40"/>
     </resources>
 </document>

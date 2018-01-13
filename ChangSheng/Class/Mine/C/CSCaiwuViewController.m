@@ -58,6 +58,29 @@
 {
     [super viewWillAppear:animated];
     self.my_fenLabel.text = [NSString stringWithFormat:@"%d",[CSUserInfo shareInstance].info.surplus_score];
+
+}
+
+-(void)viewDidLayoutSubviews
+{
+    [super viewDidLayoutSubviews];
+    switch (self.status) {
+        case Up:
+        {
+            [self tt_Title:@"上分"];
+            self.isUpScore = YES;
+        }
+            break;
+        case Down:
+        {
+            [self tt_Title:@"下分"];
+            self.isUpScore = NO;
+        }
+            break;
+        default:
+            break;
+    }
+    self.my_fenLabel.text = [NSString stringWithFormat:@"%d",[CSUserInfo shareInstance].info.surplus_score];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -69,22 +92,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    switch (self.status) {
-        case Up:
-        {
-         [self tt_Title:@"上分"];
-        self.isUpScore = YES;
-        }
-            break;
-            case Down:
-        {
-         [self tt_Title:@"下分"];
-        self.isUpScore = NO;
-        }
-            break;
-        default:
-            break;
-    }
+
     
     [self tt_SetNaviBarHide:NO withAnimation:NO];
     self.tt_navigationBar.contentView.backgroundColor = [UIColor whiteColor];
@@ -101,13 +109,13 @@
 - (IBAction)upBtnDidAction:(id)sender {
     self.upBtn.selected = YES;
     self.downBtn.selected = NO;
-    self.isUpScore = YES;
+//    self.isUpScore = YES;
 }
 
 - (IBAction)downBtnDidAction:(id)sender {
     self.downBtn.selected = YES;
     self.upBtn.selected = NO;
-    self.isUpScore = NO;
+//    self.isUpScore = NO;
 }
 - (IBAction)uploadImageDidAction:(id)sender {
     [self.view endEditing:YES];

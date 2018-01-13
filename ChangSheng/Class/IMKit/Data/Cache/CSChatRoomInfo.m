@@ -14,4 +14,8 @@
     return @"group_id";
 }
 
++(NSDictionary *)defaultPropertyValues
+{
+    return @{@"mute":@(NO)};
+}
 @end

@@ -360,41 +360,16 @@ static CSMessageRecordTool * tool = nil;
     [realm deleteObject:user];
     [realm commitWriteTransaction];
 }
-//
-//// 更新数据
-//- (BOOL)realmsUpdateData:(NSString *)object theCondition:(NSString *)condition property:(NSDictionary *)dict{
-//    
-//    Class cls = NSClassFromString(object);
-//    if (cls == nil) {
-//        return NO;
-//    }
-//    
-//    RLMResults *results = [self realmsselectData:object theCondition:condition];
-//    if (!results.count) {
-//        return YES;
-//    }
-//    
-//    if (dict == nil) {
-//        return NO;
-//    }
-//    
-//    // 检查属性
-//    if (![self CheckPropertys:object propertyDict:dict]) {
-//        return NO;
-//    }
-//    
-//    NSError *error = nil;
-//    [self.rlmRealm beginWriteTransaction];
-//    
-//    //将每条数据的每个 属性设置为对应的值
-//    for (NSString *updateKey in dict.allKeys) {
-//        [results setValue:dict[updateKey] forKeyPath:updateKey];
-//    }
-//    // 如果没有值，就新插入一条数据
-//    //[cls createOrUpdateInRealm:self.rlmRealm withValue:dict];
-//    
-//    return [self.rlmRealm commitWriteTransaction:&error];
-//}
+#pragma makr - 把语音消息未读转换为已读
+- (void)readVoiceMessageWith:(CSMessageModel *)model
+{
+    CSMsg_User_Msg * result = [[CSMsg_User_Msg objectsWhere:@"msg_id = %@",model.body.msgId] firstObject];
+    if (result) {
+        [[RLMRealm defaultRealm] transactionWithBlock:^{
+            result.isMediaPlayed = YES;
+        }];
+    }
+}
 
 // 检查该类中是否有该属性
 - (BOOL)CheckPropertys:(NSString *)object propertyDict:(NSDictionary *)dict{
