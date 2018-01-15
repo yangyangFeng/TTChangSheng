@@ -41,6 +41,7 @@
     
     [msgRequestModel.msgStatus when:^(id obj) {
         //发送成功后,将此条消息移除缓存
+        msgRequestModel.code = successCode;
         [[CSIMMessageQueueManager shareInstance] removeMessages:message];
         NSLog(@"消息已发送成功--request");
         msgRequestModel.sendStatus = IM_SendSuccessed;
@@ -51,6 +52,7 @@
 //        [LLUtils playSendMessageSound];
     } failed:^(NSError *error) {
         //发送失败后,将此条消息移除缓存
+        msgRequestModel.code = 1001;
         [[CSIMMessageQueueManager shareInstance] removeMessages:message];
         NSLog(@"发送失败   count%d",msgRequestModel.sendNumber              );
         msgRequestModel.sendStatus = IM_SendFailed;
