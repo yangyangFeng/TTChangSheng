@@ -56,12 +56,11 @@ static CSIMMessageQueueManager * queueManager = nil;
         else{//客服消息
             
         }
-//        if (message.body.isSelf) {
-//            
-//        }
-//        message.userInfo.avatar = [CSUserInfo shareInstance].info.avatar;
-//        message.userInfo.nickname = [CSUserInfo shareInstance].info.nickname;
-        [CSMsgCacheTool cs_cacheMessage:message.body userInfo:message.userInfo addLast:YES chatType:message.chatType];
+
+        if (message.code == successCode)
+        {        
+            [CSMsgCacheTool cs_cacheMessage:message.body userInfo:message.userInfo addLast:YES chatType:message.chatType];
+        }
     }
 }
 

@@ -69,6 +69,9 @@ static CSIMReceiveManager * _manager = nil;
     if (message.code == 2001) {//需要切入聊天
         [[CSIMSendMessageManager shareInstance] sendMessage:self.currentAction];
     }
+    else if(message.code == 1001) {//需要切入聊天
+        CS_HUD(message.msg);
+    }
     //检查参数
     [message.result cs_checkParams];
     switch (message.result.action) {

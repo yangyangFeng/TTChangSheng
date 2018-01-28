@@ -62,9 +62,9 @@ static CSUserServiceListViewController * controller = nil;
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    if (!self.dataSource.count) {
-        [self loadData];
-    }
+    
+    [self loadData];
+    
 }
 
 - (void)viewDidLoad {

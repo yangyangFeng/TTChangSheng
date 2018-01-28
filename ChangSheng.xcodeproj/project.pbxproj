@@ -383,6 +383,7 @@
 		74073A3C1F9D86FC0098783F /* CPLoggin.m in Sources */ = {isa = PBXBuildFile; fileRef = 74073A361F9D86FB0098783F /* CPLoggin.m */; };
 		74073A3D1F9D86FC0098783F /* GTMStackTrace.m in Sources */ = {isa = PBXBuildFile; fileRef = 74073A391F9D86FB0098783F /* GTMStackTrace.m */; };
 		74073A3E1F9D86FC0098783F /* iConsole.m in Sources */ = {isa = PBXBuildFile; fileRef = 74073A3B1F9D86FB0098783F /* iConsole.m */; };
+		7465CB86200C9B18006DEC49 /* Emotions的副本.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7465CB85200C9B18006DEC49 /* Emotions的副本.plist */; };
 		747130AF1FFE143700A170EF /* CSDeleteFriendRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 747130AE1FFE143700A170EF /* CSDeleteFriendRequest.m */; };
 		747D5C251F7DF73C00F40A41 /* TTSingleChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 747D5C241F7DF73C00F40A41 /* TTSingleChatViewController.m */; };
 		747D5C281F7DF75000F40A41 /* TTChatInputToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 747D5C271F7DF75000F40A41 /* TTChatInputToolBar.m */; };
@@ -1205,6 +1206,7 @@
 		74073A391F9D86FB0098783F /* GTMStackTrace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMStackTrace.m; sourceTree = "<group>"; };
 		74073A3A1F9D86FB0098783F /* iConsole.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iConsole.h; sourceTree = "<group>"; };
 		74073A3B1F9D86FB0098783F /* iConsole.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iConsole.m; sourceTree = "<group>"; };
+		7465CB85200C9B18006DEC49 /* Emotions的副本.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Emotions的副本.plist"; sourceTree = "<group>"; };
 		747130AD1FFE143700A170EF /* CSDeleteFriendRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSDeleteFriendRequest.h; sourceTree = "<group>"; };
 		747130AE1FFE143700A170EF /* CSDeleteFriendRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSDeleteFriendRequest.m; sourceTree = "<group>"; };
 		747D5C231F7DF73C00F40A41 /* TTSingleChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTSingleChatViewController.h; sourceTree = "<group>"; };
@@ -1997,6 +1999,7 @@
 		1804AC4A1F7BDC6100508C1C /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				7465CB85200C9B18006DEC49 /* Emotions的副本.plist */,
 				1804AC4B1F7BDC6100508C1C /* Audio */,
 				1804AC4D1F7BDC6100508C1C /* Emotion.bundle */,
 				1804AC4E1F7BDC6100508C1C /* Emotions.plist */,
@@ -3165,7 +3168,7 @@
 				TargetAttributes = {
 					18C81F3C1F74B8E00012150B = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = A6L56BC597;
+						DevelopmentTeam = P2BWAW94QL;
 						LastSwiftMigration = 0900;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
@@ -3231,6 +3234,7 @@
 				1804ACA21F7BDC6100508C1C /* LLChatMoreBottomBar.xib in Resources */,
 				1804ACAD1F7BDC6100508C1C /* LLContactSearchViews.xib in Resources */,
 				1804ACC01F7BDC6100508C1C /* LLMessageSearchResultCell.xib in Resources */,
+				7465CB86200C9B18006DEC49 /* Emotions的副本.plist in Resources */,
 				1804ACE41F7BDC6100508C1C /* FriendsSendsPicturesNumberIcon@2x.png in Resources */,
 				749A53B01F9879070024DC1B /* CSOperationRecordsHeaderView.xib in Resources */,
 				1804ACE61F7BDC6100508C1C /* FriendsSendsPicturesQuitBigIcon@2x.png in Resources */,
@@ -3877,7 +3881,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = A6L56BC597;
+				DEVELOPMENT_TEAM = P2BWAW94QL;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3899,7 +3903,7 @@
 					"$(PROJECT_DIR)/ChangSheng/Class/Lib/HyphenateSDK/lib",
 					"$(PROJECT_DIR)/ChangSheng/Class/IMKit/General/Audio/TTVoiceLib",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.changsheng.www;
+				PRODUCT_BUNDLE_IDENTIFIER = com.cnepay.IntercommerceV2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -3919,7 +3923,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = A6L56BC597;
+				DEVELOPMENT_TEAM = P2BWAW94QL;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3941,7 +3945,7 @@
 					"$(PROJECT_DIR)/ChangSheng/Class/Lib/HyphenateSDK/lib",
 					"$(PROJECT_DIR)/ChangSheng/Class/IMKit/General/Audio/TTVoiceLib",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.changsheng.www;
+				PRODUCT_BUNDLE_IDENTIFIER = com.cnepay.IntercommerceV2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";

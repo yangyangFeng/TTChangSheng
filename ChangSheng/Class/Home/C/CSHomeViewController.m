@@ -39,6 +39,8 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
+    [self loadData];
 //    [self.navigationController performSelector:@selector(whiteStatusBar)];
 }
 
@@ -72,7 +74,7 @@
     if ([CSUserInfo shareInstance].isOnline) {
         [CSLoginHandler openSocket];
     }
-    [self loadData];
+    
  
     [self.KVOController observe:[TTSocketChannelManager shareInstance] keyPath:@"connectionStatus" options:(NSKeyValueObservingOptionNew) block:^(id  _Nullable observer, id  _Nonnull object, NSDictionary<NSString *,id> * _Nonnull change) {
         TTSocketChannelManager * socket = object;
@@ -109,6 +111,10 @@
     tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     UIImageView * bg_view = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"主页背景"]];
     tableView.backgroundView = bg_view;
+    WEAKSELF;
+    tableView.mj_header = [MJRefreshStateHeader headerWithRefreshingBlock:^{
+        [weakSelf loadData];
+    }];
     
     _tableHandler = [[CSHomeTableViewHandler alloc]initWithTableView:tableView];
     _tableHandler.delegate = self;
@@ -136,6 +142,9 @@
         self.betGroupArray = obj.result;
         self.tableHandler.betGroupArray = self.betGroupArray;
         
+        
+        [self.tableHandler.tableView reloadData];
+        [self.tableHandler.tableView.mj_header endRefreshing];
     } failure:^(NSError *error) {
         
     } showHUD:NO];
