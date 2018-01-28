@@ -179,7 +179,7 @@ static CSIMReceiveManager * _manager = nil;
             break;
         case 4:
         {
-            CS_HUD(@"socket已连接");
+//            CS_HUD(@"socket已连接");
             [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICE_KEY_SOCKET_OPEN object:nil];
             for (CSUnreadListModel * tempModel in message.result.unreadList) {
                 NSMutableArray * array = [NSMutableArray array];
@@ -229,13 +229,13 @@ static CSIMReceiveManager * _manager = nil;
             break;
         case 5:
         {
-            CS_HUD(@"用户已上线");
+//            CS_HUD(@"用户已上线");
             
         }
             break;
         case 6:
         {
-            CS_HUD(@"用户已下线");
+//            CS_HUD(@"用户已下线");
         }
             break;
         case 7:
